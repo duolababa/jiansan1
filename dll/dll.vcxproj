@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{4cce4a7d-0667-481f-96cd-a867923aafe7}</ProjectGuid>
     <RootNamespace>dll</RootNamespace>
-    <ProjectName>ARKGF</ProjectName>
+    <ProjectName>ARKGFMax</ProjectName>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
