@@ -1147,7 +1147,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
         //g_dwBreakpoint2 = 游戏模块 + 基址_鼠标_鼠标写入地址2;
         //g_dwBreakpoint2 = 游戏模块 + 基址_登录_选择职业call + 0x6A;
         注册消息值 = RegisterWindowMessageA("ARKMsg");
-        if (0)
+        if (1)
         {
             /* CString cmdstr= GetCommandLineW();
              MyTrace(L"Cmd %s", cmdstr);*/
