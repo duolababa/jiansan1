@@ -386,7 +386,9 @@ void Fun_ItemBuildUpListSelect(int dIndex)//Ñ¡ÔñÐèÒªÇ¿»¯ÎïÆ· Ë÷Òý´Ó0¿ªÊ¼
 			INT64 dItemListAddr = R_QW(dUiAddr + go_ItemBuildUpSelect);
 			INT64 addr_1 = R_QW(dItemListAddr + 0x18);
 			INT64 addr_2 = R_QW(addr_1 + 0x70);
-			W_DW(addr_2 + 0x318, dIndex);
+			//W_DW(addr_2 + 0x318, dIndex);
+			W_DW(addr_2 + 0x34C, dIndex);
+			W_DW(addr_2 + 0x350, dIndex);
 			MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildUpListSelectIndex);
 
 			/*CString cBuf;
@@ -556,7 +558,7 @@ void Fun_ItemBuildUpChildLevelUpGradeBtnClick()//×Ó´°¿ÚÇ¿»¯°´Å¥µã»÷
 	}
 }
 
-BOOL bCheckitemBuildUpRenderTargetGroupShow()//ÅÐ¶Ï×îÖÕ³É¹¦´°¿Ú
+BOOL bCheckitemBuildUpRenderTargetGroupShow()//ÅÐ¶Ïresult´°¿Ú
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
 	if (dUiAddr)
@@ -615,7 +617,7 @@ void Fun_ItemBuildLevUpSucess()//·ÅÔÚFun_ItemBuildLevUpResult ºóµ÷ÓÃ ÖÐ¼ä¼ÓµãÑÓ³
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			if (bCheckitemBuildUpRenderTargetGroupShow())
+			if (!bCheckitemBuildUpRenderTargetGroupShow())
 			{
 				MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildLevUpSucess);
 				/*CString cBuf;
