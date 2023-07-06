@@ -306,6 +306,9 @@
 #define go_UnasTaskWeekPoint 0x3A897
 #define go_UnasTaskDayPoint 0x3C0
 #define gc_CheckUnasWeeklyQuestCon 0x24CE350
+#define go_UseSkillOffset 0x110
+#define go_ManPoBaseOffset 0x98
+#define gc_UseSkillCall 0x246C950
 #define gb_判断加载基址 0x4C71C30
 #define go_加载偏移1 0xC0
 #define go_加载偏移2 0x18
@@ -343,7 +346,7 @@
 #define 偏移_任务_已完成任务 0x180
 #define 偏移_其他_面向角度 0x4B8
 #define 偏移_背包_物品id 0x6B8
-#define 偏移_背包_物品resid 0x4C8D4824
+#define 偏移_背包_物品resid 0x24
 #define 偏移_背包_物品数量 0x6B0
 #define 偏移_背包_物品等级 0x11C
 #define 偏移_环境_升降机标志 0x4C1DA20

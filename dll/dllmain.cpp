@@ -1147,7 +1147,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
         //g_dwBreakpoint2 = 游戏模块 + 基址_鼠标_鼠标写入地址2;
         //g_dwBreakpoint2 = 游戏模块 + 基址_登录_选择职业call + 0x6A;
         注册消息值 = RegisterWindowMessageA("ARKMsg");
-        if (1)
+        if (0)
         {
             /* CString cmdstr= GetCommandLineW();
              MyTrace(L"Cmd %s", cmdstr);*/
@@ -1162,7 +1162,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
         }
         else
         {
-            地图::传送(0xBBA60);
+            //地图::传送(0xBBA60);
             //oid UI功能::getNpcTalkSelectList(vector<CString>&对话组)
             //mythread3.Start();
             //************判断任务****************
@@ -1321,13 +1321,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
               //MyTrace(L"副本obj 0x%I64X", UI功能::getUiObjById(168));
               //vector<录制坐标_>录制坐标组;
               //配置::取录制坐标(10211, 录制坐标组);
-              //vector<UIinfo_>vsk3;
-              //UI功能::getUiList(vsk3);
-              //MyTrace(L"控件数量:%d", vsk3.size());
-              //for (size_t i = 0; i < vsk3.size(); i++)
-              //{
-              //    MyTrace(L"索引%X 对象地址0x%I64X ID %X 是否显示%d %s\r\n", vsk3[i].dIndex, vsk3[i].UIObj, vsk3[i].dId, vsk3[i].bShow, vsk3[i].CName);
-              //}
+              vector<UIinfo_>vsk3;
+              UI功能::getUiList(vsk3);
+              MyTrace(L"控件数量:%d", vsk3.size());
+              for (size_t i = 0; i < vsk3.size(); i++)
+              {
+                  MyTrace(L"索引%X 对象地址0x%I64X ID %X 是否显示%d %s\r\n", vsk3[i].dIndex, vsk3[i].UIObj, vsk3[i].dId, vsk3[i].bShow, vsk3[i].CName);
+              }
               //vector<Inventoryinfo_>vsk2;
               //vector<Equipinfo_>vsk3;
               //vector<乐谱信息_>vsk4;
