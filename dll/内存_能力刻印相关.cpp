@@ -1,4 +1,6 @@
 #include "ÄÚ´æ_ÄÜÁ¦¿ÌÓ¡Ïà¹Ø.h"
+
+//
 INT64 Fun_getAbilityResAddr(DWORD dResId, DWORD dLev)// dTargetIndex  ´Ó0¿ªÊ¼
 {
 	INT64 dCall = ÓÎÏ·Ä£¿é + gc_getAbilityResAddr;
@@ -28,7 +30,7 @@ INT64 Fun_getAbilityResAddr(DWORD dResId, DWORD dLev)// dTargetIndex  ´Ó0¿ªÊ¼
 	dm.AsmCall( 6);*/
 
 }
-
+//
 void getAbilityListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySize)
 {
 	long dtotal = R_DW(dListAddr + dStartOffest + 0x10 + 0x18);
@@ -80,6 +82,7 @@ void getAbilityListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySize)
 		}
 	}
 }
+//
 void ÄÜÁ¦¿ÌÓ¡::getAbilityEngraveAll()//×ÊÔ´»ñÈ¡ËùÓÐ¿ÌÓ¡ ÀàÐÍ Ö°Òµ
 {
 	DWORD dAbilityEngraveIndex = getResIndexByName(L"AbilityEngrave");
@@ -87,8 +90,7 @@ void ÄÜÁ¦¿ÌÓ¡::getAbilityEngraveAll()//×ÊÔ´»ñÈ¡ËùÓÐ¿ÌÓ¡ ÀàÐÍ Ö°Òµ
 	MyTrace(L"µØÖ·0x%I64X \r\n", dAbilityEngraveAddr);
 	getAbilityListAll(dAbilityEngraveAddr, 0x20, 0x54);
 }
-
-
+//
 int ÄÜÁ¦¿ÌÓ¡::getEngraveDragLevById(int dEngraveId)//»ñÈ¡ÒÑ¾­½âËø¿ÌÓ¡µÈ¼¶
 {
 	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + gb_EngraveList);
@@ -127,6 +129,7 @@ int ÄÜÁ¦¿ÌÓ¡::getEngraveDragLevById(int dEngraveId)//»ñÈ¡ÒÑ¾­½âËø¿ÌÓ¡µÈ¼¶
 	}
 	return 0;
 }
+//
 void ÄÜÁ¦¿ÌÓ¡::Fun_EngraveDrag(int dEngraveId, int dPos)//ÉèÖÃ¿ÌÓ¡ Î»ÖÃ·Ö±ðÎª0ºÍ1
 {
 	int dLev = getEngraveDragLevById(dEngraveId);
@@ -152,9 +155,7 @@ void ÄÜÁ¦¿ÌÓ¡::Fun_EngraveDrag(int dEngraveId, int dPos)//ÉèÖÃ¿ÌÓ¡ Î»ÖÃ·Ö±ðÎª0ºÍ
 			dm.AsmCall( 6);*/
 	}
 }
-
-
-
+//
 void Fun_marbleWndItemSelect(int dIndex)//Ë÷Òý´Ó0¿ªÊ¼
 {
 	INT64 dUiObj = UI¹¦ÄÜ::getUiObjById(0x21);
@@ -181,7 +182,7 @@ void Fun_marbleWndItemSelect(int dIndex)//Ë÷Òý´Ó0¿ªÊ¼
 	}
 
 }
-
+//
 void Fun_marbleWndItemStartBtn(int dIndex)//ÄÜÁ¦ÊôÐÔË÷Òý ´Ó0¿ªÊ¼
 {
 	if (dIndex > 2)   return;
@@ -240,7 +241,7 @@ void Fun_marbleWndItemStartBtn(int dIndex)//ÄÜÁ¦ÊôÐÔË÷Òý ´Ó0¿ªÊ¼
 //	INT64 dRet =R_QW(ULONG_PTR(pBuff));
 //	return dRet;
 //}
-
+//
 CString getAbilityNameById(DWORD dAbilityId)
 {
 	CString csName = L"¿Õ";
@@ -256,6 +257,7 @@ CString getAbilityNameById(DWORD dAbilityId)
 	}
 	return csName;
 }
+//
 void getItemAbilityList(INT64 dItemObj)
 {
 
@@ -291,7 +293,7 @@ void getItemAbilityList(INT64 dItemObj)
 	}
 	MyTrace(L"×îÖÕ¼Ó³É³É¹¦´ÎÊý %d\r\n", dSuccNum);
 }
-
+//
 void µ®ÉúÊ¯::getmarbleWndItemList()
 {
 	INT64 dUiObj = UI¹¦ÄÜ::getUiObjById(0x21);//root1.arkui.windowCanvas.marbleWnd 
@@ -313,6 +315,7 @@ void µ®ÉúÊ¯::getmarbleWndItemList()
 
 
 }
+//
 bool µ®ÉúÊ¯::µ®ÉúÊ¯Ç¿»¯()
 {
 	INT64 dUiObj = UI¹¦ÄÜ::getUiObjById(0x21);//root1.arkui.windowCanvas.marbleWnd 
@@ -333,9 +336,7 @@ bool µ®ÉúÊ¯::µ®ÉúÊ¯Ç¿»¯()
 	}
 	return false;
 }
-
-
-
+//
 INT64 ÑÐÄ¥::getItemBuildUpItemList()//ÎïÆ·±éÀú
 {
 	INT64 go_ItemBuildUpItemResId = Æ«ÒÆ_±³°ü_ÎïÆ·resid;//0x6A4;
@@ -372,9 +373,7 @@ INT64 ÑÐÄ¥::getItemBuildUpItemList()//ÎïÆ·±éÀú
 	}
 	return 0;
 }
-
-///CALL 
-
+//
 void Fun_ItemBuildUpListSelect(int dIndex)//Ñ¡ÔñÐèÒªÇ¿»¯ÎïÆ· Ë÷Òý´Ó0¿ªÊ¼
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
@@ -383,10 +382,10 @@ void Fun_ItemBuildUpListSelect(int dIndex)//Ñ¡ÔñÐèÒªÇ¿»¯ÎïÆ· Ë÷Òý´Ó0¿ªÊ¼
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
+			MyTrace(L"show");
 			INT64 dItemListAddr = R_QW(dUiAddr + go_ItemBuildUpSelect);
 			INT64 addr_1 = R_QW(dItemListAddr + 0x18);
 			INT64 addr_2 = R_QW(addr_1 + 0x70);
-			//W_DW(addr_2 + 0x318, dIndex);
 			W_DW(addr_2 + 0x34C, dIndex);
 			W_DW(addr_2 + 0x350, dIndex);
 			MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildUpListSelectIndex);
@@ -403,8 +402,24 @@ void Fun_ItemBuildUpListSelect(int dIndex)//Ñ¡ÔñÐèÒªÇ¿»¯ÎïÆ· Ë÷Òý´Ó0¿ªÊ¼
 	}
 }
 
-
-BOOL bCheckItemBuildUpLevelWndContentChildWindowShow(DWORD dChildIndex)
+int ÑÐÄ¥::Fun_ReadItemBuildUpListSelect()//Ç¿»¯½çÃæµ±Ç°Ñ¡Ôñ×°±¸¡£
+{
+	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
+	if (dUiAddr)
+	{
+		int dShow = R_DW(dUiAddr + 0x27C);
+		if (dShow)
+		{
+			INT64 dItemListAddr = R_QW(dUiAddr + go_ItemBuildUpSelect);
+			INT64 addr_1 = R_QW(dItemListAddr + 0x18);
+			INT64 addr_2 = R_QW(addr_1 + 0x70);
+			return R_DW(addr_2 + 0x34C);
+		}
+	}
+	return -1;
+}
+//
+BOOL ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(DWORD dChildIndex)
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
 	if (dUiAddr)
@@ -416,12 +431,14 @@ BOOL bCheckItemBuildUpLevelWndContentChildWindowShow(DWORD dChildIndex)
 			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
 			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"childWindow");
 			DWORD dChildWindow = R_W(addr_2 + 0x6A);
-			if (dChildWindow >> 0xe == 1)//ÅÐ¶ÏÏÔÊ¾
+			if (dChildWindow >> 0xe == 1)//ÅÐ¶ÏÏÔÊ¾a
 			{
+				MyTrace(L"addr_2 0x%llX", addr_2);
 				INT64 dUiDataAddr = R_QW(addr_2 + 0x150);
 				if (dUiDataAddr)
 				{
-					if (R_DW(dUiDataAddr + 0x2F8) == dChildIndex)
+					//MyTrace(L"×Ó½çÃæ´úÂë %d", R_DW(dUiDataAddr + 0x2F8));
+					if (R_DW(dUiDataAddr + 0x338) == dChildIndex)
 					{
 						return TRUE;
 					}
@@ -431,7 +448,7 @@ BOOL bCheckItemBuildUpLevelWndContentChildWindowShow(DWORD dChildIndex)
 	}
 	return FALSE;
 }
-
+//
 void Fun_ItemBuildUpLevelUp()
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
@@ -440,7 +457,7 @@ void Fun_ItemBuildUpLevelUp()
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			if (!bCheckItemBuildUpLevelWndContentChildWindowShow(0))//0²ÎÊýÊÇ³É³¤×Ó´°¿Ú
+			if (!ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(1) && !ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(0))//0²ÎÊýÊÇ³É³¤×Ó´°¿Ú
 			{
 				MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildUpLevelUp);
 				/*CString cBuf;
@@ -455,8 +472,8 @@ void Fun_ItemBuildUpLevelUp()
 		}
 	}
 }
-
-void Fun_ItemBuildUpChildMaxClick()
+//
+void Fun_ItemBuildUpChildMaxClick() //µã»÷Éý¼¶×°±¸ÄÇ¸ömax°´Å¥
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
 	if (dUiAddr)
@@ -464,7 +481,7 @@ void Fun_ItemBuildUpChildMaxClick()
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x18);
+			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x20);
 			MainUniversalCALL4(dEnhanceInfo, 0, 0, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildUpMaxBtn);
 			/*CString cBuf;
 			dm.AsmClear();
@@ -479,7 +496,8 @@ void Fun_ItemBuildUpChildMaxClick()
 		}
 	}
 }
-void Fun_ItemBuildUpChildLevelUpBtnClick()
+//
+void Fun_ItemBuildUpChildLevelUpBtnClick()//µã»÷ ÑÐÄ¥ Éý¼¶°´Å¥
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
 	if (dUiAddr)
@@ -487,9 +505,10 @@ void Fun_ItemBuildUpChildLevelUpBtnClick()
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x18);
+			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x20);
 			INT64 dCurExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp);
 			INT64 dMaxExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp + 8);
+			MyTrace(L"1 dCurExp %d  dMaxExp %d", dCurExp, dMaxExp);
 			if (dMaxExp)
 			{
 				if (dMaxExp > dCurExp)//ÅÐ¶Ï¾­ÑéÖµ
@@ -510,7 +529,7 @@ void Fun_ItemBuildUpChildLevelUpBtnClick()
 		}
 	}
 }
-
+//
 void Fun_ItemBuildUpLevelUpGrade()
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
@@ -519,7 +538,7 @@ void Fun_ItemBuildUpLevelUpGrade()
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			if (!bCheckItemBuildUpLevelWndContentChildWindowShow(1))
+			if (!ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(1) && !ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(0))//×Ó½çÃæ1ÏÔÊ¾×´Ì¬
 			{
 				MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildUpLevelUpGrade);
 				/*CString cBuf;
@@ -534,7 +553,7 @@ void Fun_ItemBuildUpLevelUpGrade()
 		}
 	}
 }
-
+//
 void Fun_ItemBuildUpChildLevelUpGradeBtnClick()//×Ó´°¿ÚÇ¿»¯°´Å¥µã»÷
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
@@ -543,7 +562,7 @@ void Fun_ItemBuildUpChildLevelUpGradeBtnClick()//×Ó´°¿ÚÇ¿»¯°´Å¥µã»÷
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x10);
+			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x18);
 			MainUniversalCALL2(dEnhanceInfo, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildUpChildLevelUpGradeBtn);
 			/*wchar_t buf[100];
 			CString cBuf;
@@ -557,8 +576,8 @@ void Fun_ItemBuildUpChildLevelUpGradeBtnClick()//×Ó´°¿ÚÇ¿»¯°´Å¥µã»÷
 		}
 	}
 }
-
-BOOL bCheckitemBuildUpRenderTargetGroupShow()//ÅÐ¶Ïresult´°¿Ú
+//
+BOOL ÑÐÄ¥::bCheckitemBuildUpRenderTargetGroupShow()//ÅÐ¶Ï²é¿´ÑÐÄ¥½á¹û
 {
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
 	if (dUiAddr)
@@ -568,7 +587,8 @@ BOOL bCheckitemBuildUpRenderTargetGroupShow()//ÅÐ¶Ïresult´°¿Ú
 		{
 			INT64 addr_first = getUiFirstAddr(dUiAddr);
 			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
-			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"itemBuildUpRenderTargetGroup");
+			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"itemBuildUpRenderTargetGroup");//success_mc
+			MyTrace(L"0x%I64X", addr_2);
 			DWORD dChildWindow = R_W(addr_2 + 0x6A);
 			if (dChildWindow >> 0xe == 1)//ÅÐ¶ÏÏÔÊ¾
 			{
@@ -578,8 +598,49 @@ BOOL bCheckitemBuildUpRenderTargetGroupShow()//ÅÐ¶Ïresult´°¿Ú
 	}
 	return FALSE;
 }
-
-
+BOOL ÑÐÄ¥::bCheckitemBuildUpSuccess_mc()//ÅÐ¶Ï×îÖÕ³É¹¦´°¿Ú
+{
+	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
+	if (dUiAddr)
+	{
+		int dShow = R_DW(dUiAddr + 0x27C);
+		if (dShow)
+		{
+			INT64 addr_first = getUiFirstAddr(dUiAddr);
+			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
+			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"success_mc");//success_mc
+			MyTrace(L"0x%I64X", addr_2);
+			DWORD dChildWindow = R_W(addr_2 + 0x6A);
+			if (dChildWindow >> 0xe == 1)//ÅÐ¶ÏÏÔÊ¾
+			{
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+BOOL ÑÐÄ¥::bCheckitemBuildUpFail_mc()//ÅÐ¶Ï×îÖÕÊ§°Ü´°¿Ú
+{
+	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
+	if (dUiAddr)
+	{
+		int dShow = R_DW(dUiAddr + 0x27C);
+		if (dShow)
+		{
+			INT64 addr_first = getUiFirstAddr(dUiAddr);
+			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
+			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"fail_mc");//success_mc
+			MyTrace(L"0x%I64X", addr_2);
+			DWORD dChildWindow = R_W(addr_2 + 0x6A);
+			if (dChildWindow >> 0xe == 1)//ÅÐ¶ÏÏÔÊ¾
+			{
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+//
 void Fun_ItemBuildLevUpResult()
 {
 
@@ -589,7 +650,7 @@ void Fun_ItemBuildLevUpResult()
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			if (bCheckitemBuildUpRenderTargetGroupShow())
+			if (ÑÐÄ¥::bCheckitemBuildUpRenderTargetGroupShow())
 			{
 				MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildLevUpResult);
 				/*CString cBuf;
@@ -606,9 +667,8 @@ void Fun_ItemBuildLevUpResult()
 
 	}
 }
-
-
-void Fun_ItemBuildLevUpSucess()//·ÅÔÚFun_ItemBuildLevUpResult ºóµ÷ÓÃ ÖÐ¼ä¼ÓµãÑÓ³Ù5000
+//
+void ÑÐÄ¥::Fun_ItemBuildLevUpSucess()//·ÅÔÚFun_ItemBuildLevUpResult ºóµ÷ÓÃ ÖÐ¼ä¼ÓµãÑÓ³Ù5000
 {
 
 	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
@@ -617,7 +677,7 @@ void Fun_ItemBuildLevUpSucess()//·ÅÔÚFun_ItemBuildLevUpResult ºóµ÷ÓÃ ÖÐ¼ä¼ÓµãÑÓ³
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			if (!bCheckitemBuildUpRenderTargetGroupShow())
+			if (ÑÐÄ¥::bCheckitemBuildUpSuccess_mc() || ÑÐÄ¥::bCheckitemBuildUpFail_mc())
 			{
 				MainUniversalCALL2(dUiAddr, 0, ÓÎÏ·Ä£¿é + gc_ItemBuildLevUpSucess);
 				/*CString cBuf;
@@ -634,6 +694,7 @@ void Fun_ItemBuildLevUpSucess()//·ÅÔÚFun_ItemBuildLevUpResult ºóµ÷ÓÃ ÖÐ¼ä¼ÓµãÑÓ³
 
 	}
 }
+//
 bool Fun_Ê¯Í·ÊÇ·ñ¼Ó¹¤Íê³É(INT64 ItemObj)
 {
 	if (ItemObj)
@@ -647,9 +708,112 @@ bool Fun_Ê¯Í·ÊÇ·ñ¼Ó¹¤Íê³É(INT64 ItemObj)
 	}
 	return false;
 }
+//
 
-void Ç¿»¯302×°±¸()
+bool Ñ¡¶¨×°±¸ÊÇ·ñ¿ÉÉý¼¶()
 {
-
-
+	INT64 dUiAddr = UI¹¦ÄÜ::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
+	if (dUiAddr)
+	{
+		int dShow = R_DW(dUiAddr + 0x27C);
+		if (dShow)
+		{
+			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x20);
+			INT64 dCurExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp);
+			INT64 dMaxExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp + 8);
+			MyTrace(L"1 dCurExp %d  dMaxExp %d", dCurExp, dMaxExp);
+			if (dMaxExp)
+			{
+				if (dMaxExp == dCurExp)//ÅÐ¶Ï¾­ÑéÖµ
+				{
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
+
+
+//static BOOL bCheckitemBuildUpRenderTargetGroupShow();//ÅÐ¶Ï×îÖÕ³É¹¦´°¿Ú
+//static void Fun_ItemBuildUpListSelect(int dIndex);	//Ñ¡ÔñÐèÒªÇ¿»¯ÎïÆ· Ë÷Òý´Ó0¿ªÊ¼ ok
+//static void Fun_ItemBuildUpLevelUp();//Ö÷½çÃæ Éý¼¶°´Å¥µã»÷ ok
+//static void Fun_ItemBuildUpLevelUpGrade();// Ö÷½çÃæ×°±¸ÑÐÄ¥°´Å¥µã»÷   ok
+
+//static void Fun_ItemBuildUpChildMaxClick();//×Ó½çÃæ1 max°´Å¥µã»÷   ok
+//static void Fun_ItemBuildUpChildLevelUpBtnClick();//×Ó½çÃæ1 ³É³¤µã»÷  ok	
+
+//static void Fun_ItemBuildUpChildLevelUpGradeBtnClick();	//×Ó½çÃæ2 ×°±¸ÑÐÄ¥µã»÷ ok
+
+//static void Fun_ItemBuildLevUpResult();//½á¹ûÈ·¶¨ µã»÷   ok
+//static void Fun_ItemBuildLevUpSucess();//½á¹ûÈ·¶¨ µã»÷  ok ·ÅÔÚFun_ItemBuildLevUpResult ºóµ÷ÓÃ ÖÐ¼ä¼ÓµãÑÓ³Ù5000
+//static bool ÑÐÄ¥::Ñ¡¶¨×°±¸ÊÇ·ñ¿ÉÉý¼¶();
+
+bool ÑÐÄ¥::Ç¿»¯×°±¸()
+{
+	if (ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(0))
+	{
+		MyTrace(L"6666666666");
+		Fun_ItemBuildUpChildMaxClick();
+		Sleep(2000);
+		Fun_ItemBuildUpChildLevelUpBtnClick();
+		Sleep(5000);
+		return false;
+	}
+	else if (ÑÐÄ¥::bCheckItemBuildUpLevelWndContentChildWindowShow(1))
+	{
+		MyTrace(L"222222222");
+		Fun_ItemBuildUpChildLevelUpGradeBtnClick();
+		Sleep(1000);
+		Fun_ItemBuildLevUpResult();
+		Sleep(5000);
+		Fun_ItemBuildLevUpSucess();
+		Sleep(1000);
+		return true;
+
+	}
+	else if (Ñ¡¶¨×°±¸ÊÇ·ñ¿ÉÉý¼¶())//Ö÷½çÃæ Éý¼¶°´Å¥ ÊÇ·ñÏÔÊ¾
+	{
+		MyTrace(L"111111111");
+		Fun_ItemBuildUpLevelUpGrade();//Ö÷½çÃæ×°±¸ÑÐÄ¥°´Å¥
+		Sleep(1000);
+	}
+	else if (!Ñ¡¶¨×°±¸ÊÇ·ñ¿ÉÉý¼¶())
+	{
+		MyTrace(L"5555555555");
+		Fun_ItemBuildUpLevelUp();
+		Sleep(1000);
+	}
+	return false;
+}
+
+bool ÑÐÄ¥::Ç¿»¯×°±¸(int needuplv)
+{
+	ActorInfo_ ½ÇÉ«ÐÅÏ¢ = ±¾ÈË::È¡½ÇÉ«ÐÅÏ¢();
+	if (½ÇÉ«ÐÅÏ¢.×°±¸ÆÀ·Ö < needuplv)
+	{
+		if (»·¾³::ÊÇ·ñÔÚºÍNPC¶Ô»°())//ÐèÒªÉý¼¶×°±¸
+		{
+			int ×°±¸ÐòºÅ = ±³°ü::ÐèÑÐÄ¥×°±¸ÐòºÅ(needuplv);
+			if (×°±¸ÐòºÅ == -1)
+			{
+				return true;
+			}
+			int µ±Ç°Ñ¡Ôñ = ÑÐÄ¥::Fun_ReadItemBuildUpListSelect();
+			if (µ±Ç°Ñ¡Ôñ != ×°±¸ÐòºÅ)
+			{
+				Fun_ItemBuildUpListSelect(×°±¸ÐòºÅ);
+				Sleep(1000);
+			}
+			ÑÐÄ¥::Ç¿»¯×°±¸();
+			return false;
+		}
+		else
+		{
+
+			//ÅÐ¶ÏÀë×Ô¼º×î½üµÄ´óÂ½£¬È¥ÆäÖ÷³Ç ÑÐÄ¥×°±¸´¦£¬´ò¿ªnpc
+		}
+	}
+	return true;
+}
+

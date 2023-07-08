@@ -75,7 +75,7 @@
 #include "hook_api.h"
 #include<algorithm>  
 using namespace std;
-//#pragma comment(lib, "lua.lib" ) 
+#pragma comment(lib, "lua.lib" ) 
 #include "luaFunc.h"
 #include "XhideDll.h"
 #include "WMcopyData.h"

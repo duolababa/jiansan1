@@ -240,7 +240,55 @@ void ±³°ü::get_EquipList(vector<Equipinfo_>& vsk)
 	}
 }
 
-
+void ±³°ü::get_UpEquipList(vector<Equipinfo_>& vsk)
+{
+	vsk.clear();
+	Equipinfo_ temp;
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + gb_ShortKey);
+	INT64 addr_2 = R_QW(addr_1 + go_AttrList_off1/*0x94*/);
+	DWORD dSize = go_bag_dSize;//0x1E0;
+	//DWORD dSize = 1744;//0x1E0;
+	INT64 dStart = addr_2 + Æ«ÒÆ_±³°ü_×°±¸±éÀúÊý×éÍ·;//0x17DD8;//0x690;
+	//INT64 dStart = addr_2 + 0x55A2C ;//0x17DD8;//0x690;
+	for (DWORD i = 0; i < 6; i++)
+	{
+		INT64 dItemId = R_QW(dStart + i * dSize + Æ«ÒÆ_±³°ü_ÎïÆ·id);
+		if (dItemId)
+		{
+			DWORD dItmeResId = R_DW(dStart + i * dSize + Æ«ÒÆ_±³°ü_ÎïÆ·resid);
+			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
+			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//¸üÐÂ-0227
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//¸üÐÂ-0227
+			DWORD ÎïÆ·µÈ¼¶ = R_W(dItemResAddr + Æ«ÒÆ_±³°ü_ÎïÆ·µÈ¼¶);
+			DWORD Ç¿»¯µÈ¼¶ = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
+			CString csName = L"¿Õ";
+			if (dNameAddr)
+			{
+				string sName = UnicodeToAnsi(R_CString(dNameAddr));
+				csName = CString(sName.c_str());
+			}
+			temp.ItemId = dItemId;
+			temp.ItemName = csName;
+			temp.ItemObj = dStart + i * dSize;
+			temp.Type = i;
+			temp.WearId = getEquipWearArg(dSlotIndex);
+			temp.dItemResAddr = dItemResAddr;
+			temp.ÑÕÉ« = dpinzhi;
+			temp.dLev = ÎïÆ·µÈ¼¶;
+			temp.dUpgradeLev = Ç¿»¯µÈ¼¶;
+			ÄÍ¾Ã¶È_ ÁÙÊ±ÄÍ¾Ã¶È;
+			ÁÙÊ±ÄÍ¾Ã¶È.µ±Ç°ÄÍ¾Ã¶È = double(R_DW(dStart + i * dSize + Æ«ÒÆ_±³°ü_µ±Ç°ÄÍ¾Ã¶È) + 99) / 100;
+			ÁÙÊ±ÄÍ¾Ã¶È.×î´óÄÍ¾Ã¶È = double(R_DW(dItemResAddr + Æ«ÒÆ_±³°ü_×î´óÄÍ¾Ã¶È) + 99) / 100;
+			temp.ÄÍ¾Ã¶È = ÁÙÊ±ÄÍ¾Ã¶È;
+			vsk.push_back(temp);
+			wchar_t buf[MAX_PATH];
+			//swprintf(buf, L"Æ·ÖÊ %d wearid %d Î»ÖÃ%X µØÖ·0x%I64X ÎïÆ·ID 0x%I64X ×ÊÔ´ID %X µØÖ·0x%I64X %s ÄÍ¾Ã%d/%d\r\n", dpinzhi, temp.WearId ,i, dStart + i * dSize, dItemId, dItmeResId, dItemResAddr, csName, temp.ÄÍ¾Ã¶È.µ±Ç°ÄÍ¾Ã¶È, temp.ÄÍ¾Ã¶È.×î´óÄÍ¾Ã¶È);
+			//MyTrace(buf);
+			//g_String.Insert(g_String.GetLength(), buf);
+		}
+	}
+}
 void ±³°ü::get_LifeToolList(vector<Equipinfo_>& vsk)
 {
 	vsk.clear();
@@ -1182,4 +1230,38 @@ void ±³°ü::Ò©Æ·ÍÏ×§call(DWORD Î»ÖÃ, DWORD dItemId, DWORD dTargetIndex, DWORD ÎïÆ
 	MainUniversalCALL6(dRCX, rdx, r8, dTargetIndex, dItemId, 0, dCall);
 
 
+}
+int µÈ¼¶»»Ëã(int needuplv)
+{
+	if (needuplv == 420)
+	{
+		return 8;
+	}
+	if (needuplv == 600)
+	{
+		return 15;
+	}
+	if (needuplv == 960)
+	{
+		return 8;
+	}
+	if (needuplv == 1100)
+	{
+		return 15;
+	}
+
+}
+DWORD ±³°ü::ÐèÑÐÄ¥×°±¸ÐòºÅ(DWORD lv)
+{
+	vector<Equipinfo_>vsk;
+	±³°ü::get_UpEquipList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		lv = µÈ¼¶»»Ëã(lv);
+		if (vsk[i].dUpgradeLev < lv)
+		{
+			return vsk[i].WearId;
+		}
+	}
+	return -1;
 }

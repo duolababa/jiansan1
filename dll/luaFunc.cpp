@@ -3,17 +3,17 @@
 #include "luaFunc.h"
 //#include <string>
 //#include "pch.h"
-#include <tuple>
-#include <string>
-#include <vector>
-#include <type_traits>
-#include <functional>
+//#include <tuple>
+//#include <string>
+//#include <vector>
+//#include <type_traits>
+//#include <functional>
 using namespace std;
 
 
 
 // 将C++的std::string转换为Lua的字符串
-lua_State* C_L;
+//lua_State* C_L;
 //void 置全局LUA状态机(lua_State* L)
 //{
 //	C_L = L;
@@ -117,10 +117,10 @@ bool 执行lua(lua_State* L,const char * lua名称)
 	}
 	return true;
 }
-void 置全局LUA状态机(lua_State* L)
-{
-	C_L = L;
-}
+//void 置全局LUA状态机(lua_State* L)
+//{
+//	C_L = L;
+//}
 
 
 
@@ -898,7 +898,7 @@ static int 最近距离怪物(__LUA_指针)
 	INT64 addr=本人::最近怪物1(距离);
 
 	lua_pushinteger(L,addr);
-	DebugPrintf("最近距离怪物0x%I64X\n", addr);
+	MyTrace(L"最近距离怪物0x%I64X\n", addr);
 	return 1;
 
 
@@ -929,7 +929,7 @@ static int 自定义记录(__LUA_指针)
 {
 	const char* message = lua_tostring(L, 1);
 
-	DebugPrintf("%s\n", message);
+	MyTrace(L"%s", CStringW(message));
 
 	return 0;
 }
@@ -943,7 +943,7 @@ static int LogMsg1(__LUA_指针)
 	//DebugPrintf("%s\n", message);
 	//string error_message = message;
 	MyTrace(L"开始输出");
-	DebugPrintf("%s\n", message);
+	MyTrace(L"%s", CStringW(message));
 
 	return 0;
 

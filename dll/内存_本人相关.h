@@ -32,7 +32,8 @@ public:
 	static INT64 最近怪物(DWORD 距离);
 	static INT64 最近怪物1(DWORD 距离);
 	static INT64 最近怪物2(DWORD 距离, CString id);
-
+	static bool 是否战斗中();
+	static void 设置宝石自动合成();
 
 };
 

@@ -930,18 +930,19 @@ public:
                     {
                         if (LUA脚本名称 != L"")
                         {
-                            MyTrace(L"Lua开关 %d", Lua开关);
+                            //MyTrace(L"Lua开关 %d", Lua开关);
                             if (Lua开关 == true)
                             {
                                 // string str = CStringA(LUA脚本名称);
                                  //char* aa = LUA脚本名称.GetBuffer();
                                 CStringA aa(LUA脚本名称);
-                                const char* LUA脚本名称bb = "D:\\起号.lua";
-                                MyTrace(L"LUA脚本名称 %s", LUA脚本名称bb);
-                                if (!执行lua(L, LUA脚本名称bb))
+                                //const char* LUA脚本名称bb = "D:\\起号.lua";
+                                //MyTrace(L"LUA脚本名称 %s", aa);
+                                if (!执行lua(L, aa))
                                 {
                                     break;
                                 }
+                                Sleep(2000);
                             }
                             else
                             {
@@ -1160,6 +1161,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
             Lua开关 = true;
             MyTrace(L"脚本任务%s",脚本任务);
             //脚本任务 = L"签到";
+            LUA脚本名称 = L"D:\\起号.lua";
             配置服务器 = L"Mari";
             角色序号 = L"1";
             MainThreadid = GetCurrentThreadId();

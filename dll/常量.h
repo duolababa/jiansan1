@@ -311,6 +311,9 @@
 #define go_UseSkillOffset 0x110
 #define go_ManPoBaseOffset 0x98
 #define gc_UseSkillCall 0x246C950
+#define go_ItemGemCombineConfigValue 0x5C
+#define gb_ItemGemCombineConfigSet 0x4C74520
+#define gc_ItemGemCombineConfigSet 0xF310D0
 #define gb_判断加载基址 0x4C71C30
 #define go_加载偏移1 0xC0
 #define go_加载偏移2 0x18
@@ -358,7 +361,6 @@
 #define 偏移_拍卖_物品等级 0x11E
 #define 偏移_拍卖_立即购买 0x48
 #define 偏移_拍卖_最低出价 0x6E8
-
 
 //#define 偏移_背包_物品数量 0x6B8
 //#define 偏移_背包_物品id 0x6A8

@@ -5,6 +5,7 @@ class 背包
 public:
     static void get_InventoryItemList(vector<Inventoryinfo_>& vsk);
     static void get_EquipList(vector<Equipinfo_>& vsk);
+    static void get_UpEquipList(vector<Equipinfo_>& vsk);
     static void get_LifeToolList(vector<Equipinfo_>& vsk);
     static void get_feicangkuList(vector<Inventoryinfo_>& vsk);
     static void get_cangkuList(vector<Inventoryinfo_>& vsk);
@@ -38,6 +39,7 @@ public:
     static void SetHpItemSlot(DWORD dItemId, DWORD dTargetIndex);
     static void SetBufItemSlot(DWORD dItemId, DWORD dTargetIndex);
     static void 药品拖拽call(DWORD 位置, DWORD dItemId, DWORD dTargetIndex, DWORD 物品类型);
+    static DWORD 需研磨装备序号(DWORD lv);
 };
 
 int getEquipWearArg(int dSlotIndex);

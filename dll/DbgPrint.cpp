@@ -6,28 +6,13 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl MyTrace(TCHAR* lpszFormat, ...)
 {
-	//if (!bDebug) return;
 	int nBuf;
 	TCHAR szBuffer[0x1024];
-	//TCHAR szbuffFormat_Game[0x1008] = L"RicardoLA:";
 	memset(szBuffer, 0, 0x1024 * sizeof(TCHAR));
 	va_list args;
 	va_start(args, lpszFormat);
 	nBuf = _vsntprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
-	//wcscat(szbuffFormat_Game, szBuffer);
-	int len = sizeof(szBuffer);
-	if (len < 200)
-	{
-		for (int i = 0; i < 200 - len; i++)
-		{
-			lstrcat(szBuffer, L" ");
-		}
-	}
-	lstrcat(szBuffer, L"          <lostark>");
 	OutputDebugString(szBuffer);
-	//LOG::WriteLog(1, szBuffer);
-	//CLog::WriteMsg(szBuffer);
-	//mlog.WriteMsg(szBuffer);
 	va_end(args);
 
 }

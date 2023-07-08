@@ -514,3 +514,33 @@ INT64 本人::最近怪物2(DWORD 距离, CString ID文本)
 
 
 }
+bool  本人::是否战斗中()
+{
+	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
+	INT64 rdxx = R_QW(addr_2);
+	INT64 rcx = addr_2;
+	INT64 call = R_QW(rdxx + 基址_战斗_是否战斗call偏移);
+	if (IsBadReadPtr((void*)rcx, sizeof(rcx))) return false;
+	INT64 ret = CALL2(rcx, rdxx, call);
+	//MyTrace(L"是否战斗中  0x%I64X", ret);
+	return (bool)ret;
+}
+
+void 本人::设置宝石自动合成()
+{
+	INT64 addr_1 = R_QW(游戏模块 + gb_ItemGemCombineConfigSet);
+	if (R_DW(addr_1 + go_ItemGemCombineConfigValue) != 1)//判断有没设置
+	{
+		MainUniversalCALL2(addr_1, 0x0004000300000001, 游戏模块 + gc_ItemGemCombineConfigSet);
+		/*CString cBuf;
+		dm.AsmClear();
+		dm.AsmAdd(L"sub rsp,040");
+		dm.AsmAdd(MyFormat(cBuf, L"mov rcx, 0%I64X", addr_1));
+		dm.AsmAdd(MyFormat(cBuf, L"mov rdx, 0%I64X", 0x0004000300000001));
+		dm.AsmAdd(MyFormat(cBuf, L"mov rdi, 0%I64X", gc_ItemGemCombineConfigSet));
+		dm.AsmAdd(L"call rdi");
+		dm.AsmAdd(L"add rsp,040");
+		dm.AsmCall(HwndGlobal, 3);*/
+	}
+}
