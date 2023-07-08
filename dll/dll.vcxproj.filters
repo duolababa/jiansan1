@@ -34,6 +34,9 @@
     <Filter Include="游戏内容">
       <UniqueIdentifier>{57a20589-c86a-40b7-a029-83a56ee899f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{6f2fce8c-ac05-4b21-b941-a26599c31f1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -79,9 +82,6 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ImGuiWin.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="luaFunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="内存_本人相关.h">
@@ -183,6 +183,12 @@
     <ClInclude Include="MyCallFunction.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="luaFunc.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="常用功能.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -216,9 +222,6 @@
       <Filter>SDK</Filter>
     </ClCompile>
     <ClCompile Include="ImGuiWin.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="luaFunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="内存_本人相关.cpp">
@@ -309,6 +312,12 @@
       <Filter>内存功能</Filter>
     </ClCompile>
     <ClCompile Include="MyCallFunction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="luaFunc.cpp">
+      <Filter>Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="常用功能.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

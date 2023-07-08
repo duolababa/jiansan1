@@ -54,7 +54,7 @@ public:
 	static  bool 任务是否已完成(DWORD 任务ID, vector<DWORD>& vsk);
 
 	static int getNpcTaklEndSendArg(int dNpcResId, int dQuestId, int dStep);
-
+	static int getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep);
 	static int bCheckQuestStepIsEndNpcTalk(INT64 dResAddr, DWORD dStep);
 
 	static void Fun_阶段任务完成CALL(DWORD SendArg);

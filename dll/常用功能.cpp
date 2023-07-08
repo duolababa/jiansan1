@@ -14,10 +14,10 @@ string 常用功能::十进制转十六进制(unsigned long long n) {
 	return hex_str.empty() ? "0" : hex_str;
 }
 
-std::string 常用功能:: 到大写(std::string str) { //将字符串转换为大写字母
-	std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c) { return std::toupper(c); });
-	return str;
-}
+//std::string 常用功能:: 到大写(std::string str) { //将字符串转换为大写字母
+//	std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c) { return std::toupper(c); });
+//	return str;
+//}
 
 
 float 常用功能::计算距离(坐标_ 当前距离, 坐标_ 对方距离)

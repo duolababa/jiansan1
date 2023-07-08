@@ -90,6 +90,88 @@ INT64 UI功能::getUiObjById_Old(DWORD ID)
 	}
 	return reta;
 }
+
+CString UI功能::节点唯一标识(INT64 对象, INT64& 返回对象)
+{
+
+	INT64 节点 = R_QW(R_QW(R_QW(对象) + 0x18) + 0x70);
+	INT64 返回对象1 = R_QW(节点 + 0x60);
+	INT64 路径名称2 = R_QW(节点 + 0xF8);
+
+	路径名称2 = R_QW(路径名称2);
+
+	string 路径名称 = R_String(路径名称2);
+
+	if (路径名称 == "")
+	{
+
+		返回对象1 = R_QW(节点 + 0x618);
+		路径名称2 = R_QW(返回对象1 + 0xF8);
+		路径名称2 = R_QW(路径名称2);
+		路径名称 = R_String(路径名称2);
+		if (路径名称 == "")
+		{
+			返回对象1 = R_QW(节点 + 0x630);
+			路径名称2 = R_QW(返回对象1);
+
+			路径名称 = R_String(路径名称2);
+
+		}
+
+	}
+	返回对象 = 返回对象1;
+	return CStringW(路径名称.c_str());
+	//路径名称 ＝ 到文本(VU_读取字节集(进程信息列表[序号].进程ID, 路径名称2, 300))
+
+
+
+}
+bool UI功能::寻找打开窗口(CString name, INT64& rcx)
+{
+	CString temp;
+	INT64 aaa = R_QW(游戏模块 + gb_UiList);
+	temp.Format(L"aaa%I64X", aaa);
+	//	DebugPrintf("%s\n", CStringA(temp));
+	INT64 a = R_QW(aaa + 0xA4);//更新-0218
+	DWORD 总数 = R_DW(a + 0x2D8);
+	INT64 rdx = R_QW(a + 0x2F8);//对象数组地址
+	//INT64 indexStartAddr = R_QW(addr_2 + 0x214);//索引数组地址
+	for (size_t i = 0; i < 总数; i++)
+	{
+
+		//INT64 rcx = 0;
+		//const char* message = lua_tostring(L, -1);
+		//UI功能::寻找打开窗口(CStringW(message), rcx);
+
+		//CString temp;
+		//const char* message = lua_tostring(L, -1);
+		////INT64 rcx = 0;
+		////UI功能::寻找打开窗口(CStringW(message),rcx);
+		//INT64 addr=UI功能::getUiObjByName(CStringW(message));
+
+		DWORD rax = i + 1;
+		INT64 参数 = rdx + rax * 5 * 4 + 4;
+		CString name1 = UI功能::节点唯一标识(参数, rcx);
+
+
+		temp.Format(L"%I64X", 参数);
+
+		if (name1 == name)
+		{
+			rcx = R_QW(参数);
+			temp.Format(L"%I64X", 参数);
+
+			//MyTrace(name1);
+			return 1;
+
+
+		}
+		//DWORD dIndex = R_DW(indexStartAddr + i * 4);
+
+
+	}
+	return 0;
+}
 INT64 UI功能::getUiObjById(DWORD ID)
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
@@ -1039,6 +1121,100 @@ void UI功能::Fun_UiShowCtrl(int dUiId)
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
 	MainUniversalCALL2(addr_1, dUiId, 游戏模块 + gc_UIShowCtrl);
 
+}
+void UI功能::控件点击call(INT64 对象)
+{
+	UCHAR 局_rdx0[0x100] = { 0 };
+	W_DW((ULONG64)&局_rdx0[0], 0x100000C);
+	INT64 call地址 = R_QW(对象);
+	call地址 = R_QW(call地址 + 0x338);
+
+	INT64 rdx = (INT64)&局_rdx0;
+	INT64 rcx = 对象;
+
+	MainUniversalCALL6(rcx, rdx, 0, 0, 0, 0x100000C, call地址);
+	//W_Float((ULONG64)&局_rdx0[0], px);
+
+
+}
+
+CString UI功能::UI名称1(INT64 对象)
+{
+	INT64 addr_1 = R_QW(对象 + 0x70);
+	INT64 addr_2 = R_QW(addr_1 + 0x10);
+	INT64 addr_3 = R_QW(addr_2);
+	string 路径名称 = R_String(addr_3);
+
+
+
+	return CStringW(路径名称.c_str());
+}
+
+
+
+
+CString UI功能::UI名称(INT64 对象)
+{
+	INT64 addr_1 = R_QW(对象 + 0x70);
+	INT64 addr_2 = R_QW(addr_1 + 0x10);
+	INT64 addr_3 = R_QW(addr_2);
+	string 路径名称 = R_String(addr_3);
+
+	if (路径名称 == "")
+	{
+		addr_1 = R_QW(对象 + 0x618);
+		addr_2 = R_QW(addr_1 + 0xF8);
+		addr_3 = R_QW(addr_2);
+		路径名称 = R_String(addr_3);
+		if (路径名称 == "")
+		{
+			addr_1 = R_QW(对象 + 0x630);
+			addr_2 = R_QW(addr_1);
+			路径名称 = R_String(addr_2);
+
+
+		}
+
+
+	}
+
+
+	return CStringW(路径名称.c_str());
+}
+DWORD UI功能::窗口数量()
+{
+	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
+	DWORD dtotal = R_DW(addr_1 + 0x144);
+	return dtotal;
+
+}
+CString  UI功能::窗口反馈文本()
+{
+	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
+	DWORD dtotal = R_DW(addr_1 + 0x144);
+	INT64 dstart = R_QW(addr_1 + 0x144 - 8);//对象数组地址
+	CString 返回文本 = L"";
+	for (long i = 0; i < dtotal; i++)
+	{
+		if (i >= 500)
+		{
+			return L"";
+		}
+
+
+
+		INT64 dUIObj = R_QW(dstart + i * 0xC);
+
+		//DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
+		DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
+		MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
+		CString 返回 = getMsgBoxMiddleText2(dUIObj);
+
+
+		返回文本 = 返回文本 + 返回 + "|";
+
+	}
+	return 返回文本;
 }
 
 //void UI功能::Fun_NarrationAssistance_OnOff(int kaiguan)

@@ -12,5 +12,9 @@ public:
 	static void 删除所有船员();
 	static void 设置所有船员();
 	static bool 自动选择最优战船();
+	static void 坐船call功能(DWORD dResId);
+	static void luaVoyageShipSelectShip(int dIndex);
+//tatic void VoyageShipSelectShip(DWORD dResId);
 };
+
 

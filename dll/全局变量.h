@@ -8,6 +8,7 @@ extern UINT64 游戏模块;
 extern UINT64 游戏模块_EFEngine;
 extern  UINT 注册消息值;
 extern bool 屏蔽鼠标开关;
+extern bool 调试开关;
 extern POINT hook鼠标坐标;
 extern vector<DWORD>暂时不打ID;
 extern CString 辅助位置;

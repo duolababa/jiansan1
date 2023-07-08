@@ -223,6 +223,7 @@
     <ClInclude Include="内存_航海相关.h" />
     <ClInclude Include="内存_通用数据.h" />
     <ClInclude Include="内存_钓鱼相关.h" />
+    <ClInclude Include="常用功能.h" />
     <ClInclude Include="常量.h" />
     <ClInclude Include="游戏_主线.h" />
     <ClInclude Include="自定义数据类型.h" />
@@ -268,6 +269,7 @@
     <ClCompile Include="内存_航海相关.cpp" />
     <ClCompile Include="内存_通用数据.cpp" />
     <ClCompile Include="内存_钓鱼相关.cpp" />
+    <ClCompile Include="常用功能.cpp" />
     <ClCompile Include="常量.cpp" />
     <ClCompile Include="游戏_主线.cpp" />
     <ClCompile Include="通用功能.cpp" />

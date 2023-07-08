@@ -850,6 +850,70 @@ int 任务::getNpcTaklEndSendArg(int dNpcResId, int dQuestId, int dStep)
 }
 
 
+
+int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
+{
+	// 
+	int 返回值 = 0;
+	INT64 addr_1 = R_QW(游戏模块 + gb_QuestCur);
+	UCHAR dInfoAddr[0x100] = { 0 };
+	MainUniversalCALL4(addr_1, dNpcResId, (ULONG_PTR)dInfoAddr, 0, 游戏模块 + gc_GetNpcQuestTalkCurList);
+	MyTrace(L"获取信息");
+	//DbgPrintf_Mine("获取信息 %s", __FUNCTION__);
+	//INT64 dInfoAddr = dm.VirtualAllocEx( 0, 0x100, 0);
+	/*CString cBuf;
+	dm.AsmClear();
+	dm.AsmAdd(L"xor r9d,r9d");
+	dm.AsmAdd(MyFormat(cBuf, L"mov r8, 0%I64X", dInfoAddr));
+	dm.AsmAdd(MyFormat(cBuf, L"mov edx, 0%X", dNpcResId));
+	dm.AsmAdd(MyFormat(cBuf, L"mov rcx, 0%I64X", addr_1));
+	dm.AsmAdd(MyFormat(cBuf, L"mov rdi, 0%I64X", gc_GetNpcQuestTalkCurList));
+	dm.AsmAdd(L"sub rsp,040");
+	dm.AsmAdd(L"call rdi");
+	dm.AsmAdd(L"add rsp,040");
+	dm.AsmCall( 6);*/
+	int dtotal = R_DW((INT64)&dInfoAddr + 8);
+	if (dtotal)
+	{
+		INT64 dstart = R_QW((INT64)&dInfoAddr);//更新-0220
+		for (DWORD i = 0; i < dtotal; i++)
+		{
+			INT64 dObj = dstart + i * 8;
+			int dType = R_DW(dObj);
+			if (dQuestId == R_DW(dObj + 4))
+			{
+				int dArg = getNpcTaklEndSendArgFinally(dNpcResId, dQuestId, dType, dStep);
+				返回值 = dArg;
+				MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
+				if (dType == 4)								   //return dArg;
+				{
+					MyTrace(L"开始执行call");
+					任务::Fun_阶段任务完成CALL(dArg);
+					MyTrace(L"执行call结束");
+				}
+				if (dType == 3)
+				{
+					任务::CALL_交任务(dQuestId, -1);
+				}
+			}
+
+		}
+		///////////////////////释放指针///////////////////////////////////////////////////
+		MainUniversalCALL2((ULONG_PTR)dInfoAddr, 0, 游戏模块 + gc_GameListFree);
+		return 返回值;
+		/*dm.AsmClear();
+		dm.AsmAdd(L"xor edx,edx");
+		dm.AsmAdd(MyFormat(cBuf, L"mov rcx, 0%I64X", dInfoAddr));
+		dm.AsmAdd(MyFormat(cBuf, L"mov rdi, 0%I64X", gc_GameListFree));
+		dm.AsmAdd(L"sub rsp,040");
+		dm.AsmAdd(L"call rdi");
+		dm.AsmAdd(L"add rsp,040");
+		dm.AsmCall( 6);*/
+
+	}
+	return  0;
+}
+
 CString getQuestStepClassString(INT64 dInfoAddr)
 {
 	//CString cClassName = L"";
@@ -910,4 +974,33 @@ QuestInfo_ 任务::取出寻找方舟任务()
 		}
 	}
 	return temp;
+}
+
+
+INT64 环境::鼠标获取对象call(float px, float y)
+{
+	INT64 ret = 0;
+	INT64 rcx = 0;
+	INT64 call = 游戏模块_EFEngine + en鼠标call;
+	INT64 x = 0;
+	x = R_QW(游戏模块 + en鼠标基址);
+	//MyTrace(L"打开rcx,0x%I64X", 游戏模块_EFEngine + en鼠标基址);
+	x = R_QW(x);
+	//MyTrace(L"打开rcx,0x%I64X", x);
+	x = R_QW(x + 0x2F0);
+	x = R_QW(x);
+	rcx = R_QW(x + 0x3C);
+	// MyTrace(L"打开rcx,0x%I64X", rcx);
+	DWORD r9 = 1;
+	DWORD r8 = 0;
+	UCHAR 局_rdx0[0x100] = { 0 };
+	W_Float((ULONG64)&局_rdx0[0], px);
+	W_Float((ULONG64)&局_rdx0[4], y);
+	// MyTrace(L"px x %0.3f %0.3f", px, y);
+	INT64 rdx = (INT64)&局_rdx0;
+	ret = MainUniversalCALL4_Ret(rcx, rdx, r8, r9, call);
+
+	return ret;
+
+
 }

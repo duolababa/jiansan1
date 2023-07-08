@@ -6,6 +6,13 @@ public:
     static void get_InventoryItemList(vector<Inventoryinfo_>& vsk);
     static void get_EquipList(vector<Equipinfo_>& vsk);
     static void get_LifeToolList(vector<Equipinfo_>& vsk);
+    static void get_feicangkuList(vector<Inventoryinfo_>& vsk);
+    static void get_cangkuList(vector<Inventoryinfo_>& vsk);
+
+    static Inventoryinfo_ 取公共仓库(CString name);
+    static Inventoryinfo_ 取单独仓库(CString name);
+
+    static bool 取仓call(DWORD 槽位, DWORD 是否公共仓库);
     static bool 指定位置生活工具是否已装备(DWORD 槽位);
     static Equipinfo_ get_EquipInfobyIndex(DWORD type);
     static DWORD 取金币数();
@@ -30,6 +37,7 @@ public:
     static bool 背包物品处理();
     static void SetHpItemSlot(DWORD dItemId, DWORD dTargetIndex);
     static void SetBufItemSlot(DWORD dItemId, DWORD dTargetIndex);
+    static void 药品拖拽call(DWORD 位置, DWORD dItemId, DWORD dTargetIndex, DWORD 物品类型);
 };
 
 int getEquipWearArg(int dSlotIndex);

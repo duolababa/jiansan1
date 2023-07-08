@@ -45,7 +45,7 @@ lua_State* C_L;
 int panic(lua_State* L)
 {
 	const char* message = lua_tostring(L, -1);
-	DebugPrintf("%s\n", message);
+	//DebugPrintf("%s\n", message);
 	string error_message = message;
 	SendMessageToMoConter(111, error_message.c_str());
 	// 处理错误信息
@@ -62,15 +62,7 @@ lua_State* initLua()
 	}
 	return L;
 }
-void RegLuaScript(lua_State* L)
-{
 
-
-	lua_register(L, "取出主线任务", 中转_取出主线任务);
-	lua_register(L, "日志输出", 中转_日志输出);
-	lua_register(L, "延时", LUA_延时);
-	//lua_close(L);
-}
 
 bool 执行lua(lua_State* L,const char * lua名称)
 {
@@ -210,7 +202,7 @@ static int MovePoint(__LUA_指针)
 	float x = lua_tonumber(L, 1);
 	float y = lua_tonumber(L, 2);
 	float z = lua_tonumber(L, 3);
-	地图::本地图寻路(x, y, z, 0);
+
 	return 0;
 }
 
@@ -220,7 +212,12 @@ static int MovePoint(__LUA_指针)
 //	return 0;
 //}
 
+static int 最优战船(__LUA_指针)
+{
+	航海::自动选择最优战船();
 
+	return 0;
+}
 
 static int 中转_取地图ID(__LUA_指针)
 {
@@ -253,6 +250,707 @@ static int 中转_指定UI是否显示(__LUA_指针)
 	
 	return 0;
 }
+
+static int 设置船员(__LUA_指针)
+{
+
+	航海::设置所有船员();
+	return 0;
+
+}
+
+
+static int 选船(__LUA_指针)
+{
+	DWORD id = lua_tointeger(L, 1);
+	航海::luaVoyageShipSelectShip(id);
+	return 0;
+
+
+
+}
+
+static int 关闭多余窗口(__LUA_指针)
+{
+	if (环境::是否在和NPC对话())
+	{
+		环境::CALL_退出NPC();
+		Sleep(2000);
+	}
+	DWORD size = 0;
+
+	size = UI功能::窗口数量();
+
+	if (size >= 1)
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			size = UI功能::窗口数量();
+			if (size >= 1)
+			{
+				UI功能::内存按键(VK_ESCAPE);
+				Sleep(1500);
+
+			}
+
+
+		}
+
+
+	}
+
+	return 0;
+}
+
+
+
+
+static int 对话完成(__LUA_指针)
+{
+	DWORD id = lua_tointeger(L, 1);
+
+	任务::Fun_阶段任务完成CALL(id);
+	return 0;
+
+}
+
+
+static int 检测窗口(__LUA_指针)
+{
+	DWORD aa=0;
+		
+	aa=	UI功能::窗口数量();
+	lua_pushinteger(L, aa);
+	return 1;
+
+
+}
+
+static int 选择体验(__LUA_指针)
+{
+
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(tmpStr, "%x", x);
+
+	x = 常用功能::十六进制转十进制(tmpStr);
+	新手::CALL_选择体验(x);
+	Sleep(2000);
+	新手::CALL_退出体验();
+	return 0;
+
+}
+
+static int 快速设置技能(__LUA_指针)
+{
+	DWORD 技能ID = lua_tointeger(L, 1);
+	DWORD 位置 = lua_tointeger(L, 2);
+	技能::CALL_快捷键技能摆放(技能ID, 位置);
+
+	return 0;
+
+
+
+}
+
+static int 打孔能力石(__LUA_指针)
+{
+	诞生石::诞生石强化();
+	return 0;
+
+}
+
+
+
+static int 距离判断(__LUA_指针)
+{
+	float x,y,z;
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+	x = lua_tonumber(L, 1);
+	y = lua_tonumber(L, 2);
+	z = lua_tonumber(L, 3);
+
+
+	double dx = abs(x - 角色信息.坐标.x);
+	double dy = abs(y - 角色信息.坐标.y);
+	double dz = abs(z - 角色信息.坐标.z);
+
+	double xyz = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2))/100;
+	lua_pushnumber(L,xyz);
+
+	return 1;
+
+}
+
+static int 选择角色开始游戏(__LUA_指针)
+{
+	DWORD 序号 = lua_tointeger(L, 1);
+	登陆::CALL_进入游戏(序号);
+
+	return 0;
+}
+
+
+static int 读取职业(__LUA_指针)
+{
+	DWORD 职业 = 0;
+
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+	职业 = 角色信息.职业;
+
+	lua_pushinteger(L, 职业);
+	//角色信息.对象指针
+	return 1;
+}
+
+
+
+static int 游戏小退(__LUA_指针)
+{
+	环境::小退call();
+
+	return 0;
+}
+
+
+static int 任务判断(__LUA_指针)
+{
+	const char* 任务ID = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(任务ID, "%x", x);
+
+	x = 常用功能::十六进制转十进制(任务ID);
+
+
+	vector<DWORD>vsk;
+	任务::get_FinishQuestList(vsk);
+
+	if (任务::任务是否已完成(x, vsk))
+	{
+		lua_pushinteger(L, 1);
+	}
+	else
+	{
+		lua_pushinteger(L, 0);
+	}
+
+	return 1;
+}
+
+
+static int 设置技能按键1(__LUA_指针)
+{
+	DWORD 技能ID = lua_tointeger(L, 1);
+	DWORD 技能等级 = lua_tointeger(L, 2);
+	DWORD c = lua_tointeger(L, 3);
+	DWORD d = lua_tointeger(L, 4);
+	DWORD e = lua_tointeger(L, 5);
+	DWORD f = lua_tointeger(L, 6);
+技能::CALL_升级技能天赋(技能ID, 技能等级,c,d,e);
+
+技能::CALL_快捷键技能摆放(技能ID, f);
+return 0;
+
+}
+//技能::CALL_升级技能天赋
+
+
+
+static int 穿戴装备(__LUA_指针)
+{
+
+	背包::自定装备推荐装备();
+		return 0;
+}
+
+//void 背包::自定装备推荐装备()
+static int 自动任务(__LUA_指针)
+{
+	DWORD 任务阶段 = lua_tointeger(L, 1);
+	const char* 任务ID = lua_tostring(L, 2);
+	//int x;
+	//sscanf(任务ID, "%x", x);
+	//MyTrace(L"描述x %d \r\n", x);
+	DWORD id1;
+
+	id1 = 常用功能::十六进制转十进制(任务ID);
+
+	DWORD id = 环境::读取当前对话npc();
+	//MyTrace(L"类型 %d 任务名称 %s 
+	MyTrace(L"id1 %X  id %X \r\n", id1, id);
+	if (id>=1)
+	{
+
+		任务::getNpcTaklEndSendArg1(id, id1, 任务阶段);
+
+		MyTrace(L"任务结束\r\n");
+
+	}
+
+
+	return 0;
+
+}
+
+
+
+
+
+
+static int 跳过序幕(__LUA_指针)
+{
+
+	新手::CALL_跳过序幕();
+
+		return 0;
+}
+
+
+
+static int 确认职业(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD id = lua_tointeger(L, 2);
+	DWORD x;
+	
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	新手::CALL_选择职业(x);
+
+	return 0;
+}
+
+static int 是否在航海准备界面(__LUA_指针)
+{
+	int 局_UI对象;
+	局_UI对象=	UI功能::是否在航海准备界面();
+	if (局_UI对象==1)
+	{
+		lua_pushinteger(L, 1);
+	}
+	else
+	{
+		lua_pushinteger(L, 0);
+	}
+	return 1;
+
+}
+
+static int 仓库取物品功能(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	
+
+
+	背包::取单独仓库(CStringW(tmpStr));
+
+
+	return 0;
+
+}
+
+static int 仓库取大东西(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	背包::取公共仓库(CStringW(tmpStr));
+
+
+	return 0;
+}
+
+
+
+
+static int 读取人物信息(__LUA_指针)
+{
+	CString aa = "0";
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+	vector<CString>arr;
+	CString temp;
+
+
+	arr.push_back(角色信息.名称);
+	temp.Format(L"%f", 角色信息.坐标.x);//1
+	arr.push_back(temp);
+	temp.Format(L"%f", 角色信息.坐标.y);//2
+	arr.push_back(temp);
+	temp.Format(L"%f", 角色信息.坐标.z);//3
+	arr.push_back(temp);
+	double 血量 = (double(角色信息.当前血) / double(角色信息.最大血)) * 100;
+
+	temp.Format(L"%f", 血量);
+	arr.push_back(temp);//4
+
+	double 蓝量 = (double(角色信息.当前蓝) / double(角色信息.最大蓝)) * 100;
+	temp.Format(L"%f", 蓝量);
+	arr.push_back(temp);//5
+	arr.push_back(角色信息.名称);//6
+	temp.Format(L"%d", 角色信息.等级);
+	arr.push_back(temp);//7
+
+	temp.Format(L"%d", 角色信息.当前动作);
+	arr.push_back(temp);//8
+	temp.Format(L"%d", 角色信息.举起状态);
+	arr.push_back(temp);//9
+	temp.Format(L"%d", 角色信息.骑行状态);
+	arr.push_back(temp);//10
+	//temp.Format(L"%d", 角色信息.骑行状态);
+	arr.push_back(aa);//11
+	temp.Format(L"%d", 角色信息.行走状态);
+	arr.push_back(temp);//12
+	
+
+
+	double 船舶 = (double(角色信息.航海当前耐久) / double(角色信息.航海最大耐久)) * 100;
+	temp.Format(L"%f", 船舶);
+	arr.push_back(temp);//13
+	temp.Format(L"%d", 角色信息.装备评分);
+	arr.push_back(temp);//14
+	temp.Format(L"%d", 角色信息.当前血);
+	arr.push_back(temp);//15
+	temp.Format(L"%I64X", 角色信息.对象指针);
+	arr.push_back(temp);//16
+	lua_newtable(L);
+	//lua_pushnumber(L, 角色信息.当前血)
+	lua_pushnumber(L, -1);
+	lua_rawseti(L,-2,0);
+	for (size_t i = 0; i < arr.size(); i++)
+	{
+		lua_pushstring(L, CStringA(arr[i]));
+		lua_rawseti(L, -2, i);
+	}
+	/*lua_newtable(L);
+	lua_pushstring(L, "名称");
+	lua_pushstring(L, CStringA(角色信息.名称));
+	lua_settable(L, -3);
+	lua_pushstring(L, "等级");
+	lua_pushinteger(L, 角色信息.等级);
+	lua_settable(L, -3);*/
+
+
+//	DebugPrintf("%s\n", CStringA(角色信息.名称));
+////	角色信息.当前血
+//	//string str = to_string(角色信息.当前血);
+//	//const char* char_str = str.c_str();
+//	lua_pushnumber(L, 角色信息.当前血);
+	return 1;
+}
+// ActorInfo_ 本人::取角色信息()
+
+static int 准备出航(__LUA_指针)
+{
+	UI功能::准备出航();
+	return 0;
+
+
+}
+
+
+static int 调试判断(__LUA_指针)
+{
+	if (调试开关==1)
+	{
+		luaL_error(L,"停止工作");
+
+
+	}
+	return 0;
+
+
+}
+
+
+static int 对象查询(__LUA_指针)
+{
+	const char* 控件对象 = lua_tostring(L, 1);
+
+	//MyTrace(L"控件对象 %s", CStringW(控件对象));
+	INT64 x;
+
+	x=常用功能::hex_to_decimal(控件对象);
+
+	//MyTrace(L"控件对象 %I64d", x);
+	//a = 控件对象;
+	//stoi(a,0,16);
+	//MyTrace(L"控件对象 %s", a);
+	//x=temp.Format(L"%I64X", 控件对象);
+
+
+
+
+	CString	name = UI功能::UI名称1(x);
+	MyTrace(L"控件对象 %s", name);
+	lua_pushstring(L, CStringA(name));
+
+	return 1;
+}
+
+
+static int 坐标点击1(__LUA_指针)
+{
+	const char* 控件对象 = lua_tostring(L,1);
+	const char* 控件名称 = lua_tostring(L, 2);
+	INT64 x;
+	x = 常用功能::hex_to_decimal(控件对象);
+	CString	name = UI功能::UI名称1(x);
+
+	MyTrace(L"控件对象 %s", name);
+	if (name.Find(CStringW(控件名称))!=-1 && name.GetLength()!=0)
+	{ 
+		MyTrace(L"开始点击");
+		UI功能::控件点击call(x);
+	}
+
+	return 0;
+}
+
+
+static int 获取坐标对象(__LUA_指针)
+{
+	float x = lua_tonumber(L, 1);
+	float y = lua_tonumber(L, 2);
+
+	INT64 addr = 环境::鼠标获取对象call(x, y);
+	//CString(常用功能::十进制转十六进制(addr).c_str())
+	MyTrace(L"addr,0x%I64X", addr);
+		lua_pushstring(L, 常用功能::十进制转十六进制(addr).c_str());
+
+	return 1;
+
+}
+
+
+
+static int 传送是否开起(__LUA_指针)
+{
+	DWORD 传送点ID = lua_tointeger(L, 1);
+
+
+	bool id = 地图::传送点是否激活(传送点ID);
+	if (id==1)
+	{
+		lua_pushinteger(L, 1);
+	}
+	else
+	{
+		lua_pushinteger(L, 0);
+	}
+
+	return 1;
+
+}
+
+
+static int 坐船功能(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+	航海::坐船call功能(x);
+	return 0;
+}
+static int 检测ESC(__LUA_指针)
+{
+	INT64 rcx = 0;
+	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.exitMenuWindow", rcx);
+	if (rcx >= 1)
+	{
+		DWORD dResId = R_DW(rcx + 0xB8);
+		if (dResId == 1)
+		{
+			lua_pushinteger(L, 1);
+		}
+		else
+
+		{
+			lua_pushinteger(L, 0);
+		}
+	}
+	else
+	{
+		lua_pushinteger(L, 0);
+	}
+	return 1;
+
+
+}
+static int 重置数据(__LUA_指针)
+{
+	游戏模块 = (UINT64)GetModuleHandleA("LOSTARK.exe");
+	游戏模块_EFEngine = (UINT64)GetModuleHandleA("EFEngine.dll");
+	return 0;
+
+}
+
+static int 寻路地图(__LUA_指针)
+{
+	DWORD ID=环境::获取当前电梯ID();
+	lua_pushinteger(L, ID);
+	return 1;
+
+}
+
+
+static int 寻路_lua(__LUA_指针) 
+{
+	float x = lua_tonumber(L, 1);
+	float y = lua_tonumber(L, 2);
+	float z = lua_tonumber(L, 3);
+
+
+	地图::本地图寻路(x,y,z,0);
+	
+	return 0;
+
+}
+
+static int 拖拽药物(__LUA_指针)
+{
+	DWORD x1 = lua_tointeger(L, 1);
+	DWORD x2 = lua_tointeger(L, 2);
+	DWORD x3 = lua_tointeger(L, 3);
+	DWORD x4 = lua_tointeger(L, 4);
+	背包::药品拖拽call(x1, x2, x3, x4);
+
+	return 0;
+}
+
+
+static int 是否选择角色界面(__LUA_指针)
+{
+	//characterselect.fla_desc
+	if(登陆::是否在准备界面()==1)
+	{
+		lua_pushinteger(L, 1);
+	}
+	else
+	{
+		lua_pushinteger(L, 0);
+	}
+	return 1;
+
+}
+
+static int 获取港口ID(__LUA_指针)
+{
+	DWORD 大陆ID = 地图::取当前大陆ID();
+	lua_pushinteger(L, 大陆ID);
+
+	return 1;
+
+}
+
+static int 还原技能(__LUA_指针)
+{
+	CString 弹窗文本 = UI功能::窗口反馈文本();
+	CString 弹窗文本1 = "";
+
+	if (弹窗文本.Find(L"Combat Skills") == -1)
+	{
+		UI功能::内存按键(DWORD('K'));
+	}
+
+	INT64 addr =环境::鼠标获取对象call(3460, 11640);
+	if (addr>1)
+	{
+		弹窗文本1=UI功能::UI名称(addr);
+		if (弹窗文本1.Find(L"init_btn") != -1)
+		{
+
+
+		}
+		
+	}
+		
+
+
+	return 0;
+
+
+}
+
+static int 怪物数量(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	DWORD add = 0;
+
+	add = 环境::范围怪物数量(距离);
+	lua_pushinteger(L, add);
+	return 1;
+}
+
+
+static int 最近怪(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	const char* 过滤 = lua_tostring(L, 2);
+
+	
+	INT64 addr = 本人::最近怪物2(距离, 过滤);
+	lua_pushinteger(L, addr);
+	return 1;
+}
+
+static int 最近距离怪物(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+//	DWORD add = 0;
+	INT64 addr=本人::最近怪物1(距离);
+
+	lua_pushinteger(L,addr);
+	DebugPrintf("最近距离怪物0x%I64X\n", addr);
+	return 1;
+
+
+}
+
+static int 大陆ID(__LUA_指针)
+{
+	DWORD 大陆ID = 地图::取当前大陆ID();
+	lua_pushinteger(L, 大陆ID);
+
+	return 1;
+
+}
+
+static int 测试(__LUA_指针)
+{
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	//DWORD 大陆ID = 地图::取当前大陆ID();
+	return 0;
+
+	
+
+}
+
+
+static int 自定义记录(__LUA_指针)
+{
+	const char* message = lua_tostring(L, -1);
+
+	DebugPrintf("%s\n", message);
+
+	return 0;
+}
+
+
+
+static int LogMsg1(__LUA_指针)
+{
+	const char* message = lua_tostring(L, -1);
+	//const char* message = lua_tostring(L, -1);
+	//DebugPrintf("%s\n", message);
+	//string error_message = message;
+
+	DebugPrintf("%s\n", message);
+
+	return 0;
+
+}
+
+
+
  int 中转_取出主线任务(__LUA_指针)
 {
 	//USES_CONVERSION;
@@ -512,3 +1210,62 @@ void RegLuaScript()
 }
 
 */
+
+void RegLuaScript(lua_State* L)//lua注册函数
+{
+
+
+	lua_register(L, "取出主线任务", 中转_取出主线任务);
+	lua_register(L, "日志输出", 中转_日志输出);
+	lua_register(L, "延时", LUA_延时);
+	lua_register(L, "设置船员", 设置船员);
+	lua_register(L, "寻路", 寻路_lua);
+	lua_register(L, "选船功能", 最优战船);
+	lua_register(L, "msg", LogMsg1);
+	lua_register(L, "读取人物信息", 读取人物信息);
+	lua_register(L, "测试", 测试);
+	lua_register(L, "仓库取物品功能", 仓库取物品功能);
+	lua_register(L, "仓库取大东西", 仓库取大东西);
+	lua_register(L, "选船功能", 选船);
+	lua_register(L, "对话完成", 对话完成);
+	lua_register(L, "检测窗口",检测窗口);
+	lua_register(L, "选择体验", 选择体验);
+	lua_register(L, "确认职业", 确认职业);
+	lua_register(L, "跳过序幕", 跳过序幕);
+	lua_register(L, "自动任务", 自动任务);
+	lua_register(L, "穿戴装备", 穿戴装备);
+	lua_register(L, "设置技能按键1", 设置技能按键1);
+	lua_register(L, "快速设置技能", 快速设置技能);
+	lua_register(L, "是否到达航海界面", 是否在航海准备界面);
+	lua_register(L, "游戏小退", 游戏小退);
+	lua_register(L, "读取职业", 读取职业);
+	lua_register(L, "选择角色开始游戏", 选择角色开始游戏);
+	lua_register(L, "距离判断", 距离判断);
+	lua_register(L, "打孔能力石", 打孔能力石);
+	lua_register(L, "获取港口ID", 获取港口ID);
+	lua_register(L, "是否选择角色界面", 是否选择角色界面);
+	lua_register(L, "拖拽药物", 拖拽药物);
+	lua_register(L, "大陆ID", 大陆ID);
+	lua_register(L, "寻路地图", 寻路地图);
+	lua_register(L, "坐船功能", 坐船功能);
+	lua_register(L, "重置数据", 重置数据);
+	lua_register(L, "检测ESC", 检测ESC);
+	lua_register(L, "传送是否开起", 传送是否开起);
+	lua_register(L, "调试判断", 调试判断);
+	lua_register(L, "准备出航", 准备出航);
+	lua_register(L, "最近距离怪物", 最近距离怪物);
+	lua_register(L, "最近怪", 最近怪);
+	lua_register(L, "自定义记录", 自定义记录);
+	lua_register(L, "怪物数量", 怪物数量);
+	lua_register(L, "获取坐标对象", 获取坐标对象);
+	lua_register(L, "坐标点击1", 坐标点击1);
+	lua_register(L, "对象查询", 对象查询);
+
+	//航海::自动选择最优战船
+	//lua_close(L);
+}
+
+
+
+//CStringW  	const char*转换CString
+//CStringA     CString转换const char*

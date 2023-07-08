@@ -367,3 +367,150 @@ bool 本人::get_ActionTimingTime()
 	}
 	return false;
 }
+
+
+INT64 本人::最近怪物(DWORD 距离)
+{
+	ActorInfo_ add = 取角色信息();
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD obj距离 = 999999;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"")
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					if (vsk[i].距离 < obj距离)
+					{
+						obj距离 = vsk[i].距离;
+						返回指针 = vsk[i].dObjId;
+
+					}
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+
+}
+
+
+
+
+INT64 本人::最近怪物1(DWORD 距离)
+{
+
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD obj距离 = 999999;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+
+
+					返回指针 = vsk[i].objBase;
+					break;
+
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+
+}
+
+
+
+
+INT64 本人::最近怪物2(DWORD 距离, CString ID文本)
+{
+	CArray<CString, CString>返回文本组;
+	ActorInfo_ add = 取角色信息();
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD obj距离 = 999999;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					if (ID文本 == L"")
+					{
+						返回指针 = vsk[i].objBase;
+						break;
+					}
+					else
+					{
+						if (ID文本.Find(L"|") == -1)
+						{
+							DWORD 临时id = 常用功能::十六进制转十进制(CStringA(ID文本));
+							if (临时id == vsk[i].dResId)
+							{
+								返回指针 = vsk[i].objBase;
+								break;
+							}
+						}
+						else
+						{
+							文本分割(ID文本, '|', &返回文本组);
+							if (返回文本组.GetCount() == 0)
+							{
+								返回指针 = 0;
+								break;
+							}
+							else
+							{
+								for (size_t i = 0; i < 返回文本组.GetCount(); i++)
+								{
+									DWORD 临时id = 0;
+
+									临时id = 常用功能::十六进制转十进制(CStringA(ID文本));
+									if (临时id == vsk[i].dResId)
+									{
+										返回指针 = vsk[i].objBase;
+										return 返回指针;
+
+									}
+
+
+								}
+
+
+							}
+
+
+						}
+					}
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+
+}

@@ -29,5 +29,10 @@ public:
 	static bool 召唤宠物();
 	static bool get_ActionTimingTime();
 	//static bool 使用表情CALL(DWORD 表情id);
+	static INT64 最近怪物(DWORD 距离);
+	static INT64 最近怪物1(DWORD 距离);
+	static INT64 最近怪物2(DWORD 距离, CString id);
+
+
 };
 

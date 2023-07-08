@@ -31,6 +31,18 @@ BOOL bCheckActorEnemy(INT64 dObjAddr)
 	}
 	return FALSE;
 }
+
+BYTE bCheckActorEnemy1(INT64 dObjAddr)
+{
+	INT64 addr_1 = R_QW(dObjAddr + 0x8C);
+	DWORD dValue = R_BYTE(addr_1);//读字节
+	return dValue;
+
+
+}
+
+
+
 objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 {
 	//MyTrace(L"getActorInfo 0");
@@ -135,6 +147,115 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	//MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
 }
 
+
+
+
+objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
+{
+	//MyTrace(L"getActorInfo 0");
+	objInfo_ bi;
+	//memset(&bi, 0, sizeof(objInfo_));
+	bi.objBase = dObjAddr;
+	bi.dObjId = R_DW(dObjAddr + 0x14);
+	bi.dResId = R_DW(dObjAddr + 0x2C);
+	bi.ModId = R_DW(dObjAddr + 0x30);
+	INT64 dNameAddr = R_QW(dObjAddr + 0x1C);
+	CString csName = L"空";
+	if (dNameAddr)
+	{
+		bi.wName = R_CString(dNameAddr);;//dm.ReadStringAddr(dNameAddr,1,0); //
+		//wcscpy(bi.wName, csName.GetBuffer(0));
+		//bi.wName = csName;
+	}
+	bi.dType = R_BYTE(dObjAddr + 0x34);
+	//MyTrace(L"getActorInfo 1 名称 %s  resId %d type %d", bi.wName,bi.dResId,bi.dType);
+
+	if (bi.dType == 6 || bi.dType == 7 || bi.dType == 8 || bi.dType == 9)
+	{
+		//bi.dResAddr = dm.ReadIntAddr(dObjAddr + 0xB48,3);
+		//bi.dResType = dm.ReadIntAddr(bi.dResAddr + 0x36,6);
+		bi.dResType = R_BYTE(dObjAddr + 0xD18);
+		//bi.dResShow = R_BYTE(dObjAddr + 0xD15);
+		//MyTrace(L"getActorInfo 是否");
+		bi.dResShow = CALL_对象是否可交互(dObjAddr);
+		//MyTrace(L"getActorInfo 可交互");
+		bi.dResOpen = R_BYTE(dObjAddr + 0xD16);
+		bi.dPortalOpen = R_BYTE(dObjAddr + go_PortalOpen);
+	}
+	if (bi.dType == 11)
+	{
+		bi.dIsDead = R_BYTE(dObjAddr + 偏移_环境_击打道具是否死亡_类型11);
+	}
+	if (bi.dType == 7)
+	{
+		bi.dIsDead = R_BYTE(dObjAddr + 偏移_环境_击打道具是否死亡_类型7);
+	}
+	if (bi.dType == 3 || bi.dType == 11)
+	{
+		bi.dResAddr = getNpcResAddrById(bi.dResId);
+		if (bi.dResAddr)
+		{
+			INT64 dTipsAddr = R_QW(bi.dResAddr + 0x10);
+			if (dTipsAddr)
+			{
+				bi.wTips = R_CString(dTipsAddr);//dm.ReadStringAddr(dNameAddr,1,0); //
+				//wcscpy(bi.wName, csName.GetBuffer(0));
+				//bi.wName = csName;
+			}
+		}
+
+	}
+	if (bi.dType == 2 || bi.dType == 1)
+	{
+		//bi.dIsDead = CALL_怪物是否已死亡(dObjAddr);
+		//bi.dIsDead = CALL_对象是否可交互2(dObjAddr);
+		INT64 属性对象 = getAttrAddr(R_DW(dObjAddr + 0x14));
+		if (属性对象)
+		{
+			bi.dCurHp = getEncryValue(属性对象, 1);
+			bi.dMaxHp = getEncryValue(属性对象, 0x1B);
+		}
+		bi.dMonsterSkillNum = 环境::获取对象释放技能组(dObjAddr);
+	}
+	INT64 dTemp = R_QW(dObjAddr + 0x98);//更新-0218
+	bi.坐标.x = R_Float(dTemp + 偏移_坐标);//更新-0218
+	bi.坐标.y = R_Float(dTemp + 偏移_坐标 + 4);//更新-0218
+	bi.坐标.z = R_Float(dTemp + 偏移_坐标 + 8);//更新-0218
+	bi.距离 = 常用功能::计算距离(bi.坐标, 自己坐标);
+	bi.IsHide = bCheckActorHide(dObjAddr);
+	bi.IsEnemy = bCheckActorEnemy(dObjAddr);
+	bi.dCanAttack = R_BYTE(dObjAddr + 偏移_怪物_不可攻击偏移);
+	bi.是否可以攻击 = bCheckActorEnemy1(dObjAddr);
+
+
+	//MyTrace(L"getActorInfo 2");
+	//if (dm.ReadIntAddr(dObjAddr + 0xB2C,4) == 1 || dm.ReadIntAddr(dObjAddr + 0xB28,4) == 1)
+	{
+
+	}
+	/*if (bi.dType > 3)
+	{
+		bi.fx = dm.ReadFloatAddr(dObjAddr + 0x50);
+		bi.fy = dm.ReadFloatAddr(dObjAddr + 0x54);
+		bi.fz = dm.ReadFloatAddr(dObjAddr + 0x58);
+	}else
+	{
+		INT64 dTemp = dm.ReadIntAddr(dObjAddr + 0x124,3);
+		bi.fx = dm.ReadFloatAddr(dTemp + 0x44);
+		bi.fy = dm.ReadFloatAddr(dTemp + 0x48);
+		bi.fz = dm.ReadFloatAddr(dTemp + 0x4C);
+	}*/
+	bi.fDis = GetDis(bi.坐标.x, bi.坐标.y, bi.坐标.z);
+	//MyTrace(L"getActorInfo 3");
+	//if (dm.ReadIntAddr(dObjAddr + 0x28,4)==0x0002BFFD)
+	return bi;
+
+	//swprintf(buf, L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\r\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
+
+	//MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
+}
+
+
 int 环境::CALL_对象是否可交互(INT64 环境对象指针)
 {
 	if (环境对象指针 && !IsBadReadPtr((const void*)环境对象指针, sizeof(环境对象指针)))
@@ -212,6 +333,50 @@ void 环境::遍历全部环境对象(vector<objInfo_>& vsk)
 	}
 	::sort(vsk.begin(), vsk.end(), flessmark);
 }
+
+void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
+{
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+	vsk.clear();
+	objInfo_ 临时;
+	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	long dtotal = R_QW(addr_1 + 0x9C + 8 + 0x10 + 0x18);//更新-0218
+	INT64 objStartAddr = R_QW(addr_1 + 0x9C + 8);////更新-0218 对象数组地址
+	INT64 dKeyAddr = R_QW(addr_1 + 0x9C + 8 + 0x20);//更新-0218
+	if (!dKeyAddr)
+	{
+		dKeyAddr = addr_1 + 0x9C + 8 + 0x10;//更新-0218
+	}
+	for (long i = 0; i < dtotal; i++)
+	{
+		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
+		DWORD dNum = i % 0x20;
+		DWORD dCheck = (dKeyValue >> dNum) & 1;
+		if (dCheck)
+		{
+			DWORD dObjId = R_DW(objStartAddr + i * 0x3 * 8);
+			if (dObjId && dObjId != 0xFFFFFFFF)
+			{
+				INT64 dObjAddr = R_QW(objStartAddr + i * 0x3 * 8 + 8);
+				//MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
+				临时 = 环境::getActorInfo(dObjAddr);
+				if (临时.dResId != 0)
+				{
+					临时.dObjId = dObjId;
+					vsk.push_back(临时);
+				}
+
+			}
+		}
+	}
+	::sort(vsk.begin(), vsk.end(), flessmark);
+}
+
+
+
+
+
+
 void 环境::遍历指定全部环境对象(DWORD dtype, vector<objInfo_>& vsk)
 {
 	vsk.clear();
@@ -253,6 +418,36 @@ void 环境::遍历指定全部环境对象(DWORD dtype, vector<objInfo_>& vsk)
 	}
 	::sort(vsk.begin(), vsk.end(), flessmark);
 }
+
+
+DWORD 环境::范围怪物数量(DWORD 距离)
+{
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	DWORD 数量 = 0;
+	环境::遍历全部环境对象1(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2 || vsk[i].dType == 3)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					数量 = 数量 + 1;
+
+
+				}
+			}
+		}
+	}
+
+	return 数量;
+
+}
+
+
+
 bool 环境::判断怪物(INT64 对象)
 {
 	INT64 局_判断虚表地址 = R_QW(R_QW(对象) + 偏移_环境_对象虚表);
@@ -269,6 +464,38 @@ bool 环境::判断怪物(INT64 对象)
 		return true;
 	}
 	return false;
+
+}
+
+void 环境::小退call()
+{
+	INT64 rcx = 0;
+
+	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.exitMenuWindow", rcx);
+	if (rcx >= 1)
+	{
+
+		MyTrace(L"0X%I64X", rcx);
+		MainUniversalCALL4(rcx, 0x1F, 2, 0, 游戏模块 + 基址_小退call);
+		Sleep(2000);
+		UI功能::内存按键(VK_RETURN);
+	}
+
+
+}
+
+
+DWORD 环境::读取当前对话npc()
+{
+	DWORD b = 0;
+
+	INT64 局_rcx = R_QW(游戏模块 + 基址_环境_退出npc对话);
+
+
+	b = R_DW(局_rcx + 0xEC);
+
+	return b;
+
 
 }
 bool 环境::判断NPC(INT64 对象)

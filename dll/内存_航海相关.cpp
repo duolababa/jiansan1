@@ -314,3 +314,20 @@ bool 航海::自动选择最优战船()
 	}
 	return false;
 }
+
+void 航海::坐船call功能(DWORD dResId)
+{
+	DWORD rdx = dResId;
+	INT64 rcx = R_QW(游戏模块 + 基址_坐船rcx);
+
+	MainUniversalCALL2(rcx, rdx, 游戏模块 + 基址_坐船call);
+
+
+}
+
+void 航海::luaVoyageShipSelectShip(int dIndex)//选择船只
+{
+
+	VoyageShipSelectShip(dIndex);
+
+}

@@ -8,11 +8,13 @@
 
 
 
-
-
-
-
-
+#define 基址_小退call 0x279E160
+#define g_公共仓库索引 0x1246b0
+#define g_背包仓库头 0x6CC
+#define en鼠标call 0xE338C0
+#define en鼠标基址 0x3912D38
+#define 基址_坐船rcx 0x4FF4508
+#define 基址_坐船call 0x15754E0
 
 
 
@@ -356,7 +358,6 @@
 #define 偏移_拍卖_物品等级 0x11E
 #define 偏移_拍卖_立即购买 0x48
 #define 偏移_拍卖_最低出价 0x6E8
-
 
 
 //#define 偏移_背包_物品数量 0x6B8
