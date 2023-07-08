@@ -518,7 +518,9 @@ public:
      /*   CString temp;
         temp.Format(L"%d", GetCurrentProcessId());
         SendMessageToMoConter(121, temp);*/
+        MyTrace(L"开始");
         lua_State* L = initLua();
+        MyTrace(L"开始1");
         RegLuaScript(L);
         MyTrace(L"进入循环");
         while (循环跳出 == false)
@@ -928,12 +930,14 @@ public:
                     {
                         if (LUA脚本名称 != L"")
                         {
+                            MyTrace(L"Lua开关 %d", Lua开关);
                             if (Lua开关 == true)
                             {
                                 // string str = CStringA(LUA脚本名称);
                                  //char* aa = LUA脚本名称.GetBuffer();
                                 CStringA aa(LUA脚本名称);
-                                const char* LUA脚本名称bb = aa;
+                                const char* LUA脚本名称bb = "D:\\起号.lua";
+                                MyTrace(L"LUA脚本名称 %s", LUA脚本名称bb);
                                 if (!执行lua(L, LUA脚本名称bb))
                                 {
                                     break;
@@ -1136,7 +1140,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
             CString 脚本 = 配置::获取指定设置文本(L"脚本配置.ini", L"测试窗口", L"LUA脚本");
             if (脚本.Find(L".lua") != -1)
             {
-                // Lua开关 = true;
+                // Lua开关 = true;Lua开关 = true;
                 LUA脚本名称 = 脚本;
             }
         }
@@ -1151,7 +1155,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
         {
             /* CString cmdstr= GetCommandLineW();
              MyTrace(L"Cmd %s", cmdstr);*/
-            脚本任务 = L"主线1-50";
+         //   脚本任务 = L"主线1-50";
+            脚本任务 = L"lua";
+            Lua开关 = true;
+            MyTrace(L"脚本任务%s",脚本任务);
             //脚本任务 = L"签到";
             配置服务器 = L"Mari";
             角色序号 = L"1";

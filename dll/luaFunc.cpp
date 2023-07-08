@@ -44,7 +44,7 @@ lua_State* C_L;
 //}
 int panic(lua_State* L)
 {
-	const char* message = lua_tostring(L, -1);
+	const char* message = lua_tostring(L, 1);
 	//DebugPrintf("%s\n", message);
 	string error_message = message;
 	SendMessageToMoConter(111, error_message.c_str());
@@ -104,12 +104,12 @@ bool 执行lua(lua_State* L,const char * lua名称)
 
 	}*/
 	bool a = luaL_dofile(L, lua名称);
-	MyTrace(L"结果 %d",a);
+	//MyTrace(L"结果 %d", a);
 	if (a)
 	{
-		MyTrace(L"结果");
+		//MyTrace(L"结果");
 		string errormssage = lua_tostring(L, -1);
-		
+
 		DebugPrintf("%s\n", lua_tostring(L, -1));
 		Lua开关 = false;
 		lua_close(L);
@@ -927,7 +927,7 @@ static int 测试(__LUA_指针)
 
 static int 自定义记录(__LUA_指针)
 {
-	const char* message = lua_tostring(L, -1);
+	const char* message = lua_tostring(L, 1);
 
 	DebugPrintf("%s\n", message);
 
@@ -938,11 +938,11 @@ static int 自定义记录(__LUA_指针)
 
 static int LogMsg1(__LUA_指针)
 {
-	const char* message = lua_tostring(L, -1);
+	const char* message = lua_tostring(L, 1);
 	//const char* message = lua_tostring(L, -1);
 	//DebugPrintf("%s\n", message);
 	//string error_message = message;
-
+	MyTrace(L"开始输出");
 	DebugPrintf("%s\n", message);
 
 	return 0;

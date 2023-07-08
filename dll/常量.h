@@ -237,7 +237,7 @@
 #define gc_VoyageShipDelCrew 0xC64C90
 #define gc_VoyageShipAddCrew 0xCBA450
 #define go_VoyageCrewTotal 0x166FAC
-#define go_GetInteractPropState 0x2302484
+#define go_GetInteractPropState 0xB94
 #define go_hj_VehicleId 0x49D8
 #define go_ActionTimingData 0x124
 #define go_ActionTimingMaxTime 0x2D4
@@ -326,7 +326,7 @@
 #define 偏移_背包_生活装备遍历数组头 0x163908
 #define 偏移_背包_未知2遍历数组头 0x60810348
 #define 偏移_背包_最大耐久度 0x390
-#define 偏移_背包_当前耐久度 0x9C
+#define 偏移_背包_当前耐久度 0x69C
 #define 偏移_鼠标_坐标 0x2C8
 #define 偏移_技能_冷却 0x4AD0
 #define 偏移_技能_技能点数 0x166F4C
