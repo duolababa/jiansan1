@@ -943,6 +943,7 @@ public:
                                     break;
                                 }
                                 Sleep(2000);
+                                break;
                             }
                             else
                             {

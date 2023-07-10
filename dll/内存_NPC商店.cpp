@@ -179,3 +179,17 @@ bool NPC商店::补充药水()
 //	}
 //
 //}
+
+void NPC商店::Fun_BarterShopExchange(DWORD dItemIndex, DWORD dNum)//交换物品
+{
+
+	INT64 addr_1 = R_QW(游戏模块 + gb_ShopBase);
+
+	//UCHAR dInfoAddr[0x1000] = { 0 };
+	if (!IsBadReadPtr((void*)addr_1, sizeof(addr_1)))
+	{
+		MainUniversalCALL4(addr_1, dItemIndex, dNum, 0, 游戏模块 + gc_BarterShopExchange);
+	}
+
+
+}

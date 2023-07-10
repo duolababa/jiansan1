@@ -348,6 +348,19 @@ float  GetDis(float X1, float Y1, float Z1)
 	return sqrtf(float(x * x + y * y + z * z));
 }
 
+float  GetDis1(float X1, float Y1, float Z1)
+{
+
+	坐标_ 本人坐标 = 本人::取坐标();
+
+	float x = 本人坐标.x - X1;
+	float y = 本人坐标.y - Y1;
+	float z = 本人坐标.z - Z1;
+	return sqrtf(float(x * x + y * y + z * z))/100;
+}
+
+
+
 typedef unsigned __int64 uint64_t;
 uint64_t MurmurHash64A(const void* key, int len, unsigned int seed)
 {

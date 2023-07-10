@@ -1208,6 +1208,43 @@ void 背包::SetBufItemSlot(DWORD dItemId, DWORD dTargetIndex)// dTargetIndex  从0
 	dm.AsmCall( 6);*/
 }
 
+DWORD 背包::采集数量(DWORD ID)
+{
+	INT64 dRCX = R_QW(游戏模块 + 采集物品数量);
+	INT64 dCall = 游戏模块 + 采集数量call;
+	DWORD addr=MainUniversalCALL4_Ret(dRCX,ID,0,0, dCall);
+	return addr;
+//
+//#define 采集数量call 0x1329200
+//#define 采集物品数量 4C75ED0
+}
+
+DWORD 背包::指定类型物品数量(DWORD ID)
+{
+	vector<Inventoryinfo_> vsk;
+	背包::get_InventoryItemList(vsk);
+	DWORD a = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dSlotIndex == ID && ID!=0)
+		{
+			a = a + 1;
+
+
+		}
+
+	/*	if (vsk[i].ItemName.Find(物品名称) != -1)
+		{
+			背包::使用物品2(vsk[i].dindex);
+			break;
+		}*/
+	}
+	return a;
+
+}
+
+
 void 背包::药品拖拽call(DWORD 位置, DWORD dItemId, DWORD dTargetIndex, DWORD 物品类型)
 {
 	INT64 dCall = 游戏模块 + gc_ItemShortKeySet;
@@ -1249,7 +1286,7 @@ int 等级换算(int needuplv)
 	{
 		return 15;
 	}
-
+	return needuplv;
 }
 DWORD 背包::需研磨装备序号(DWORD lv)
 {

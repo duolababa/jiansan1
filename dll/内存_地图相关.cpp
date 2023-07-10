@@ -480,6 +480,7 @@ bool 地图::指定地点是否可到达_M(float x, float y, float z)
 	CALLArg.x = x;
 	CALLArg.y = y;
 	CALLArg.z = z;
+
 	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLCanArrive, (LPARAM)&CALLArg, SMTO_NORMAL, 2000, 0);
 	//MyTrace(L"返回值 %d", CALLArg.是否可达);
 	return (CALLArg.是否可达);

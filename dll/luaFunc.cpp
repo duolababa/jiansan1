@@ -272,12 +272,14 @@ static int 选船(__LUA_指针)
 
 static int 关闭多余窗口(__LUA_指针)
 {
+	MyTrace(L"进入");
 	if (环境::是否在和NPC对话())
 	{
 		环境::CALL_退出NPC();
 		Sleep(2000);
 	}
 	DWORD size = 0;
+	MyTrace(L"ces");
 
 	size = UI功能::窗口数量();
 
@@ -288,6 +290,7 @@ static int 关闭多余窗口(__LUA_指针)
 			size = UI功能::窗口数量();
 			if (size >= 1)
 			{
+				MyTrace(L"开始执行按键call");
 				UI功能::内存按键(VK_ESCAPE);
 				Sleep(1500);
 
@@ -659,6 +662,35 @@ static int 调试判断(__LUA_指针)
 
 }
 
+static int 死亡复活(__LUA_指针)
+{
+	DWORD 复活触发 = lua_tointeger(L, 1);
+	CString 复活方式;
+	if (复活触发 == 1)
+	{
+		复活方式 = "root";
+		UI功能::复活(复活方式);
+	}
+	else
+
+	{
+		复活方式 = "root";
+		UI功能::复活(复活方式);
+	}
+
+	return 0;
+
+
+}
+
+static int 采集数量(__LUA_指针)
+{
+	const char* 控件对象 = lua_tostring(L, 1);
+	DWORD addr=背包::采集数量(常用功能::十六进制转十进制(控件对象));
+	lua_pushinteger(L, addr);
+	return 1;
+
+}
 
 static int 对象查询(__LUA_指针)
 {
@@ -868,6 +900,125 @@ static int 还原技能(__LUA_指针)
 
 
 }
+static int 金币数量(__LUA_指针)
+{
+	INT64 x = 背包::getMoneyNumByType(2);
+
+	lua_pushinteger(L, x);
+
+	return 1;
+}
+
+
+static int 捕鱼(__LUA_指针)
+{
+	钓鱼::捕鱼();
+
+	return 0;
+
+}
+
+static int 拾取(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	功能::拾取(ID);
+
+	return 0;
+}
+
+
+
+static int 类型数量(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	DWORD a = 背包::指定类型物品数量(ID);
+	lua_pushinteger(L, a);
+	return 1;
+}
+
+static int 技能信息(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+
+	vector<SkillInfo_>vsk;
+	技能::get_SkillList(vsk);
+	//MyTrace(L"自动升级技能2");
+	SkillInfo_ SKILL;
+	SKILL=技能::取出指定技能信息(ID, vsk);
+	lua_pushinteger(L, SKILL.dSkillLev);
+	lua_pushinteger(L, SKILL.天赋1);
+	lua_pushinteger(L, SKILL.天赋2);
+	lua_pushinteger(L, SKILL.天赋3);
+
+	return 4;
+}
+
+static int 剩余技能点(__LUA_指针)
+{
+	DWORD x = 技能::getRoleCurSkillPoints();
+	lua_pushinteger(L, x);
+	return 1;
+}
+
+
+static int 当前技能(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	DWORD add = 技能::SKLLADDR(ID);
+	lua_pushinteger(L, add);
+	return 1;
+
+
+}
+
+
+static int 信息获取(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	INT64 x= 背包::getMoneyNumByType(ID);
+
+	lua_pushinteger(L, x);
+	return 1;
+}
+
+
+static int 兑换黄金(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	DWORD ID1 = lua_tointeger(L, 2);
+	NPC商店::Fun_BarterShopExchange(ID, ID1);
+	return 0;
+
+
+}
+
+
+static int 测试商店(__LUA_指针)
+{
+	vector<Inventoryinfo_>vsk;
+	NPC商店::get_ShopItemList(vsk);
+	return 0;
+}
+
+
+static int 领取邮件(__LUA_指针)
+{
+	签到邮件::邮件领取();
+
+	return 0;
+
+}
+static int 怪物数量1(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	DWORD add = 0;
+
+	add = 环境::范围怪物数量1(距离);
+	lua_pushinteger(L, add);
+	return 1;
+
+
+}
 
 static int 怪物数量(__LUA_指针)
 {
@@ -1030,186 +1181,7 @@ static int LogMsg1(__LUA_指针)
 	MyTrace(L"3");
 	return 1;
 }
-/*
-#define __LUA_指针 lua_State* L
 
-static int MovePoint(__LUA_指针)
-{
-	float x = lua_tonumber(L, 1);
-	float y = lua_tonumber(L, 2);
-	float z = lua_tonumber(L, 3);
-	游戏功能群782282356::f瞬移(x, y, z);
-	//DebugPrintf("调用了lua[瞬移] -- 坐标内容 => [%.1f,%.1f,%.1f]\n",x,y,z);
-	return 0;
-}
-static int DbgPrint(__LUA_指针)
-{
-	const char* tmpStr = lua_tostring(L, 1);
-	DebugPrintf("%s\n", tmpStr);
-	return 0;
-}
-static int GetMapId(__LUA_指针)
-{
-	lua_pushinteger(L, 游戏功能群782282356::f获取地图ID());
-	return 1;
-}
-static int FindWayTo(__LUA_指针)
-{
-	DWORD MAPID = lua_tonumber(L, 1);
-	float x = lua_tonumber(L, 2);
-	float y = lua_tonumber(L, 3);
-	float z = lua_tonumber(L, 4);
-	游戏功能群782282356::CALL寻路(MAPID, x, y, z);
-	return 0;
-}
-static int GameKeyB(__LUA_指针)
-{
-	DWORD KeyVal = lua_tointeger(L, 1);
-	//游戏功能群782282356::CALL按键((UINT64)KeyVal);
-	return 0;
-}
-
-static int GetFindWayNextPos(__LUA_指针)
-{
-	结构_坐标 tmpPos = 游戏功能群782282356::f取寻路下个目的坐标();
-	lua_pushnumber(L, tmpPos.x);
-	lua_pushnumber(L, tmpPos.y);
-	lua_pushnumber(L, tmpPos.z);
-	return 3;
-}
-static int GetRolePos(__LUA_指针)
-{
-	结构_坐标 tmpPos = 游戏功能群782282356::f取角色坐标();
-	lua_pushnumber(L, tmpPos.x);
-	lua_pushnumber(L, tmpPos.y);
-	lua_pushnumber(L, tmpPos.z);
-	return 3;
-}
-static int GetRoleSateL(__LUA_指针)
-{
-	lua_pushinteger(L, 游戏功能群782282356::f获取角色状态());
-	return 1;
-}
-static int IsLoadingL(__LUA_指针)
-{
-	lua_pushboolean(L, 游戏功能群782282356::f是否进入游戏中());
-	return 1;
-}
-static int IsStoryMissionIngL(__LUA_指针)
-{
-	lua_pushboolean(L, 游戏功能群782282356::f是否在剧情中());
-	return 1;
-}
-static int SeckillMonsterL(__LUA_指针)
-{
-	游戏功能群782282356::f秒杀怪物();
-	return 0;
-}
-static int FindWayMoveTo(__LUA_指针)
-{
-	DWORD MAPID = lua_tonumber(L, 1);
-	float x = lua_tonumber(L, 2);
-	float y = lua_tonumber(L, 3);
-	float z = lua_tonumber(L, 4);
-	游戏功能群782282356::f寻路瞬移(MAPID, x, y, z);
-	return 0;
-}
-static int IsFindWayIngL(__LUA_指针)
-{
-	lua_pushboolean(L, 游戏功能群782282356::f是否寻路中());
-	return 1;
-}
-static int GetMainTaskListL(__LUA_指针)
-{
-	游戏功能群782282356::f取已接任务列表();
-	lua_pushinteger(L, 游戏功能群782282356::已接任务列表.size());
-	return 1;
-}
-static int 获取控件对象列表(__LUA_指针)
-{
-
-	//控件功能开源群782282356::f取控件对象结构列表();
-	return 0;
-}
-
-static int 自动开始游戏(__LUA_指针)
-{
-	控件功能开源群782282356::点击开始游戏();
-	return 0;
-}
-static int 跳过左上角引导(__LUA_指针)
-{
-	控件功能开源群782282356::跳过引导对话_左上角();
-	return 0;
-}
-static int 跳过右上角引导(__LUA_指针)
-{
-	控件功能开源群782282356::跳过引导对话_右上角();
-	return 0;
-}
-static int 法师攻击随机目标(__LUA_指针)
-{
-	游戏功能群782282356::攻击随机对象();
-	return 0;
-}
-static int 控件_进入游戏(__LUA_指针)
-{
-	控件功能开源群782282356::点击进入游戏();
-	return 0;
-}
-static int  交接任务(__LUA_指针)
-{
-	DWORD 标志 = lua_tointeger(L, 1);
-	DWORD 任务id = lua_tointeger(L, 2);
-	游戏功能群782282356::CALL交接任务(标志, 任务id);
-	return 0;
-}
-static int 控件call(__LUA_指针)
-{
-	char* tmpstr = (char*)lua_tostring(L, 1);
-	DWORD 偏移 = lua_tointeger(L, 2);
-
-	//DebugPrintf("%s\n", tmpstr);	
-	控件功能开源群782282356::CALL控件开源群782282356(tmpstr, 偏移);
-	return 0;
-}
-
-void RegLuaScript()
-{
-
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
-
-	lua_register(L, "瞬移", MovePoint);
-	lua_register(L, "取地图ID", GetMapId);
-	lua_register(L, "调试输出", DbgPrint);
-	lua_register(L, "寻路到", FindWayTo);
-	lua_register(L, "寻路瞬移", FindWayMoveTo);
-	lua_register(L, "获取下一个点", GetFindWayNextPos);
-	lua_register(L, "获取角色坐标", GetRolePos);
-	lua_register(L, "获取角色状态", GetRoleSateL);
-	lua_register(L, "是否在游戏中", IsLoadingL);
-	lua_register(L, "是否在剧情中", IsStoryMissionIngL);
-	lua_register(L, "是否寻路中", IsFindWayIngL);
-	lua_register(L, "获取已接任务", GetMainTaskListL);
-	lua_register(L, "取控件对象列表", 获取控件对象列表);
-	lua_register(L, "自动开始游戏", 自动开始游戏);
-	lua_register(L, "自动跳过左上角引导", 跳过左上角引导);
-	lua_register(L, "自动跳过右上角引导", 跳过右上角引导);
-	lua_register(L, "攻击一下", 法师攻击随机目标);
-	lua_register(L, "交接任务", 交接任务);
-	lua_register(L, "控件CALL", 控件call);
-	lua_register(L, "点击进入游戏", 控件_进入游戏);
-
-
-	bool a= luaL_dofile(L, "Mir4.lua");
-
-	if (a) DebugPrintf("%s\n", lua_tostring(L, -1));
-
-	lua_close(L);
-}
-
-*/
 
 void RegLuaScript(lua_State* L)//lua注册函数
 {
@@ -1260,6 +1232,24 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "获取坐标对象", 获取坐标对象);
 	lua_register(L, "坐标点击1", 坐标点击1);
 	lua_register(L, "对象查询", 对象查询);
+	lua_register(L, "关闭多余窗口", 关闭多余窗口);
+	lua_register(L, "任务判断", 任务判断);
+	lua_register(L, "特殊物品数量", 采集数量);
+	lua_register(L, "死亡复活", 死亡复活);
+	lua_register(L, "怪物数量1", 怪物数量1);
+	lua_register(L, "领取邮件", 领取邮件);
+	lua_register(L, "兑换黄金", 兑换黄金);
+	lua_register(L, "测试商店", 测试商店);
+	lua_register(L, "信息获取", 信息获取);
+
+	lua_register(L, "当前技能", 当前技能);
+	lua_register(L, "技能点", 剩余技能点);
+	lua_register(L, "技能信息", 技能信息);
+
+	lua_register(L, "类型数量", 类型数量);
+	lua_register(L, "拾取", 拾取);
+	lua_register(L, "捕鱼", 捕鱼);
+
 
 	//航海::自动选择最优战船
 	//lua_close(L);

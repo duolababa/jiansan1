@@ -91,41 +91,7 @@ INT64 UI功能::getUiObjById_Old(DWORD ID)
 	return reta;
 }
 
-CString UI功能::节点唯一标识(INT64 对象, INT64& 返回对象)
-{
 
-	INT64 节点 = R_QW(R_QW(R_QW(对象) + 0x18) + 0x70);
-	INT64 返回对象1 = R_QW(节点 + 0x60);
-	INT64 路径名称2 = R_QW(节点 + 0xF8);
-
-	路径名称2 = R_QW(路径名称2);
-
-	string 路径名称 = R_String(路径名称2);
-
-	if (路径名称 == "")
-	{
-
-		返回对象1 = R_QW(节点 + 0x618);
-		路径名称2 = R_QW(返回对象1 + 0xF8);
-		路径名称2 = R_QW(路径名称2);
-		路径名称 = R_String(路径名称2);
-		if (路径名称 == "")
-		{
-			返回对象1 = R_QW(节点 + 0x630);
-			路径名称2 = R_QW(返回对象1);
-
-			路径名称 = R_String(路径名称2);
-
-		}
-
-	}
-	返回对象 = 返回对象1;
-	return CStringW(路径名称.c_str());
-	//路径名称 ＝ 到文本(VU_读取字节集(进程信息列表[序号].进程ID, 路径名称2, 300))
-
-
-
-}
 bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 {
 	CString temp;
@@ -151,7 +117,19 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 
 		DWORD rax = i + 1;
 		INT64 参数 = rdx + rax * 5 * 4 + 4;
-		CString name1 = UI功能::节点唯一标识(参数, rcx);
+
+		INT64 addr_1 = R_QW(R_QW(参数) + 0X18);
+		INT64 addr_2 = R_QW(addr_1 + 0x50 + 0X20);//更新-0218
+		INT64 dNameAddr = R_QW(addr_2 + 0xF8);
+		CString name1 = L"空";
+		if (dNameAddr)
+		{
+			 name1 = CString(R_String(R_QW(dNameAddr)));
+			MyTrace(L"%s", name1.GetString());
+
+		}
+	
+		//CString name1 = getMsgBoxMiddleText2(R_QW(参数));
 
 
 		temp.Format(L"%I64X", 参数);
@@ -586,6 +564,7 @@ bool UI功能::准备出航()
 	if (!UI功能::大地图是否显示())
 	{
 		UI功能::内存按键('M');
+		Sleep(2000);
 		return false;
 	}
 	//INT64 局_UI对象 = UI功能::getUiObjById(152);

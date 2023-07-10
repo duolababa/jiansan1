@@ -42,6 +42,10 @@ int 钓鱼::getFishObjState()//5为初始化 1为普通 3为来鱼 2为出现感叹
 	}
 	return -1;
 }
+
+
+
+
 //当前快捷键页面类型
 int 钓鱼::getquickSlotFrameType()//1普通 3 生活 5骑马
 {
@@ -51,4 +55,22 @@ int 钓鱼::getquickSlotFrameType()//1普通 3 生活 5骑马
 		return R_DW(dUiObj + go_QuickSlotType);
 	}
 	return 0;
+}
+
+
+void 钓鱼::捕鱼()
+{
+	for (size_t i = 0; i < 3000; i++)
+	{
+		DWORD X = 钓鱼::getquickSlotFrameType();
+		if (X == 2)
+		{
+			UI功能::内存按键(DWORD('E'));
+			return;
+		}
+
+		Sleep(100);
+	}
+
+
 }
