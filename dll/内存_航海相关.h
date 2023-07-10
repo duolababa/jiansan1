@@ -14,6 +14,7 @@ public:
 	static bool 自动选择最优战船();
 	static void 坐船call功能(DWORD dResId);
 	static void luaVoyageShipSelectShip(int dIndex);
+	static bool Yesornonauticalpicture();
 //tatic void VoyageShipSelectShip(DWORD dResId);
 };
 

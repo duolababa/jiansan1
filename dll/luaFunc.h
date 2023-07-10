@@ -81,6 +81,8 @@ static int 类型数量(__LUA_指针);
 static int 拾取(__LUA_指针);
 static int 捕鱼(__LUA_指针);
 static int 金币数量(__LUA_指针);
+static int 是否航海界面(__LUA_指针);
+
 
 
 // NPC商店::get_ShopItemList(vector<Inventoryinfo_>& vsk)

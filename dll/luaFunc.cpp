@@ -900,6 +900,14 @@ static int 还原技能(__LUA_指针)
 
 
 }
+static int 是否航海界面(__LUA_指针)
+{
+	bool data = 航海::Yesornonauticalpicture();
+
+	lua_pushinteger(L, data);
+
+	return 1;
+}
 static int 金币数量(__LUA_指针)
 {
 	INT64 x = 背包::getMoneyNumByType(2);
@@ -1249,6 +1257,8 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "类型数量", 类型数量);
 	lua_register(L, "拾取", 拾取);
 	lua_register(L, "捕鱼", 捕鱼);
+	lua_register(L, "是否航海界面", 是否航海界面);
+
 
 
 	//航海::自动选择最优战船
