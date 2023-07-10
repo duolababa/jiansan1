@@ -39,6 +39,8 @@ public:
     static DWORD 判断技能等级(DWORD 技能ID);
     static void 摆放与学习技能();
     static DWORD get_SkillShortCurPage();
+
+    static DWORD SKLLADDR(DWORD ID);
     //static void 自动升级技能();
 
 };

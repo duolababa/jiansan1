@@ -126,6 +126,23 @@ void getVoyageShipList(vector<ShipInfo_>& ShipGroup, vector<CrewInfo_>& CrewGrou
 
 }
 
+bool 航海::Yesornonauticalpicture()
+{
+	INT64 dUiObj = UI功能::getUiObjById(0xB2);//"root1.arkui.frameCanvas.anchorFrame"
+	if (dUiObj)
+	{
+
+		DWORD dShow = R_DW(dUiObj + 0x27C);
+		if (dShow)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 void VoyageShipSelectShip(int dIndex)//选择船只
 {
 	INT64 dUiObj = UI功能::getUiObjById(0xB2);//"root1.arkui.frameCanvas.anchorFrame"

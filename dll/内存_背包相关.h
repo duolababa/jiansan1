@@ -40,6 +40,8 @@ public:
     static void SetBufItemSlot(DWORD dItemId, DWORD dTargetIndex);
     static void 药品拖拽call(DWORD 位置, DWORD dItemId, DWORD dTargetIndex, DWORD 物品类型);
     static DWORD 需研磨装备序号(DWORD lv);
+    static DWORD 采集数量(DWORD ID);
+    static DWORD 指定类型物品数量(DWORD ID);
 };
 
 int getEquipWearArg(int dSlotIndex);

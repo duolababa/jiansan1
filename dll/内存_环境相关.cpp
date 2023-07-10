@@ -118,7 +118,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	bi.IsEnemy = bCheckActorEnemy(dObjAddr);
 	bi.dCanAttack = R_BYTE(dObjAddr + 偏移_怪物_不可攻击偏移);
 
-
+	MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n", dObjAddr, bi.dObjId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z);
 
 	//MyTrace(L"getActorInfo 2");
 	//if (dm.ReadIntAddr(dObjAddr + 0xB2C,4) == 1 || dm.ReadIntAddr(dObjAddr + 0xB28,4) == 1)
@@ -142,7 +142,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	//if (dm.ReadIntAddr(dObjAddr + 0x28,4)==0x0002BFFD)
 	return bi;
 
-	//swprintf(buf, L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\r\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
+	//swprintf(buf, L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\r\n", bi.dIndex, bi.dObjAddr, bi.dObjId, bi.csName, bi.dType, bi.x, bi.y,bi.z);
 
 	//MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
 }
@@ -245,7 +245,7 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 		bi.fy = dm.ReadFloatAddr(dTemp + 0x48);
 		bi.fz = dm.ReadFloatAddr(dTemp + 0x4C);
 	}*/
-	bi.fDis = GetDis(bi.坐标.x, bi.坐标.y, bi.坐标.z);
+	bi.fDis = bi.距离;
 	//MyTrace(L"getActorInfo 3");
 	//if (dm.ReadIntAddr(dObjAddr + 0x28,4)==0x0002BFFD)
 	return bi;
@@ -429,6 +429,31 @@ DWORD 环境::范围怪物数量(DWORD 距离)
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
 		if (vsk[i].dType == 2 || vsk[i].dType == 3)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					数量 = 数量 + 1;
+
+
+				}
+			}
+		}
+	}
+
+	return 数量;
+
+}
+DWORD 环境::范围怪物数量1(DWORD 距离)
+{
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	DWORD 数量 = 0;
+	环境::遍历全部环境对象1(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2 )
 		{
 			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
 			{
@@ -931,6 +956,10 @@ bool 环境::是否在动画()
 	}
 	return true;
 }
+
+
+
+
 bool 环境::拾物(INT64 对象)
 {
 	INT64 局_call = 游戏模块 + 基址_环境_拾物call;

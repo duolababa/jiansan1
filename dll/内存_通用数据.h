@@ -15,6 +15,7 @@ CString GetName(INT64 dNameAddr);
 INT64 getAttrAddr(DWORD dId);
 DWORD getEncryValue(INT64 dAttrAddr, DWORD dIndex);
 float  GetDis(float X1, float Y1, float Z1);
+float  GetDis1(float X1, float Y1, float Z1);
 //char* UnicodeToAnsi(const wchar_t* szStr);
 INT64 getStringAddr(DWORD dStrIndex, INT64 dStrAddr, DWORD dStrLen);
 int æ‡¿Îº∆À„(int x1, int y1, int z1, int x2, int y2, int z2);

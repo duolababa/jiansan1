@@ -279,6 +279,17 @@ DWORD 技能::get_SkillShortCurPage()
 	BYTE dCurPage = R_BYTE(addr_1 + 0x9C);
 	return dCurPage;
 }
+DWORD 技能::SKLLADDR(DWORD ID)
+{
+	INT64 addr_1 = R_QW(R_QW(R_QW(R_QW(游戏模块 + 基址_技能_快捷栏)+0xA8))+0x28);
+	DWORD a=R_DW(addr_1 + ID * 5 * 4 + 4);
+	return a;
+}
+
+
+
+
+
 void 技能::get_SkillShortList(vector<ShortCutInfo_>& vsk)
 {
 	vsk.clear();

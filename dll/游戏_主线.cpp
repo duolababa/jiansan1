@@ -31747,6 +31747,48 @@ bool 清理击打道具(float x, float y, float z, int 距离自身范围, int 打怪范围)
 	}
 	return true;
 }
+ void 功能::拾取(int 打怪范围)
+{
+
+	 objInfo_ temp;
+	 vector<objInfo_>vsk;
+	 环境::遍历全部环境对象1(vsk);
+
+	 INT64 返回指针 = 0;
+
+	 for (size_t i = 0; i < vsk.size(); i++)
+	 {
+		 if (vsk[i].dType == 4)
+		 {
+			
+				 if (vsk[i].距离 < 打怪范围)
+				 {
+					 if (vsk[i].dObjId != 0)
+					 {
+						 if (地图::指定地点是否可到达_M(vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z))
+						 {
+							 地图::本地图寻路(vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z, 0);
+							 环境::拾物(vsk[i].objBase);
+
+						 }
+
+
+					 }
+					
+					
+
+				 }
+			 
+
+		 }
+	 }
+
+	 return ;
+
+}
+
+
+
 
 bool 功能::拾取道具(int 打怪范围)
 {
@@ -31765,6 +31807,7 @@ bool 功能::拾取道具(int 打怪范围)
 		else
 		{
 			MyTrace(L"拾取道具 %s %d 距离%0.3f", 最近拾取道具.wName, 最近拾取道具.dResId, 最近拾取道具.fDis);
+
 			环境::拾物(最近拾取道具.objBase);
 			//功能::打怪程序(最近拾取道具.objBase);
 		}
@@ -31772,6 +31815,35 @@ bool 功能::拾取道具(int 打怪范围)
 	}
 	return true;
 }
+
+
+bool 功能::拾取道具1(int 打怪范围)
+{
+	objInfo_ 最近拾取道具;
+	vector<objInfo_>拾取道具组;
+	环境::遍历地面物品(拾取道具组);
+	MyTrace(L"拾取道具数量 %d", 拾取道具组.size());
+	最近拾取道具 = 取范围内拾取物品(拾取道具组, 打怪范围);
+	MyTrace(L"最近拾取道具 %s %d", 最近拾取道具.wName, 最近拾取道具.fDis);
+	if (最近拾取道具.dObjId != 0)
+	{
+		if (最近拾取道具.fDis/100 > 500)
+		{
+			地图::本地图寻路(最近拾取道具.坐标.x, 最近拾取道具.坐标.y, 最近拾取道具.坐标.z, 0);
+		}
+		else
+		{
+			MyTrace(L"拾取道具 %s %d 距离%0.3f", 最近拾取道具.wName, 最近拾取道具.dResId, 最近拾取道具.fDis);
+			环境::拾物(最近拾取道具.objBase);
+			//功能::打怪程序(最近拾取道具.objBase);
+		}
+		return false;
+	}
+	return true;
+}
+
+
+
 bool 功能::优先打怪(int 打怪范围)
 {
 	坐标_ 本人 = 本人::取坐标();

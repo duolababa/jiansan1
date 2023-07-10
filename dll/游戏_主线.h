@@ -82,6 +82,8 @@ public:
 	static void 打怪程序2(INT64 怪物obj, 坐标_ 固定坐标, objInfo_ 参_开关信息);
 	static void 破坏击打道具程序(INT64 怪物obj, DWORD dResId);
 	static bool 拾取道具(int 打怪范围);
+	static void 拾取(int 打怪范围);
+	static bool 拾取道具1(int 打怪范围);
 	static bool 优先打怪(int 打怪范围);
 	static bool 优先破坏击打道具(int 打怪范围);
 	static bool 获取寻路分段坐标组(DWORD 地图ID, float x, float y, float z, vector<录制坐标_>& 返回路径分段坐标组);

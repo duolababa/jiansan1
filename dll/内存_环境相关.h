@@ -14,6 +14,7 @@ public:
 
 	static void 遍历指定全部环境对象(DWORD dtype, vector<objInfo_>& vsk);
 	static DWORD 范围怪物数量(DWORD 距离);
+	static DWORD 范围怪物数量1(DWORD 距离);
 	static bool 判断怪物(INT64 对象);
 	static bool 判断NPC(INT64 对象);
 	static void 小退call();

@@ -7,17 +7,16 @@
 
 
 
-
+#define g_行走状态 0x754
 #define 基址_小退call 0x279E160
 #define g_公共仓库索引 0x1246b0
 #define g_背包仓库头 0x6CC
-#define en鼠标call 0xE338C0
-#define en鼠标基址 0x3912D38
-#define 基址_坐船rcx 0x4FF4508
-#define 基址_坐船call 0x15754E0
-
-
-
+#define en鼠标call 0xE31AF0
+#define en鼠标基址 0x36D1D00
+#define 基址_坐船rcx 0x4C836C0
+#define 基址_坐船call 0x1475020
+#define 采集数量call 0x1329200
+#define 采集物品数量 0x4C75ED0
 
 
 #define 基址_个人_遍历 0x4C10FE0
@@ -177,7 +176,7 @@
 #define go_ExpressMailOpened 0x120
 #define go_ExpressMailMoney1 0x120
 #define go_ExpressMailMoney2 0x3404
-#define go_ExpressMailSize 0x104
+#define go_ExpressMailSize 0x3560
 #define go_ExpressMailCurSel 0x160
 #define gb_ExpressMailList 0x4C71B70
 #define go_ExpressMailType 0x104
@@ -216,7 +215,7 @@
 #define gc_WelcomeChallengeTypeNewIndex 0x151A910
 #define go_ShopListSize 0x128
 #define gc_BarterShopEquipLevCheck 0x13AE3A0
-#define gc_BarterShopExchange 0x13A6100
+#define gc_BarterShopExchange 0x13A6110
 #define gc_GetMoneyValue 0x24B53B0
 #define go_RoleMoneyListStart 0x120
 #define go_PacketSocketObj 0x174

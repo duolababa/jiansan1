@@ -67,8 +67,29 @@ static int 怪物数量(__LUA_指针);
 static int 获取坐标对象(__LUA_指针);
 static int 坐标点击1(__LUA_指针);
 static int 对象查询(__LUA_指针);
+static int 采集数量(__LUA_指针);
+static int 死亡复活(__LUA_指针);
+static int 怪物数量1(__LUA_指针);
+static int 领取邮件(__LUA_指针);
+static int 兑换黄金(__LUA_指针);
+static int 测试商店(__LUA_指针);
+static int 信息获取(__LUA_指针);
+static int 当前技能(__LUA_指针);
+static int 剩余技能点(__LUA_指针);
+static int 技能信息(__LUA_指针);
+static int 类型数量(__LUA_指针);
+static int 拾取(__LUA_指针);
+static int 捕鱼(__LUA_指针);
+static int 金币数量(__LUA_指针);
+static int 是否航海界面(__LUA_指针);
 
 
+
+// NPC商店::get_ShopItemList(vector<Inventoryinfo_>& vsk)
+
+
+
+//UI功能::复活(CString 复活方式)
 //	lua_register(L, "传送是否开起", 传送是否开起);
 //游戏模块 = (UINT64)GetModuleHandleA("LOSTARK.exe");
 //游戏模块_EFEngine = (UINT64)GetModuleHandleA("EFEngine.dll");
