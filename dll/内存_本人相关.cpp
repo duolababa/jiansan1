@@ -132,7 +132,8 @@ ActorInfo_ 本人::取角色信息()
 	临时角色信息.怒气值 = 当前怒气值;
 	临时角色信息.InteractPropState = R_DW(局_个人真实对象 + go_GetInteractPropState);
 	INT64 addr3 = R_QW(R_QW(局_个人真实对象 + 偏移_个人_当前动作 + 0x30));
-	DWORD 当前动作值 = R_DW(addr3 + 0x30);
+	//DWORD 当前动作值 = R_DW(addr3 + 0x30);
+	DWORD 当前动作值 = R_DW(局_个人真实对象 + 偏移_个人_当前动作 + 0x1C);
 	//DWORD 举起状态 = R_DW(局_个人真实对象 + 0x234);
 	临时角色信息.当前动作 = 当前动作值;
 	临时角色信息.举起状态 = 举起东西状态();
