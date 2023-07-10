@@ -498,7 +498,7 @@ bool 地图::指定地点是否可到达_M(float x, float y, float z)
 	W_Float((ULONG64)&pBuff[4], y);
 	W_Float((ULONG64)&pBuff[8], z);
 	INT64 局_R9 = (INT64)&pBuff;
-	INT64 ret = MainUniversalCALL4_Ret(rcx, r12, 0, (ULONG_PTR)pBuff, dCALL);
+	INT64 ret = MainUniversalCALL8_Ret(rcx, r12, 0, (ULONG_PTR)pBuff,0,0,1,0,dCALL);
 	//坐标_ CALLArg;
 	//CALLArg.x = x;
 	//CALLArg.y = y;
