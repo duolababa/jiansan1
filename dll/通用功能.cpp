@@ -552,6 +552,21 @@ void MainUniversalCALL8(UINT64 RCX_值, UINT64 RDX_值, UINT64 R8_值, UINT64 R9_值
 	CALLArg.CALLAddr = CALL_地址;
 	::SendMessageA(g_hWnd, 注册消息值, Msgid::CallCanUse3, (LPARAM)&CALLArg);
 }
+INT64 MainUniversalCALL8_Ret(UINT64 RCX_值, UINT64 RDX_值, UINT64 R8_值, UINT64 R9_值, UINT64 rsp_20, UINT64 rsp_28, UINT64 rsp_30, UINT64 rsp_38, UINT64 CALL_地址)
+{
+	CallParam8 CALLArg;
+	CALLArg.RCX = RCX_值;
+	CALLArg.RDX = RDX_值;
+	CALLArg.R8 = R8_值;
+	CALLArg.R9 = R9_值;
+	CALLArg.第5参数 = rsp_20;
+	CALLArg.第6参数 = rsp_28;
+	CALLArg.第7参数 = rsp_30;
+	CALLArg.第8参数 = rsp_38;
+	CALLArg.CALLAddr = CALL_地址;
+	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CallCanUse3, (LPARAM)&CALLArg, SMTO_NORMAL, 1000, 0);
+	return CALLArg.RetVal;
+}
 int Random(int min, int max)
 {
 

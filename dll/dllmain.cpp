@@ -82,7 +82,7 @@ LRESULT CALLBACK hkWndProc_(int nCode, WPARAM wParam, LPARAM lparam)
                 break;
             case Msgid::CallCanUse3:// 6个参数的call调用               			
                 CanUseCALLParam8 = (CallParam8*)lpArg->lParam;
-                CALL8(
+                CanUseCALLParam8->RetVal= CALL8(
                     CanUseCALLParam8->RCX,
                     CanUseCALLParam8->RDX,
                     CanUseCALLParam8->R8,
