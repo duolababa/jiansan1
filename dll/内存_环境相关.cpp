@@ -334,6 +334,48 @@ void 环境::遍历全部环境对象(vector<objInfo_>& vsk)
 	::sort(vsk.begin(), vsk.end(), flessmark);
 }
 
+void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
+{
+	vsk.clear();
+	objInfo_ 临时;
+	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	long dtotal = R_QW(addr_1 + 0x9C + 8 + 0x10 + 0x18);//更新-0218
+	INT64 objStartAddr = R_QW(addr_1 + 0x9C + 8);////更新-0218 对象数组地址
+	INT64 dKeyAddr = R_QW(addr_1 + 0x9C + 8 + 0x20);//更新-0218
+	if (!dKeyAddr)
+	{
+		dKeyAddr = addr_1 + 0x9C + 8 + 0x10;//更新-0218
+	}
+	for (long i = 0; i < dtotal; i++)
+	{
+		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
+		DWORD dNum = i % 0x20;
+		DWORD dCheck = (dKeyValue >> dNum) & 1;
+		if (dCheck)
+		{
+			DWORD dObjId = R_DW(objStartAddr + i * 0x3 * 8);
+			if (dObjId && dObjId != 0xFFFFFFFF)
+			{
+				INT64 dObjAddr = R_QW(objStartAddr + i * 0x3 * 8 + 8);
+				//MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
+				临时 = 环境::getActorInfo1(dObjAddr,自己坐标);
+
+
+				if (临时.dResId != 0)
+				{
+					临时.dObjId = dObjId;
+					vsk.push_back(临时);
+				}
+
+			}
+		}
+	}
+	::sort(vsk.begin(), vsk.end(), flessmark);
+
+
+}
+
+
 void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
 {
 	ActorInfo_ 角色信息 = 本人::取角色信息();
@@ -427,7 +469,7 @@ void 最近线路(CString ID文本, vector<坐标_>& vsk)
 }
 
 
-CString 环境::返回最近线路(CString ID文本)
+CString 返回最近线路(CString ID文本)
 {
 	CArray<CString, CString>分割;
 	CArray<CString, CString>分割1;

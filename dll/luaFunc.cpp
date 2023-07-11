@@ -416,6 +416,28 @@ static int 技能冷却(__LUA_指针)
 
 	return 1;
 }
+static int 接任务(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	任务::CALL_接任务(x);
+
+	return 0;
+}
+
+
+static int 地图名称(__LUA_指针)
+{
+
+
+	CString x = 地图::取大地图名();
+	lua_pushstring(L, CStringA(x));
+
+	return 1;
+
+}
 
 
 
@@ -497,7 +519,7 @@ static int 最近线路(__LUA_指针)
 {
 	const char* tmpStr = lua_tostring(L, 1);
 	CString x = L"空";
-	 x=环境::返回最近线路(CStringW(tmpStr));
+	 x=返回最近线路(CStringW(tmpStr));
 
 
 	lua_pushstring(L, CStringA(x));
@@ -1203,11 +1225,123 @@ static int 寻路地图(__LUA_指针)
 }
 
 
+
+static int 遍历(__LUA_指针)
+{
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+	float x = lua_tonumber(L, 1);
+	float y = lua_tonumber(L, 2);
+	float z = lua_tonumber(L, 3);
+	DWORD 距离 = lua_tointeger(L, 4);
+	DWORD 类型 = lua_tointeger(L, 5);
+	const char* 指定ID = lua_tostring(L, 6);
+	坐标_ 指定坐标;
+	指定坐标.x = x;
+	指定坐标.y = y;
+	指定坐标.z = z;
+
+	DWORD obj距离 = 999999;
+	INT64 保存对象 = 0;
+
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象2(vsk, 指定坐标);
+
+	CArray<CString, CString>分割;
+	CArray<CString, CString>分割1;
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 类型)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
+			{
+
+				if (角色信息.对象指针 == vsk[i].objBase)
+				{
+					continue;
+				}
+			
+
+				if (vsk[i].fDis < 距离)
+				{
+				
+					if (指定ID != nullptr)
+					{
+						// 非空操作
+						if (strchr(指定ID, '|') != nullptr)
+						{
+							文本分割(CStringW(指定ID), '|', &分割);
+							DWORD 测试 = 0;
+							if (分割.GetCount() != 0)
+							{
+								for (size_t C = 0; C < 分割.GetCount(); C++)
+								{
+									x = 常用功能::十六进制转十进制(CStringA(分割[C]));
+									if (vsk[i].dResId == x)
+									{
+										测试 = 1;
+										break;
+									}
+
+								}
+
+							}
+
+							if (测试 = 0)
+							{
+								continue;
+							}
+
+						}
+						else
+						{
+							DWORD 测试 = 0;
+							x = 常用功能::十六进制转十进制(指定ID);
+							if (vsk[i].dResId == x)
+							{
+							
+							}
+							else
+
+							{
+								continue;
+							}
+
+
+						}
+
+
+					}
+				
+
+
+
+					if (vsk[i].fDis < obj距离)
+					{
+						obj距离 = vsk[i].fDis;
+						保存对象 = vsk[i].objBase;
+
+					}
+
+
+
+				}
+			}
+		}
+	}
+
+
+	lua_pushinteger(L, 保存对象);
+
+	return 1;
+}
+
+
 static int 寻路_lua(__LUA_指针) 
 {
 	float x = lua_tonumber(L, 1);
 	float y = lua_tonumber(L, 2);
 	float z = lua_tonumber(L, 3);
+
 
 
 	地图::本地图寻路(x,y,z,0);
@@ -1735,10 +1869,11 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "任务是否存在", 任务是否存在);
 	lua_register(L, "修理船舶", 修理船舶);
 	lua_register(L, "技能冷却", 技能冷却);
+	lua_register(L, "接任务", 接任务);
+	lua_register(L, "地图名称", 地图名称);
+	lua_register(L, "遍历", 遍历);
 
 
-
-	
 	//航海::自动选择最优战船
 	//lua_close(L);
 }

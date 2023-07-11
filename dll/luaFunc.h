@@ -106,6 +106,10 @@ static int 任务进展(__LUA_指针);
 static int 任务是否存在(__LUA_指针);
 static int 修理船舶(__LUA_指针);
 static int 技能冷却(__LUA_指针);
+static int 接任务(__LUA_指针);
+static int 地图名称(__LUA_指针);
+static int 遍历(__LUA_指针);
+
 
 
 //bool 背包::指定位置生活工具是否已装备(DWORD 槽位)//0 采集工具 1 伐木工具 2 采矿工具 3 狩猎工具 4 钓鱼工具 5 考古工具

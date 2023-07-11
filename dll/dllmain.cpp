@@ -82,7 +82,7 @@ LRESULT CALLBACK hkWndProc_(int nCode, WPARAM wParam, LPARAM lparam)
                 break;
             case Msgid::CallCanUse3:// 6个参数的call调用               			
                 CanUseCALLParam8 = (CallParam8*)lpArg->lParam;
-                CanUseCALLParam8->RetVal= CALL8(
+                CALL8(
                     CanUseCALLParam8->RCX,
                     CanUseCALLParam8->RDX,
                     CanUseCALLParam8->R8,
@@ -532,7 +532,6 @@ public:
                 Sleep(500);
                 continue;
             }
-            MyTrace(L"----------------------------界面状态----------------------------");
             DWORD 界面状态 = UI功能::getGameCurStageValue();
             MyTrace(L"界面状态:%d 是否加载中 %d", 界面状态, 环境::是否在加载页面2());
             if (界面状态 == 3)
@@ -1332,13 +1331,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
               //MyTrace(L"副本obj 0x%I64X", UI功能::getUiObjById(168));
               //vector<录制坐标_>录制坐标组;
               //配置::取录制坐标(10211, 录制坐标组);
-              vector<UIinfo_>vsk3;
+         /*     vector<UIinfo_>vsk3;
               UI功能::getUiList(vsk3);
               MyTrace(L"控件数量:%d", vsk3.size());
               for (size_t i = 0; i < vsk3.size(); i++)
               {
                   MyTrace(L"索引%X 对象地址0x%I64X ID %X 是否显示%d %s\r\n", vsk3[i].dIndex, vsk3[i].UIObj, vsk3[i].dId, vsk3[i].bShow, vsk3[i].CName);
-              }
+              }*/
               //vector<Inventoryinfo_>vsk2;
               //vector<Equipinfo_>vsk3;
               //vector<乐谱信息_>vsk4;

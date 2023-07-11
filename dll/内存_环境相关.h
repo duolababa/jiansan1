@@ -1,6 +1,5 @@
 #pragma once
 #include "pch.h"
-
 class 环境
 {
 public:
@@ -11,7 +10,7 @@ public:
 	static int CALL_怪物是否已死亡(INT64 环境对象指针);
 	static void 遍历全部环境对象(vector<objInfo_>& vsk);
 	static void 遍历全部环境对象1(vector<objInfo_>& vsk);
-
+	static void 遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标);
 
 	static void 遍历指定全部环境对象(DWORD dtype, vector<objInfo_>& vsk);
 	static DWORD 范围怪物数量(DWORD 距离);
@@ -55,10 +54,9 @@ public:
 	static void 加入优先采集ID(CString ID文本);
 	static INT64 鼠标获取对象call(float x, float y);
 	static DWORD 剩余气息查询();
-	static CString 返回最近线路(CString ID文本);
 	
 };
-
+CString 返回最近线路(CString ID文本);
 
 
 class NPC
