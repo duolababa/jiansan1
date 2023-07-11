@@ -23,6 +23,10 @@ public:
     static void 维修装备(DWORD 参_修理类型);
     static void 使用物品(DWORD 格子数);
     static void 右键物品(DWORD 格子数);
+    static void 丢弃物品call(INT64 ItemId);
+
+    
+
     static void 使用物品2(DWORD 格子数);
     static void get_RecommendEquipList(vector<Inventoryinfo_>& vsk);
     static int get_PosbyItemID(DWORD itemId);

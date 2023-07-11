@@ -814,19 +814,19 @@ bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2,
 	W_BYTE((INT64)&puff[0x21], 特性3);*/
 	for (size_t i = 0; i <= 15; i++)
 	{
-		W_QW((INT64)&puff[0x1D + i * 0xE], 0x100010001);
+		W_QW((INT64)&puff[0x21 + i * 0xE], 0x100010001);
 		//W_Word((INT64)&puff[0x21 + i * 0xE + 4], 1);
 	}
 	W_QW((INT64)&puff[0], 局_包头);
 	W_QW((INT64)&puff[8], 0);
 	W_QW((INT64)&puff[16], 0);
 	W_BYTE((INT64)&puff[0x18], 1);
-	W_DW((INT64)&puff[0x24], 技能ID);
+	W_DW((INT64)&puff[0x1D], 技能ID);
 	W_BYTE((INT64)&puff[0x1A], 特性1);
 	W_BYTE((INT64)&puff[0x1B], 特性2);
 	W_BYTE((INT64)&puff[0x1C], 特性3);
 
-	W_BYTE((INT64)&puff[0x23], 等级);
+	W_BYTE((INT64)&puff[0x27], 等级);
 	//W_DW((INT64)&puff[0x110], 0xC0);
 	MainUniversalCALL2(局_RCX, (ULONG_PTR)puff, 局_CALL);
 

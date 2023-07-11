@@ -89,6 +89,7 @@ bool 游戏::Pass各种窗口()
 
 	if (UI功能::getGameCurStageValue() == 0 || UI功能::getGameCurStageValue() == 3)
 	{
+		MyTrace(L"弹窗");
 		//if (UI功能::指定UI是否显示(L"root1.arkui.frameCanvas.narrationAssistanceFrame") == true)
 		//{
 		//	UI功能::Fun_NarrationAssistance_OnOff(0);

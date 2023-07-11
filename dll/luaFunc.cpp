@@ -334,8 +334,6 @@ static int 选择体验(__LUA_指针)
 
 	const char* tmpStr = lua_tostring(L, 1);
 	DWORD x;
-	//sscanf(tmpStr, "%x", x);
-
 	x = 常用功能::十六进制转十进制(tmpStr);
 	新手::CALL_选择体验(x);
 	Sleep(2000);
@@ -343,6 +341,388 @@ static int 选择体验(__LUA_指针)
 	return 0;
 
 }
+static int 完成任务(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	任务::CALL_交任务(x, -1);
+	return 0;
+}
+static int 控件点击(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	INT64 x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+	UI功能::控件点击call(x);
+	return 0;
+
+
+
+}
+
+static int 查找文字(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	const char* tmpStr1 = lua_tostring(L, 2);
+	DWORD x = 0;
+	if (CStringW(tmpStr).Find(CStringW(tmpStr1)) != -1)
+	{
+		x = 1;
+
+	}
+	lua_pushinteger(L, x);
+	return 1;
+
+}
+
+static int 控件查找(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x = 0;
+	CString 弹窗文本 = UI功能::窗口反馈文本();
+	if (弹窗文本.Find(CStringW(tmpStr)) != -1 )
+	{
+		x = 1;
+
+	}
+	lua_pushinteger(L, x);
+	return 1;
+
+}
+
+static int 技能冷却(__LUA_指针)
+{
+	MyTrace(L"技能冷却c");
+	DWORD 键位1 = lua_tointeger(L, 1);
+	DWORD 键位= lua_tointeger(L, 2);
+	vector<ShortCutInfo_>技能数组;
+	BOOL 冷却 = 0;
+
+	技能::get_SkillShortList(技能数组);
+	MyTrace(L"技能冷却1");
+	for (size_t i = 0; i < 技能数组.size(); i++)
+	{
+		if (键位== 技能数组[i].键位)
+		{
+			冷却 = 技能数组[i].是否冷却;
+			break;
+		}
+
+	}
+	lua_pushinteger(L, 冷却);
+
+
+	return 1;
+}
+
+
+
+static int 修理船舶(__LUA_指针)
+{
+	ActorInfo_ a = 本人::取角色信息();
+	if (a.航海当前耐久 != 100)
+	{
+		本人::CALL_修理船只(航海::getCurVoyageShipResId());
+	}
+
+	return 0;
+}
+
+
+static int 任务是否存在(__LUA_指针)
+{
+
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+	QuestInfo_ temp;
+	vector<QuestInfo_>vsk;
+	任务::get_CurQuestList(vsk);
+	DWORD 是否存在 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dQuestId == x && vsk[i].dQuestId>1)
+		{
+			是否存在 = 1;
+
+			break;
+		}
+
+		/*temp = vsk[i];
+		return temp;*/
+
+
+	}
+	lua_pushinteger(L, 是否存在);
+
+
+	return 1;
+
+}
+
+
+static int 任务进展(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+	QuestInfo_ temp;
+	vector<QuestInfo_>vsk;
+	任务::get_CurQuestList(vsk);
+	DWORD 任务阶段 = 0;
+	DWORD 任务可交 = 0;
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dQuestId == x)
+		{
+			任务阶段 = vsk[i].dStep;
+			任务可交 = vsk[i].dState;
+			break;
+		}
+	
+			/*temp = vsk[i];
+			return temp;*/
+
+	
+	}
+	lua_pushinteger(L, 任务阶段);
+	lua_pushinteger(L, 任务可交);
+
+	return 2;
+}
+static int 最近线路(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	CString x = L"空";
+	 x=返回最近线路(CStringW(tmpStr));
+
+
+	lua_pushstring(L, CStringA(x));
+
+	return 1;
+}
+
+
+static int 离开副本(__LUA_指针)
+{
+
+	return 0;
+}
+static int 进入副本(__LUA_指针)
+{
+	UI功能::getMsgBoxTextList();
+	return 0;
+
+
+}
+
+
+
+static int 入场(__LUA_指针)
+{
+	if (UI功能::副本界面是否打开() == true)
+	{
+		if (UI功能::进入副本())
+		{
+			Sleep(2000);
+			UI功能::内存按键(VK_RETURN);
+		}
+	}
+	return 0;
+
+
+}
+static int 跳过动画(__LUA_指针)
+{
+	bool x = 环境::是否在动画();
+
+	if (x == 1)
+	{
+		UI功能::内存按键(VK_ESCAPE);
+		Sleep(3000);
+	}
+
+	return 0;
+
+}
+
+static int 修理判断(__LUA_指针)
+{
+	DWORD C = 0;
+	vector<Equipinfo_>vsk;
+	背包::get_UpEquipList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].耐久度.当前耐久度 < 5 && vsk[i].ItemName!= L"空")
+		{
+			C = 1;
+			break;
+
+		}
+
+	}
+
+	lua_pushinteger(L, C);
+	return 1;
+
+}
+
+
+static int 材料数量查询(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(tmpStr, "%x", x);
+
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	INT64 dItemResAddr = getItemResAddrById(x);
+	//MyTrace(L"dItemResAddr");
+	INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
+
+	CString csName = L"空";
+	if (dNameAddr)
+	{
+		//string sName = UnicodeToAnsi(R_CString(dNameAddr));
+		//csName = GetName(dNameAddr);
+		//DbgPrintf_Mine("sName %s",sName);
+		//csName = CString(sName.c_str());
+		csName = R_CString(dNameAddr);
+
+
+	}
+	DWORD 数量 = 背包::采集数量(x);
+
+	lua_pushinteger(L, 数量);
+	lua_pushinteger(L, x);
+	return 2;
+}
+
+
+static int 背包数量查询(__LUA_指针)
+{
+
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(tmpStr, "%x", x);
+
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	vector<Inventoryinfo_>vsk;
+	背包::get_InventoryItemList(vsk);
+	DWORD 物品数量 = 0;
+	DWORD 物品名ID = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].ItemName.Find(CStringW(tmpStr)) != -1 || x == vsk[i].ItemResId)
+		{
+			物品数量 = vsk[i].dNum;
+			物品名ID = vsk[i].ItemResId;
+			break;
+
+		}
+
+
+	}
+
+	lua_pushinteger(L, 物品数量);
+	lua_pushinteger(L, 物品名ID);
+	return 2;
+
+
+}
+
+
+static int 类型使用(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD  num = std::stoi(tmpStr);
+	CString 弹窗文本 = UI功能::窗口反馈文本();
+	if (弹窗文本.Find(CStringW("Inventory")) != -1 || 弹窗文本.Find(CStringW("随身物品")) != -1 || 弹窗文本.Find(CStringW("背包")) != -1)
+	{
+
+	}
+	else
+	{
+		UI功能::内存按键(DWORD('I'));
+	}
+
+	vector<Inventoryinfo_>vsk;
+	背包::get_InventoryItemList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (num != 0 && num == vsk[i].dSlotIndex)
+		{
+			背包::使用物品(vsk[i].dindex);
+			Sleep(2000);
+			弹窗文本 = UI功能::窗口反馈文本();
+			if (弹窗文本.Find(CStringW("Register New Card")) != -1 || 弹窗文本.Find(CStringW("新卡注册")) != -1 || 弹窗文本.Find(CStringW("使用")) != -1)
+			{
+				UI功能::内存按键(VK_RETURN);
+				Sleep(2000);
+
+			}
+
+		}
+
+	}
+
+	DWORD size = UI功能::窗口数量();
+
+	if (size >= 1)
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			size = UI功能::窗口数量();
+			if (size >= 1)
+			{
+				//MyTrace(L"开始执行按键call");
+				UI功能::内存按键(VK_ESCAPE);
+				Sleep(1500);
+
+			}
+
+
+		}
+
+
+	}
+
+	return 0;
+}
+static int 丢弃指定物品(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(tmpStr, "%x", x);
+
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+
+	vector<Inventoryinfo_>vsk;
+	背包::get_InventoryItemList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		//if (name.Find(CStringW(控件名称)) != -1 && name.GetLength() != 0)
+
+		if (vsk[i].ItemName.Find(CStringW(tmpStr))!=-1 || x== vsk[i].ItemResId || x== vsk[i].dSlotIndex)
+		{
+			背包::丢弃物品call(vsk[i].ItemId);
+			Sleep(2000);
+
+		}
+
+	}
+
+	return 0;
+}
+
+
+
 
 static int 快速设置技能(__LUA_指针)
 {
@@ -480,7 +860,7 @@ static int 自动任务(__LUA_指针)
 
 	DWORD id = 环境::读取当前对话npc();
 	//MyTrace(L"类型 %d 任务名称 %s 
-	MyTrace(L"id1 %X  id %X \r\n", id1, id);
+	MyTrace(L"id1 %X  id %X   任务阶段 %d \r\n", id1, id, 任务阶段);
 	if (id>=1)
 	{
 
@@ -668,13 +1048,13 @@ static int 死亡复活(__LUA_指针)
 	CString 复活方式;
 	if (复活触发 == 1)
 	{
-		复活方式 = "root";
+		复活方式 = L"立即复活";
 		UI功能::复活(复活方式);
 	}
 	else
 
 	{
-		复活方式 = "root";
+		复活方式 = L"据点复活";
 		UI功能::复活(复活方式);
 	}
 
@@ -900,6 +1280,81 @@ static int 还原技能(__LUA_指针)
 
 
 }
+
+static int 是否动画加载(__LUA_指针)
+{
+	bool  x = 环境::是否在加载页面();
+
+	if (x != 0)
+	{
+		lua_pushinteger(L, 1);
+	}
+	else
+	{
+		lua_pushinteger(L, 0);
+	}
+	return 1;
+
+}
+static int 维修(__LUA_指针)
+{
+	
+	背包::维修装备(1);
+	return 0;
+}
+static int 剩余气息(__LUA_指针)
+{
+	DWORD x = 环境::剩余气息查询();
+	lua_pushinteger(L, x);
+	return 1;
+
+
+}
+
+static int 工具判断(__LUA_指针)
+{
+	DWORD x1 = lua_tointeger(L, 1);
+
+	bool x = 背包::指定位置生活工具是否已装备(x1);//0 采集工具 1 伐木工具 2 采矿工具 3 狩猎工具 4 钓鱼工具 5 考古工具
+		if (x != 0)
+		{
+			lua_pushinteger(L, 1);
+		}
+		else
+		{
+			lua_pushinteger(L, 0);
+		}
+	return 1;
+}
+
+
+static int 是否动画加载1(__LUA_指针)
+{
+	bool x = 环境::是否在加载页面2();
+		if (x != 0)
+		{
+			lua_pushinteger(L, 1);
+		}
+		else
+		{
+			lua_pushinteger(L, 0);
+		}
+		return 1;
+}
+static int 购买工具(__LUA_指针)
+{
+	DWORD x1 = lua_tointeger(L, 1);
+	DWORD x2 = lua_tointeger(L, 2);
+	DWORD x3 = lua_tointeger(L, 3);
+
+	NPC商店::Fun_ShopBuyAddItem(x1, x3);
+	Sleep(1000);
+	NPC商店::Fub_ShopBuyItemClick();
+	return 0;
+
+}
+
+
 static int 是否航海界面(__LUA_指针)
 {
 	bool data = 航海::Yesornonauticalpicture();
@@ -1258,9 +1713,32 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "拾取", 拾取);
 	lua_register(L, "捕鱼", 捕鱼);
 	lua_register(L, "是否航海界面", 是否航海界面);
+	lua_register(L, "是否动画加载1", 是否动画加载1);
+	lua_register(L, "是否动画加载", 是否动画加载);
+	lua_register(L, "工具判断", 工具判断);
+	lua_register(L, "维修", 维修);
+	lua_register(L, "剩余气息", 剩余气息);
+	lua_register(L, "丢弃指定物品", 丢弃指定物品);
+	lua_register(L, "类型使用", 类型使用);
+	lua_register(L, "背包数量查询", 背包数量查询);
+	lua_register(L, "修理判断", 修理判断);
+	lua_register(L, "完成任务", 完成任务);
+	lua_register(L, "控件点击", 控件点击);
+	lua_register(L, "查找文字", 查找文字);
+	lua_register(L, "控件查找", 控件查找);
+	lua_register(L, "跳过动画", 跳过动画);
+	lua_register(L, "入场", 入场);
+	lua_register(L, "进入副本", 进入副本);
+	lua_register(L, "离开副本", 离开副本);
+	lua_register(L, "最近线路", 最近线路);
+	lua_register(L, "任务进展", 任务进展);
+	lua_register(L, "任务是否存在", 任务是否存在);
+	lua_register(L, "修理船舶", 修理船舶);
+	lua_register(L, "技能冷却", 技能冷却);
 
 
 
+	
 	//航海::自动选择最优战船
 	//lua_close(L);
 }

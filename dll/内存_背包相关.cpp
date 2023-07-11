@@ -289,7 +289,7 @@ void 背包::get_UpEquipList(vector<Equipinfo_>& vsk)
 		}
 	}
 }
-void 背包::get_LifeToolList(vector<Equipinfo_>& vsk)
+void 背包::get_LifeToolList(vector<Equipinfo_>& vsk)  //生活装备
 {
 	vsk.clear();
 	Equipinfo_ temp;
@@ -645,6 +645,17 @@ void 背包::使用物品(DWORD 格子数)
 	}
 
 }
+
+void 背包::丢弃物品call(INT64 ItemId)
+{
+
+	INT64 rcx = 游戏模块 + 采集物品数量;
+
+	MainUniversalCALL4(rcx, ItemId, 0, 0, 游戏模块 + 丢弃写入基址);
+
+}
+
+
 void 背包::右键物品(DWORD 格子数)
 {
 	INT64 局_使用物品call = 游戏模块 + 基址_背包_使用物品call2;

@@ -173,10 +173,10 @@ void getQuestStepInfo(INT64 dResAddr, DWORD dStep, QuestInfo_& bi)
 					bi.TargetId = dId;
 				}
 				bi.TargetNum = dNum;
-				//MyTrace(L"任务目标 数量 %d\r\n", dNum);
+				MyTrace(L"任务目标 数量 %d\r\n", dNum);
 				DWORD dStrLen = R_DW(dInfoAddr + 0x20 + 8) - 1;
 				INT64 dRealNameAddr = getStringAddr(0, dNameAddr, dStrLen);
-				//MyTrace(L"dRealNameAddr 0x%I64x", dRealNameAddr);
+				MyTrace(L"dRealNameAddr 0x%I64x", dRealNameAddr);
 				CString csName = R_CString(dRealNameAddr);
 				bi.DescribeName = csName;
 				if (dconTotal == bi.子任务进度.size())
@@ -184,7 +184,7 @@ void getQuestStepInfo(INT64 dResAddr, DWORD dStep, QuestInfo_& bi)
 					bi.子任务进度[k].TargetID = dId;
 					bi.子任务进度[k].任务描述 = csName;
 				}
-				//MyTrace(L"%s\r\n 0x%I64X ", csName, dRealNameAddr);
+				MyTrace(L"%s\r\n 0x%I64X ", csName, dRealNameAddr);
 
 			}
 		}
@@ -265,7 +265,7 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 	// INT64 dVlaue = getStringAddr( 0, dNameAddr, dStrLen);
 
 	//CString cSumary = GetName(getStringAddr( 0, dNameAddr, dStrLen));
-	// MyTrace(L"%s \r\n",cSumary);
+	 MyTrace(L"%s  任务阶段%d  任务ID 0x%I64X \r\n", csName, bi.dStep, bi.dQuestId);
 
 	//if (bi.dQuestId == 0x3157A)
 	{
@@ -873,6 +873,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 	dm.AsmAdd(L"add rsp,040");
 	dm.AsmCall( 6);*/
 	int dtotal = R_DW((INT64)&dInfoAddr + 8);
+	MyTrace(L"dtotal 0x%I64Xd", dInfoAddr);
 	if (dtotal)
 	{
 		INT64 dstart = R_QW((INT64)&dInfoAddr);//更新-0220
@@ -880,6 +881,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 		{
 			INT64 dObj = dstart + i * 8;
 			int dType = R_DW(dObj);
+			MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
 			if (dQuestId == R_DW(dObj + 4))
 			{
 				int dArg = getNpcTaklEndSendArgFinally(dNpcResId, dQuestId, dType, dStep);
@@ -893,6 +895,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 				}
 				if (dType == 3)
 				{
+					MyTrace(L"开始执行交任务");
 					任务::CALL_交任务(dQuestId, -1);
 				}
 			}

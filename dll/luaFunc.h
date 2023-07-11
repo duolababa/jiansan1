@@ -82,8 +82,33 @@ static int 拾取(__LUA_指针);
 static int 捕鱼(__LUA_指针);
 static int 金币数量(__LUA_指针);
 static int 是否航海界面(__LUA_指针);
+static int 购买工具(__LUA_指针);
+static int 是否动画加载1(__LUA_指针);
+static int 工具判断(__LUA_指针);
+static int 维修(__LUA_指针);
+static int 剩余气息(__LUA_指针);
+static int 丢弃指定物品(__LUA_指针);
+static int 类型使用(__LUA_指针);
+static int 背包数量查询(__LUA_指针);
+static int 材料数量查询(__LUA_指针);
+static int 修理判断(__LUA_指针);
+static int 完成任务(__LUA_指针);
+static int 控件点击(__LUA_指针);
+static int 查找文字(__LUA_指针);
+static int 控件查找(__LUA_指针);
+static int 跳过动画(__LUA_指针);
+static int 入场(__LUA_指针);
+static int 进入副本(__LUA_指针);
+static int 离开副本(__LUA_指针);
+static int 最近线路(__LUA_指针);
+
+static int 任务进展(__LUA_指针);
+static int 任务是否存在(__LUA_指针);
+static int 修理船舶(__LUA_指针);
+static int 技能冷却(__LUA_指针);
 
 
+//bool 背包::指定位置生活工具是否已装备(DWORD 槽位)//0 采集工具 1 伐木工具 2 采矿工具 3 狩猎工具 4 钓鱼工具 5 考古工具
 
 // NPC商店::get_ShopItemList(vector<Inventoryinfo_>& vsk)
 

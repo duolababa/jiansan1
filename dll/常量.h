@@ -17,6 +17,9 @@
 #define 基址_坐船call 0x1475020
 #define 采集数量call 0x1329200
 #define 采集物品数量 0x4C75ED0
+#define 丢弃写入基址 0x1364CA0
+
+
 
 
 #define 基址_个人_遍历 0x4C10FE0
@@ -67,7 +70,7 @@
 #define 基址_环境_npc对话分支call 0x1312920
 #define 基址_封包_发包call 0x26ACD50
 #define 基址_封包_发包rcx 0x4C10FE8
-#define 基址_技能_升级技能包头 0x3A76910
+#define 基址_技能_升级技能包头 0x6CD2E96
 #define 基址_个人_社交动作call 0x1154CD0
 #define 基址_个人_社交动作rcx 0x4C70618
 #define 基址_背包_修理call 0x13FCEC0
@@ -101,9 +104,6 @@
 #define 基址_任务_获取任务地图ID 0x15255F0
 #define 基址_地图_目的地址是否可达Call 0x16A3300
 #define 基址_地图_目的地址是否可达_rax获取偏移 0x330
-#define 基址_地图_目的地址是否可达_r12获取偏移 0x1B8
-#define 基址_地图_目的地址是否可达_rax偏移 0xF18
-#define 基址_地图_目的地址是否可达_r12偏移 0xD8
 #define 基址_组队_遍历 0x4C1D258
 #define 基址_组队_离开队伍call 0x26AE710
 #define 基址_组队_离开队伍rcx 0x4C10FE8
