@@ -118,7 +118,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	bi.IsEnemy = bCheckActorEnemy(dObjAddr);
 	bi.dCanAttack = R_BYTE(dObjAddr + 偏移_怪物_不可攻击偏移);
 
-	MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n", dObjAddr, bi.dObjId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z);
+	MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
 
 	//MyTrace(L"getActorInfo 2");
 	//if (dm.ReadIntAddr(dObjAddr + 0xB2C,4) == 1 || dm.ReadIntAddr(dObjAddr + 0xB28,4) == 1)
@@ -372,10 +372,108 @@ void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
 	::sort(vsk.begin(), vsk.end(), flessmark);
 }
 
+bool 坐标计算(const 坐标_& o1, const 坐标_& o2)
+{
+	return o1.fDis < o2.fDis;
+
+}
+void 最近线路(CString ID文本, vector<坐标_>& vsk)
+{
+	CArray<CString, CString>分割;
+	CArray<CString, CString>分割1;
+
+	vsk.clear();
+	if (ID文本.Find(L"|") != -1)
+	{
+		文本分割(ID文本, '|', &分割);
+		if (分割.GetCount() == 0)
+		{
+			vsk.clear();
+		}
+		else
+		{
+			for (size_t i = 0; i < 分割.GetCount(); i++)
+			{
+				文本分割(分割[i], ',', &分割1);
+				if (分割1.GetCount() != 0)
+				{ 
+					坐标_  x = 本人::取坐标();
+					坐标_ 临时;
+					临时.x = _ttof(分割1[1]);
+					临时.y = _ttof(分割1[2]);
+					临时.z = _ttof(分割1[3]);
+					临时.fDis = 常用功能::计算距离(临时, x);
+					临时.数组位置 = i;
+					vsk.push_back(临时);
+				}
+			
+			/*	对象属性列表 临时;
+				文本分割(分割[i], ',', &分割1);
+				if (分割1.GetCount() != 0)
+				{
+
+					临时.坐标.X = _ttof(分割1[1]);
+					临时.坐标.Y = _ttof(分割1[2]);
+					临时.距离 = 目标距离(_ttof(分割1[1]), _ttof(分割1[2]));
+					临时.数组位置 = i;
+
+					vsk.push_back(临时);
+				}*/
+
+			}
+		}
+	}
+	::sort(vsk.begin(), vsk.end(), 坐标计算);
+}
 
 
+CString 返回最近线路(CString ID文本)
+{
+	CArray<CString, CString>分割;
+	CArray<CString, CString>分割1;
+	CString temp;
+	vector<坐标_>vsk;
+	最近线路(ID文本, vsk);
+	if (vsk.size() > 0)
+	{
+		DWORD 最近数组序号 = vsk[0].数组位置;
+
+		if (ID文本.Find(L"|") != -1)
+		{
+			文本分割(ID文本, '|', &分割);
+			if (分割.GetCount() != 0)
+			{
+				for (size_t i = 0; i < 分割.GetCount(); i++)
+				{
+					if (i >= 最近数组序号)
+					{
+						文本分割(分割[i], ',', &分割1);
+						if (分割1.GetCount() != 0)
+						{
+							temp = temp + 分割[1] + "," + 分割[2] + "," + 分割[3] + "|";
+						}
+
+					}
 
 
+				}
+
+			}
+
+		}
+	}
+
+	//for (size_t i = 0; i < vsk.size(); i++)
+	//{
+	//	
+	//	temp = temp + 小数到文本( vsk[i].坐标.x )+ "," + 小数到文本(vsk[i].坐标.y) + "|";
+
+
+	//}
+
+	return temp;
+
+}
 
 void 环境::遍历指定全部环境对象(DWORD dtype, vector<objInfo_>& vsk)
 {
@@ -517,7 +615,7 @@ DWORD 环境::读取当前对话npc()
 	INT64 局_rcx = R_QW(游戏模块 + 基址_环境_退出npc对话);
 
 
-	b = R_DW(局_rcx + 0xEC);
+	b = R_DW(局_rcx + 0x170);
 
 	return b;
 
@@ -957,7 +1055,11 @@ bool 环境::是否在动画()
 	return true;
 }
 
-
+DWORD 环境::剩余气息查询()
+{
+	DWORD 局_标志 = R_DW(R_QW(游戏模块 + 基址_环境_判断动画) + 0x58);
+	return 局_标志;
+ }
 
 
 bool 环境::拾物(INT64 对象)

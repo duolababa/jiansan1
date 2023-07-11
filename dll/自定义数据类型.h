@@ -11,6 +11,8 @@ struct 坐标_
 	int 大陆ID=0;
 	int 地图ID=0;
 	int 是否可达 = 0;
+	int 数组位置 = 0;
+	float fDis = 0;
 };
 struct ActorInfo_
 {
