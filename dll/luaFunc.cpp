@@ -497,7 +497,7 @@ static int 最近线路(__LUA_指针)
 {
 	const char* tmpStr = lua_tostring(L, 1);
 	CString x = L"空";
-	 x=返回最近线路(CStringW(tmpStr));
+	 x=环境::返回最近线路(CStringW(tmpStr));
 
 
 	lua_pushstring(L, CStringA(x));

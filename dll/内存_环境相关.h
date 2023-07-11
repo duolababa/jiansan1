@@ -1,5 +1,6 @@
 #pragma once
 #include "pch.h"
+
 class 环境
 {
 public:
@@ -54,9 +55,10 @@ public:
 	static void 加入优先采集ID(CString ID文本);
 	static INT64 鼠标获取对象call(float x, float y);
 	static DWORD 剩余气息查询();
+	static CString 返回最近线路(CString ID文本);
 	
 };
-CString 返回最近线路(CString ID文本);
+
 
 
 class NPC

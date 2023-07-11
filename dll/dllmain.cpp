@@ -82,7 +82,7 @@ LRESULT CALLBACK hkWndProc_(int nCode, WPARAM wParam, LPARAM lparam)
                 break;
             case Msgid::CallCanUse3:// 6个参数的call调用               			
                 CanUseCALLParam8 = (CallParam8*)lpArg->lParam;
-                CALL8(
+                CanUseCALLParam8->RetVal= CALL8(
                     CanUseCALLParam8->RCX,
                     CanUseCALLParam8->RDX,
                     CanUseCALLParam8->R8,
@@ -532,6 +532,7 @@ public:
                 Sleep(500);
                 continue;
             }
+            MyTrace(L"----------------------------界面状态----------------------------");
             DWORD 界面状态 = UI功能::getGameCurStageValue();
             MyTrace(L"界面状态:%d 是否加载中 %d", 界面状态, 环境::是否在加载页面2());
             if (界面状态 == 3)

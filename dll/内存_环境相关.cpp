@@ -427,7 +427,7 @@ void 最近线路(CString ID文本, vector<坐标_>& vsk)
 }
 
 
-CString 返回最近线路(CString ID文本)
+CString 环境::返回最近线路(CString ID文本)
 {
 	CArray<CString, CString>分割;
 	CArray<CString, CString>分割1;
