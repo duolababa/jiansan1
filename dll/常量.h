@@ -4,11 +4,14 @@
 
 
 
-
-#define g_坐骑 0x166f78
-#define g_坐骑_index单 0x17
-#define g_坐骑_叠加单 0x8
-
+//
+//#define g_坐骑 0x166f78
+//#define g_坐骑_index单 0x17
+//#define g_坐骑_叠加单 0x8
+#define 是否可以骑马写入基址 0x16C9D30
+#define g_坐骑 0xA9F24
+#define g_坐骑_index单 0xC
+#define g_坐骑_叠加单 0x23
 
 
 
@@ -26,7 +29,6 @@
 #define 分解颜色call 0x1EBBFB0
 #define 入包call 0x136A690
 
-#define 是否可以骑马写入基址 0x15BB910
 #define 上马call地址 0x1395260
 
 
