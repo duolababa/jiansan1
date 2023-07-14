@@ -268,6 +268,21 @@ int 登陆::CALL_角色遍历(vector<登陆角色信息_>& vsk)
 	}
 	return 数量;
 }
+DWORD getCharacterGetJumpState(__int64 dCharacterInfo)
+{
+	if (!dCharacterInfo) return 0;
+	INT64 ret = MainUniversalCALL2_Ret(dCharacterInfo, 0, 游戏模块 + gc_CharacterGetJumpState);
+	/*wchar_t buf[100];
+	dm.AsmClear();
+	dm.AsmAdd(L"sub rsp,040");
+	wsprintf(buf, L"MOV RCX, 0%I64X", dCharacterInfo);
+	dm.AsmAdd(buf);
+	wsprintf(buf, L"MOV RDI, 0%I64X", gc_CharacterGetJumpState);
+	dm.AsmAdd(buf);
+	dm.AsmAdd(L"call rdi");
+	dm.AsmAdd(L"add rsp,040");*/
+	return (DWORD)ret;
+}
 void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 {
 	vsk.clear();
@@ -279,6 +294,7 @@ void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 	for (DWORD i = 0; i < dtotal; i++)
 	{
 		INT64  dCharacterInfo = objStartAddr + i * dSize;
+		DWORD dJumpState = getCharacterGetJumpState(dCharacterInfo);//为1直升中 为3 可直升
 		INT64 dNameAddr = dCharacterInfo + go_CharacterName;
 		INT64 dSrvId = R_QW(dCharacterInfo + go_CharacterSrvId);
 		DWORD dIndex = R_W(dCharacterInfo + go_CharacterIndex);
@@ -295,6 +311,7 @@ void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 		temp.dIndex = dIndex;
 		temp.dJob = dJobId;
 		temp.等级 = dLev;
+		temp.直升状态 = dJumpState;
 		temp.名称 = cName;
 		temp.对象指针 = dCharacterInfo;
 		temp.SrvId = dSrvId;
@@ -325,4 +342,40 @@ bool 登陆::CALL_进入游戏(int 角色序号)
 	}
 	MainUniversalCALL2(局_rcx, 角色序号, 游戏模块 + 基址_登录_进入游戏call);
 	return true;
+}
+int 登陆::getJumpMapCheck(int dIndex)//索引从1开始
+{
+	__int64 addr_1 = R_QW(游戏模块 + gb_AccountSpecInfo);
+	BYTE dCurSeverIndex = R_BYTE(游戏模块 + gb_CurSeverIndex);//读字节
+	INT64 ret = MainUniversalCALL4_Ret(addr_1, 3, dIndex, dCurSeverIndex, 游戏模块 + gc_AccountSpecCheck);
+	/*wchar_t buf[100];
+	dm.AsmClear();
+	dm.AsmAdd(L"sub rsp,040");
+	wsprintf(buf, L"MOV R9D, 0%X", dCurSeverIndex);
+	dm.AsmAdd(buf);
+	wsprintf(buf, L"MOV R8D, 0%X", dIndex);
+	dm.AsmAdd(buf);
+	wsprintf(buf, L"MOV EDX, 0%X", 3);
+	dm.AsmAdd(buf);
+	wsprintf(buf, L"MOV RCX, 0%I64X", addr_1);
+	dm.AsmAdd(buf);
+	wsprintf(buf, L"MOV RDI, 0%I64X", gc_AccountSpecCheck);
+	dm.AsmAdd(buf);
+	dm.AsmAdd(L"call rdi");
+	dm.AsmAdd(L"add rsp,040");*/
+	return (DWORD)ret;
+}
+void 登陆::getJmpMapList()//获取直升阶段地图信息
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (getJumpMapCheck(i + 1))
+		{
+			MyTrace(L"直升地图%d 已吃券", i + 1);
+		}
+		else
+		{
+			MyTrace(L"直升地图%d 未吃券", i + 1);
+		}
+	}
 }
