@@ -392,8 +392,8 @@ void 成就领取::get_BookListInfo()
 	DWORD dAdvBookIndex = getResIndexByName(L"AdvBook");
 	INT64 dBookResAddr = getResAddrById(dAdvBookIndex);
 	//MyTrace(L"地址0x%I64X \r\n", dBookResAddr);
-	int dtotal = R_DW(dBookResAddr + 0x18);
-	INT64 dstartAddr = R_QW(dBookResAddr + 0x10);
+	int dtotal = R_DW(dBookResAddr + 0x60);
+	INT64 dstartAddr = R_QW(dBookResAddr + 0x58);
 	for (int i = 0; i < dtotal; i++)
 	{
 		INT64 dObj = R_QW(dstartAddr + i * 0x10);
