@@ -58,7 +58,7 @@ struct ÄÍ¾Ã¶È_
 struct Inventoryinfo_
 {
 	INT64 ItemObj;
-	DWORD ItemId;
+	INT64 ItemId;
 	CString ItemName;
 	DWORD dNum;
 	DWORD dindex = -1;

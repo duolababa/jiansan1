@@ -127,35 +127,35 @@ INT64 getResAddrByTypeId(DWORD dResTypeIndex, DWORD dResId, DWORD dStartOffest, 
 }
 INT64 getNpcResAddrById(DWORD dResId)
 {
-	return getResAddrByTypeId(getResIndexByName(L"Npc"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"Npc"), dResId, 0x68, 0x4C, 0x54);
 }
 INT64 getItemResAddrById(DWORD dResId)
 {
-	return getResAddrByTypeId(getResIndexByName(L"Item"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"Item"), dResId, 0x68, 0x4C, 0x54);
 }
 INT64 getSquareResAddrById(DWORD dResId)
 {
-	return getResAddrByTypeId(getResIndexByName(L"Prop"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"Prop"), dResId, 0x68, 0x4C, 0x54);
 }
 INT64 getMapResAddrById(DWORD dResId)
 {
-	return getResAddrByTypeId(getResIndexByName(L"ZoneBase"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"ZoneBase"), dResId, 0x68, 0x4C, 0x54);
 }
 INT64 getVehicleResAddrById(DWORD dResId)
 {
-	return getResAddrByTypeId(getResIndexByName(L"Vehicle"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"Vehicle"), dResId, 0x68, 0x4C, 0x54);
 }
 INT64 getShipResAddrById(DWORD dResId)//船资源
 {
-	return getResAddrByTypeId(getResIndexByName(L"VoyageShip"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"VoyageShip"), dResId, 0x68, 0x4C, 0x54);
 }
 INT64 getCrewResAddrById(DWORD dResId)//船员资源
 {
-	return getResAddrByTypeId(getResIndexByName(L"VoyageCrew"), dResId, 0x20, 0x4C, 0x54);
+	return getResAddrByTypeId(getResIndexByName(L"VoyageCrew"), dResId, 0x68, 0x4C, 0x54);
 }
 BYTE getItemBoxType(int dItemResId)
 {
-	INT64 dAddr = getResAddrByTypeId(getResIndexByName(L"RandomBoxBase"), dItemResId, 0x20, 0x4C, 0x54);
+	INT64 dAddr = getResAddrByTypeId(getResIndexByName(L"RandomBoxBase"), dItemResId, 0x68, 0x4C, 0x54);
 	if (dAddr)
 	{
 		return R_BYTE(dAddr + 0x10);

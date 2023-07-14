@@ -36,5 +36,9 @@ public:
 
 	static bool CALL_进入游戏(int 角色序号);
 
+	static int getJumpMapCheck(int dIndex);
+
+	static void getJmpMapList();
+
 };
 

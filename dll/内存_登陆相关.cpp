@@ -17,10 +17,11 @@ int 登陆::服务器遍历(vector<CString>& vsk)
 			break;
 		}
 		INT64 局_服务器对象 = 局_数组头 + i * 51;
-		string temp = UnicodeToAnsi(R_CString(局_服务器对象 + 4));
+		string temp = UnicodeToAnsi(R_CString(局_服务器对象 + 2));
 		CString 局_服务器名称 = CString(temp.c_str());
 		if (局_服务器名称 != L"")
 		{
+			MyTrace(L"%s", 局_服务器名称);
 			vsk.push_back(局_服务器名称);
 		}
 

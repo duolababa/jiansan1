@@ -28,10 +28,10 @@ void UI功能::getUiList(vector<UIinfo_>& vsk)
 {
 	//UIinfo_ temp;
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	INT64 addr_2 = R_QW(addr_1 + 0xA4);//更新-0218
-	long dtotal = R_DW(addr_2 + 0x21C);
-	INT64 objStartAddr = R_QW(addr_2 + 0x1D8);//对象数组地址
-	INT64 indexStartAddr = R_QW(addr_2 + 0x214);//索引数组地址
+	INT64 addr_2 = R_QW(addr_1 + 基址_个人_遍历偏移);//更新-2023年7月14日 11:04:38
+	long dtotal = R_DW(addr_2 + 0x80C);
+	INT64 objStartAddr = R_QW(addr_2 + 0x7C8);//对象数组地址
+	INT64 indexStartAddr = R_QW(addr_2 + 0x804);//索引数组地址
 	//MyTrace(L"objStartAddr 0x%I64X indexStartAddr 0x%I64X dtotal %d", objStartAddr, indexStartAddr, dtotal);
 	for (long i = 0; i < dtotal; i++)
 	{
@@ -64,32 +64,32 @@ void UI功能::getUiList(vector<UIinfo_>& vsk)
 		}
 	}
 }
-INT64 UI功能::getUiObjById_Old(DWORD ID)
-{
-	INT64 局_获取序幕对象call = 游戏模块 + 基址_新手_获取序幕对象call;
-	INT64 局_获取序幕对象rcx = R_QW(游戏模块 + gb_UiList);
-	INT64 reta;
-	__try
-	{
-		__asm
-		{
-			sub rsp, 0x60
-			mov rcx, 局_获取序幕对象rcx
-			mov edx, ID
-			mov r8, 1
-			mov rdi, 局_获取序幕对象call
-			call rdi
-			add rsp, 0x60
-			mov reta, rax
-		}
-	}
-	__except (1)
-	{
-		DbgPrintf_Mine("getUiObjById error");
-		return 0;
-	}
-	return reta;
-}
+//INT64 UI功能::getUiObjById_Old(DWORD ID)
+//{
+//	INT64 局_获取序幕对象call = 游戏模块 + 基址_新手_获取序幕对象call;
+//	INT64 局_获取序幕对象rcx = R_QW(游戏模块 + gb_UiList);
+//	INT64 reta;
+//	__try
+//	{
+//		__asm
+//		{
+//			sub rsp, 0x60
+//			mov rcx, 局_获取序幕对象rcx
+//			mov edx, ID
+//			mov r8, 1
+//			mov rdi, 局_获取序幕对象call
+//			call rdi
+//			add rsp, 0x60
+//			mov reta, rax
+//		}
+//	}
+//	__except (1)
+//	{
+//		DbgPrintf_Mine("getUiObjById error");
+//		return 0;
+//	}
+//	return reta;
+//}
 
 
 bool UI功能::寻找打开窗口(CString name, INT64& rcx)
@@ -153,10 +153,10 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 INT64 UI功能::getUiObjById(DWORD ID)
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	INT64 addr_2 = R_QW(addr_1 + 0xA4);//更新-0218
-	long dtotal = R_DW(addr_2 + 0x21C);
-	INT64 objStartAddr = R_QW(addr_2 + 0x1D8);//对象数组地址
-	INT64 indexStartAddr = R_QW(addr_2 + 0x214);//索引数组地址
+	INT64 addr_2 = R_QW(addr_1 + 基址_个人_遍历偏移);//更新-0218
+	long dtotal = R_DW(addr_2 + 0x80C);
+	INT64 objStartAddr = R_QW(addr_2 + 0x7C8);//对象数组地址
+	INT64 indexStartAddr = R_QW(addr_2 + 0x804);//索引数组地址
 	//MyTrace(L"objStartAddr 0x%I64X indexStartAddr 0x%I64X dtotal %d", objStartAddr, indexStartAddr, dtotal);
 	for (size_t i = 0; i < dtotal; i++)
 	{
@@ -476,9 +476,10 @@ INT64 内存_UI_取采集标识对象()
 {
 	string 局_文本标识;
 	CString WName;
-	INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 164);
-	INT64 局_数组头 = R_QW(局_rcx + 760);
-	int 局_成员数 = R_DW(局_rcx + 800);
+	//INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 基址_个人_遍历偏移);
+	INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移 + 基址_个人_虚表数组头;
+	INT64 局_数组头 = R_QW(局_rcx);
+	int 局_成员数 = R_DW(局_rcx + 0x28);
 	for (size_t i = 0; i < 局_成员数; i++)
 	{
 		INT64 局_对象 = R_QW(局_数组头 + (i - 1) * 5 * 4 + 4);
@@ -659,15 +660,15 @@ void Fun_MsgBoxConfirm(INT64 dUIObj)
 bool  UI功能::getMsgBoxTextList()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x144);
-	INT64 dstart = R_QW(addr_1 + 0x13C);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + 0x230);
+	INT64 dstart = R_QW(addr_1 + 0x228);//对象数组地址
 	for (long i = 0; i < dtotal; i++)
 	{
 		INT64 dUIObj = R_QW(dstart + i * 0xC);
 
 		//DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
 		DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
-	//	MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
+		MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 窗口文本 = getMsgBoxMiddleText2(dUIObj);
 		MyTrace(L"窗口文本 %s", 窗口文本);
 		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"空间移动") != -1)
@@ -684,14 +685,14 @@ bool  UI功能::getMsgBoxTextList()
 			Fun_MsgBoxConfirm(dUIObj);
 			return false;
 		}
-		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"雇佣船员") != -1)
+		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"雇佣船员") != -1 || 窗口文本.Find(L"雇用船员") != -1)
 			//if (dPraentId == 1)
 		{
 			MyTrace(L"雇佣船员");
 			Fun_MsgBoxConfirm(dUIObj);
 			return false;
 		}
-		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"准备出航") != -1)
+		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"准备出航") != -1 || 窗口文本.Find(L"准备出港") != -1)
 			//if (dPraentId == 1)
 		{
 			MyTrace(L"准备出航");
@@ -751,8 +752,8 @@ CString UI功能::getMsgBoxMiddleText2(INT64 dUIObj)
 CString  UI功能::getMsgBoxText()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x144);
-	INT64 dstart = R_QW(addr_1 + 0x13C);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + 0x230);
+	INT64 dstart = R_QW(addr_1 + 0x228);//对象数组地址
 	for (long i = 0; i < dtotal; i++)
 	{
 		if (i >= 500)

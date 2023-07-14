@@ -657,7 +657,7 @@ DWORD 环境::读取当前对话npc()
 	INT64 局_rcx = R_QW(游戏模块 + 基址_环境_退出npc对话);
 
 
-	b = R_DW(局_rcx + 0x170);
+	b = R_DW(局_rcx + 0xEC);
 
 	return b;
 

@@ -360,7 +360,7 @@ INT64 研磨::getItemBuildUpItemList()//物品遍历
 			WORD dItemGradeLev = R_W(dItemObj + go_ItemGradeLev + 0x4) - 100;//当前强化等级，需要减去100
 			INT64 dItemResAddr = getItemResAddrById(dItemResId);
 			DWORD 物品等阶 = R_W(dItemResAddr + 偏移_背包_物品等级);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);
 			DWORD WearId = getEquipWearArg(dSlotIndex);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
 			CString csName = L"空";

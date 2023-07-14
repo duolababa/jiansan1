@@ -33,16 +33,19 @@ void 钓鱼::Fun_FishThrow_世界坐标(float fx, float fy,float fz)
 int 钓鱼::getFishObjState()//5为初始化 1为普通 3为来鱼 2为出现感叹
 {
 
-	INT64 addr_3 = 本人::取真实对象();
-	INT64 dTemp = R_QW(addr_3 + 0x94);//更新-0218
-	INT64 dFishObj = R_QW(dTemp + go_Role_FishObj);
+	//INT64 addr_3 = 本人::取真实对象();
+	//INT64 dTemp = R_QW(addr_3 + 0x94);//更新-0218
+	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
+	INT64 addr_3 = R_QW(addr_2 + 0x18);
+	INT64 dFishObj = R_QW(addr_3 + go_Role_FishObj);
+	//INT64 dFishObj = R_QW(dTemp + go_Role_FishObj);
 	if (dFishObj)
 	{
 		return R_BYTE(dFishObj + go_Role_FishObj_State);
 	}
 	return -1;
 }
-
 
 
 

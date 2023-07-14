@@ -34,29 +34,29 @@ bool 任务::CALL_接任务(DWORD 任务ID)
 	}
 	DWORD 局_地图ID参数;
 	INT64 QuestTypeAddr = R_QW(dResAddr + 0x3C);
-	DWORD 判断值 = R_BYTE(dResAddr + 0x124);
+	DWORD 判断值 = R_BYTE(dResAddr + 0x134);
 
-	DWORD type = R_BYTE(QuestTypeAddr + 0xB0);
+	DWORD type = R_BYTE(QuestTypeAddr + 0xD4);//dtype
 
 	INT64 dCall1 = 游戏模块 + 基址_任务_获取任务地图ID;
 
-	int 参数1 = R_BYTE(objbase + 8);
+	int 参数1 = R_BYTE(objbase + 4);//dstep
 	INT64 raxx = MainUniversalCALL2_Ret(dResAddr, 参数1, dCall1);
 	if (type == 2)
 	{
 
-		局_地图ID参数 = R_DW(raxx + 0x11C);
+		局_地图ID参数 = R_DW(raxx + 偏移_任务_获取任务地图ID偏移);
 	}
 	if (type == 0 || type == 1 || type == 8 || type == 4 || type == 5)
 	{
 
-		if (R_BYTE(objbase + 0x88) == 1)
+		if (R_BYTE(objbase + 0x94) == 1)
 		{
-			局_地图ID参数 = R_DW(raxx + 0x11C);
+			局_地图ID参数 = R_DW(raxx + 偏移_任务_获取任务地图ID偏移);
 		}
-		if (R_BYTE(objbase + 0x88) == 2)
+		if (R_BYTE(objbase + 0x94) == 2)
 		{
-			局_地图ID参数 = R_DW(QuestTypeAddr + 0xFC);
+			局_地图ID参数 = R_DW(QuestTypeAddr + 偏移_任务_获取任务地图ID偏移2);
 		}
 
 
@@ -66,7 +66,7 @@ bool 任务::CALL_接任务(DWORD 任务ID)
 	//	局_地图ID参数 = R_DW(raxx + 0x25C);
 	//	//局_地图ID参数 = R_DW(raxx + 0x25C);
 	//}
-	MyTrace(L"type:%d 局_地图ID参数 %d 状态 %d 可能参数1 %d 可能参数2 %d ", type, 局_地图ID参数, R_BYTE(objbase + 0x88), R_DW(raxx + 0x11C), R_DW(QuestTypeAddr + 0xFC));
+	MyTrace(L"type:%d 局_地图ID参数 %d 状态 %d 可能参数1 %d 可能参数2 %d ", type, 局_地图ID参数, R_BYTE(objbase + 0x94), R_DW(raxx + 偏移_任务_获取任务地图ID偏移), R_DW(QuestTypeAddr + 偏移_任务_获取任务地图ID偏移2));
 	//DWORD 任务ID;
 	/*if (任务.dType == 2)
 	{
@@ -239,12 +239,13 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 	任务::getQuestCurStepInfo(dObj, bi, 子任务进度组);
 	bi.子任务进度 = 子任务进度组;
 	bi.objBase = dObj;
-	bi.dQuestId = R_DW(dObj);
-	bi.dStep = R_BYTE(dObj + 0x8);//单字节
-	bi.dState = R_W(dObj + 0x88);//双字节 1为正在做 2 为可交 //更新-0220
+	bi.dQuestId = R_DW(dObj);//2023年7月13日 23:45:21
+	bi.dStep = R_BYTE(dObj + 0x4);//单字节
+	bi.dState = R_W(dObj + 0x94);//双字节 1为正在做 2 为可交 //更新-0220
 	bi.dResAddr = getQuestResAddrById(bi.dQuestId);
+	//MyTrace(L"getQuestInfo bi.dResAddr 0x%I64X", bi.dResAddr);
 	INT64 dResInfoAddr = R_QW(bi.dResAddr + 0x3C);//更新-0220
-	bi.dType = R_BYTE(dResInfoAddr + 0xB0);//更新-0220
+	bi.dType = R_BYTE(dResInfoAddr + 0xD4);//更新-0220
 	if (bi.dType == 0)
 	{
 		if (R_DW(dResInfoAddr + 0x100 + 4))//不为0已经做过了？ //更新-0220
@@ -252,7 +253,7 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 			bi.IsFinish = 1;
 		}
 	}
-	INT64 dNameAddr = R_QW(dObj + 0xC);
+	INT64 dNameAddr = R_QW(dObj + 0x8);
 	CString csName = L"空";
 	if (dNameAddr)
 	{
@@ -265,14 +266,14 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 	// INT64 dVlaue = getStringAddr( 0, dNameAddr, dStrLen);
 
 	//CString cSumary = GetName(getStringAddr( 0, dNameAddr, dStrLen));
-	 MyTrace(L"%s  任务阶段%d  任务ID 0x%I64X \r\n", csName, bi.dStep, bi.dQuestId);
+	// MyTrace(L"%s \r\n",cSumary);
 
 	//if (bi.dQuestId == 0x3157A)
 	{
 		getQuestStepInfo(bi.dResAddr, bi.dStep, bi);
 	}
 
-	// MyTrace(L"地址%I64X 资源地址%I64X 任务ID %X 步骤%d 状态 %d\r\n",dObj,dResAddr,dQuestId,dStep,dState);
+	//MyTrace(L"地址%I64X 资源地址%I64X 任务ID %X 步骤%d 状态 %d\r\n",dObj,bi.dResAddr,bi.dQuestId,bi.dStep,bi.dState);
 }
 
 void 任务::get_CurQuestList(vector<QuestInfo_>& vsk)
@@ -300,9 +301,11 @@ void 任务::get_CurQuestList(vector<QuestInfo_>& vsk)
 				INT64 dObj = R_QW(objStartAddr + i * 0x5 * 4 + 4);
 				if (dObj)
 				{
-					if (R_DW(dObj + 4) && R_W(dObj + 0xC))
+					if (R_DW(dObj + 0X1C + 4) && R_W(dObj + 0x1C))
 					{
-						dObj = dObj + 0x10;//更新-0220
+						//MyTrace(L"dObj + 4  %d<0x%I64X>  dObj + 0xC  %d<0x%I64X> "
+							//, R_DW(dObj + 4), R_DW(dObj + 4), R_W(dObj + 0xC), R_W(dObj + 0xC));
+						dObj = dObj + 0x1C;//2023年7月13日 23:49:49
 						QuestInfo_ bi;
 						//memset(&bi, 0, sizeof(_QuestInfo));
 						getQuestInfo(dObj, bi);

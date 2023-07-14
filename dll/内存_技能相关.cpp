@@ -35,14 +35,16 @@ INT64 getSkillResAddrByIdAndLev(DWORD dResId, DWORD dLev)
 {
 	DWORD dSkillResTypeIndex = getResIndexByName(L"Skill");
 	INT64 dSkillResAddr = getResAddrById(dSkillResTypeIndex);
-	long dtotal = R_DW(dSkillResAddr + 0x64);
+	//MyTrace(L"getSkillResAddrByIdAndLev 0x%I64X", dSkillResAddr);
+	long dtotal = R_DW(dSkillResAddr + 0xAC);
 	DWORD dHash = dResId & (dtotal - 1);
-	INT64 objStartAddr = R_QW(dSkillResAddr + 0x20);//对象数组地址
-	INT64 indexStartAddr = R_QW(dSkillResAddr + 0x5C);//索引数组地址
+	INT64 objStartAddr = R_QW(dSkillResAddr + 0x68);//对象数组地址
+	INT64 indexStartAddr = R_QW(dSkillResAddr + 0xA4);//索引数组地址
 	INT64 dIndex = R_DW(indexStartAddr + dHash * 4);
 	DWORD dOffest = dIndex * 0x54;
 	if (dResId == R_DW(objStartAddr + dOffest))
 	{
+		//MyTrace(L"getSkillResAddrByLev 0x%I64x", objStartAddr + dOffest + 4);
 		return getSkillResAddrByLev(objStartAddr + dOffest + 4, dLev);
 	}
 	else
@@ -60,6 +62,8 @@ INT64 getSkillResAddrByIdAndLev(DWORD dResId, DWORD dLev)
 				dOffest = dNextIndex * 0x54;
 				if (dResId == R_DW(objStartAddr + dOffest))
 				{
+					MyTrace(L"getSkillResAddrByLev 0x%I64x", objStartAddr + dOffest + 4);
+					//return 0
 					return getSkillResAddrByLev(objStartAddr + dOffest + 4, dLev);
 				}
 			}
@@ -814,17 +818,17 @@ bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2,
 	W_BYTE((INT64)&puff[0x21], 特性3);*/
 	for (size_t i = 0; i <= 15; i++)
 	{
-		W_QW((INT64)&puff[0x21 + i * 0xE], 0x100010001);
+		W_QW((INT64)&puff[0x1A + i * 0xE], 0x100010001);
 		//W_Word((INT64)&puff[0x21 + i * 0xE + 4], 1);
 	}
 	W_QW((INT64)&puff[0], 局_包头);
 	W_QW((INT64)&puff[8], 0);
 	W_QW((INT64)&puff[16], 0);
 	W_BYTE((INT64)&puff[0x18], 1);
-	W_DW((INT64)&puff[0x1D], 技能ID);
-	W_BYTE((INT64)&puff[0x1A], 特性1);
-	W_BYTE((INT64)&puff[0x1B], 特性2);
-	W_BYTE((INT64)&puff[0x1C], 特性3);
+	W_DW((INT64)&puff[0x24], 技能ID);
+	W_BYTE((INT64)&puff[0x20], 特性1);
+	W_BYTE((INT64)&puff[0x21], 特性2);
+	W_BYTE((INT64)&puff[0x22], 特性3);
 
 	W_BYTE((INT64)&puff[0x27], 等级);
 	//W_DW((INT64)&puff[0x110], 0xC0);

@@ -134,7 +134,7 @@ void 背包::get_InventoryItemList(vector<Inventoryinfo_>& vsk)
 	//INT64 dStart = addr_2 + 0x55A2C ;//0x17DD8;//0x690;
 	for (size_t i = 0; i < 100; i++)
 	{
-		DWORD dItemId = R_DW(dStart + i * dSize + 偏移_背包_物品id);
+		INT64 dItemId = R_QW(dStart + i * dSize + 偏移_背包_物品id);
 		if (dItemId)
 		{
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
@@ -142,8 +142,8 @@ void 背包::get_InventoryItemList(vector<Inventoryinfo_>& vsk)
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			//MyTrace(L"dItemResAddr");
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//更新-0227
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//更新-0227
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
 			DWORD 物品等级 = R_W(dItemResAddr + 偏移_背包_物品等级);
 			DWORD 强化等级 = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
 			int dBoxType = 0;
@@ -208,8 +208,8 @@ void 背包::get_EquipList(vector<Equipinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//更新-0227
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//更新-0227
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
 			DWORD 物品等级 = R_W(dItemResAddr + 偏移_背包_物品等级);
 			DWORD 强化等级 = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
 			CString csName = L"空";
@@ -258,8 +258,8 @@ void 背包::get_UpEquipList(vector<Equipinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//更新-0227
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//更新-0227
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
 			DWORD 物品等级 = R_W(dItemResAddr + 偏移_背包_物品等级);
 			DWORD 强化等级 = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
 			CString csName = L"空";
@@ -307,8 +307,8 @@ void 背包::get_LifeToolList(vector<Equipinfo_>& vsk)  //生活装备
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//更新-0227
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//更新-0227
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
 			CString csName = L"空";
 			if (dNameAddr)
 			{
@@ -353,8 +353,8 @@ void 背包::get_cangkuList(vector<Inventoryinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//更新-0227
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//更新-0227
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
 			CString csName = L"空";
 			if (dNameAddr)
 			{
@@ -482,8 +482,8 @@ void 背包::get_feicangkuList(vector<Inventoryinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x114);//更新-0227
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x118);//更新-0227
+			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
 			CString csName = L"空";
 			if (dNameAddr)
 			{
@@ -764,7 +764,7 @@ void 背包::get_RecommendEquipList(vector<Inventoryinfo_>& vsk)//推荐装备
 		DWORD dSlotIndex = R_DW(objStartAddr + i * 0x5 * 4);
 		if (dSlotIndex && dSlotIndex != 0xFFFFFFFF)
 		{
-			DWORD dItmeId = R_DW(objStartAddr + i * 0x5 * 4 + 4);
+			INT64 dItmeId = R_QW(objStartAddr + i * 0x5 * 4 + 4);
 			临时.ItemId = dItmeId;
 			vsk.push_back(临时);
 			MyTrace(L"推荐装备槽位%X 物品ID 0x%X\r\n", dSlotIndex, dItmeId);

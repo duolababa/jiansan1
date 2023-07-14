@@ -52,7 +52,7 @@ void getReverseRuinAll()//资源获取混沌资源
 	DWORD dReverseRuinIndex = getResIndexByName(L"ReverseRuin");
 	INT64 dReverseRuinAddr = getResAddrById(dReverseRuinIndex);
 	MyTrace(L"地址0x%I64X \r\n", dReverseRuinAddr);
-	gettReverseRuinListAll(dReverseRuinAddr, 0x20, 0x54);
+	gettReverseRuinListAll(dReverseRuinAddr, 0x68, 0x54);
 }
 void Fun_DungeonEntranceChaoEnter(int dId)
 {

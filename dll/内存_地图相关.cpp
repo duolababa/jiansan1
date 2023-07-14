@@ -7,7 +7,7 @@ int 地图::取地图ID()
 int 地图::取当前大陆ID()
 {
 	INT64 MapAddr = getMapResAddrById(地图::取地图ID());
-	return R_BYTE(MapAddr + 88);
+	return R_BYTE(MapAddr + 0x30);
 }
 
 void 地图::传送(DWORD 传送ID)
@@ -359,7 +359,7 @@ CString 地图::取大地图名()
 	//INT64 局_结果 = (INT64)申请内存2((HANDLE)-1, 100);
 	UCHAR 局_结果[100] = { 0 };
 	MainUniversalCALL4(局_大地图rcx, INT64(&局_结果), 局_地图ID, 0, 局_大地图call);
-	CString 返回名称 = R_CString(R_QW(R_QW((INT64)&局_结果) + 0x68));
+	CString 返回名称 = R_CString(R_QW(R_QW((INT64)&局_结果) + 0x48));
 	//CString 返回名称 = CString(temp.c_str());
 	//释放内存2((HANDLE)-1, LPVOID(局_结果), 100);
 	return 返回名称;
@@ -371,7 +371,7 @@ CString 地图::取指定地图名(DWORD 局_地图ID)
 	//INT64 局_结果 = (INT64)申请内存2((HANDLE)-1, 100);
 	UCHAR 局_结果[100] = { 0 };
 	MainUniversalCALL4(局_大地图rcx, (INT64)&局_结果, 局_地图ID, 0, 局_大地图call);
-	CString 返回名称 = R_CString(R_QW(R_QW((INT64)&局_结果) + 0x68));
+	CString 返回名称 = R_CString(R_QW(R_QW((INT64)&局_结果) + 0x48));
 	//释放内存2((HANDLE)-1, LPVOID(局_结果), 100);
 	return 返回名称;
 }
@@ -473,15 +473,46 @@ bool 地图::指定地点是否可到达(float x, float y, float z)
 	}
 	return false;
 }
+//bool 地图::指定地点是否可到达_M(float x, float y, float z)
+//{
+//
+//	坐标_ CALLArg;
+//	CALLArg.x = x;
+//	CALLArg.y = y;
+//	CALLArg.z = z;
+//
+//	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLCanArrive, (LPARAM)&CALLArg, SMTO_NORMAL, 2000, 0);
+//	//MyTrace(L"返回值 %d", CALLArg.是否可达);
+//	return (CALLArg.是否可达);
+//}
+
 bool 地图::指定地点是否可到达_M(float x, float y, float z)
 {
+	INT64 局_rsi = 本人::取真实对象();
+	INT64 ret;
+	/*INT64 虚函数头 = R_QW(局_rsi);
+	INT64 局_CALL1 = R_QW(虚函数头 + 基址_地图_目的地址是否可达_r12获取偏移);*/
+	INT64 r12 = R_QW(局_rsi + 基址_地图_目的地址是否可达_r12偏移);
+	INT64 rcx = R_QW(局_rsi + 基址_地图_目的地址是否可达_rax偏移);
+	INT64 dCALL = 游戏模块 + 基址_地图_目的地址是否可达Call;
+	UCHAR pBuff[0x100] = { 0 };
+	W_Float((ULONG64)&pBuff[0], x);
+	W_Float((ULONG64)&pBuff[4], y);
+	W_Float((ULONG64)&pBuff[8], z);
+	INT64 局_R9 = (INT64)&pBuff;
+	if (rcx && r12)
+	{
+		ret = MainUniversalCALL8_Ret(rcx, r12, 0, (ULONG_PTR)pBuff, 0, 0, 1, 0, dCALL);
+		MyTrace(L"是否可达 %0.3f,%0.3f,%0.3f -> %d", x, y, z, ret);
+		return (bool)ret;
+	}
+	return false;
+	//坐标_ CALLArg;
+	//CALLArg.x = x;
+	//CALLArg.y = y;
+	//CALLArg.z = z;
+	//SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLCanArrive, (LPARAM)&CALLArg, SMTO_NORMAL, 2000, 0);
+	////MyTrace(L"返回值 %d", CALLArg.是否可达);
+	//return (CALLArg.是否可达);
 
-	坐标_ CALLArg;
-	CALLArg.x = x;
-	CALLArg.y = y;
-	CALLArg.z = z;
-
-	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLCanArrive, (LPARAM)&CALLArg, SMTO_NORMAL, 2000, 0);
-	//MyTrace(L"返回值 %d", CALLArg.是否可达);
-	return (CALLArg.是否可达);
 }
