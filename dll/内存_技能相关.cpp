@@ -825,7 +825,7 @@ bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2,
 	W_QW((INT64)&puff[8], 0);
 	W_QW((INT64)&puff[16], 0);
 	W_BYTE((INT64)&puff[0x18], 1);
-	W_DW((INT64)&puff[0x24], 技能ID);
+	W_DW((INT64)&puff[0x23], 技能ID);
 	W_BYTE((INT64)&puff[0x20], 特性1);
 	W_BYTE((INT64)&puff[0x21], 特性2);
 	W_BYTE((INT64)&puff[0x22], 特性3);
