@@ -22,9 +22,10 @@ public:
     static INT64 getMoneyNumByType(int dMoneyType);
     static void 维修装备(DWORD 参_修理类型);
     static void 使用物品(DWORD 格子数);
+    static void 使用任务物品(DWORD 格子数);
     static void 右键物品(DWORD 格子数);
     static void 丢弃物品call(INT64 ItemId);
-
+    static DWORD 坐骑遍历();
     
 
     static void 使用物品2(DWORD 格子数);
@@ -40,6 +41,8 @@ public:
     static void CALL_穿戴装备(DWORD bagpos, DWORD SendArg);
     static void Fun_UnWearEquip(int dEquipSlot);
     static bool 背包物品处理();
+    static void  点击分解颜色call();
+    static void  自动入包call();
     static void SetHpItemSlot(DWORD dItemId, DWORD dTargetIndex);
     static void SetBufItemSlot(DWORD dItemId, DWORD dTargetIndex);
     static void 药品拖拽call(DWORD 位置, DWORD dItemId, DWORD dTargetIndex, DWORD 物品类型);

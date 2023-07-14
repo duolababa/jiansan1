@@ -125,7 +125,7 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 		if (dNameAddr)
 		{
 			 name1 = CString(R_String(R_QW(dNameAddr)));
-			MyTrace(L"%s", name1.GetString());
+		//	MyTrace(L"%s", name1.GetString());
 
 		}
 	
@@ -342,7 +342,7 @@ bool UI功能::背包界面是否显示()
 	INT64 局_UI对象 = UI功能::getUiObjById(0x1A);//ID 31 是否显示0  root1.arkui.windowCanvas.inventoryWnd
 	if (R_BYTE(局_UI对象 + 0x27C) == 1)
 	{
-		MyTrace(L"背包显示");
+		//MyTrace(L"背包显示");
 		return true;
 	}
 	return false;
@@ -600,7 +600,7 @@ void getMiddle_textFieldAddr(INT64 dChildAddr, INT64& dRetAddr)
 				if (_tcscmp(cName, L"textField") == 0)
 				{
 					dRetAddr = dTempAddr;
-					MyTrace(L"文本地址%I64X", dTempAddr);
+				//	MyTrace(L"文本地址%I64X", dTempAddr);
 				}
 			}
 			getMiddle_textFieldAddr(dTempAddr, dRetAddr);
@@ -667,7 +667,7 @@ bool  UI功能::getMsgBoxTextList()
 
 		//DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
 		DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
-		MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
+	//	MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 窗口文本 = getMsgBoxMiddleText2(dUIObj);
 		MyTrace(L"窗口文本 %s", 窗口文本);
 		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"空间移动") != -1)
@@ -972,7 +972,7 @@ int UI功能::get_DeadSceneList(CString 复活方式)
 				{
 					return dType;
 				}
-				MyTrace(L"UI地址0x%I64X 索引%d 类型%d %s\r\n", dUiObj, i, dType, cName);
+			//	MyTrace(L"UI地址0x%I64X 索引%d 类型%d %s\r\n", dUiObj, i, dType, cName);
 			}
 
 		}
@@ -1033,10 +1033,10 @@ bool UI功能::get_DeadSceneListBtnState()//获取复活按钮状态
 						if (dValue >> 0xe == 1 && stateName == L"up")
 						{
 							bView = 1;//显示中
-							MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
+						//	MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
 							return true;
 						}
-						MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
+					//	MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
 					}
 				}
 			}
@@ -1186,7 +1186,7 @@ CString  UI功能::窗口反馈文本()
 
 		//DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
 		DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
-		MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
+		//MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 返回 = getMsgBoxMiddleText2(dUIObj);
 
 

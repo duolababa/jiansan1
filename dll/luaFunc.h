@@ -109,7 +109,43 @@ static int 技能冷却(__LUA_指针);
 static int 接任务(__LUA_指针);
 static int 地图名称(__LUA_指针);
 static int 遍历(__LUA_指针);
+static int 锁怪(__LUA_指针);
+static int 是否打开NPC(__LUA_指针);
+static int 子任务是否完成(__LUA_指针);
+static int 取消锁定(__LUA_指针);
+static int 读取怪物信息(__LUA_指针);
+static int 地图ID(__LUA_指针);
+static int 宠物是否召唤(__LUA_指针);
+static int 召唤宠物(__LUA_指针);
+static int 背包剩余数量(__LUA_指针);
+static int 分解所有(__LUA_指针);
+static int 使用丢弃(__LUA_指针);
+static int 使用任务物品(__LUA_指针);
+static int 使用物品(__LUA_指针);
+static int 可否到达(__LUA_指针);
+static int 坐骑ID(__LUA_指针);
+static int 骑马(__LUA_指针);
+static int 物品信息(__LUA_指针);
+static int 打开最近NPC(__LUA_指针);
+static int 传送(__LUA_指针);
+static int 出入港(__LUA_指针);
+static int 唱歌(__LUA_指针);
+static int 表情(__LUA_指针);
+static int 新按键(__LUA_指针);
+static int 关闭对话(__LUA_指针);
+static int 等待(__LUA_指针);
+static int 寻路1(__LUA_指针);
 
+
+//lua_register(L, "关闭对话", 关闭对话);
+//	环境::CALL_点击指定NPC_ByResId(NpcResId);
+//	lua_register(L, "物品信息", 物品信息);
+
+//	本人::CALL_使用坐骑(6001);
+
+//bool 本人::是否已召唤宠物()
+
+//	lua_register(L, "读取怪物信息", 读取怪物信息);
 
 
 //bool 背包::指定位置生活工具是否已装备(DWORD 槽位)//0 采集工具 1 伐木工具 2 采矿工具 3 狩猎工具 4 钓鱼工具 5 考古工具

@@ -394,14 +394,14 @@ static int 控件查找(__LUA_指针)
 
 static int 技能冷却(__LUA_指针)
 {
-	MyTrace(L"技能冷却c");
+	//MyTrace(L"技能冷却c");
 	DWORD 键位1 = lua_tointeger(L, 1);
 	DWORD 键位= lua_tointeger(L, 2);
 	vector<ShortCutInfo_>技能数组;
 	BOOL 冷却 = 0;
 
 	技能::get_SkillShortList(技能数组);
-	MyTrace(L"技能冷却1");
+	//MyTrace(L"技能冷却1");
 	for (size_t i = 0; i < 技能数组.size(); i++)
 	{
 		if (键位== 技能数组[i].键位)
@@ -411,7 +411,15 @@ static int 技能冷却(__LUA_指针)
 		}
 
 	}
-	lua_pushinteger(L, 冷却);
+
+	if (冷却 == 1)
+	{
+		lua_pushinteger(L, 0);
+	}
+	else
+	{
+		lua_pushinteger(L, 1);
+	}
 
 
 	return 1;
@@ -963,7 +971,215 @@ static int 仓库取大东西(__LUA_指针)
 	return 0;
 }
 
+static int 地图ID(__LUA_指针)
+{
+	lua_pushinteger(L, 地图::取地图ID());
+	return 1;
 
+
+}
+
+
+
+static int 宠物是否召唤(__LUA_指针)
+{
+	bool x = 本人::是否已召唤宠物();
+	lua_pushinteger(L, x);
+	return 1;
+}
+static int 召唤宠物(__LUA_指针)
+{
+	本人::召唤宠物();
+		return 0;
+
+}
+
+
+
+static int 分解所有(__LUA_指针)
+{
+	if (!UI功能::背包界面是否显示())
+	{
+		UI功能::内存按键(DWORD('I'));
+	
+	}
+	if (!UI功能::bCheckItemDisassemleWnd())
+	{
+		UI功能::Fun_UiShowCtrl(0x25);
+		Sleep(1000);
+	}
+
+	背包::自动入包call();
+	Sleep(1000);
+	背包::点击分解颜色call();
+		本人::CALL_全部分解();
+	Sleep(3000);
+	UI功能::Fun_UiShowCtrl(0x25);
+	return 0;
+
+}
+
+static int 使用任务物品(__LUA_指针)
+{
+	DWORD 次数 = lua_tointeger(L,1);
+	背包::使用任务物品(次数);
+	return 0;
+
+}
+static int 使用物品(__LUA_指针)
+{
+	const char* ID = lua_tostring(L, 1);
+	DWORD 次数 = lua_tointeger(L, 2);
+	DWORD addr = 常用功能::十六进制转十进制(ID);
+
+	vector<Inventoryinfo_> vsk;
+	背包::get_InventoryItemList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (addr == vsk[i].ItemResId)
+		{
+			if (次数 > 1)
+			{
+				for (size_t b = 0; i < 次数; b++)
+				{
+					背包::使用物品(vsk[i].dindex);
+					Sleep(2000);
+				}
+			}
+			else
+			{
+				背包::使用物品(vsk[i].dindex);
+				Sleep(2000);
+			}
+
+
+		
+			break;
+		}
+
+
+	}
+	return 0;
+
+}
+
+
+static int 使用丢弃(__LUA_指针)
+{
+	const char* ID = lua_tostring(L, 1);
+	DWORD 次数 = lua_tointeger(L, 2);
+	DWORD addr = 常用功能::十六进制转十进制(ID);
+
+	vector<Inventoryinfo_> vsk;
+	背包::get_InventoryItemList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (addr == vsk[i].ItemResId)
+		{
+			if (次数>1)
+			{
+				for (size_t b = 0; i < 次数; b++)
+				{
+					背包::使用物品(vsk[i].dindex);
+					Sleep(2000);
+				}
+			}
+			else
+			{
+				背包::使用物品(vsk[i].dindex);
+				Sleep(2000);
+			}
+
+
+			背包::丢弃物品call(vsk[i].ItemId);
+			Sleep(2000);
+			break;
+		}
+
+
+	}
+	return 0;
+}
+
+
+static int 背包剩余数量(__LUA_指针)
+{
+
+	vector<Inventoryinfo_> vsk;
+	背包::get_InventoryItemList(vsk);
+	DWORD a = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].ItemResId == 0)
+		{
+			a = a + 1;
+		}
+	}
+	lua_pushinteger(L, a);
+	return 1;
+}
+
+
+static int 读取怪物信息(__LUA_指针)
+{
+	坐标_ 本人坐标 = 本人::取坐标();
+	INT64 dObjAddr = 0;
+	objInfo_ 临时;
+	dObjAddr = lua_tointeger(L, 1);
+	CString temp;
+	vector<CString>arr;
+	临时 = 环境::getActorInfo1(dObjAddr, 本人坐标);
+	arr.push_back(临时.wName);
+	temp.Format(L"%f", 临时.坐标.x);//1
+	arr.push_back(temp);
+	temp.Format(L"%f", 临时.坐标.y);//2
+	arr.push_back(temp);
+	temp.Format(L"%f", 临时.坐标.z);//3
+	arr.push_back(temp);
+
+	double 血量 = 0;
+
+	if (临时.dCurHp != 0)
+	{
+		血量 = (double(临时.dCurHp) / double(临时.dMaxHp)) * 100;
+	}
+	else
+	{
+		血量 = 0;
+	}
+
+
+
+
+
+	temp.Format(L"%f", 血量);
+	arr.push_back(temp);
+	temp.Format(L"%f", 血量);//4
+	arr.push_back(temp);//5
+	temp.Format(L"%d", 临时.dResId);
+	arr.push_back(temp);//6
+	temp.Format(L"%d", 临时.dType);
+	arr.push_back(temp);//7
+	temp.Format(L"%d", 临时.dType);
+	arr.push_back(temp);//8
+	temp.Format(L"%s", 临时.wName);
+	arr.push_back(temp);//9
+	temp.Format(L"%f", 临时.fDis);
+	arr.push_back(temp);//10
+	temp.Format(L"%f", 临时.坐标.z);//11
+	arr.push_back(temp);
+	lua_newtable(L);
+	//lua_pushnumber(L, 角色信息.当前血)
+	lua_pushnumber(L, -1);
+	lua_rawseti(L, -2, 0);
+	for (size_t i = 0; i < arr.size(); i++)
+	{
+		lua_pushstring(L, CStringA(arr[i]));
+		lua_rawseti(L, -2, i);
+	}
+	return 1;
+}
 
 
 static int 读取人物信息(__LUA_指针)
@@ -981,7 +1197,25 @@ static int 读取人物信息(__LUA_指针)
 	arr.push_back(temp);
 	temp.Format(L"%f", 角色信息.坐标.z);//3
 	arr.push_back(temp);
-	double 血量 = (double(角色信息.当前血) / double(角色信息.最大血)) * 100;
+
+	/*if (临时角色信息.航海最大耐久 != 0)
+	{
+		临时角色信息.航海当前耐久 = floor((double)航海当前耐久 / (double)临时角色信息.航海最大耐久 * 100);
+	}
+	else
+	{
+		临时角色信息.航海当前耐久 = 0;
+	}*/
+	double 血量 = 0;
+
+	if (角色信息.最大血 != 0)
+	{
+		 血量 = (double(角色信息.当前血) / double(角色信息.最大血)) * 100;
+	}
+	else
+	{
+		 血量 = 0;
+	}
 
 	temp.Format(L"%f", 血量);
 	arr.push_back(temp);//4
@@ -1006,7 +1240,7 @@ static int 读取人物信息(__LUA_指针)
 	
 
 
-	double 船舶 = (double(角色信息.航海当前耐久) / double(角色信息.航海最大耐久)) * 100;
+	double 船舶 = 角色信息.航海当前耐久;
 	temp.Format(L"%f", 船舶);
 	arr.push_back(temp);//13
 	temp.Format(L"%d", 角色信息.装备评分);
@@ -1049,7 +1283,15 @@ static int 准备出航(__LUA_指针)
 
 
 }
+static int 是否打开NPC(__LUA_指针)
+{
+	bool x = 环境::是否在和NPC对话();
 
+	lua_pushinteger(L, x);
+
+	return 0;
+
+}
 
 static int 调试判断(__LUA_指针)
 {
@@ -1146,7 +1388,7 @@ static int 获取坐标对象(__LUA_指针)
 
 	INT64 addr = 环境::鼠标获取对象call(x, y);
 	//CString(常用功能::十进制转十六进制(addr).c_str())
-	MyTrace(L"addr,0x%I64X", addr);
+//	MyTrace(L"addr,0x%I64X", addr);
 		lua_pushstring(L, 常用功能::十进制转十六进制(addr).c_str());
 
 	return 1;
@@ -1250,10 +1492,26 @@ static int 遍历(__LUA_指针)
 	CArray<CString, CString>分割1;
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].IsHide != 0)
+			{
+				continue;
+			}
+			if (vsk[i].dCurHp >= 1)
+			{
+
+			}
+			else
+			{
+				continue;
+			}
+
+		}
+
 		if (vsk[i].dType == 类型)
 		{
-			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
-			{
+		
 
 				if (角色信息.对象指针 == vsk[i].objBase)
 				{
@@ -1325,7 +1583,7 @@ static int 遍历(__LUA_指针)
 
 
 				}
-			}
+			
 		}
 	}
 
@@ -1334,6 +1592,445 @@ static int 遍历(__LUA_指针)
 
 	return 1;
 }
+
+static int 锁怪(__LUA_指针)
+{
+	float x = lua_tonumber(L, 1);
+	float y = lua_tonumber(L, 2);
+	float z = lua_tonumber(L, 3);
+	坐标_ 指定坐标;
+	指定坐标.x = x;
+	指定坐标.y = y;
+	指定坐标.z = z;
+	技能::屏蔽鼠标();
+	技能::写怪物坐标到鼠标(指定坐标);
+
+	return 0;
+}
+static int 坐骑ID(__LUA_指针)
+{
+	DWORD ID = 0;
+	ID=背包::坐骑遍历();
+	lua_pushinteger(L, ID);
+	return 1;
+}
+
+static int 传送(__LUA_指针)
+{
+	DWORD 传送ID = lua_tointeger(L, 1);
+	DWORD 传送ID1 = lua_tointeger(L, 2);
+	地图::传送(传送ID);
+
+	return 0;
+}
+static int 出入港(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	if (ID = 1)
+	{
+		UI功能::航海出港();
+	}
+	else
+	{
+		UI功能::航海入港();
+
+	}
+	return 0;
+}
+static int 等待(__LUA_指针)
+{
+	DWORD dd = lua_tointeger(L, 1);
+	Sleep(dd);
+	return 0;
+
+}
+
+
+
+static int 关闭对话(__LUA_指针)
+{
+	if (环境::是否在和NPC对话())
+	{
+		环境::CALL_退出NPC();
+		Sleep(2000);
+	}
+	return 0;
+}
+
+
+static int 新按键(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	//MyTrace(L"%s", tmpStr);
+
+	if (strstr(tmpStr, "Q"))
+	{
+
+		UI功能::内存按键('Q');
+		return 0;
+	}
+	if (strstr(tmpStr, "F2"))
+	{
+
+		UI功能::内存按键(VK_F2);
+		return 0;
+	}
+	if (strstr(tmpStr, "M"))
+	{
+
+		UI功能::内存按键('M');
+		return 0;
+	}
+	if (strstr(tmpStr, "F6"))
+	{
+
+		UI功能::内存按键(VK_F6);
+		return 0;
+	}
+	if (strstr(tmpStr, "空格"))
+	{
+
+		UI功能::内存按键(VK_SPACE);
+		return 0;
+	}
+	if (strstr(tmpStr, "N"))
+	{
+
+		UI功能::内存按键('N');
+		return 0;
+	}
+	if (strstr(tmpStr, "C"))
+	{
+
+		UI功能::内存按键('C');
+		return 0;
+	}
+	if (strstr(tmpStr, "I"))
+	{
+
+		UI功能::内存按键('I');
+		return 0;
+	}
+	if (strstr(tmpStr, "G"))
+	{
+
+		UI功能::内存按键('G');
+		return 0;
+	}
+	if (strstr(tmpStr, "W"))
+	{
+
+		UI功能::内存按键('W');
+		return 0;
+	}
+	if (strstr(tmpStr, "E"))
+	{
+
+		UI功能::内存按键('E');
+		return 0;
+	}
+	if (strstr(tmpStr, "R"))
+	{
+
+		UI功能::内存按键('R');
+		return 0;
+	}
+	if (strstr(tmpStr, "Z"))
+	{
+
+		UI功能::内存按键('Z');
+		return 0;
+	}
+	if (strstr(tmpStr, "B"))
+	{
+
+		UI功能::内存按键('B');
+		return 0;
+	}
+	if (strstr(tmpStr, "V"))
+	{
+
+		UI功能::内存按键('V');
+		return 0;
+	}
+
+	if (strstr(tmpStr, "A"))
+	{
+
+		UI功能::内存按键('A');
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "S"))
+	{
+
+		UI功能::内存按键('S');
+		return 0;
+	}
+	if (strstr(tmpStr, "D"))
+	{
+
+		UI功能::内存按键('D');
+		return 0;
+	}
+	if (strstr(tmpStr, "F"))
+	{
+
+		UI功能::内存按键('F');
+		return 0;
+	}
+	if (strstr(tmpStr, "1"))
+	{
+
+		UI功能::内存按键('1');
+		return 0;
+	}
+
+	if (strstr(tmpStr, "2"))
+	{
+
+		UI功能::内存按键('2');
+		return 0;
+	}
+	if (strstr(tmpStr, "3"))
+	{
+
+		UI功能::内存按键('3');
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "4"))
+	{
+
+		UI功能::内存按键('4');
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "5"))
+	{
+
+		UI功能::内存按键('5');
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "6"))
+	{
+
+		UI功能::内存按键('6');
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "7"))
+	{
+
+		UI功能::内存按键('7');
+		return 0;
+	}
+
+
+
+	if (strstr(tmpStr, "8"))
+	{
+
+		UI功能::内存按键('8');
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "9"))
+	{
+
+		UI功能::内存按键('9');
+		return 0;
+	}
+
+	if (strstr(tmpStr, "F1"))
+	{
+
+		UI功能::内存按键(VK_F1);
+		return 0;
+	}
+
+	if (strstr(tmpStr, "F3"))
+	{
+
+		UI功能::内存按键(VK_F3);
+		return 0;
+	}
+	if (strstr(tmpStr, "F4"))
+	{
+
+		UI功能::内存按键(VK_F4);
+		return 0;
+	}
+	if (strstr(tmpStr, "F5"))
+	{
+
+		UI功能::内存按键(VK_F5);
+		return 0;
+	}
+
+
+	if (strstr(tmpStr, "F6"))
+	{
+
+		UI功能::内存按键(VK_F6);
+		return 0;
+	}
+	if (strstr(tmpStr, "Y"))
+	{
+
+		UI功能::内存按键('Y');
+		return 0;
+	}
+	if (strstr(tmpStr, "X"))
+	{
+		UI功能::内存按键('X');
+		return 0;
+	}
+	if (strstr(tmpStr, "ESC"))
+	{
+
+		UI功能::内存按键(VK_ESCAPE);
+		return 0;
+	}
+	if (strstr(tmpStr, "ENTER"))
+	{
+		UI功能::内存按键(VK_RETURN);
+		return 0;
+	}
+
+	return 0;
+}
+
+
+static int 表情(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+
+	本人::CALL_做社交动作(ID);
+	return 0;
+}
+
+
+static int 唱歌(__LUA_指针)
+{
+	DWORD ID = lua_tointeger(L, 1);
+	本人::CALL_演奏乐谱(ID);
+
+	return 0;
+}
+
+
+
+static int 打开最近NPC(__LUA_指针)
+{
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+	DWORD 距离 = 0;
+	vector<objInfo_>vsk;
+	 距离 = lua_tointeger(L, 1);
+	 DWORD NPCID = 0;
+
+	环境::遍历全部环境对象2(vsk, 角色信息.坐标);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].fDis < 距离)
+		{
+			if (vsk[i].dType==3)
+			{
+
+				环境::CALL_点击指定NPC_ByResId(vsk[i].dResId);
+				Sleep(1500);
+				break;
+			}
+
+		}
+
+	}
+	return 0;
+}
+
+
+
+static int 物品信息(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(tmpStr, "%x", x);
+
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	vector<Inventoryinfo_>vsk;
+	背包::get_InventoryItemList(vsk);
+	DWORD 物品数量 = 0;
+	DWORD 物品名ID = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].ItemName.Find(CStringW(tmpStr)) != -1 || x == vsk[i].ItemResId)
+		{
+			物品数量 = vsk[i].dNum;
+		
+			break;
+
+		}
+
+
+	}
+
+	lua_pushinteger(L, 物品数量);
+
+	return 1;
+
+}
+
+
+static int 骑马(__LUA_指针)
+{
+	DWORD ID = 0;
+	ID = 背包::坐骑遍历();
+	ActorInfo_ a = 本人::取角色信息();
+	if (a.骑行状态 == 0&& ID>1)
+	{
+
+		本人::CALL_使用坐骑(ID);
+		Sleep(2000);
+	}
+
+
+
+	return 0;
+}
+
+
+
+static int 可否到达(__LUA_指针)
+{
+	float x = lua_tonumber(L, 1);
+	float y = lua_tonumber(L, 2);
+	float z = lua_tonumber(L, 3);
+	bool c = 地图::指定地点是否可到达(x, y, z);
+
+	lua_pushinteger(L, c);
+	return 1;
+}
+static int 寻路1(__LUA_指针)
+{
+	float x = lua_tonumber(L, 1);
+	float y = lua_tonumber(L, 2);
+	float z = lua_tonumber(L, 3);
+	INT64 D = lua_tointeger(L, 4);
+
+	地图::寻路(x, y, z, D);
+	return 0;
+}
+
+
 
 
 static int 寻路_lua(__LUA_指针) 
@@ -1633,8 +2330,8 @@ static int 最近怪(__LUA_指针)
 	DWORD 距离 = lua_tointeger(L, 1);
 	const char* 过滤 = lua_tostring(L, 2);
 
-	
-	INT64 addr = 本人::最近怪物2(距离, 过滤);
+	INT64 addr = 0;
+	 addr = 本人::最近怪物2(距离, 过滤);
 	lua_pushinteger(L, addr);
 	return 1;
 }
@@ -1690,14 +2387,55 @@ static int LogMsg1(__LUA_指针)
 	//const char* message = lua_tostring(L, -1);
 	//DebugPrintf("%s\n", message);
 	//string error_message = message;
-	MyTrace(L"开始输出");
+	//MyTrace(L"开始输出");
 	MyTrace(L"%s", CStringW(message));
 
 	return 0;
 
 }
+static int 取消锁定(__LUA_指针)
+{
+	技能::解除屏蔽鼠标();
+	return 0;
+
+}
 
 
+static int 子任务是否完成(__LUA_指针)
+{
+	QuestInfo_ temp;
+	vector<QuestInfo_>vsk;
+	任务::get_CurQuestList(vsk);
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD 子序号 =  lua_tointeger(L, 2);
+	DWORD x1=0;
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (x==vsk[i].dQuestId)
+		{
+			if (vsk[i].子任务进度.size() <= 子序号)
+			{
+				if (vsk[i].子任务进度[子序号 - 1].dCur == vsk[i].子任务进度[子序号 - 1].dNeed)
+				{
+					x1 = 1;
+					break;
+
+				}
+
+			}
+
+
+		}
+
+	}
+
+	lua_pushinteger(L, x1);
+
+	return 1;
+
+}
 
  int 中转_取出主线任务(__LUA_指针)
 {
@@ -1791,7 +2529,7 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "寻路", 寻路_lua);
 	lua_register(L, "选船功能", 最优战船);
 	lua_register(L, "msg", LogMsg1);
-	lua_register(L, "读取人物信息", 读取人物信息);
+	lua_register(L, "读取自身信息", 读取人物信息);
 	lua_register(L, "测试", 测试);
 	lua_register(L, "仓库取物品功能", 仓库取物品功能);
 	lua_register(L, "仓库取大东西", 仓库取大东西);
@@ -1827,7 +2565,7 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "自定义记录", 自定义记录);
 	lua_register(L, "怪物数量", 怪物数量);
 	lua_register(L, "获取坐标对象", 获取坐标对象);
-	lua_register(L, "坐标点击1", 坐标点击1);
+	lua_register(L, "坐标点击", 坐标点击1);
 	lua_register(L, "对象查询", 对象查询);
 	lua_register(L, "关闭多余窗口", 关闭多余窗口);
 	lua_register(L, "任务判断", 任务判断);
@@ -1872,7 +2610,32 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "接任务", 接任务);
 	lua_register(L, "地图名称", 地图名称);
 	lua_register(L, "遍历", 遍历);
-
+	lua_register(L, "锁怪", 锁怪);
+	lua_register(L, "是否打开NPC", 是否打开NPC);
+	lua_register(L, "子任务是否完成", 子任务是否完成);
+	lua_register(L, "取消锁定", 取消锁定);
+	lua_register(L, "读取怪物信息", 读取怪物信息);
+	lua_register(L, "地图ID", 地图ID);
+	lua_register(L, "宠物是否召唤", 宠物是否召唤);
+	lua_register(L, "召唤宠物", 召唤宠物);
+	lua_register(L, "背包剩余数量", 背包剩余数量);
+	lua_register(L, "分解所有", 分解所有);
+	lua_register(L, "使用丢弃", 使用丢弃);
+	lua_register(L, "使用任务物品", 使用任务物品);
+	lua_register(L, "使用物品", 使用物品);
+	lua_register(L, "可否到达", 可否到达);
+	lua_register(L, "坐骑ID", 坐骑ID);
+	lua_register(L, "骑马", 骑马);
+	lua_register(L, "物品信息", 物品信息);
+	lua_register(L, "打开最近NPC", 打开最近NPC);
+	lua_register(L, "传送", 传送);
+	lua_register(L, "出入港", 出入港);
+	lua_register(L, "唱歌", 唱歌);
+	lua_register(L, "表情", 表情);
+	lua_register(L, "新按键", 新按键);
+	lua_register(L, "关闭对话", 关闭对话);
+	lua_register(L, "等待", 等待);
+	lua_register(L, "寻路1", 寻路1);
 
 	//航海::自动选择最优战船
 	//lua_close(L);

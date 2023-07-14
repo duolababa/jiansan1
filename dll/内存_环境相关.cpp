@@ -118,7 +118,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	bi.IsEnemy = bCheckActorEnemy(dObjAddr);
 	bi.dCanAttack = R_BYTE(dObjAddr + 偏移_怪物_不可攻击偏移);
 
-	MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
+	//MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
 
 	//MyTrace(L"getActorInfo 2");
 	//if (dm.ReadIntAddr(dObjAddr + 0xB2C,4) == 1 || dm.ReadIntAddr(dObjAddr + 0xB28,4) == 1)

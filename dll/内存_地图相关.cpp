@@ -466,7 +466,7 @@ bool 地图::指定地点是否可到达(float x, float y, float z)
 		DbgPrintf_Mine("指定地点是否可到达 异常");
 		return false;
 	}
-	MyTrace(L"reta %d", reta);
+	//MyTrace(L"reta %d", reta);
 	if (reta == 1)
 	{
 		return true;

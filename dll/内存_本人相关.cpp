@@ -264,6 +264,9 @@ void 本人::CALL_全部分解()//62014
 	MainUniversalCALL4(局_rcx, 0, 0, 0, dCALL);
 }
 
+
+
+
 坐标_ 本人::取坐标()
 {
 	坐标_ 临时坐标;
@@ -564,4 +567,21 @@ void 本人::设置宝石自动合成()
 		dm.AsmAdd(L"add rsp,040");
 		dm.AsmCall(HwndGlobal, 3);*/
 	}
+}
+
+
+
+bool 本人::是否可以骑马call(DWORD ID)
+{
+	INT64 rcx = 本人::取真实对象();
+	//MyTrace(L"本人 0x%I64X  ID 0x%I64X \r\n", rcx, ID);
+	INT64 call = 是否可以骑马写入基址 + 游戏模块;
+
+	INT64 rax=MainUniversalCALL4_Ret(rcx,ID,1,0,call);
+
+	//MyTrace(L"rax 0x%I64X \r\n", rax);
+	//bool d=R_BYTE(rax);
+	return rax;
+
+
 }

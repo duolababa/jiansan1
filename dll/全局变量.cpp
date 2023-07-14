@@ -15,4 +15,4 @@ CString 配置服务器;
 CString 角色序号=L"";
 CString LUA脚本名称 = L"";
 bool Lua开关 = false;
-bool 调试开关;
+bool 调试开关=0;

@@ -632,6 +632,21 @@ void 背包::维修装备(DWORD 参_修理类型)
 		MainUniversalCALL4(局_rcx, 参_修理类型, 0x19, 0, 局_call);
 	}
 }
+
+void 背包::使用任务物品(DWORD 格子数)
+{
+
+	INT64 局_使用物品call = 游戏模块 + 基址_背包_使用物品call;
+	//INT64 局_使用物品call_rcx = 游戏模块 + 基址_背包_使用物品call_rcx;
+	//INT64 局_Rcx = R_QW(游戏模块 + 基址_个人_遍历);
+	DWORD 局_R8 = 327680 | 格子数;
+	INT64 返回rax = UI功能::getUiObjById(0x1A);
+	if (返回rax)
+	{
+		MainUniversalCALL4(返回rax, 1, 局_R8, 0, 局_使用物品call);
+	}
+}
+
 void 背包::使用物品(DWORD 格子数)
 {
 	INT64 局_使用物品call = 游戏模块 + 基址_背包_使用物品call;
@@ -643,6 +658,50 @@ void 背包::使用物品(DWORD 格子数)
 	{
 		MainUniversalCALL4(返回rax, 1, 局_R8, 0, 局_使用物品call);
 	}
+
+}
+
+
+DWORD 背包::坐骑遍历()
+{
+	vector<DWORD>vsk;
+	vsk.clear();
+	INT64 b = R_QW(R_QW(游戏模块 + gb_AttrList)+0xE4);
+	DWORD dtotal= R_DW(b + g_坐骑); 
+	DWORD C = g_坐骑 - 8;
+	INT64 跟 = R_QW(b + C);
+	DWORD ID = 0;
+	跟 = 跟 + g_坐骑_index单;
+	//MyTrace(L"推荐装备槽位0x%I64X \r\n", 跟);
+	if (dtotal >= 1)
+	{
+		for (DWORD i = 0; i < dtotal; i++)
+		{
+			ID = R_DW(跟 + i*g_坐骑_叠加单);
+			if (ID > 1)
+			{
+				//MyTrace(L"ID 0x%I64X \r\n", ID);
+				DWORD rax = 0;
+				rax =本人::是否可以骑马call(ID);
+				if (rax == 1)
+				{
+					vsk.push_back(ID);
+				}
+
+			
+			}
+
+		}
+	}
+	if (vsk.size() >= 1)
+	{
+		int randomNumber = rand() % vsk.size() + 1;
+	//	MyTrace(L"随机数 0x%I64X \r\n", vsk[randomNumber - 1]);
+		return vsk[randomNumber-1];
+	}
+	return 0;
+
+
 
 }
 
@@ -682,7 +741,6 @@ void 背包::使用物品2(DWORD 格子数)
 	//}
 
 }
-
 
 //耐久度_ 背包::取耐久度(INT64 物品对象)
 //{
@@ -1007,6 +1065,37 @@ void Fun_BS_RandomItemOpenAll(DWORD dNum)//随机卡片箱全部打开
 		}
 	}
 }
+
+void  背包::自动入包call()
+{
+	INT64 dCall = 入包call + 游戏模块;
+	INT64 rcx = R_QW(采集物品数量 + 游戏模块);
+	MainUniversalCALL4(rcx, 0, 0, 0, dCall);
+
+
+}
+void  背包::点击分解颜色call()
+{
+	INT64 dCall = 分解颜色call + 游戏模块;
+	INT64 rcx = 0;
+	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.itemDisassembleWnd", rcx);
+	if (rcx >= 1)
+	{
+		INT64 dRcx = R_QW(rcx);
+	
+		MainUniversalCALL4(dRcx, 1, 1, 0, dCall);
+		Sleep(1000);
+		MainUniversalCALL4(dRcx, 2, 0, 0, dCall);
+		Sleep(1000);
+		MainUniversalCALL4(dRcx, 3, 0, 0, dCall);
+		Sleep(1000);
+		MainUniversalCALL4(dRcx, 4, 0, 0, dCall);
+		Sleep(1000);
+
+	}
+
+}
+
 bool 背包::背包物品处理()
 {
 	vector<Inventoryinfo_> vsk;
