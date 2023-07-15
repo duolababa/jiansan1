@@ -1660,101 +1660,105 @@ static int 关闭对话(__LUA_指针)
 
 static int 新按键(__LUA_指针)
 {
-	const char* tmpStr = lua_tostring(L, 1);
-	//MyTrace(L"%s", tmpStr);
+	const char* a = lua_tostring(L, 1);
 
-	if (strstr(tmpStr, "Q"))
+	CString tmpStr = CStringA(a);
+
+	if (tmpStr == L"Q")
 	{
-
 		UI功能::内存按键('Q');
 		return 0;
 	}
-	if (strstr(tmpStr, "F2"))
+
+
+
+
+	if (tmpStr == L"F2")
 	{
 
 		UI功能::内存按键(VK_F2);
 		return 0;
 	}
-	if (strstr(tmpStr, "M"))
+	if (tmpStr == L"M")
 	{
 
 		UI功能::内存按键('M');
 		return 0;
 	}
-	if (strstr(tmpStr, "F6"))
+	if (tmpStr == L"F6")
 	{
 
 		UI功能::内存按键(VK_F6);
 		return 0;
 	}
-	if (strstr(tmpStr, "空格"))
+	if (tmpStr == L"空格")
 	{
 
 		UI功能::内存按键(VK_SPACE);
 		return 0;
 	}
-	if (strstr(tmpStr, "N"))
+	if (tmpStr == L"N")
 	{
 
 		UI功能::内存按键('N');
 		return 0;
 	}
-	if (strstr(tmpStr, "C"))
+	if (tmpStr == L"C")
 	{
 
 		UI功能::内存按键('C');
 		return 0;
 	}
-	if (strstr(tmpStr, "I"))
+	if (tmpStr == L"I")
 	{
 
 		UI功能::内存按键('I');
 		return 0;
 	}
-	if (strstr(tmpStr, "G"))
+	if (tmpStr == L"G")
 	{
 
 		UI功能::内存按键('G');
 		return 0;
 	}
-	if (strstr(tmpStr, "W"))
+	if (tmpStr == L"W")
 	{
 
 		UI功能::内存按键('W');
 		return 0;
 	}
-	if (strstr(tmpStr, "E"))
+	if (tmpStr == L"E")
 	{
 
 		UI功能::内存按键('E');
 		return 0;
 	}
-	if (strstr(tmpStr, "R"))
+	if (tmpStr == L"R")
 	{
 
 		UI功能::内存按键('R');
 		return 0;
 	}
-	if (strstr(tmpStr, "Z"))
+	if (tmpStr == L"Z")
 	{
 
 		UI功能::内存按键('Z');
 		return 0;
 	}
-	if (strstr(tmpStr, "B"))
+	if (tmpStr == L"B")
 	{
 
 		UI功能::内存按键('B');
 		return 0;
 	}
-	if (strstr(tmpStr, "V"))
+	if (tmpStr == L"V")
 	{
 
 		UI功能::内存按键('V');
 		return 0;
 	}
 
-	if (strstr(tmpStr, "A"))
+	if (tmpStr == L"A")
 	{
 
 		UI功能::内存按键('A');
@@ -1762,38 +1766,38 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "S"))
+	if (tmpStr == L"S")
 	{
 
 		UI功能::内存按键('S');
 		return 0;
 	}
-	if (strstr(tmpStr, "D"))
+	if (tmpStr == L"D")
 	{
 
 		UI功能::内存按键('D');
 		return 0;
 	}
-	if (strstr(tmpStr, "F"))
+	if (tmpStr == L"F")
 	{
 
 		UI功能::内存按键('F');
 		return 0;
 	}
-	if (strstr(tmpStr, "1"))
+	if (tmpStr == L"1")
 	{
 
 		UI功能::内存按键('1');
 		return 0;
 	}
 
-	if (strstr(tmpStr, "2"))
+	if (tmpStr == L"2")
 	{
 
 		UI功能::内存按键('2');
 		return 0;
 	}
-	if (strstr(tmpStr, "3"))
+	if (tmpStr == L"3")
 	{
 
 		UI功能::内存按键('3');
@@ -1801,7 +1805,7 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "4"))
+	if (tmpStr == L"4")
 	{
 
 		UI功能::内存按键('4');
@@ -1809,7 +1813,7 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "5"))
+	if (tmpStr == L"5")
 	{
 
 		UI功能::内存按键('5');
@@ -1817,7 +1821,7 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "6"))
+	if (tmpStr == L"6")
 	{
 
 		UI功能::内存按键('6');
@@ -1825,7 +1829,7 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "7"))
+	if (tmpStr == L"7")
 	{
 
 		UI功能::内存按键('7');
@@ -1834,7 +1838,7 @@ static int 新按键(__LUA_指针)
 
 
 
-	if (strstr(tmpStr, "8"))
+	if (tmpStr == L"8")
 	{
 
 		UI功能::内存按键('8');
@@ -1842,33 +1846,33 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "9"))
+	if (tmpStr == L"9")
 	{
 
 		UI功能::内存按键('9');
 		return 0;
 	}
 
-	if (strstr(tmpStr, "F1"))
+	if (tmpStr == L"F1")
 	{
 
 		UI功能::内存按键(VK_F1);
 		return 0;
 	}
 
-	if (strstr(tmpStr, "F3"))
+	if (tmpStr == L"F3")
 	{
 
 		UI功能::内存按键(VK_F3);
 		return 0;
 	}
-	if (strstr(tmpStr, "F4"))
+	if (tmpStr == L"F4")
 	{
 
 		UI功能::内存按键(VK_F4);
 		return 0;
 	}
-	if (strstr(tmpStr, "F5"))
+	if (tmpStr == L"F5")
 	{
 
 		UI功能::内存按键(VK_F5);
@@ -1876,30 +1880,30 @@ static int 新按键(__LUA_指针)
 	}
 
 
-	if (strstr(tmpStr, "F6"))
+	if (tmpStr == L"F6")
 	{
 
 		UI功能::内存按键(VK_F6);
 		return 0;
 	}
-	if (strstr(tmpStr, "Y"))
+	if (tmpStr == L"Y")
 	{
 
 		UI功能::内存按键('Y');
 		return 0;
 	}
-	if (strstr(tmpStr, "X"))
+	if (tmpStr == L"X")
 	{
 		UI功能::内存按键('X');
 		return 0;
 	}
-	if (strstr(tmpStr, "ESC"))
+	if (tmpStr == L"ESC")
 	{
 
 		UI功能::内存按键(VK_ESCAPE);
 		return 0;
 	}
-	if (strstr(tmpStr, "ENTER"))
+	if (tmpStr == L"ENTER")
 	{
 		UI功能::内存按键(VK_RETURN);
 		return 0;

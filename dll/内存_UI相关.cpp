@@ -97,7 +97,7 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 	CString temp;
 	INT64 aaa = R_QW(游戏模块 + gb_UiList);
 	//temp.Format(L"aaa%I64X", aaa);
-	//	DebugPrintf("%s\n", CStringA(temp));
+	//	DebugPrintf("%s\n", CStringA(temp));getmiddle
 	INT64 a = R_QW(aaa + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移;//更新-0218
 	DWORD 总数 = R_DW(a + 0x308);//308
 	INT64 rdx = R_QW(a + 0x2E0);//对象数组地址
@@ -1163,15 +1163,15 @@ CString UI功能::UI名称(INT64 对象)
 DWORD UI功能::窗口数量()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x144);
+	DWORD dtotal = R_DW(addr_1 + 0x230);
 	return dtotal;
 
 }
 CString  UI功能::窗口反馈文本()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x144);
-	INT64 dstart = R_QW(addr_1 + 0x144 - 8);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + 0x230);
+	INT64 dstart = R_QW(addr_1 + 0x230 - 8);//对象数组地址
 	CString 返回文本 = L"";
 	for (long i = 0; i < dtotal; i++)
 	{

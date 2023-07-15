@@ -8,6 +8,7 @@
 //#define g_坐骑 0x166f78
 //#define g_坐骑_index单 0x17
 //#define g_坐骑_叠加单 0x8
+
 #define 是否可以骑马写入基址 0x16C9D30
 #define g_坐骑 0xA9F24
 #define g_坐骑_index单 0xC
@@ -15,21 +16,26 @@
 
 
 
-#define g_行走状态 0x754
-#define 基址_小退call 0x279E160
-#define g_公共仓库索引 0x1246b0
+#define g_行走状态 0x76C
 #define g_背包仓库头 0x6CC
-#define en鼠标call 0xE31AF0
-#define en鼠标基址 0x36D1D00
+#define g_公共仓库索引 0x8a570
+#define 基址_小退call 0x28C47A0
+
+
+#define en鼠标call 0xE49A80
+#define en鼠标基址 0x1EB87D8
+
 #define 基址_坐船rcx 0x4C836C0
 #define 基址_坐船call 0x1475020
-#define 采集数量call 0x1329200
-#define 采集物品数量 0x4C75ED0
-#define 丢弃写入基址 0x1364CA0
-#define 分解颜色call 0x1EBBFB0
-#define 入包call 0x136A690
 
-#define 上马call地址 0x1395260
+
+#define 采集数量call 0x143B360
+#define 采集物品数量 0x4EF3140
+#define 丢弃写入基址 0x1462A30
+#define 分解颜色call 0x21145E0
+#define 入包call 0x1466030
+
+#define 上马call地址 0x26AA210
 
 
 
