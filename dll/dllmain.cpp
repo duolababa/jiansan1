@@ -60,7 +60,7 @@ LRESULT CALLBACK hkWndProc_(int nCode, WPARAM wParam, LPARAM lparam)
                 break;
             case Msgid::CallCanUse1:// 6个参数的call调用               			
                 CanUseCALLParam6 = (CallParam6*)lpArg->lParam;
-                CALL6(
+                CanUseCALLParam6->RetVal = CALL6(
                     CanUseCALLParam6->RCX,
                     CanUseCALLParam6->RDX,
                     CanUseCALLParam6->R8,
@@ -82,7 +82,7 @@ LRESULT CALLBACK hkWndProc_(int nCode, WPARAM wParam, LPARAM lparam)
                 break;
             case Msgid::CallCanUse3:// 6个参数的call调用               			
                 CanUseCALLParam8 = (CallParam8*)lpArg->lParam;
-                CALL8(
+                CanUseCALLParam8->RetVal = CALL8(
                     CanUseCALLParam8->RCX,
                     CanUseCALLParam8->RDX,
                     CanUseCALLParam8->R8,
