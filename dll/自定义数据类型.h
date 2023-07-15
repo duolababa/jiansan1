@@ -113,6 +113,7 @@ struct 登陆角色信息_
 	DWORD dIndex = 0;
 	DWORD dJob = 0;
 	INT64 SrvId = 0;
+	DWORD 直升状态 = 0;
 	//int 课题状态;
 };
 struct temp名称指针
