@@ -117,7 +117,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	bi.IsHide = bCheckActorHide(dObjAddr);
 	bi.IsEnemy = bCheckActorEnemy(dObjAddr);
 	bi.dCanAttack = R_BYTE(dObjAddr + 偏移_怪物_不可攻击偏移);
-
+	bi.是否可以攻击= bCheckActorEnemy1(dObjAddr);
 	//MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
 
 	//MyTrace(L"getActorInfo 2");
@@ -138,6 +138,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 		bi.fz = dm.ReadFloatAddr(dTemp + 0x4C);
 	}*/
 	bi.fDis = GetDis(bi.坐标.x, bi.坐标.y, bi.坐标.z);
+	bi.距离 = 常用功能::计算距离(bi.坐标, 本人::取坐标());
 	//MyTrace(L"getActorInfo 3");
 	//if (dm.ReadIntAddr(dObjAddr + 0x28,4)==0x0002BFFD)
 	return bi;
@@ -325,6 +326,10 @@ void 环境::遍历全部环境对象(vector<objInfo_>& vsk)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
+					if (临时.dType == 2 && 临时.是否可以攻击 != 0)
+					{
+						continue;
+					}
 					vsk.push_back(临时);
 				}
 
@@ -364,6 +369,10 @@ void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
+					if (临时.dType == 2 && 临时.是否可以攻击 != 0)
+					{
+						continue;
+					}
 					vsk.push_back(临时);
 				}
 
@@ -405,6 +414,13 @@ void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
+
+					if (临时.dType == 2 && 临时.是否可以攻击 != 0)
+					{
+						continue;
+					}
+				
+
 					vsk.push_back(临时);
 				}
 
@@ -449,18 +465,6 @@ void 最近线路(CString ID文本, vector<坐标_>& vsk)
 					vsk.push_back(临时);
 				}
 			
-			/*	对象属性列表 临时;
-				文本分割(分割[i], ',', &分割1);
-				if (分割1.GetCount() != 0)
-				{
-
-					临时.坐标.X = _ttof(分割1[1]);
-					临时.坐标.Y = _ttof(分割1[2]);
-					临时.距离 = 目标距离(_ttof(分割1[1]), _ttof(分割1[2]));
-					临时.数组位置 = i;
-
-					vsk.push_back(临时);
-				}*/
 
 			}
 		}
@@ -504,14 +508,6 @@ CString 返回最近线路(CString ID文本)
 
 		}
 	}
-
-	//for (size_t i = 0; i < vsk.size(); i++)
-	//{
-	//	
-	//	temp = temp + 小数到文本( vsk[i].坐标.x )+ "," + 小数到文本(vsk[i].坐标.y) + "|";
-
-
-	//}
 
 	return temp;
 
@@ -657,7 +653,7 @@ DWORD 环境::读取当前对话npc()
 	INT64 局_rcx = R_QW(游戏模块 + 基址_环境_退出npc对话);
 
 
-	b = R_DW(局_rcx + 0xEC);
+	b = R_DW(局_rcx + 0x10C);
 
 	return b;
 
@@ -1030,7 +1026,7 @@ bool 环境::CALL_打开NPC(INT64 对象)
 bool 环境::CALL_退出NPC()
 {
 	INT64 局_rcx = R_QW(游戏模块 + 基址_环境_退出npc对话);
-	INT64 局_call = R_QW(R_QW(局_rcx) + 0x38);
+	INT64 局_call = R_QW(R_QW(局_rcx) + 0x40);
 	if (局_rcx == 0 || 局_call == 0)
 	{
 		return false;

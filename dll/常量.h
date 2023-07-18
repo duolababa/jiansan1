@@ -36,8 +36,8 @@
 #define 入包call 0x1466030
 
 #define 上马call地址 0x26AA210
-
-
+#define 新坐标寻路call 0x17FE990
+#define 新坐标寻路rcx 0x4F0B5E0
 
 
 
@@ -181,7 +181,7 @@
 #define gb_CurTeleportList 0x4EB080C
 #define go_RecomEquip 0x614
 #define gc_WearEquip 0x26E0E80
-#define gc_UnWearEquip 0x246FAA0
+#define gc_UnWearEquip 0x1BF2400
 #define gb_ActorTakeStatus 0x4EF22D8
 #define go_UiMsgStart 0x230
 #define gc_CheckGuildQuest 0x2A2BD50

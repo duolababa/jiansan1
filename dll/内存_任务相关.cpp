@@ -173,7 +173,7 @@ void getQuestStepInfo(INT64 dResAddr, DWORD dStep, QuestInfo_& bi)
 					bi.TargetId = dId;
 				}
 				bi.TargetNum = dNum;
-				MyTrace(L"任务目标 数量 %d\r\n", dNum);
+			//	MyTrace(L"任务目标 数量 %d\r\n", dNum);
 				DWORD dStrLen = R_DW(dInfoAddr + 0x20 + 8) - 1;
 				INT64 dRealNameAddr = getStringAddr(0, dNameAddr, dStrLen);
 				MyTrace(L"dRealNameAddr 0x%I64x", dRealNameAddr);
@@ -184,7 +184,7 @@ void getQuestStepInfo(INT64 dResAddr, DWORD dStep, QuestInfo_& bi)
 					bi.子任务进度[k].TargetID = dId;
 					bi.子任务进度[k].任务描述 = csName;
 				}
-				MyTrace(L"%s\r\n 0x%I64X ", csName, dRealNameAddr);
+			//	MyTrace(L"%s\r\n 0x%I64X ", csName, dRealNameAddr);
 
 			}
 		}
@@ -273,7 +273,7 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 		getQuestStepInfo(bi.dResAddr, bi.dStep, bi);
 	}
 
-	//MyTrace(L"地址%I64X 资源地址%I64X 任务ID %X 步骤%d 状态 %d\r\n",dObj,bi.dResAddr,bi.dQuestId,bi.dStep,bi.dState);
+	MyTrace(L"地址%I64X 资源地址%I64X 任务ID %X 步骤%d 状态 %d 名字 %s \r\n",dObj,bi.dResAddr,bi.dQuestId,bi.dStep,bi.dState, bi.QuestName);
 }
 
 void 任务::get_CurQuestList(vector<QuestInfo_>& vsk)
@@ -774,14 +774,17 @@ int getNpcTaklEndSendArgFinally(int dNpcResId, int dQuestId, int dType, int dSte
 		if (dCheck)
 		{
 			INT64 dObjAddr = objStartAddr + i * 0x14;
+
 			if (R_DW(dObjAddr) == dQuestId)//比较任务ID
 			{
+		
 				INT64 dInfo = R_QW(dObjAddr + 4);
-				if (dType == R_DW(dInfo + 0x44))
+				MyTrace(L"比较任务 %I64X %d", dObjAddr, R_DW(dInfo + 0x44));
+				if (dType == R_DW(dInfo + 0x48))
 				{
 					if (dType == 4)
 					{
-						if (dStep == R_DW(dInfo + 0x4C))
+						if (dStep == R_DW(dInfo + 0x50))
 						{
 							return getQuestNpcTalkAchievementAddr(dNpcQuestTalkListAddr, dInfo);
 						}
@@ -892,13 +895,13 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 				MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
 				if (dType == 4)								   //return dArg;
 				{
-					MyTrace(L"开始执行call");
+				//	MyTrace(L"开始执行call");
 					任务::Fun_阶段任务完成CALL(dArg);
-					MyTrace(L"执行call结束");
+					//MyTrace(L"执行call结束");
 				}
 				if (dType == 3)
 				{
-					MyTrace(L"开始执行交任务");
+					//MyTrace(L"开始执行交任务");
 					任务::CALL_交任务(dQuestId, -1);
 				}
 			}
@@ -957,15 +960,17 @@ int 任务::bCheckQuestStepIsEndNpcTalk(INT64 dResAddr, DWORD dStep)
 	return 0;
 }
 
+
 void 任务::Fun_阶段任务完成CALL(DWORD SendArg)
 {
-	UCHAR dInfoAddr[0x1000] = { 0 };
+	//UCHAR dInfoAddr[0x1000] = { 0 };
 	//INT64 dInfoAddr2 = (INT64)申请内存2(HANDLE(-1), 0x100);
 	//INT64 dInfoAddr = dm.VirtualAllocEx( 0, 0x100, 0);
-	MainUniversalCALL2((ULONG_PTR)dInfoAddr, SendArg, 游戏模块 + 基址_任务_阶段任务完成call);
+	INT64 rcx = R_QW(游戏模块 + 基址_环境_退出npc对话);
+	INT64 R8 = rcx + 0x18;
+	MainUniversalCALL4(rcx, SendArg, R8, 0, 游戏模块 + 基址_任务_阶段任务完成call);
 	//释放内存2(HANDLE(-1), LPVOID(dInfoAddr2), 0x100);
 }
-
 QuestInfo_ 任务::取出寻找方舟任务()
 {
 	QuestInfo_ temp;
@@ -989,14 +994,14 @@ INT64 环境::鼠标获取对象call(float px, float y)
 	INT64 rcx = 0;
 	INT64 call = 游戏模块_EFEngine + en鼠标call;
 	INT64 x = 0;
-	x = R_QW(游戏模块 + en鼠标基址);
+	x = R_QW(游戏模块_EFEngine + en鼠标基址);
 	//MyTrace(L"打开rcx,0x%I64X", 游戏模块_EFEngine + en鼠标基址);
-	x = R_QW(x);
+
 	//MyTrace(L"打开rcx,0x%I64X", x);
 	x = R_QW(x + 0x2F0);
 	x = R_QW(x);
 	rcx = R_QW(x + 0x3C);
-	// MyTrace(L"打开rcx,0x%I64X", rcx);
+	MyTrace(L"打开rcx,0x%I64X", rcx);
 	DWORD r9 = 1;
 	DWORD r8 = 0;
 	UCHAR 局_rdx0[0x100] = { 0 };

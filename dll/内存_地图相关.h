@@ -18,5 +18,6 @@ public:
 	static bool 本地图寻路(float x, float y, float z, DWORD modid);
 	static bool 指定地点是否可到达(float x, float y, float z);
 	static bool 指定地点是否可到达_M(float x, float y, float z);
+	static bool 指定地点是否可到达_p(float x, float y, float z);
 };
 

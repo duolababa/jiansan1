@@ -272,14 +272,14 @@ static int 选船(__LUA_指针)
 
 static int 关闭多余窗口(__LUA_指针)
 {
-	MyTrace(L"进入");
+	//MyTrace(L"进入");
 	if (环境::是否在和NPC对话())
 	{
 		环境::CALL_退出NPC();
 		Sleep(2000);
 	}
 	DWORD size = 0;
-	MyTrace(L"ces");
+	//MyTrace(L"ces");
 
 	size = UI功能::窗口数量();
 
@@ -290,7 +290,7 @@ static int 关闭多余窗口(__LUA_指针)
 			size = UI功能::窗口数量();
 			if (size >= 1)
 			{
-				MyTrace(L"开始执行按键call");
+				//MyTrace(L"开始执行按键call");
 				UI功能::内存按键(VK_ESCAPE);
 				Sleep(1500);
 
@@ -341,6 +341,20 @@ static int 选择体验(__LUA_指针)
 	return 0;
 
 }
+static int 完成任务1(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD id = lua_tointeger(L, 2);
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+
+	任务::CALL_交任务(x, id);
+	return 0;
+
+
+}
+
+
 static int 完成任务(__LUA_指针)
 {
 	const char* tmpStr = lua_tostring(L, 1);
@@ -557,10 +571,11 @@ static int 入场(__LUA_指针)
 	{
 		if (UI功能::进入副本())
 		{
-			Sleep(2000);
-			UI功能::内存按键(VK_RETURN);
+			//Sleep(2000);
+			//UI功能::内存按键(VK_RETURN);
 		}
 	}
+//	getMsgBoxTextList()
 	return 0;
 
 
@@ -890,6 +905,7 @@ static int 自动任务(__LUA_指针)
 
 	DWORD id = 环境::读取当前对话npc();
 	//MyTrace(L"类型 %d 任务名称 %s 
+	//任务::getNpcTaklEndSendArg(NPCResId, 任务ID, 任务阶段);
 	MyTrace(L"id1 %X  id %X   任务阶段 %d \r\n", id1, id, 任务阶段);
 	if (id>=1)
 	{
@@ -1001,7 +1017,7 @@ static int 分解所有(__LUA_指针)
 	if (!UI功能::背包界面是否显示())
 	{
 		UI功能::内存按键(DWORD('I'));
-	
+		Sleep(1000);
 	}
 	if (!UI功能::bCheckItemDisassemleWnd())
 	{
@@ -1111,12 +1127,13 @@ static int 背包剩余数量(__LUA_指针)
 
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
-		if (vsk[i].ItemResId == 0)
+		if (vsk[i].ItemResId > 1)
 		{
 			a = a + 1;
 		}
 	}
-	lua_pushinteger(L, a);
+
+	lua_pushinteger(L, 100-a);
 	return 1;
 }
 
@@ -1287,9 +1304,10 @@ static int 是否打开NPC(__LUA_指针)
 {
 	bool x = 环境::是否在和NPC对话();
 
+
 	lua_pushinteger(L, x);
 
-	return 0;
+	return 1;
 
 }
 
@@ -1494,7 +1512,7 @@ static int 遍历(__LUA_指针)
 	{
 		if (vsk[i].dType == 2)
 		{
-			if (vsk[i].IsHide != 0)
+			if (vsk[i].是否可以攻击 != 0)
 			{
 				continue;
 			}
@@ -2018,7 +2036,7 @@ static int 可否到达(__LUA_指针)
 	float x = lua_tonumber(L, 1);
 	float y = lua_tonumber(L, 2);
 	float z = lua_tonumber(L, 3);
-	bool c = 地图::指定地点是否可到达(x, y, z);
+	bool c = 地图::指定地点是否可到达_p(x, y, z);
 
 	lua_pushinteger(L, c);
 	return 1;
@@ -2095,20 +2113,28 @@ static int 还原技能(__LUA_指针)
 	if (弹窗文本.Find(L"Combat Skills") == -1)
 	{
 		UI功能::内存按键(DWORD('K'));
+		Sleep(3000);
 	}
 
 	INT64 addr =环境::鼠标获取对象call(3460, 11640);
 	if (addr>1)
 	{
+		MyTrace(L"%I64X", addr);
 		弹窗文本1=UI功能::UI名称(addr);
 		if (弹窗文本1.Find(L"init_btn") != -1)
 		{
-
+			UI功能::控件点击call(addr);
+			Sleep(2000);
 
 		}
 		
 	}
-		
+	
+	if (UI功能::窗口反馈文本().Find(L"重置")!=-1 || UI功能::窗口反馈文本().Find(L"Restore preset defaults")!=-1)
+	{
+		UI功能::内存按键(VK_RETURN);
+		Sleep(2000);
+	}
 
 
 	return 0;
@@ -2366,6 +2392,23 @@ static int 测试(__LUA_指针)
 {
 	vector<objInfo_>vsk;
 	环境::遍历全部环境对象1(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2 && vsk[i].IsHide == 1)
+		{
+			continue;
+		}
+
+		
+		MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s 距离 %0.3f \n", vsk[i].objBase, vsk[i].dResId, vsk[i].wName, vsk[i].dType, vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z, vsk[i].wName,vsk[i].距离);
+	}
+
+
+	//MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
+
+
+	vector<QuestInfo_>vsk1;
+	任务::get_CurQuestList(vsk1);
 	//DWORD 大陆ID = 地图::取当前大陆ID();
 	return 0;
 
@@ -2417,10 +2460,15 @@ static int 子任务是否完成(__LUA_指针)
 	x = 常用功能::十六进制转十进制(tmpStr);
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
+	MyTrace(L"任务ID %I64X  子任务总数 %d", vsk[i].dQuestId, vsk[i].子任务进度.size());
 		if (x==vsk[i].dQuestId)
 		{
-			if (vsk[i].子任务进度.size() <= 子序号)
+			//MyTrace(L"匹配成功");
+			if (vsk[i].子任务进度.size() >= 子序号)
 			{
+
+				MyTrace(L"dCur %d  dNeed %d", vsk[i].子任务进度[子序号 - 1].dCur, vsk[i].子任务进度[子序号 - 1].dNeed);
+			//	MyTrace(L"子任务进度总数 %d  ", vsk[i].子任务进度.size());
 				if (vsk[i].子任务进度[子序号 - 1].dCur == vsk[i].子任务进度[子序号 - 1].dNeed)
 				{
 					x1 = 1;
@@ -2440,6 +2488,54 @@ static int 子任务是否完成(__LUA_指针)
 	return 1;
 
 }
+
+
+
+static int 子任务信息(__LUA_指针)
+{
+	QuestInfo_ temp;
+	vector<QuestInfo_>vsk;
+	任务::get_CurQuestList(vsk);
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD 子序号 = lua_tointeger(L, 2);
+	DWORD x1 = 0;
+	DWORD x2 = 0;
+	DWORD x;
+	x = 常用功能::十六进制转十进制(tmpStr);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		MyTrace(L"任务ID %I64X  子任务总数 %d", vsk[i].dQuestId, vsk[i].子任务进度.size());
+		if (x == vsk[i].dQuestId)
+		{
+			//MyTrace(L"匹配成功");
+			if (vsk[i].子任务进度.size() >= 子序号)
+			{
+				x1 = vsk[i].子任务进度[子序号 - 1].dCur;
+				x2 = vsk[i].子任务进度[子序号 - 1].dNeed;
+				MyTrace(L"dCur %d  dNeed %d", vsk[i].子任务进度[子序号 - 1].dCur, vsk[i].子任务进度[子序号 - 1].dNeed);
+				break;
+				//	MyTrace(L"子任务进度总数 %d  ", vsk[i].子任务进度.size());
+			/*	if (vsk[i].子任务进度[子序号 - 1].dCur == vsk[i].子任务进度[子序号 - 1].dNeed)
+				{
+					x1 = 1;
+					break;
+
+				}*/
+
+			}
+
+
+		}
+
+	}
+
+	lua_pushinteger(L, x1);
+
+	return 1;
+
+}
+
+
 
  int 中转_取出主线任务(__LUA_指针)
 {
@@ -2606,7 +2702,7 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "入场", 入场);
 	lua_register(L, "进入副本", 进入副本);
 	lua_register(L, "离开副本", 离开副本);
-	lua_register(L, "最近线路", 最近线路);
+	//lua_register(L, "最近线路", 最近线路);
 	lua_register(L, "任务进展", 任务进展);
 	lua_register(L, "任务是否存在", 任务是否存在);
 	lua_register(L, "修理船舶", 修理船舶);
@@ -2640,6 +2736,11 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "关闭对话", 关闭对话);
 	lua_register(L, "等待", 等待);
 	lua_register(L, "寻路1", 寻路1);
+	lua_register(L, "完成任务1", 完成任务1);
+	lua_register(L, "子任务信息", 子任务信息);
+	lua_register(L, "购买工具", 购买工具);
+	lua_register(L, "还原技能", 还原技能);
+
 
 	//航海::自动选择最优战船
 	//lua_close(L);

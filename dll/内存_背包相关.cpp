@@ -1078,19 +1078,21 @@ void  背包::点击分解颜色call()
 {
 	INT64 dCall = 分解颜色call + 游戏模块;
 	INT64 rcx = 0;
+	//root1.arkui.windowCanvas.itemDisassembleWnd
 	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.itemDisassembleWnd", rcx);
+	//MyTrace(L"是否打开%I64X 是否打开%d", rcx, 是否打开);
 	if (rcx >= 1)
 	{
-		INT64 dRcx = R_QW(rcx);
-	
+		INT64 dRcx =rcx;
+
 		MainUniversalCALL4(dRcx, 1, 1, 0, dCall);
-		Sleep(1000);
+
 		MainUniversalCALL4(dRcx, 2, 0, 0, dCall);
-		Sleep(1000);
+	
 		MainUniversalCALL4(dRcx, 3, 0, 0, dCall);
-		Sleep(1000);
+
 		MainUniversalCALL4(dRcx, 4, 0, 0, dCall);
-		Sleep(1000);
+	
 
 	}
 

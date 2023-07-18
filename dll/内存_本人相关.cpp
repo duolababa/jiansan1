@@ -443,7 +443,7 @@ INT64 本人::最近怪物1(DWORD 距离)
 	{
 		if (vsk[i].dType == 2)
 		{
-			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].是否可以攻击 == 0)
 			{
 				if (vsk[i].距离 < 距离)
 				{
@@ -483,6 +483,8 @@ INT64 本人::最近怪物2(DWORD 距离, CString ID文本)
 			{
 				if (vsk[i].距离 < 距离)
 				{
+					MyTrace(L"name %s  距离%0.3f", vsk[i].wName, vsk[i].距离);
+
 					if (ID文本 == L"")
 					{
 						返回指针 = vsk[i].objBase;

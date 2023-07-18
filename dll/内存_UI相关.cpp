@@ -114,6 +114,13 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 		////UI功能::寻找打开窗口(CStringW(message),rcx);
 		//INT64 addr=UI功能::getUiObjByName(CStringW(message));
 
+
+
+		//DWORD dShow = R_DW(dObjAddr + 0x27C);//更新-0218
+		//INT64 addr_1 = R_QW(dObjAddr + 0X18);
+		//INT64 addr_2 = R_QW(addr_1 + 0x50 + 0X20);//更新-0218
+		//INT64 dNameAddr = R_QW(addr_2 + 0xF8);
+
 		DWORD rax = i + 1;
 		INT64 参数 = rdx + rax * 5 * 4 + 4;
 

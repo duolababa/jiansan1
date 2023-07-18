@@ -484,8 +484,32 @@ bool 地图::指定地点是否可到达(float x, float y, float z)
 //	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLCanArrive, (LPARAM)&CALLArg, SMTO_NORMAL, 2000, 0);
 //	//MyTrace(L"返回值 %d", CALLArg.是否可达);
 //	return (CALLArg.是否可达);
-//}
+bool 地图::指定地点是否可到达_p(float x, float y, float z)
+{
+	INT64 局_rsi = 本人::取真实对象();
+	INT64 ret;
+	/*INT64 虚函数头 = R_QW(局_rsi);
+	INT64 局_CALL1 = R_QW(虚函数头 + 基址_地图_目的地址是否可达_r12获取偏移);*/
+	INT64 rdx = R_QW(局_rsi + 基址_地图_目的地址是否可达_rax偏移);
+	INT64 rcx = 游戏模块 + 新坐标寻路rcx;
 
+	INT64 dCALL = 游戏模块 + 新坐标寻路call;
+	UCHAR pBuff[0x100] = { 0 };
+	UCHAR pBuff1[0x100] = { 0 };
+	W_Float((ULONG64)&pBuff[0], x);
+	W_Float((ULONG64)&pBuff[4], y);
+	W_Float((ULONG64)&pBuff[8], z);
+	INT64 局_R8 = (INT64)&pBuff;
+	MyTrace(L"对象%I64X", rdx);
+	if (rcx && rdx)
+	{
+		ret = MainUniversalCALL8_Ret(rcx, rdx, 局_R8, (INT64)&pBuff1, 0, 0, 0, 0,dCALL);
+		MyTrace(L"是否可达 %0.3f,%0.3f,%0.3f -> %d", x, y, z, ret);
+		return (bool)ret;
+
+	}
+	return false;
+}
 bool 地图::指定地点是否可到达_M(float x, float y, float z)
 {
 	INT64 局_rsi = 本人::取真实对象();

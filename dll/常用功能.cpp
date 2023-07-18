@@ -36,9 +36,15 @@ float 常用功能::计算距离(坐标_ 当前距离, 坐标_ 对方距离)
 	float dy = abs(当前距离.y - 对方距离.y);
 	float dz = abs(当前距离.z - 对方距离.z);
 
-	float xyz = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2)) / 100;
+	float x11 = pow(dx, 2);
+
+	float x22 = pow(dy, 2);
+	float x33 = pow(dz, 2);
+
+	float xyz = sqrt(x11 + x22+ x33);
+	//float xyz = float xyz = sqrt(x11 + x22); / 100;
 	//MyTrace(L"最终距离%0.f\n", xyz);
-	return xyz;
+	return xyz/100;
 
 }
 
