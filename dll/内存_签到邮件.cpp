@@ -212,7 +212,7 @@ void 签到邮件::Fun_AttendanceTake(INT64 dTabId, int k, int j)
 int getHotTimeEventStateByIndex(int dIndex)
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_hottimeEvent);
-	return CALL4(addr_1, 1, dIndex, 0, 游戏模块 + gc_hottimeEventRewardCheck);
+	return MainUniversalCALL4_Ret(addr_1, 1, dIndex, 0, 游戏模块 + gc_hottimeEventRewardCheck);
 	//int dRet = -1;
 	//CString cBuf;
 	//dm.AsmClear();

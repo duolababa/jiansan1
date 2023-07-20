@@ -306,7 +306,13 @@ static int 关闭多余窗口(__LUA_指针)
 }
 
 
+static int 是否求饶(__LUA_指针)
+{
+bool x=	UI功能::怪物击杀求饶界面是否打开();
+lua_pushinteger(L, x);
 
+return 1;
+}
 
 static int 对话完成(__LUA_指针)
 {
@@ -483,6 +489,7 @@ static int 任务是否存在(__LUA_指针)
 	x = 常用功能::十六进制转十进制(tmpStr);
 	QuestInfo_ temp;
 	vector<QuestInfo_>vsk;
+
 	任务::get_CurQuestList(vsk);
 	DWORD 是否存在 = 0;
 
@@ -518,6 +525,7 @@ static int 任务进展(__LUA_指针)
 	任务::get_CurQuestList(vsk);
 	DWORD 任务阶段 = 0;
 	DWORD 任务可交 = 0;
+	MyTrace(L"判断的ID%I64X", x);
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
 		if (vsk[i].dQuestId == x)
@@ -805,7 +813,7 @@ static int 距离判断(__LUA_指针)
 
 	double xyz = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2))/100;
 	lua_pushnumber(L,xyz);
-
+	MyTrace(L"距离判断 %0.3f,%0.3f,%0.3f ->目标距离 %0.3f", x, y, z, xyz);
 	return 1;
 
 }
@@ -1266,6 +1274,8 @@ static int 读取人物信息(__LUA_指针)
 	arr.push_back(temp);//15
 	temp.Format(L"%I64X", 角色信息.对象指针);
 	arr.push_back(temp);//16
+	temp.Format(L"%d", 角色信息.怒气值);
+	arr.push_back(temp);//17
 	lua_newtable(L);
 	//lua_pushnumber(L, 角色信息.当前血)
 	lua_pushnumber(L, -1);
@@ -1313,13 +1323,16 @@ static int 是否打开NPC(__LUA_指针)
 
 static int 调试判断(__LUA_指针)
 {
-	if (调试开关==1)
-	{
-		luaL_error(L,"停止工作");
+	//if (调试开关==1)
+	//{
+	//	lua_Exit
+	//	luaL_error(L,"停止工作");
+	//	调试开关 = 0;
 
+	//}
+	lua_pushinteger(L, 调试开关);
 
-	}
-	return 0;
+	return 1;
 
 
 }
@@ -1676,110 +1689,109 @@ static int 关闭对话(__LUA_指针)
 }
 
 
-static int 新按键(__LUA_指针)
+static int 按键1(__LUA_指针)
 {
 	const char* a = lua_tostring(L, 1);
-
+	DWORD dd = lua_tointeger(L, 2);
 	CString tmpStr = CStringA(a);
+
 
 	if (tmpStr == L"Q")
 	{
-		UI功能::内存按键('Q');
+		UI功能::内存按键1(g_Q, dd);
 		return 0;
 	}
-
-
 
 
 	if (tmpStr == L"F2")
 	{
 
-		UI功能::内存按键(VK_F2);
+		UI功能::内存按键(g_F2, dd);
 		return 0;
 	}
 	if (tmpStr == L"M")
 	{
 
-		UI功能::内存按键('M');
+		UI功能::内存按键1(g_M, dd);
 		return 0;
 	}
 	if (tmpStr == L"F6")
 	{
 
-		UI功能::内存按键(VK_F6);
+		UI功能::内存按键(g_F6, dd);
 		return 0;
 	}
 	if (tmpStr == L"空格")
 	{
 
-		UI功能::内存按键(VK_SPACE);
+		UI功能::内存按键(g_空格, dd);
 		return 0;
 	}
 	if (tmpStr == L"N")
 	{
 
-		UI功能::内存按键('N');
+		UI功能::内存按键1(g_N, dd);
 		return 0;
 	}
 	if (tmpStr == L"C")
 	{
 
-		UI功能::内存按键('C');
+		UI功能::内存按键1(g_C, dd);
 		return 0;
 	}
 	if (tmpStr == L"I")
 	{
 
-		UI功能::内存按键('I');
+		UI功能::内存按键1(g_I, dd);
 		return 0;
 	}
 	if (tmpStr == L"G")
 	{
 
-		UI功能::内存按键('G');
+		UI功能::内存按键1(g_G, dd);
 		return 0;
 	}
 	if (tmpStr == L"W")
 	{
 
-		UI功能::内存按键('W');
+		UI功能::内存按键1(g_W, dd);
 		return 0;
 	}
 	if (tmpStr == L"E")
 	{
 
-		UI功能::内存按键('E');
+		UI功能::内存按键1(g_E, dd);
 		return 0;
 	}
 	if (tmpStr == L"R")
 	{
 
-		UI功能::内存按键('R');
+		UI功能::内存按键1(g_R, dd);
 		return 0;
 	}
 	if (tmpStr == L"Z")
 	{
 
-		UI功能::内存按键('Z');
+		UI功能::内存按键1(g_Z, dd);
 		return 0;
 	}
 	if (tmpStr == L"B")
 	{
 
-		UI功能::内存按键('B');
+		UI功能::内存按键1(g_B, dd);
 		return 0;
 	}
 	if (tmpStr == L"V")
 	{
 
-		UI功能::内存按键('V');
+		UI功能::内存按键1(g_V, dd);
 		return 0;
 	}
 
 	if (tmpStr == L"A")
 	{
 
-		UI功能::内存按键('A');
+		UI功能::内存按键1(g_A, dd);
 		return 0;
 	}
 
@@ -1787,38 +1799,38 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"S")
 	{
 
-		UI功能::内存按键('S');
+		UI功能::内存按键1(g_S, dd);
 		return 0;
 	}
 	if (tmpStr == L"D")
 	{
 
-		UI功能::内存按键('D');
+		UI功能::内存按键1(g_D, dd);
 		return 0;
 	}
 	if (tmpStr == L"F")
 	{
 
-		UI功能::内存按键('F');
+		UI功能::内存按键1(g_F, dd);
 		return 0;
 	}
 	if (tmpStr == L"1")
 	{
 
-		UI功能::内存按键('1');
+		UI功能::内存按键1(g_1, dd);
 		return 0;
 	}
 
 	if (tmpStr == L"2")
 	{
 
-		UI功能::内存按键('2');
+		UI功能::内存按键1(g_2, dd);
 		return 0;
 	}
 	if (tmpStr == L"3")
 	{
 
-		UI功能::内存按键('3');
+		UI功能::内存按键1(g_3, dd);
 		return 0;
 	}
 
@@ -1826,7 +1838,7 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"4")
 	{
 
-		UI功能::内存按键('4');
+		UI功能::内存按键1(g_4, dd);
 		return 0;
 	}
 
@@ -1834,7 +1846,7 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"5")
 	{
 
-		UI功能::内存按键('5');
+		UI功能::内存按键1(g_5, dd);
 		return 0;
 	}
 
@@ -1842,7 +1854,7 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"6")
 	{
 
-		UI功能::内存按键('6');
+		UI功能::内存按键1(g_6, dd);
 		return 0;
 	}
 
@@ -1850,7 +1862,7 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"7")
 	{
 
-		UI功能::内存按键('7');
+		UI功能::内存按键1(g_7, dd);
 		return 0;
 	}
 
@@ -1859,7 +1871,7 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"8")
 	{
 
-		UI功能::内存按键('8');
+		UI功能::内存按键1(g_8, dd);
 		return 0;
 	}
 
@@ -1867,33 +1879,33 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"9")
 	{
 
-		UI功能::内存按键('9');
+		UI功能::内存按键1(g_9, dd);
 		return 0;
 	}
 
 	if (tmpStr == L"F1")
 	{
 
-		UI功能::内存按键(VK_F1);
+		UI功能::内存按键1(g_F1, dd);
 		return 0;
 	}
 
 	if (tmpStr == L"F3")
 	{
 
-		UI功能::内存按键(VK_F3);
+		UI功能::内存按键1(g_F3, dd);
 		return 0;
 	}
 	if (tmpStr == L"F4")
 	{
 
-		UI功能::内存按键(VK_F4);
+		UI功能::内存按键1(g_F4, dd);
 		return 0;
 	}
 	if (tmpStr == L"F5")
 	{
 
-		UI功能::内存按键(VK_F5);
+		UI功能::内存按键1(g_F5, dd);
 		return 0;
 	}
 
@@ -1901,31 +1913,287 @@ static int 新按键(__LUA_指针)
 	if (tmpStr == L"F6")
 	{
 
-		UI功能::内存按键(VK_F6);
+		UI功能::内存按键1(g_F6, dd);
 		return 0;
 	}
 	if (tmpStr == L"Y")
 	{
 
-		UI功能::内存按键('Y');
+		UI功能::内存按键1(g_Y, dd);
 		return 0;
 	}
 	if (tmpStr == L"X")
 	{
-		UI功能::内存按键('X');
+		UI功能::内存按键1(g_X, dd);
 		return 0;
 	}
 	if (tmpStr == L"ESC")
 	{
 
-		UI功能::内存按键(VK_ESCAPE);
+		UI功能::内存按键(g_ESC, dd);
 		return 0;
 	}
 	if (tmpStr == L"ENTER")
 	{
-		UI功能::内存按键(VK_RETURN);
+		UI功能::内存按键(g_ENTER, dd);
 		return 0;
 	}
+
+
+
+	return 0;
+}
+
+
+static int 新按键(__LUA_指针)
+{
+	const char* a = lua_tostring(L, 1);
+
+	CString tmpStr = CStringA(a);
+
+	if (tmpStr == L"Q")
+	{
+		UI功能::内存按键1(g_Q);
+		return 0;
+	}
+
+
+	if (tmpStr == L"F2")
+	{
+
+		UI功能::内存按键1(g_F2);
+		return 0;
+	}
+	if (tmpStr == L"M")
+	{
+
+		UI功能::内存按键1(g_M);
+		return 0;
+	}
+	if (tmpStr == L"F6")
+	{
+
+		UI功能::内存按键1(g_F6);
+		return 0;
+	}
+	if (tmpStr == L"空格")
+	{
+
+		UI功能::内存按键1(g_空格);
+		return 0;
+	}
+	if (tmpStr == L"N")
+	{
+
+		UI功能::内存按键1(g_N);
+		return 0;
+	}
+	if (tmpStr == L"C")
+	{
+
+		UI功能::内存按键1(g_C);
+		return 0;
+	}
+	if (tmpStr == L"I")
+	{
+
+		UI功能::内存按键1(g_I);
+		return 0;
+	}
+	if (tmpStr == L"G")
+	{
+
+		UI功能::内存按键1(g_G);
+		return 0;
+	}
+	if (tmpStr == L"W")
+	{
+
+		UI功能::内存按键1(g_W);
+		return 0;
+	}
+	if (tmpStr == L"E")
+	{
+
+		UI功能::内存按键1(g_E);
+		return 0;
+	}
+	if (tmpStr == L"R")
+	{
+
+		UI功能::内存按键1(g_R);
+		return 0;
+	}
+	if (tmpStr == L"Z")
+	{
+
+		UI功能::内存按键1(g_Z);
+		return 0;
+	}
+	if (tmpStr == L"B")
+	{
+
+		UI功能::内存按键1(g_B);
+		return 0;
+	}
+	if (tmpStr == L"V")
+	{
+
+		UI功能::内存按键1(g_V);
+		return 0;
+	}
+
+	if (tmpStr == L"A")
+	{
+
+		UI功能::内存按键1(g_A);
+		return 0;
+	}
+
+
+	if (tmpStr == L"S")
+	{
+
+		UI功能::内存按键1(g_S);
+		return 0;
+	}
+	if (tmpStr == L"D")
+	{
+
+		UI功能::内存按键1(g_D);
+		return 0;
+	}
+	if (tmpStr == L"F")
+	{
+
+		UI功能::内存按键1(g_F);
+		return 0;
+	}
+	if (tmpStr == L"1")
+	{
+
+		UI功能::内存按键1(g_1);
+		return 0;
+	}
+
+	if (tmpStr == L"2")
+	{
+
+		UI功能::内存按键1(g_2);
+		return 0;
+	}
+	if (tmpStr == L"3")
+	{
+
+		UI功能::内存按键1(g_3);
+		return 0;
+	}
+
+
+	if (tmpStr == L"4")
+	{
+
+		UI功能::内存按键1(g_4);
+		return 0;
+	}
+
+
+	if (tmpStr == L"5")
+	{
+
+		UI功能::内存按键1(g_5);
+		return 0;
+	}
+
+
+	if (tmpStr == L"6")
+	{
+
+		UI功能::内存按键1(g_6);
+		return 0;
+	}
+
+
+	if (tmpStr == L"7")
+	{
+
+		UI功能::内存按键1(g_7);
+		return 0;
+	}
+
+
+
+	if (tmpStr == L"8")
+	{
+
+		UI功能::内存按键1(g_8);
+		return 0;
+	}
+
+
+	if (tmpStr == L"9")
+	{
+
+		UI功能::内存按键1(g_9);
+		return 0;
+	}
+
+	if (tmpStr == L"F1")
+	{
+
+		UI功能::内存按键1(g_F1);
+		return 0;
+	}
+
+	if (tmpStr == L"F3")
+	{
+
+		UI功能::内存按键1(g_F3);
+		return 0;
+	}
+	if (tmpStr == L"F4")
+	{
+
+		UI功能::内存按键1(g_F4);
+		return 0;
+	}
+	if (tmpStr == L"F5")
+	{
+
+		UI功能::内存按键1(g_F5);
+		return 0;
+	}
+
+
+	if (tmpStr == L"F6")
+	{
+
+		UI功能::内存按键1(g_F6);
+		return 0;
+	}
+	if (tmpStr == L"Y")
+	{
+
+		UI功能::内存按键1(g_Y);
+		return 0;
+	}
+	if (tmpStr == L"X")
+	{
+		UI功能::内存按键1(g_X);
+		return 0;
+	}
+	if (tmpStr == L"ESC")
+	{
+
+		UI功能::内存按键1(g_ESC);
+		return 0;
+	}
+	if (tmpStr == L"ENTER")
+	{
+		UI功能::内存按键1(g_ENTER);
+		return 0;
+	}
+
 
 	return 0;
 }
@@ -1933,9 +2201,13 @@ static int 新按键(__LUA_指针)
 
 static int 表情(__LUA_指针)
 {
-	DWORD ID = lua_tointeger(L, 1);
+//	DWORD ID = lua_tointeger(L, 1);
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x;
+	//sscanf(tmpStr, "%x", x);
 
-	本人::CALL_做社交动作(ID);
+	x = 常用功能::十六进制转十进制(tmpStr);
+	本人::CALL_做社交动作(x);
 	return 0;
 }
 
@@ -2017,7 +2289,7 @@ static int 骑马(__LUA_指针)
 	DWORD ID = 0;
 	ID = 背包::坐骑遍历();
 	ActorInfo_ a = 本人::取角色信息();
-	if (a.骑行状态 == 0&& ID>1)
+	if (a.骑行状态 == 0 && ID>1)
 	{
 
 		本人::CALL_使用坐骑(ID);
@@ -2046,7 +2318,7 @@ static int 寻路1(__LUA_指针)
 	float x = lua_tonumber(L, 1);
 	float y = lua_tonumber(L, 2);
 	float z = lua_tonumber(L, 3);
-	INT64 D = lua_tointeger(L, 4);
+	DWORD D = lua_tointeger(L, 4);
 
 	地图::寻路(x, y, z, D);
 	return 0;
@@ -2344,6 +2616,16 @@ static int 怪物数量1(__LUA_指针)
 
 }
 
+static int 被攻击怪物数量(__LUA_指针)
+{
+	DWORD x = 本人::被攻击怪物数量();
+	lua_pushinteger(L, x);
+	return 1;
+}
+
+
+
+
 static int 怪物数量(__LUA_指针)
 {
 	DWORD 距离 = lua_tointeger(L, 1);
@@ -2353,6 +2635,18 @@ static int 怪物数量(__LUA_指针)
 	lua_pushinteger(L, add);
 	return 1;
 }
+
+static int 最近攻击怪(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	const char* 过滤 = lua_tostring(L, 2);
+
+	INT64 addr = 0;
+	addr = 本人::最近怪物攻击(距离, 过滤);
+	lua_pushinteger(L, addr);
+	return 1;
+}
+
 
 
 static int 最近怪(__LUA_指针)
@@ -2390,6 +2684,12 @@ static int 大陆ID(__LUA_指针)
 
 static int 测试(__LUA_指针)
 {
+
+
+	ActorInfo_ 角色信息 = 本人::取角色信息();
+
+	MyTrace(L"角色信息0x%I64X 骑马对象0x%I64X  ID1 0x%I64X" ,角色信息.对象指针, 角色信息.对象指针 + g_是否骑马, 角色信息.ID1);
+
 	vector<objInfo_>vsk;
 	环境::遍历全部环境对象1(vsk);
 	for (size_t i = 0; i < vsk.size(); i++)
@@ -2400,7 +2700,7 @@ static int 测试(__LUA_指针)
 		}
 
 		
-		MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s 距离 %0.3f \n", vsk[i].objBase, vsk[i].dResId, vsk[i].wName, vsk[i].dType, vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z, vsk[i].wName,vsk[i].距离);
+		MyTrace(L"对象地址0x%I64X ID %X  ID1 %d  %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s 距离 %0.3f \n", vsk[i].objBase, vsk[i].dResId, vsk[i].ModId, vsk[i].wName, vsk[i].dType, vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z, vsk[i].wName,vsk[i].距离);
 	}
 
 
@@ -2740,8 +3040,11 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "子任务信息", 子任务信息);
 	lua_register(L, "购买工具", 购买工具);
 	lua_register(L, "还原技能", 还原技能);
-
-
+	lua_register(L, "是否求饶", 是否求饶);
+	lua_register(L, "按键1", 按键1);
+	lua_register(L, "最近攻击怪", 最近攻击怪);
+	lua_register(L, "被攻击怪物数量", 被攻击怪物数量);
+	
 	//航海::自动选择最优战船
 	//lua_close(L);
 }

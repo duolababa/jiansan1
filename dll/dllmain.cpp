@@ -1039,11 +1039,17 @@ LRESULT __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         if (wParam == VK_END) //呼出
         {
+      
+                MyTrace(L"调试开关=1");
+            调试开关 = 1;
+
             循环跳出 = true;
             return true;
         }
         if (wParam == VK_HOME)
         {
+            调试开关 = 0;
+            MyTrace(L"调试开关=0");
             //SetHardwareBreakPointWIN10Version(MainThreadid);
            /* 坐标_ 角色坐标 = 本人::取坐标();
             vector<objInfo_>vsk;

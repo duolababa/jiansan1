@@ -405,7 +405,7 @@ void 地图::寻路(float x, float y, float z, DWORD modid = 0)
 	W_Float((ULONG64)&pBuff[0x3c], x);
 	W_Float((ULONG64)&pBuff[0x3c + 4], y);
 	W_Float((ULONG64)&pBuff[0x3c + 8], z);
-	W_DW((ULONG64)&pBuff[0x88], modid);
+	W_DW((ULONG64)&pBuff[0x78], modid);
 	MainUniversalCALL4(局_RCX, (ULONG_PTR)pBuff, 0, 0, 局_dCALL);
 }
 
@@ -501,7 +501,7 @@ bool 地图::指定地点是否可到达_p(float x, float y, float z)
 	W_Float((ULONG64)&pBuff[8], z);
 	INT64 局_R8 = (INT64)&pBuff;
 	MyTrace(L"对象%I64X", rdx);
-	if (rcx && rdx)
+	if (rcx>1 && rdx>1)
 	{
 		ret = MainUniversalCALL8_Ret(rcx, rdx, 局_R8, (INT64)&pBuff1, 0, 0, 0, 0,dCALL);
 		MyTrace(L"是否可达 %0.3f,%0.3f,%0.3f -> %d", x, y, z, ret);

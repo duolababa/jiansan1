@@ -31,7 +31,7 @@ public:
     static void 使用物品2(DWORD 格子数);
     static void get_RecommendEquipList(vector<Inventoryinfo_>& vsk);
     static int get_PosbyItemID(DWORD itemId);
-    static Inventoryinfo_ get_ItemInfobyItemID(DWORD itemId);
+    static Inventoryinfo_ get_ItemInfobyItemID(INT64 itemId);
     static void 使用背包指定物品(CString 物品名称);
     static void 使用背包指定物品_ByResId(DWORD ResId);
     static void 装备背包指定物品_ByResId(DWORD ResId);

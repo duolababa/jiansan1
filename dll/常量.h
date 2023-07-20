@@ -13,8 +13,8 @@
 #define g_坐骑 0xA9F24
 #define g_坐骑_index单 0xC
 #define g_坐骑_叠加单 0x23
-
-
+#define g_是否骑马 0x4FC0
+#define 怪物目标 0x53F8
 
 #define g_行走状态 0x76C
 #define g_背包仓库头 0x6CC
@@ -465,3 +465,47 @@
 //#define 偏移_个人_当前怒气值  2 //FF ?? ?? ?? ?? ?? 83 ?? ?? 0F ?? ?? ?? ?? ?? ?? 8B ?? ?? ?? ?? ?? ?? 85 ?? 74 ?? ?? 8B ?? FF ?? ?? ?? ?? ?? 85 ?? 0F  +0F+3
 //#define 偏移_个人_当前动作 3 //E8 ?? ?? ?? ?? ?? 83 ?? ?? ?? ?? ?? ?? 0F ?? ?? ?? ?? ?? ?? 8D ?? ?? ?? ?? ?? 0F ?? ?? E8 ?? ?? ?? ?? ?? 8D  +0x13+3 [[2157DE00020+104+30]]+30  读4字节
 
+#define g_M 0x491C
+#define g_F6 0x492A
+#define g_空格 0x4954
+#define g_N 0x491D
+#define g_C 0x4912
+#define g_I 0x4918
+#define g_G 0x4916
+#define g_Q 0x4920
+#define g_W 0x4924
+#define g_E 0x4914
+#define g_R 0x4921
+#define g_Z 0x23A9
+#define g_B 0x4911
+#define g_V 0x232A
+#define g_A 0x4910
+#define g_S 0x4922
+#define g_D 0x4913
+#define g_F 0x4915
+#define g_1 0x4932
+#define g_2 0x4933
+#define g_3 0x4934
+#define g_4 0x4935
+#define g_5 0x4936
+#define g_F1 0x4925
+#define g_F2 0x4926
+#define g_F3 0x4927
+#define g_F4 0x4928
+#define g_F5 0x4929
+#define g_Y 0x1D29
+#define g_X 0x1D28
+#define g_ESC 0x4953
+#define g_ENTER 0x494B
+#define g_Q 0x4920
+#define g_N 0x491D
+#define g_Y 0x1D29
+#define g_J 0x4919
+#define g_U 0x2329
+#define g_1 0x4932
+#define g_2 0x4933
+#define g_K 0x491A
+#define g_6 0x4937
+#define g_7 0x4938
+#define g_8 0x4939
+#define g_9 0x493A

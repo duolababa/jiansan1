@@ -284,6 +284,39 @@ DWORD  内存_UI_键码转换(DWORD  待转换键码)
 	return 0;
 }
 
+
+bool UI功能::内存按键1(DWORD 转换后键码, DWORD 类型)
+{
+	INT64 按键参数 = 内存_UI_获取按键参数();
+	if (按键参数 == 0 || 转换后键码 == 0)
+	{
+		return false;
+	}
+	INT64 dCALL = R_QW(R_QW(按键参数) + 偏移_UI_按键虚表);
+	if (dCALL)
+	{
+		DWORD 局_类型 = 类型;
+		//DWORD 转换后键码 = 内存_UI_键码转换(加密键码);
+		if (局_类型 == 0)
+		{
+			MainUniversalCALL4(按键参数, 0, 转换后键码, 0, dCALL);
+		}
+		if (局_类型 == 1)
+		{
+			MainUniversalCALL4(按键参数, 0, 转换后键码, 1, dCALL);
+		}
+		if (局_类型 == 2)
+		{
+			MainUniversalCALL4(按键参数, 0, 转换后键码, 0, dCALL);
+			Sleep(100);
+			MainUniversalCALL4(按键参数, 0, 转换后键码, 1, dCALL);
+		}
+		return true;
+	}
+	return false;
+}
+
+
 bool UI功能::内存按键(DWORD 加密键码, DWORD 类型)
 {
 	INT64 按键参数 = 内存_UI_获取按键参数();

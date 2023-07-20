@@ -135,7 +135,7 @@ static int 新按键(__LUA_指针);
 static int 关闭对话(__LUA_指针);
 static int 等待(__LUA_指针);
 static int 寻路1(__LUA_指针);
-
+static int 是否求饶(__LUA_指针);
 
 //lua_register(L, "关闭对话", 关闭对话);
 //	环境::CALL_点击指定NPC_ByResId(NpcResId);

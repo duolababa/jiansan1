@@ -786,7 +786,7 @@ int 교관::get_PosbyItemID(DWORD itemId)
 	return -1;
 }
 
-Inventoryinfo_ 교관::get_ItemInfobyItemID(DWORD itemId)
+Inventoryinfo_ 교관::get_ItemInfobyItemID(INT64 itemId)
 {
 	Inventoryinfo_ info;
 	vector<Inventoryinfo_> vsk;

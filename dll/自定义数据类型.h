@@ -34,10 +34,11 @@ struct ActorInfo_
 	DWORD InteractPropState=0;
 	DWORD 举起状态 = 0; //==4已举起 ==1 未举起
 
-	bool 骑行状态;
+	DWORD 骑行状态;
 	DWORD G按标识 = 0;
 	DWORD 行走状态;
 	DWORD 职业;
+	DWORD ID1=0;
 	//int 课题状态;
 };
 struct UIinfo_
@@ -180,6 +181,7 @@ struct objInfo_
 	int dMonsterSkillNum = 0;
 	float 距离;
 	BYTE 是否可以攻击;
+	DWORD ID1 = 0;
 };
 
 struct SubQuestNeed_

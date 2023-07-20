@@ -13,6 +13,7 @@ public:
 	static bool 寻找打开窗口(CString name, INT64& rcx);
 	static CString 节点唯一标识(INT64 对象, INT64& 返回对象);
 
+	static bool 内存按键1(DWORD 加密按键, DWORD 类型 = 2);
 	static bool 内存按键(DWORD 加密按键, DWORD 类型=2);
 	static bool 地图是否打开();
 	static bool 怪物击杀求饶界面是否打开();

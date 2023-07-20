@@ -116,6 +116,7 @@ ActorInfo_ 本人::取角色信息()
 	临时角色信息.名称 = R_CString(R_QW(局_个人真实对象 + 0x1C));
 	临时角色信息.等级 = R_W(R_QW(R_QW(游戏模块 + gb_AttrList) + 0xE4) + 30);
 	INT64 属性对象 = getAttrAddr(R_DW(局_个人真实对象 + 0x14));
+	临时角色信息.ID1= R_DW(局_个人真实对象 + 0x14);
 	//MyTrace(L"取角色信息 %s %d 0x%I64X",临时角色信息.名称, 临时角色信息.等级, 属性对象);
 	临时角色信息.装备评分 = R_Float(属性对象 + 偏移_本人_装备评分);
 	/*临时角色信息.当前血 = getEncryValue(属性对象, 1);
@@ -150,11 +151,15 @@ ActorInfo_ 本人::取角色信息()
 	临时角色信息.举起状态 = 举起东西状态();
 
 	临时角色信息.对象指针 = 局_个人真实对象;
-	临时角色信息.骑行状态 = 本人::是否在骑马();
+
+	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
+	INT64 addr_3 = R_QW(addr_2 + 0x18);
+	临时角色信息.骑行状态 = R_DW(addr_3 + g_是否骑马);
 	临时角色信息.行走状态 = R_BYTE(临时角色信息.对象指针 + g_行走状态);
 	临时角色信息.职业 = R_DW(临时角色信息.对象指针 + 0x2C);
 
-	//MyTrace(L"对象指针0x%I64x", 临时角色信息.对象指针);
+	//MyTrace(L"骑行状态0x%I64x", 临时角色信息.骑行状态);
 	//MyTrace(L"取角色信息2 %d %d/%d  %d %d %d 举起 %d", 临时角色信息.装备评分, 临时角色信息.当前血, 临时角色信息.最大血, 临时角色信息.航海当前耐久, 临时角色信息.怒气值, 临时角色信息.InteractPropState, 临时角色信息.举起状态);
 	/// <summary>
 	/// /////////////////////
@@ -462,7 +467,107 @@ INT64 本人::最近怪物1(DWORD 距离)
 
 }
 
+DWORD 本人::被攻击怪物数量()
+{
 
+	ActorInfo_ add = 本人::取角色信息();
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD 数量 = 0;
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (add.ID1 == vsk[i].ID1 && vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
+			{
+				数量 = 数量 + 1;
+			}
+
+		}
+	}
+	return 数量;
+}
+
+
+INT64 本人::最近怪物攻击(DWORD 距离, CString ID文本)
+{
+	CArray<CString, CString>返回文本组;
+	ActorInfo_ add = 本人::取角色信息();
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD obj距离 = 999999;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+
+
+			if (add.ID1== vsk[i].ID1 && vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					MyTrace(L"name %s  距离%0.3f", vsk[i].wName, vsk[i].距离);
+
+					if (ID文本 == L"")
+					{
+						返回指针 = vsk[i].objBase;
+						break;
+					}
+					else
+					{
+						if (ID文本.Find(L"|") == -1)
+						{
+							DWORD 临时id = 常用功能::十六进制转十进制(CStringA(ID文本));
+							if (临时id == vsk[i].dResId)
+							{
+								返回指针 = vsk[i].objBase;
+								break;
+							}
+						}
+						else
+						{
+							文本分割(ID文本, '|', &返回文本组);
+							if (返回文本组.GetCount() == 0)
+							{
+								返回指针 = 0;
+								break;
+							}
+							else
+							{
+								for (size_t i = 0; i < 返回文本组.GetCount(); i++)
+								{
+									DWORD 临时id = 0;
+
+									临时id = 常用功能::十六进制转十进制(CStringA(ID文本));
+									if (临时id == vsk[i].dResId)
+									{
+										返回指针 = vsk[i].objBase;
+										return 返回指针;
+
+									}
+
+
+								}
+
+
+							}
+
+
+						}
+					}
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+
+}
 
 
 INT64 本人::最近怪物2(DWORD 距离, CString ID文本)
