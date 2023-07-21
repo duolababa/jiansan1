@@ -2713,11 +2713,42 @@ static int 测试(__LUA_指针)
 	}
 
 
+
+
 	//MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
 
 
 	vector<QuestInfo_>vsk1;
 	任务::get_CurQuestList(vsk1);
+
+	vector<Inventoryinfo_> vsk2;
+	背包::get_InventoryItemList(vsk2);
+	DWORD a = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		MyTrace(L"位置%d  物品ID 0x%I64X 资源ID  0x%I64X 数量%d  箱子类型%d 耐久%0.3f  名称 %s \r\n", vsk2[i].dindex, vsk2[i].ItemId,vsk2[i].ItemResId, vsk2[i].dNum, vsk2[i].dSlotIndex, vsk2[i].耐久度.当前耐久度,vsk2[i].ItemName);
+		/*wchar_t buf[MAX_PATH];
+		swprintf(buf, L"位置%X 地址0x%I64X 物品ID 0x%I64X 资源ID %X 地址0x%I64X 数量%d %s 槽位%X 穿戴参数%d 箱子类型%d 耐久%d/%d\r\n", i, dStart + i * dSize, dItemId, dItmeResId, dItemResAddr, dNum, csName, dSlotIndex, getEquipWearArg(dSlotIndex), dBoxType, temp.耐久度.当前耐久度, temp.耐久度.最大耐久度);
+		MyTrace(buf);*/
+	/*	if (vsk[i].dSlotIndex == ID && ID != 0)
+		{
+			a = a + 1;
+
+
+		}*/
+
+		/*	if (vsk[i].ItemName.Find(物品名称) != -1)
+			{
+				背包::使用物品2(vsk[i].dindex);
+				break;
+			}*/
+	}
+	return a;
+
+
+
+
 	CString 弹窗文本 = L"空";
 	弹窗文本 = UI功能::窗口反馈文本();
 	MyTrace(L"窗口文本%s", 弹窗文本.GetString());
