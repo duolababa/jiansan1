@@ -880,6 +880,9 @@ void 背包::自定装备推荐装备()
 	Equipinfo_ temp2;
 	vector<Inventoryinfo_>vsk;
 	背包::get_RecommendEquipList(vsk);
+	int 计次 = 0;
+	int 计次2 = 0;
+
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
 		Inventoryinfo_ item = 背包::get_ItemInfobyItemID(vsk[i].ItemId);
@@ -890,7 +893,11 @@ void 背包::自定装备推荐装备()
 		MyTrace(L"穿戴 %s 格子%d", item.ItemName, item.dindex);
 		if (item.WearId == 7)//耳环
 		{
+			if (计次 >= 2)
+			{
+				continue;
 
+			}
 
 			temp = get_EquipInfobyIndex(7);//左耳环
 			//if (temp.颜色 < item.颜色)
@@ -908,6 +915,8 @@ void 背包::自定装备推荐装备()
 			}
 			背包::使用物品(item.dindex);
 			Sleep(300);
+			计次 = 计次 + 1;
+			Sleep(300);
 			//if (temp.颜色 < item.颜色)
 			//{
 			//	背包::CALL_穿戴装备(item.dindex, 8);
@@ -917,6 +926,12 @@ void 背包::自定装备推荐装备()
 		}
 		if (item.WearId == 9)//耳环
 		{
+			if (计次2 >= 2)
+			{
+				continue;
+
+			}
+
 			//背包::使用物品(item.dindex);
 			temp = get_EquipInfobyIndex(0xA);//左耳环
 			//if (temp.颜色 <= item.颜色)
@@ -934,6 +949,8 @@ void 背包::自定装备推荐装备()
 
 			}
 			背包::使用物品(item.dindex);
+			Sleep(300);
+			计次2 = 计次2 + 1;
 			Sleep(300);
 			//if (temp.颜色 < item.颜色)
 			//{

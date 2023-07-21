@@ -463,6 +463,7 @@ bool UI功能::航海入港()
 	}
 	INT64 dCALL = 游戏模块 + 基址_UI_航海入港call;
 	INT64 dRCX = R_QW(游戏模块 + 基址_UI_航海出港rcx);
+	MyTrace(L"入港rcx %I64X", dRCX);
 	if (dRCX != 0)
 	{
 		MainUniversalCALL2(dRCX, 0, dCALL);

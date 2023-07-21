@@ -114,7 +114,7 @@ LRESULT CALLBACK hkWndProc_(int nCode, WPARAM wParam, LPARAM lparam)
             case Msgid::CALLCanArrive://lua脚本调用
 
                 目标坐标 = (坐标_*)lpArg->lParam;
-                目标坐标->是否可达 = 地图::指定地点是否可到达(目标坐标->x, 目标坐标->y, 目标坐标->z);
+                //目标坐标->是否可达 = 地图::指定地点是否可到达(目标坐标->x, 目标坐标->y, 目标坐标->z);
                 //int 返回值 = 目标坐标->是否可达;
                 //目标坐标->是否可达 = 1000;
                 //MyTrace(L"返回值 %d", 目标坐标->是否可达);
@@ -1174,7 +1174,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
             MainThreadid = GetCurrentThreadId();
             AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)ExceptionHandler);
             mythread2.Start();
-            吃药线程.Start();
+        //    吃药线程.Start();
         }
         else
         {

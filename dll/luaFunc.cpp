@@ -711,9 +711,9 @@ static int 类型使用(__LUA_指针)
 		if (num != 0 && num == vsk[i].dSlotIndex)
 		{
 			背包::使用物品(vsk[i].dindex);
-			Sleep(2000);
+			Sleep(2000); 
 			弹窗文本 = UI功能::窗口反馈文本();
-			if (弹窗文本.Find(CStringW("Register New Card")) != -1 || 弹窗文本.Find(CStringW("新卡注册")) != -1 || 弹窗文本.Find(CStringW("使用")) != -1)
+			if (弹窗文本.Find(CStringW("Register New Card")) != -1 || 弹窗文本.Find(CStringW("新卡注册")) != -1 || 弹窗文本.Find(CStringW("使用")) != -1 || 弹窗文本.Find(CStringW("添加新卡牌")) != -1)
 			{
 				UI功能::内存按键(VK_RETURN);
 				Sleep(2000);
@@ -1163,24 +1163,24 @@ static int 读取怪物信息(__LUA_指针)
 	temp.Format(L"%f", 临时.坐标.z);//3
 	arr.push_back(temp);
 
-	double 血量 = 0;
+	//double 血量 = 0;
 
-	if (临时.dCurHp != 0)
-	{
-		血量 = (double(临时.dCurHp) / double(临时.dMaxHp)) * 100;
-	}
-	else
-	{
-		血量 = 0;
-	}
-
-
+	//if (临时.dCurHp != 0)
+	//{
+	//	血量 = (double(临时.dCurHp) / double(临时.dMaxHp)) * 100;
+	//}
+	//else
+	//{
+	//	血量 = 0;
+	//}
 
 
 
-	temp.Format(L"%f", 血量);
+
+
+	temp.Format(L"%d", 临时.dCurHp);
 	arr.push_back(temp);
-	temp.Format(L"%f", 血量);//4
+	temp.Format(L"%d", 临时.dCurHp);//4
 	arr.push_back(temp);//5
 	temp.Format(L"%d", 临时.dResId);
 	arr.push_back(temp);//6
@@ -1657,7 +1657,7 @@ static int 传送(__LUA_指针)
 static int 出入港(__LUA_指针)
 {
 	DWORD ID = lua_tointeger(L, 1);
-	if (ID = 1)
+	if (ID == 1)
 	{
 		UI功能::航海出港();
 	}
@@ -2506,6 +2506,15 @@ static int 金币数量(__LUA_指针)
 }
 
 
+
+static int 生活判断(__LUA_指针)
+{
+	int a = 钓鱼::getquickSlotFrameType();
+		lua_pushinteger(L, a);
+
+	return 1;
+}
+
 static int 捕鱼(__LUA_指针)
 {
 	钓鱼::捕鱼();
@@ -2709,6 +2718,9 @@ static int 测试(__LUA_指针)
 
 	vector<QuestInfo_>vsk1;
 	任务::get_CurQuestList(vsk1);
+	CString 弹窗文本 = L"空";
+	弹窗文本 = UI功能::窗口反馈文本();
+	MyTrace(L"窗口文本%s", 弹窗文本.GetString());
 	//DWORD 大陆ID = 地图::取当前大陆ID();
 	return 0;
 
@@ -3044,7 +3056,9 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "按键1", 按键1);
 	lua_register(L, "最近攻击怪", 最近攻击怪);
 	lua_register(L, "被攻击怪物数量", 被攻击怪物数量);
-	
+	lua_register(L, "生活判断", 生活判断);
+
+
 	//航海::自动选择最优战船
 	//lua_close(L);
 }
