@@ -189,6 +189,9 @@
     <ClInclude Include="常用功能.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="内存_周常任务.h">
+      <Filter>内存功能</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -319,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="常用功能.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="内存_周常任务.cpp">
+      <Filter>内存功能</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

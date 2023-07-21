@@ -9,3 +9,10 @@ public:
 	static bool CALL_选择职业(DWORD 职业ID);
 };
 
+class 直升
+{
+public:
+
+	static bool CALL_跳过序幕(DWORD index);
+
+};

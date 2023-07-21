@@ -78,3 +78,7 @@ BYTE getChaosDungeonState()
 	INT64 addr_1 = R_QW(游戏模块 + gb_ChaosDungeonInfo);
 	return R_BYTE(addr_1 + go_ChaosDungeonState);//读字节 1未开始 2已开始打怪 4时间结束
 }
+INT64 取混沌气息()
+{
+	return 背包::getMoneyNumByType(1);
+}

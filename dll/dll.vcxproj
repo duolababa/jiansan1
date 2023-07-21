@@ -210,6 +210,7 @@
     <ClInclude Include="内存_NPC商店.h" />
     <ClInclude Include="内存_UI相关.h" />
     <ClInclude Include="内存_任务相关.h" />
+    <ClInclude Include="内存_周常任务.h" />
     <ClInclude Include="内存_地图相关.h" />
     <ClInclude Include="内存_技能相关.h" />
     <ClInclude Include="内存_新手相关.h" />
@@ -256,6 +257,7 @@
     <ClCompile Include="内存_NPC商店.cpp" />
     <ClCompile Include="内存_UI相关.cpp" />
     <ClCompile Include="内存_任务相关.cpp" />
+    <ClCompile Include="内存_周常任务.cpp" />
     <ClCompile Include="内存_地图相关.cpp" />
     <ClCompile Include="内存_技能相关.cpp" />
     <ClCompile Include="内存_新手相关.cpp" />
