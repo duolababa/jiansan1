@@ -569,7 +569,7 @@ public:
             }
             else if (界面状态 == 5)
             {
-                if (登陆::是否在准备界面())
+               /* if (登陆::是否在准备界面())
                 {
                     SendMessageToMoConter(122, L"进入服务器成功");
                     vector<登陆角色信息_> vsk;
@@ -600,6 +600,105 @@ public:
                         continue;
                     }
 
+                }*/
+                if (登陆::是否在准备界面())//如果有直升， 发送  角色序号  直升地图 两个变量， 其中 角色序号 是需要登录的角色序号，直升地图  是使用那个等级直升券进行直升
+                {
+                    vector<登陆角色信息_> vsk;
+                    登陆::get_CharacterList(vsk);
+                    MyTrace(L"打开创建角色界面");
+                    登陆::初始化全局角色列表(vsk);
+                    DWORD 当前角色数量 = vsk.size();
+                    if (角色数量 > 当前角色数量)
+                    {
+                        MyTrace(L"打开[%d]号创建角色界面", 当前角色数量 + 1);
+                        登陆::CALL_打开创建角色(当前角色数量);
+                        Sleep(2000);
+                        continue;
+                    }
+                    else
+                    {
+                        if (脚本任务 == L"主线1-50" || (脚本任务 == L"lua" && LUA脚本名称 == L"D:\\起号.lua"))
+                        {
+                            登陆角色信息_ 角色1 = 登陆::getCharacterInfoByIndex(0);//第一个角色
+                            if (角色1.任务是否完成 == false)
+                            {
+                                登陆::CALL_进入游戏(0);
+                                MyTrace(L"进入游戏 %d %s", 角色1.dIndex, 角色1.名称);
+                                Sleep(15000);
+
+                            }
+                            else
+                            {
+                                if (登陆::取任务已完成角色数量() == 当前角色数量)//所有角色任务已完成
+                                {
+                                    SendMessageToMoConter(777, 脚本任务);
+                                    Sleep(10000);
+                                    continue;
+                                }
+                                else
+                                {
+                                    if (登陆::getJumpMapCheck(1))//存在贝隆直升券
+                                    {
+                                        登陆角色信息_ 角色2 = 登陆::getCharacterInfoByIndex(1);
+                                        if (角色2.直升状态 == 3 && 角色2.等级 < 50)
+                                        {
+                                            登陆::Fun_UseJumpByIndex(角色2.SrvId, 1);
+                                            登陆::CALL_进入游戏(角色2.dIndex);
+                                            MyTrace(L"进入游戏 %d %s", 角色2.dIndex, 角色2.名称);
+                                            Sleep(20000);
+                                        }
+
+                                        if (当前角色数量 >= 3)
+                                        {
+                                            登陆角色信息_ 角色3 = 登陆::getCharacterInfoByIndex(2);
+                                            if (角色3.直升状态 == 3 && 角色2.等级 < 50)
+                                            {
+                                                登陆::Fun_UseJumpByIndex(角色3.SrvId, 1);
+                                                登陆::CALL_进入游戏(角色3.dIndex);
+                                                MyTrace(L"进入游戏 %d %s", 角色3.dIndex, 角色3.名称);
+                                                Sleep(20000);
+                                            }
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        登陆角色信息_ temp = 登陆::取未完成任务的角色();
+                                        if (temp.dIndex != -1)
+                                        {
+                                            登陆::CALL_进入游戏(temp.dIndex);
+                                            MyTrace(L"进入游戏 %d %s", temp.dIndex, temp.名称);
+                                            Sleep(20000);
+
+                                        }
+                                    }
+                                }
+                            }
+                            /* 登陆角色信息_ temp = 登陆::getCharacterInfoByIndex(_ttoi(角色序号) - 1);
+                             if (temp.名称 != L"")
+                             {
+                                 if (登陆::getJumpMapCheck(1) && temp.直升状态 == 3)
+                                 {
+                                     登陆::Fun_UseJumpByIndex(temp.SrvId, temp.dIndex);
+                                     Sleep(1000);
+                                     登陆::CALL_进入游戏(_ttoi(角色序号) - 1);
+                                     MyTrace(L"进入游戏 %d %s", temp.dIndex, temp.名称);
+                                     Sleep(20000);
+                                     continue;
+                                 }
+                                 else if (temp.直升状态 != 3)
+                                 {
+                                     登陆::CALL_进入游戏(_ttoi(角色序号) - 1);
+                                     MyTrace(L"进入游戏 %d %s", temp.dIndex, temp.名称);
+                                     Sleep(20000);
+                                     continue;
+                                 }
+                             }*/
+                        }
+
+                    }
+                    SendMessageToMoConter(122, L"进入服务器成功");
+                    continue;
                 }
                 if (登陆::是否在选择职业界面())
                 {
@@ -1140,7 +1239,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
         GameIndex = _ttoi(getCommandIndex());
         if (GameIndex >= 1 && GameIndex <= 40)
         {
-            配置::读取脚本配置();
+           // 配置::读取脚本配置();
         }
         else
         {
@@ -1164,13 +1263,14 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
             /* CString cmdstr= GetCommandLineW();
              MyTrace(L"Cmd %s", cmdstr);*/
          //   脚本任务 = L"主线1-50";
+            角色数量 = 2;
             脚本任务 = L"lua";
             Lua开关 = true;
             MyTrace(L"脚本任务%s",脚本任务);
             //脚本任务 = L"签到";
             LUA脚本名称 = L"D:\\起号.lua";
             配置服务器 = L"Mari";
-            角色序号 = L"1";
+            角色序号 = 1;
             MainThreadid = GetCurrentThreadId();
             AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)ExceptionHandler);
             mythread2.Start();

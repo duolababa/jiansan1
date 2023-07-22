@@ -109,12 +109,13 @@ struct 传送点信息_
 struct 登陆角色信息_
 {
 	INT64 对象指针 = 0;
-	CString 名称;
+	CString 名称 = L"";
 	DWORD 等级 = 0;
-	DWORD dIndex = 0;
+	int dIndex = -1;
 	DWORD dJob = 0;
 	INT64 SrvId = 0;
 	DWORD 直升状态 = 0;
+	bool 任务是否完成 = false;
 	//int 课题状态;
 };
 struct temp名称指针

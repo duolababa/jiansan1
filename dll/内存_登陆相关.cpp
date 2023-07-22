@@ -245,29 +245,29 @@ bool 登陆::CALL_打开创建角色(int 序号)
 	MainUniversalCALL2(局_rcx, 序号, 局_call);
 	return true;
 }
-int 登陆::CALL_角色遍历(vector<登陆角色信息_>& vsk)
-{
-	vsk.clear();
-	登陆角色信息_ temp;
-	INT64 局_call = 游戏模块 + 基址_登录_创建角色;
-	INT64 局_R9 = (DWORD64)申请内存2((HANDLE)-1, 0x100);
-	MainUniversalCALL4(0x3EB, 0x19, 0, 局_R9, 局_call);
-	INT64 局_数组头 = R_QW(局_R9);
-	DWORD 数量 = R_DW(局_R9 + 8);
-	for (size_t i = 0; i < 数量; i++)
-	{
-		temp.对象指针 = R_QW(局_数组头 + i * 8);
-		if (temp.对象指针 != 0)
-		{
-			temp.dIndex = i;
-			string stemp = UnicodeToAnsi(R_CString(temp.对象指针 + 416));
-			temp.名称 = CString(stemp.c_str());
-			temp.等级 = R_DW(temp.对象指针 + 0x278);
-			vsk.push_back(temp);
-		}
-	}
-	return 数量;
-}
+//int 登陆::CALL_角色遍历(vector<登陆角色信息_>& vsk)
+//{
+//	vsk.clear();
+//	登陆角色信息_ temp;
+//	INT64 局_call = 游戏模块 + 基址_登录_创建角色;
+//	INT64 局_R9 = (DWORD64)申请内存2((HANDLE)-1, 0x100);
+//	MainUniversalCALL4(0x3EB, 0x19, 0, 局_R9, 局_call);
+//	INT64 局_数组头 = R_QW(局_R9);
+//	DWORD 数量 = R_DW(局_R9 + 8);
+//	for (size_t i = 0; i < 数量; i++)
+//	{
+//		temp.对象指针 = R_QW(局_数组头 + i * 8);
+//		if (temp.对象指针 != 0)
+//		{
+//			temp.dIndex = i;
+//			string stemp = UnicodeToAnsi(R_CString(temp.对象指针 + 416));
+//			temp.名称 = CString(stemp.c_str());
+//			temp.等级 = R_DW(temp.对象指针 + 0x278);
+//			vsk.push_back(temp);
+//		}
+//	}
+//	return 数量;
+//}
 DWORD getCharacterGetJumpState(__int64 dCharacterInfo)
 {
 	if (!dCharacterInfo) return 0;
@@ -319,20 +319,20 @@ void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 	}
 
 }
-登陆角色信息_ 登陆::getCharacterInfoByIndex(int 序号)
-{
-	登陆角色信息_ temp;
-	vector<登陆角色信息_>vsk;
-	登陆::get_CharacterList(vsk);
-	for (size_t i = 0; i < vsk.size(); i++)
-	{
-		if (vsk[i].dIndex == 序号)
-		{
-			return vsk[i];
-		}
-	}
-	return temp;
-}
+//登陆角色信息_ 登陆::getCharacterInfoByIndex(int 序号)
+//{
+//	登陆角色信息_ temp;
+//	vector<登陆角色信息_>vsk;
+//	登陆::get_CharacterList(vsk);
+//	for (size_t i = 0; i < vsk.size(); i++)
+//	{
+//		if (vsk[i].dIndex == 序号)
+//		{
+//			return vsk[i];
+//		}
+//	}
+//	return temp;
+//}
 bool 登陆::CALL_进入游戏(int 角色序号)
 {
 	INT64 局_rcx = R_QW(游戏模块 + 基址_登录_进入游戏rcx);
@@ -378,4 +378,150 @@ void 登陆::getJmpMapList()//获取直升阶段地图信息
 			MyTrace(L"直升地图%d 未吃券", i + 1);
 		}
 	}
+}
+void 登陆::Fun_UseJumpByIndex(__int64 dCharacterSrvId, int dIndex)//索引从1开始  使用直升
+{
+	__int64 addr_1 = R_QW(游戏模块 + gb_CharacterList);
+	BYTE dCurSeverIndex = R_BYTE(游戏模块 + gb_CurSeverIndex);//读字节
+	MainUniversalCALL4_Ret(addr_1, dCharacterSrvId, 3, dIndex, 游戏模块 + gc_UesJumpByIndex);
+	//wchar_t buf[100];
+	//dm.AsmClear();
+	//dm.AsmAdd(L"sub rsp,040");
+	//wsprintf(buf, L"MOV R9D, 0%X", dIndex);
+	//dm.AsmAdd(buf);
+	//wsprintf(buf, L"MOV R8D, 0%X", 3);
+	//dm.AsmAdd(buf);
+	//wsprintf(buf, L"MOV RDX, 0%I64X", dCharacterSrvId);
+	//dm.AsmAdd(buf);
+	//wsprintf(buf, L"MOV RCX, 0%I64X", addr_1);
+	//dm.AsmAdd(buf);
+	//wsprintf(buf, L"MOV RDI, 0%I64X", gc_UesJumpByIndex);
+	//dm.AsmAdd(buf);
+	//dm.AsmAdd(L"call rdi");
+	//dm.AsmAdd(L"add rsp,040");
+	//return (DWORD)dm.AsmCall(HwndGlobal, 6);
+}
+登陆角色信息_ 登陆::getCharacterInfoByName(CString Name)
+{
+	登陆角色信息_ temp;
+	vector<登陆角色信息_>vsk;
+	登陆::get_CharacterList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].名称 == Name)
+		{
+			return vsk[i];
+		}
+	}
+	return temp;
+}
+登陆角色信息_ 登陆::getCharacterInfoByIndex(int 序号)
+{
+	登陆角色信息_ temp;
+	for (size_t i = 0; i < 全_角色列表.size(); i++)
+	{
+		if (全_角色列表[i].dIndex == 序号)
+		{
+			return 全_角色列表[i];
+		}
+	}
+	/*登陆角色信息_ temp;
+	vector<登陆角色信息_>vsk;
+	登陆::get_CharacterList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dIndex == 序号)
+		{
+			return vsk[i];
+		}
+	}*/
+	return temp;
+}
+bool 是否存在此角色(登陆角色信息_ 角色信息)
+{
+	for (size_t i = 0; i < 全_角色列表.size(); i++)
+	{
+		if (角色信息.名称 == 全_角色列表[i].名称)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+void 登陆::初始化全局角色列表(vector<登陆角色信息_>& vsk)
+{
+	MyTrace(L"vsk.size %d,  全_角色列表.size  %d,  直升状态  %d ", vsk.size(), 全_角色列表.size());
+	if (vsk.size() != 全_角色列表.size())
+	{
+		if (全_角色列表.size() == 0)
+		{
+			全_角色列表.assign(vsk.begin(), vsk.end());
+		}
+		else if (vsk.size() > 全_角色列表.size())
+		{
+			for (size_t i = 0; i < vsk.size(); i++)
+			{
+				MyTrace(L"遍历角色  %s  ,dIndex %d,  SrvId  %d,  dJob  %d,  直升状态  %d ",
+					vsk[i].名称, vsk[i].dIndex, vsk[i].SrvId, vsk[i].dJob, vsk[i].直升状态);
+				if (是否存在此角色(vsk[i]) == false)
+				{
+					全_角色列表.push_back(vsk[i]);
+
+				}
+			}
+		}
+	}
+}
+int 登陆::取任务已完成角色数量()
+{
+	int i = 0;
+	for (size_t i = 0; i < 全_角色列表.size(); i++)
+	{
+		if (全_角色列表[i].任务是否完成 == true)
+		{
+			i++;
+		}
+	}
+	/*登陆角色信息_ temp;
+	vector<登陆角色信息_>vsk;
+	登陆::get_CharacterList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dIndex == 序号)
+		{
+			return vsk[i];
+		}
+	}*/
+	return i;
+}
+void 登陆::设置任务已完成(CString 名称)
+{
+
+
+
+	for (size_t i = 0; i < 全_角色列表.size(); i++)
+	{
+		MyTrace(L"遍历角色2  %s  ,dIndex %d,  SrvId  %d,  dJob  %d,  直升状态  %d ",
+			全_角色列表[i].名称, 全_角色列表[i].dIndex, 全_角色列表[i].SrvId, 全_角色列表[i].dJob, 全_角色列表[i].直升状态);
+		if (名称 == 全_角色列表[i].名称)
+		{
+			MyTrace(L"设置角色完成1-50任务");
+			全_角色列表[i].任务是否完成 = true;
+
+			//break;
+		}
+	}
+}
+登陆角色信息_ 登陆::取未完成任务的角色()
+{
+	登陆角色信息_ temp;
+	for (size_t i = 0; i < 全_角色列表.size(); i++)
+	{
+		if (全_角色列表[i].任务是否完成 == false)
+		{
+			return 全_角色列表[i];
+		}
+	}
+
+	return temp;
 }

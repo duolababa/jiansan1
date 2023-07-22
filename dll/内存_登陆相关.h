@@ -28,17 +28,25 @@ public:
 
 	static bool CALL_打开创建角色(int 序号);
 
-	static int  CALL_角色遍历(vector<登陆角色信息_>& vsk);
+	//static int  CALL_角色遍历(vector<登陆角色信息_>& vsk);
 
 	static void get_CharacterList(vector<登陆角色信息_>& vsk);
 
 	static 登陆角色信息_ getCharacterInfoByIndex(int 序号);
+	static int 取任务已完成角色数量();
+	static 登陆角色信息_ getCharacterInfoByName(CString Name);
 
 	static bool CALL_进入游戏(int 角色序号);
 
-	static int getJumpMapCheck(int dIndex);
+	static void 初始化全局角色列表(vector<登陆角色信息_>& vsk);
+
+	static void 登陆::设置任务已完成(CString 名称);
+
+	static 登陆角色信息_ 取未完成任务的角色();
 
 	static void getJmpMapList();
+	static int getJumpMapCheck(int dIndex);
+	static void Fun_UseJumpByIndex(__int64 dCharacterSrvId, int dIndex);
 
 };
 
