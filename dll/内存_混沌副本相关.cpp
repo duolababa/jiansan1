@@ -1,6 +1,8 @@
 #include "内存_混沌副本相关.h"
-void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySize)//混沌副本参数
+void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySize, vector<副本信息_>& vsk)//混沌副本参数
 {
+	副本信息_ 临时;
+	vsk.clear();
 	long dtotal = R_DW(dListAddr + dStartOffest + 0x10 + 0x18);
 	INT64 dKeyAddr = R_QW(dListAddr + dStartOffest + 0x20);
 	if (!dKeyAddr)
@@ -36,9 +38,12 @@ void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySiz
 								CString csName = L"空";
 								if (dNameAddr)
 								{
-									csName = R_CString(dNameAddr);
+									临时.ID = dFbId;
+
+									临时.csName = R_CString(dNameAddr);
+									vsk.push_back(临时);
 								}
-								MyTrace(L"地址0x%I64X ID%X %s\r\n", dResAddr, dFbId, csName);
+								MyTrace(L"地址0x%I64X ID%X %s\r\n", dResAddr, dFbId, 临时.csName);
 							}
 						}
 					}
@@ -47,12 +52,30 @@ void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySiz
 		}
 	}
 }
-void getReverseRuinAll()//资源获取混沌资源
+DWORD getReverseRuinAll(CString csName)//资源获取混沌资源
 {
 	DWORD dReverseRuinIndex = getResIndexByName(L"ReverseRuin");
 	INT64 dReverseRuinAddr = getResAddrById(dReverseRuinIndex);
+	if (dReverseRuinAddr == 0)
+	{
+		return 0;
+	}
 	MyTrace(L"地址0x%I64X \r\n", dReverseRuinAddr);
-	gettReverseRuinListAll(dReverseRuinAddr, 0x68, 0x54);
+	vector<副本信息_> vsk;
+	gettReverseRuinListAll(dReverseRuinAddr, 0x68, 0x54 , vsk);
+	DWORD iterm = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].csName.Find(csName) != -1)
+		{
+			iterm = vsk[i].ID;
+			break;
+		}
+	}
+	return iterm;
+
+
 }
 void Fun_DungeonEntranceChaoEnter(int dId)
 {

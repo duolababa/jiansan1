@@ -327,6 +327,11 @@ void 环境::遍历全部环境对象(vector<objInfo_>& vsk)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
+					if (临时.dResId == 0x2B066 && 临时.dResId == 0x2B052)
+					{
+						continue;
+					}
+
 					if (临时.dType == 2 && 临时.是否可以攻击 != 0)
 					{
 						continue;
@@ -370,6 +375,11 @@ void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
+					if (临时.dResId == 0x2B066 && 临时.dResId == 0x2B052)
+					{
+						continue;
+					}
+
 					if (临时.dType == 2 && 临时.是否可以攻击 != 0)
 					{
 						continue;
@@ -416,7 +426,12 @@ void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
 				{
 					临时.dObjId = dObjId;
 
-					if (临时.dType == 2 && 临时.是否可以攻击 != 0)
+					if (临时.dResId == 0x2B066 && 临时.dResId == 0x2B052)
+					{
+						continue;
+					}
+
+					if (临时.dType == 2 && 临时.是否可以攻击 != 0 )
 					{
 						continue;
 					}

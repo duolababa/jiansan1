@@ -403,3 +403,10 @@ struct 诞生石信息_
 	vector<诞生石能力强化信息_>能力2数组;
 	vector<诞生石能力强化信息_>能力3数组;
 };
+
+struct 副本信息_
+{
+	DWORD ID;
+	CString csName = L"空";
+
+};

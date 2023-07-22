@@ -763,7 +763,7 @@ CString UI功能::getMsgBoxMiddleText2(INT64 dUIObj)
 			dStrAddr = R_QW(dStrAddr + 0x10);
 			dStrAddr = R_QW(dStrAddr);
 			CString cName = CString(R_String(dStrAddr));
-			if (_tcscmp(cName, L"middleComponent") == 0 || _tcscmp(cName, L"titleBtn") == 0)
+			if (_tcscmp(cName, L"middleComponent") == 0 || _tcscmp(cName, L"titleBtn") == 0 || _tcscmp(cName, L"noticeFrame_mc") == 0 )
 			{
 
 				INT64 dTextAddr = 0;
@@ -1213,7 +1213,7 @@ CString  UI功能::窗口反馈文本()
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
 	DWORD dtotal = R_DW(addr_1 + 0x230);
 	INT64 dstart = R_QW(addr_1 + 0x230 - 8);//对象数组地址
-	CString 返回文本 = L"";
+	CString 返回文本 = L" ";
 	for (long i = 0; i < dtotal; i++)
 	{
 		if (i >= 500)
@@ -1230,7 +1230,7 @@ CString  UI功能::窗口反馈文本()
 		//MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 返回 = getMsgBoxMiddleText2(dUIObj);
 
-
+		MyTrace(L"%s", 返回);
 		返回文本 = 返回文本 + 返回 + "|";
 
 	}

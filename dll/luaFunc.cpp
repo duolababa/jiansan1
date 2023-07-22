@@ -716,7 +716,7 @@ static int 类型使用(__LUA_指针)
 			if (弹窗文本.Find(CStringW("Register New Card")) != -1 || 弹窗文本.Find(CStringW("新卡注册")) != -1 || 弹窗文本.Find(CStringW("使用")) != -1 || 弹窗文本.Find(CStringW("添加新卡牌")) != -1)
 			{
 				UI功能::内存按键(VK_RETURN);
-				Sleep(2000);
+				Sleep(1000);
 
 			}
 
@@ -1042,6 +1042,14 @@ static int 分解所有(__LUA_指针)
 	return 0;
 
 }
+static int 打开界面(__LUA_指针)
+{
+	DWORD 次数 = lua_tointeger(L, 1);
+	UI功能::Fun_UiShowCtrl(次数);
+	return 0;
+}
+
+
 
 static int 使用任务物品(__LUA_指针)
 {
@@ -1067,13 +1075,13 @@ static int 使用物品(__LUA_指针)
 				for (size_t b = 0; i < 次数; b++)
 				{
 					背包::使用物品(vsk[i].dindex);
-					Sleep(2000);
+					//Sleep(2000);
 				}
 			}
 			else
 			{
 				背包::使用物品(vsk[i].dindex);
-				Sleep(2000);
+				//Sleep(2000);
 			}
 
 
@@ -2691,6 +2699,42 @@ static int 大陆ID(__LUA_指针)
 
 }
 
+static int 打开混沌副本(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	 Fun_DungeonEntranceChaoEnter(距离);
+	 return 0;
+
+}
+
+
+static int 获取副本信息(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	//DebugPrintf("日志:%s", tmpStr);
+	string tempStr = tmpStr;
+	CString tmp = tempStr.c_str();
+	DWORD id=getReverseRuinAll(tmp);
+
+	lua_pushinteger(L, id);
+	return 1;
+
+
+}
+
+
+
+static int 测试1(__LUA_指针)
+{
+	//const char* tmpStr = lua_tostring(L, 1);
+	////DebugPrintf("日志:%s", tmpStr);
+	//string tempStr = tmpStr;
+	//CString tmp = tempStr.c_str();
+	//getReverseRuinAll();
+	return 0;
+
+}
+
 static int 测试(__LUA_指针)
 {
 
@@ -2725,7 +2769,7 @@ static int 测试(__LUA_指针)
 	背包::get_InventoryItemList(vsk2);
 	DWORD a = 0;
 
-	for (size_t i = 0; i < vsk.size(); i++)
+	for (size_t i = 0; i < vsk2.size(); i++)
 	{
 		MyTrace(L"位置%d  物品ID 0x%I64X 资源ID  0x%I64X 数量%d  箱子类型%d 耐久%d  名称 %s \r\n", vsk2[i].dindex, vsk2[i].ItemId,vsk2[i].ItemResId, vsk2[i].dNum, vsk2[i].dSlotIndex, vsk2[i].耐久度.当前耐久度,vsk2[i].ItemName);
 		/*wchar_t buf[MAX_PATH];
@@ -2744,7 +2788,6 @@ static int 测试(__LUA_指针)
 				break;
 			}*/
 	}
-	return a;
 
 
 
@@ -3088,8 +3131,12 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "最近攻击怪", 最近攻击怪);
 	lua_register(L, "被攻击怪物数量", 被攻击怪物数量);
 	lua_register(L, "生活判断", 生活判断);
+	lua_register(L, "测试1", 测试1);
+	lua_register(L, "打开界面", 打开界面);
+	lua_register(L, "获取副本信息", 获取副本信息);
+	lua_register(L, "打开混沌副本", 打开混沌副本);
 
-
+	
 	//航海::自动选择最优战船
 	//lua_close(L);
 }

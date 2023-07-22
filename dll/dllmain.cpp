@@ -1174,7 +1174,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason_call, LPVOID lpReserved)
             MainThreadid = GetCurrentThreadId();
             AddVectoredExceptionHandler(1, (PVECTORED_EXCEPTION_HANDLER)ExceptionHandler);
             mythread2.Start();
-        //    吃药线程.Start();
+             吃药线程.Start();
         }
         else
         {

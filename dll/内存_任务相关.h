@@ -60,3 +60,6 @@ public:
 	static void Fun_阶段任务完成CALL(DWORD SendArg);
 
 };
+
+ INT64 getQuestResAddrById(DWORD dResId);
+

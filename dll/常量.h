@@ -273,7 +273,7 @@
 #define gb_ExpeditionLev 0x4EB5208
 #define gc_MemAlloc 0x38B7870
 #define gc_ExpeditionInRecv 0xD2D860
-#define gc_DungeonEntranceEnter 0xF4C570
+#define gc_DungeonEntranceEnter 0x10B73F0
 #define go_DungeonEntranceInfoArg 0x110
 #define gc_ItemShortKeySet 0x2942570
 #define gc_EngraveDrag 0x26EF0F0
