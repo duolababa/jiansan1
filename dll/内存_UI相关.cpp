@@ -90,7 +90,17 @@ void UI功能::getUiList(vector<UIinfo_>& vsk)
 //	}
 //	return reta;
 //}
+void 混沌选项卡()
+{
+	INT64 rcx = 0;
 
+	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.reverseRuinEntranceNormalWnd", rcx);
+	if (rcx != 0)
+	{
+		MainUniversalCALL4(R_QW(rcx), 3, 0, 0, 混沌选项卡call+ 游戏模块);
+	}
+
+}
 
 bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 {
@@ -104,22 +114,6 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 	for (size_t i = 0; i < 总数; i++)
 	{
 
-		//INT64 rcx = 0;
-		//const char* message = lua_tostring(L, -1);
-		//UI功能::寻找打开窗口(CStringW(message), rcx);
-
-		//CString temp;
-		//const char* message = lua_tostring(L, -1);
-		////INT64 rcx = 0;
-		////UI功能::寻找打开窗口(CStringW(message),rcx);
-		//INT64 addr=UI功能::getUiObjByName(CStringW(message));
-
-
-
-		//DWORD dShow = R_DW(dObjAddr + 0x27C);//更新-0218
-		//INT64 addr_1 = R_QW(dObjAddr + 0X18);
-		//INT64 addr_2 = R_QW(addr_1 + 0x50 + 0X20);//更新-0218
-		//INT64 dNameAddr = R_QW(addr_2 + 0xF8);
 
 		DWORD rax = i + 1;
 		INT64 参数 = rdx + rax * 5 * 4 + 4;
@@ -688,6 +682,20 @@ void getMsgBoxMiddleText(INT64 dUIObj)
 		}
 	}
 }
+void 混沌下一关()
+{
+	INT64 addr_1 = R_QW(游戏模块 + 基址_环境_退出npc对话);
+	INT64 call = 游戏模块 + 混沌下一关call;//
+
+	if (addr_1)
+		{
+		MainUniversalCALL8(addr_1, 0x14A,0,0,0,0,0,0, call);
+		}
+
+
+}
+
+
 void Fun_MsgBoxConfirm(INT64 dUIObj)
 {
 	if (dUIObj)

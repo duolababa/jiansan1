@@ -327,7 +327,7 @@ void 环境::遍历全部环境对象(vector<objInfo_>& vsk)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
-					if (临时.dResId == 0x2B066 && 临时.dResId == 0x2B052)
+					if (临时.dResId == 0x2B066 || 临时.dResId == 0x2B052)
 					{
 						continue;
 					}
@@ -375,7 +375,7 @@ void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
 				if (临时.dResId != 0)
 				{
 					临时.dObjId = dObjId;
-					if (临时.dResId == 0x2B066 && 临时.dResId == 0x2B052)
+					if (临时.dResId == 0x2B066 || 临时.dResId == 0x2B052)
 					{
 						continue;
 					}
@@ -394,6 +394,8 @@ void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
 
 
 }
+
+
 
 
 void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
@@ -426,7 +428,7 @@ void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
 				{
 					临时.dObjId = dObjId;
 
-					if (临时.dResId == 0x2B066 && 临时.dResId == 0x2B052)
+					if (临时.dResId == 0x2B066 || 临时.dResId == 0x2B052)
 					{
 						continue;
 					}

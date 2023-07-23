@@ -306,6 +306,24 @@ static int 关闭多余窗口(__LUA_指针)
 }
 
 
+static int 积分点数(__LUA_指针)
+{
+	DWORD x = 周常任务::周长积分();
+	lua_pushinteger(L, x);
+	return 1;
+
+
+}
+
+//周常任务::周长积分()
+static int 混沌精力(__LUA_指针)
+{
+	INT64 x = 取混沌气息();
+	lua_pushinteger(L, x);
+
+	return 1;
+}
+
 static int 是否求饶(__LUA_指针)
 {
 bool x=	UI功能::怪物击杀求饶界面是否打开();
@@ -472,10 +490,17 @@ static int 地图名称(__LUA_指针)
 static int 修理船舶(__LUA_指针)
 {
 	ActorInfo_ a = 本人::取角色信息();
-	if (a.航海当前耐久 != 100)
-	{
-		本人::CALL_修理船只(航海::getCurVoyageShipResId());
-	}
+	MyTrace(L"开始");
+	//MyTrace(L"判断的ID%d", a.航海当前耐久);
+	//if (a.航海当前耐久 != 100)
+	//{
+		if (UI功能::是否在航海准备界面())
+		{
+			DWORD ID = 航海::getCurVoyageShipResId();
+			MyTrace(L"判断的ID%d %d", a.航海当前耐久, ID);
+			本人::CALL_修理船只(航海::getCurVoyageShipResId());
+		}
+	//}
 
 	return 0;
 }
@@ -920,7 +945,7 @@ static int 自动任务(__LUA_指针)
 
 		任务::getNpcTaklEndSendArg1(id, id1, 任务阶段);
 
-		MyTrace(L"任务结束\r\n");
+		//MyTrace(L"任务结束\r\n");
 
 	}
 
@@ -1454,6 +1479,11 @@ static int 传送是否开起(__LUA_指针)
 	return 1;
 
 }
+static int 领徽章(__LUA_指针)
+{
+	周常任务::领取徽章();
+	return 0;
+}
 
 
 static int 坐船功能(__LUA_指针)
@@ -1505,6 +1535,135 @@ static int 寻路地图(__LUA_指针)
 
 }
 
+static int 名称遍历(__LUA_指针)
+{
+
+		ActorInfo_ 角色信息 = 本人::取角色信息();
+		float x = lua_tonumber(L, 1);
+		float y = lua_tonumber(L, 2);
+		float z = lua_tonumber(L, 3);
+		DWORD 距离 = lua_tointeger(L, 4);
+		DWORD 类型 = lua_tointeger(L, 5);
+		const char* 指定ID = lua_tostring(L, 6);
+		坐标_ 指定坐标;
+		指定坐标.x = x;
+		指定坐标.y = y;
+		指定坐标.z = z;
+
+		DWORD obj距离 = 999999;
+		INT64 保存对象 = 0;
+
+		vector<objInfo_>vsk;
+		环境::遍历全部环境对象2(vsk, 指定坐标);
+
+		CArray<CString, CString>分割;
+		CArray<CString, CString>分割1;
+		for (size_t i = 0; i < vsk.size(); i++)
+		{
+			if (vsk[i].dType == 2)
+			{
+				if (vsk[i].是否可以攻击 != 0)
+				{
+					continue;
+				}
+				if (vsk[i].dCurHp >= 1)
+				{
+
+				}
+				else
+				{
+					continue;
+				}
+
+			}
+
+			if (vsk[i].dType == 类型)
+			{
+
+
+				if (角色信息.对象指针 == vsk[i].objBase)
+				{
+					continue;
+				}
+
+
+				if (vsk[i].fDis < 距离)
+				{
+
+					if (指定ID != nullptr)
+					{
+						// 非空操作
+						if (strchr(指定ID, '|') != nullptr)
+						{
+							文本分割(CStringW(指定ID), '|', &分割);
+							DWORD 测试 = 0;
+							if (分割.GetCount() != 0)
+							{
+								for (size_t C = 0; C < 分割.GetCount(); C++)
+								{
+									//x = 常用功能::十六进制转十进制(CStringA(分割[C]));
+									if ( vsk[i].wName.Find(分割[C].GetString()) != -1)
+									{
+										测试 = 1;
+										break;
+									}
+
+								}
+
+							}
+
+							if (测试 = 0)
+							{
+								continue;
+							}
+
+						}
+						else
+						{
+							DWORD 测试 = 0;
+							//x = 常用功能::十六进制转十进制(指定ID);
+							//	MyTrace(L"%s %s", vsk[i].wName, 指定ID);
+							if (vsk[i].wName.Find(CStringW(指定ID).GetString()) != -1)
+							{
+
+							}
+							else
+
+							{
+								continue;
+							}
+
+
+						}
+
+
+					}
+
+
+
+
+					if (vsk[i].fDis < obj距离)
+					{
+						obj距离 = vsk[i].fDis;
+						保存对象 = vsk[i].objBase;
+
+					}
+
+
+
+				}
+
+			}
+		}
+
+
+		lua_pushinteger(L, 保存对象);
+
+		return 1;
+	
+
+
+}
 
 
 static int 遍历(__LUA_指针)
@@ -1573,7 +1732,7 @@ static int 遍历(__LUA_指针)
 								for (size_t C = 0; C < 分割.GetCount(); C++)
 								{
 									x = 常用功能::十六进制转十进制(CStringA(分割[C]));
-									if (vsk[i].dResId == x)
+									if (vsk[i].dResId == x  )
 									{
 										测试 = 1;
 										break;
@@ -1593,7 +1752,8 @@ static int 遍历(__LUA_指针)
 						{
 							DWORD 测试 = 0;
 							x = 常用功能::十六进制转十进制(指定ID);
-							if (vsk[i].dResId == x)
+						//	MyTrace(L"%s %s", vsk[i].wName, 指定ID);
+							if (vsk[i].dResId == x )
 							{
 							
 							}
@@ -2452,6 +2612,31 @@ static int 剩余气息(__LUA_指针)
 
 }
 
+
+static int 修理判断1(__LUA_指针)
+{
+	DWORD C = 0;
+	vector<Equipinfo_>vsk;
+
+	背包::get_LifeToolList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].耐久度.当前耐久度 < 5 && vsk[i].ItemName != L"空")
+		{
+			C = 1;
+			break;
+
+		}
+
+	}
+
+	lua_pushinteger(L, C);
+	return 1;
+
+}
+
+
+
 static int 工具判断(__LUA_指针)
 {
 	DWORD x1 = lua_tointeger(L, 1);
@@ -2512,7 +2697,16 @@ static int 金币数量(__LUA_指针)
 
 	return 1;
 }
+static int 混沌状态(__LUA_指针)
+{
+	BYTE x = getChaosDungeonState();//读字节 1未开始 2已开始打怪 4时间结束
 
+
+	lua_pushinteger(L, x);
+
+	return 1;
+
+}
 
 
 static int 生活判断(__LUA_指针)
@@ -2664,6 +2858,28 @@ static int 最近攻击怪(__LUA_指针)
 	return 1;
 }
 
+static int 最血厚怪物(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	INT64 addr = 0;
+	addr = 本人::最厚怪物(距离);
+	lua_pushinteger(L, addr);
+	return 1;
+
+}
+
+static int 最远距离怪物(__LUA_指针)
+{
+	DWORD 距离 = lua_tointeger(L, 1);
+	INT64 addr = 0;
+	addr = 本人::最远怪物(距离);
+	lua_pushinteger(L, addr);
+	return 1;
+
+}
+
+
+
 
 
 static int 最近怪(__LUA_指针)
@@ -2706,6 +2922,11 @@ static int 打开混沌副本(__LUA_指针)
 	 return 0;
 
 }
+static int 混沌下一关(__LUA_指针)
+{
+	混沌下一关();
+	return 0;
+}
 
 
 static int 获取副本信息(__LUA_指针)
@@ -2726,14 +2947,71 @@ static int 获取副本信息(__LUA_指针)
 
 static int 测试1(__LUA_指针)
 {
-	//const char* tmpStr = lua_tostring(L, 1);
-	////DebugPrintf("日志:%s", tmpStr);
-	//string tempStr = tmpStr;
-	//CString tmp = tempStr.c_str();
-	//getReverseRuinAll();
+
+	//INT64 aaa = R_QW(游戏模块 + gb_UiList);
+
+	//INT64 a = R_QW(aaa + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移;//更新-0218
+	//DWORD 总数 = R_DW(a + 0x308);//308
+	//INT64 rdx = R_QW(a + 0x2E0);//对象数组地址
+	//for (size_t i = 0; i < 总数; i++)
+	//{
+
+
+	//	DWORD rax = i + 1;
+	//	INT64 参数 = rdx + rax * 5 * 4 + 4;
+
+	//	INT64 addr_1 = R_QW(R_QW(参数) + 0X18);
+	//	INT64 addr_2 = R_QW(addr_1 + 0x50 + 0X20);//更新-0218
+	//	INT64 dNameAddr = R_QW(addr_2 + 0xF8);
+	//	CString name1 = L"空";
+	//	if (dNameAddr)
+	//	{
+	//		if (R_QW(参数) == 0x25F32070)
+	//		{
+	//			name1 = CString(R_String(R_QW(dNameAddr)));
+	//			MyTrace(L"%s", name1.GetString());
+	//		}
+	//
+	//		//	MyTrace(L"%s", name1.GetString());
+
+	//	}
+	//}
+
+		vector<周长日常_>vsk;
+
+		周常任务::get_UnasWeeklyQuesList(vsk);
+		for (size_t i = 0; i < vsk.size(); i++)
+		{
+			
+				MyTrace(L" 任务状态%d ID 0x%I64X  名字%s", vsk[i].状态, vsk[i].ID, vsk[i].csName);
+	
+
+		}
+
+
+
+
+		vector<周长日常_>vsk1;
+
+		周常任务::get_UnasDailyQuestList(vsk1);
+		for (size_t i = 0; i < vsk1.size(); i++)
+		{
+			MyTrace(L" 任务状态%d ID 0x%I64X  名字%s", vsk1[i].状态, vsk1[i].ID, vsk1[i].csName);
+
+		}
+
+
+
+	
+	//周常任务::get_UnasWeeklyQuesList();
+	//混沌选项卡();
 	return 0;
 
 }
+
+
+
+
 
 static int 测试(__LUA_指针)
 {
@@ -2747,13 +3025,17 @@ static int 测试(__LUA_指针)
 	环境::遍历全部环境对象1(vsk);
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
+		//	if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0)
 		if (vsk[i].dType == 2 && vsk[i].IsHide == 1)
 		{
 			continue;
 		}
+		if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
+		{
+			MyTrace(L"对象地址0x%I64X ID %X  ID1 %d  %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s 距离 %0.3f \n", vsk[i].objBase, vsk[i].dResId, vsk[i].ModId, vsk[i].wName, vsk[i].dType, vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z, vsk[i].wName, vsk[i].距离);
 
-		
-		MyTrace(L"对象地址0x%I64X ID %X  ID1 %d  %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s 距离 %0.3f \n", vsk[i].objBase, vsk[i].dResId, vsk[i].ModId, vsk[i].wName, vsk[i].dType, vsk[i].坐标.x, vsk[i].坐标.y, vsk[i].坐标.z, vsk[i].wName,vsk[i].距离);
+		}
+	
 	}
 
 
@@ -2834,6 +3116,28 @@ static int 取消锁定(__LUA_指针)
 }
 
 
+static int 周常是否完成(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x = 常用功能::十六进制转十进制(tmpStr);
+	DWORD x1=周常任务::周常任务状态(x);
+	
+
+	lua_pushinteger(L, x1);
+
+	return 1;
+}
+
+static int 日常是否完成(__LUA_指针)
+{
+	const char* tmpStr = lua_tostring(L, 1);
+	DWORD x = 常用功能::十六进制转十进制(tmpStr);
+	DWORD x1 = 周常任务::日常任务状态(x);
+
+	lua_pushinteger(L, x1);
+
+	return 1;
+}
 static int 子任务是否完成(__LUA_指针)
 {
 	QuestInfo_ temp;
@@ -3135,8 +3439,19 @@ void RegLuaScript(lua_State* L)//lua注册函数
 	lua_register(L, "打开界面", 打开界面);
 	lua_register(L, "获取副本信息", 获取副本信息);
 	lua_register(L, "打开混沌副本", 打开混沌副本);
+	lua_register(L, "混沌精力", 混沌精力);
+	lua_register(L, "混沌状态", 混沌状态);
+	lua_register(L, "混沌下一关", 混沌下一关);
+	lua_register(L, "最血厚怪物", 最血厚怪物);
+	lua_register(L, "最远距离怪物", 最远距离怪物);
+	lua_register(L, "周常是否完成", 周常是否完成);
+	lua_register(L, "日常是否完成", 日常是否完成);
+	lua_register(L, "积分点数", 积分点数);
+	lua_register(L, "名称遍历", 名称遍历);
+	lua_register(L, "领徽章", 领徽章);
+	lua_register(L, "修理判断1", 修理判断1);
 
-	
+
 	//航海::自动选择最优战船
 	//lua_close(L);
 }

@@ -335,11 +335,16 @@ bool 航海::自动选择最优战船()
 void 航海::坐船call功能(DWORD dResId)
 {
 	DWORD rdx = dResId;
-	INT64 rcx = R_QW(游戏模块 + 基址_坐船rcx);
+	INT64 rcx =0;
+	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.voyageLinerWnd", rcx);
+	if (rcx >= 1)
+	{
+	//	INT64 rcx1=R_QW(rcx);
+		W_DW(rcx+0x450, dResId);
+		MyTrace(L"选择最优战船0x%I64X " , rcx);
+			MainUniversalCALL6(rcx, 0, 0, 1,0,2, 游戏模块 + 基址_坐船call);
 
-	MainUniversalCALL2(rcx, rdx, 游戏模块 + 基址_坐船call);
-
-
+	}
 }
 
 void 航海::luaVoyageShipSelectShip(int dIndex)//选择船只

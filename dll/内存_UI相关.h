@@ -62,3 +62,5 @@ INT64 getChildUiAddrByStr(INT64 dParentAddr, CString cChildName);
 INT64 getUiFirstAddr(INT64 dUiObj);
 CString UTF82WCS(const char* szU8);
 void Fun_MsgBoxConfirm(INT64 dUIObj);
+void 混沌下一关();
+void 混沌选项卡();

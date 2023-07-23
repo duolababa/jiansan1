@@ -864,7 +864,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 	INT64 addr_1 = R_QW(游戏模块 + gb_QuestCur);
 	UCHAR dInfoAddr[0x100] = { 0 };
 	MainUniversalCALL4(addr_1, dNpcResId, (ULONG_PTR)dInfoAddr, 0, 游戏模块 + gc_GetNpcQuestTalkCurList);
-	MyTrace(L"获取信息");
+	//MyTrace(L"获取信息");
 	//DbgPrintf_Mine("获取信息 %s", __FUNCTION__);
 	//INT64 dInfoAddr = dm.VirtualAllocEx( 0, 0x100, 0);
 	/*CString cBuf;
@@ -879,7 +879,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 	dm.AsmAdd(L"add rsp,040");
 	dm.AsmCall( 6);*/
 	int dtotal = R_DW((INT64)&dInfoAddr + 8);
-	MyTrace(L"dtotal 0x%I64Xd", dInfoAddr);
+//	MyTrace(L"dtotal 0x%I64Xd", dInfoAddr);
 	if (dtotal)
 	{
 		INT64 dstart = R_QW((INT64)&dInfoAddr);//更新-0220
@@ -887,12 +887,12 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 		{
 			INT64 dObj = dstart + i * 8;
 			int dType = R_DW(dObj);
-			MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
+		//	MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
 			if (dQuestId == R_DW(dObj + 4))
 			{
 				int dArg = getNpcTaklEndSendArgFinally(dNpcResId, dQuestId, dType, dStep);
 				返回值 = dArg;
-				MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
+			//	MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
 				if (dType == 4)								   //return dArg;
 				{
 				//	MyTrace(L"开始执行call");

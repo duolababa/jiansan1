@@ -84,6 +84,7 @@ using namespace std;
 #include "配置读取.h"
 #include "内存_混沌副本相关.h"
 #include "内存_周常任务.h"
+#include "内存_登陆相关.h"
 ////#include "协议解析1088.h"
 //#include "LuaFunc.h"
 //#include<Windows.h>

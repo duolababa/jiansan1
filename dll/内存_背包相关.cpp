@@ -710,7 +710,7 @@ void 背包::丢弃物品call(INT64 ItemId)
 
 	INT64 rcx = 游戏模块 + 采集物品数量;
 
-	MainUniversalCALL4(rcx, ItemId, 0, 0, 游戏模块 + 丢弃写入基址);
+	MainUniversalCALL4(rcx, ItemId, 0, 0, 游戏模块 + 基址_背包_丢弃CALL);
 
 }
 

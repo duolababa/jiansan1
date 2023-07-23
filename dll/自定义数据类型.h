@@ -411,3 +411,13 @@ struct 副本信息_
 	CString csName = L"空";
 
 };
+
+
+struct 周长日常_
+{
+	DWORD ID;
+	CString csName = L"空";
+	DWORD 状态 = 0;
+
+};
+

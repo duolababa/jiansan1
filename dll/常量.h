@@ -26,17 +26,21 @@
 
 
 
-#define 基址_坐船rcx 0x4C836C0
-#define 基址_坐船call 0x1475020
+#define 基址_坐船rcx 0x4F00D68
+#define 基址_坐船call 0x2F93860
 
 
-#define 采集数量call 0x143CD50
-#define 采集物品数量 0x4EED4F0
-#define 丢弃写入基址 0x14642F0
-#define 分解颜色call 0x2110290
-#define 入包call 0x14684C0
+#define 采集数量call 0x143D7B0
+#define 采集物品数量 0x4EED4D0
 
-#define 上马call地址 0x26A6650
+#define 分解颜色call 0x2111220
+#define 入包call 0x1468AD0
+#define 混沌下一关call 0x14880F0//45 33 C9 4D 8B C7 41 0F B7 D6 E8 ?? ?? ?? ?? 8B F8 
+#define 混沌选项卡call 0x2B099D0
+#define 徽章领取call 0x114B280
+
+//#define 船舶修理rcx 0x4EEE620
+
 
 
 
@@ -115,7 +119,7 @@
 #define 基址_UI_航海出港call 0xD96940
 #define 基址_UI_航海出港rcx 0x4E97320
 #define 基址_UI_航海入港call 0xDA0340
-#define 基址_本人_修理船只call 0xDA0805
+#define 基址_本人_修理船只call 0xDA0800
 #define 基址_地图_获取港口传送点ID 0x7F0B90
 #define 基址_UI_准备出航call 0x2F92B60
 #define 基址_登录_选择服务器call 0x26786A0
@@ -279,7 +283,7 @@
 #define gb_ExpeditionLev 0x4EB51E8
 #define gc_MemAlloc 0x38B7870
 #define gc_ExpeditionInRecv 0xD2D1C0
-#define gc_DungeonEntranceEnter 0xF4AD00
+#define gc_DungeonEntranceEnter 0xF93420
 #define go_DungeonEntranceInfoArg 0x110
 #define gc_ItemShortKeySet 0x2942F10
 #define gc_EngraveDrag 0x26EFD70
@@ -387,7 +391,7 @@
 #define 偏移_其他_面向角度 0x4B8
 #define 偏移_背包_物品id 0x30
 #define 偏移_背包_物品resid 0x38
-#define 偏移_背包_物品数量 0x6
+#define 偏移_背包_物品数量 0x0
 #define 偏移_背包_物品等级 0x94
 #define 偏移_环境_升降机标志 0x4E97B10
 #define 偏移_拍卖_数组头 0xFF

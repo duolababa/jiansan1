@@ -412,7 +412,9 @@ INT64 本人::最近怪物(DWORD 距离)
 	{
 		if (vsk[i].dType == 2)
 		{
-			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"")
+			
+			
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
 			{
 				if (vsk[i].距离 < 距离)
 				{
@@ -431,9 +433,76 @@ INT64 本人::最近怪物(DWORD 距离)
 
 
 }
+INT64 本人::最远怪物(DWORD 距离)
+{
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	float obj距离 = 0;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					if (vsk[i].fDis > obj距离)
+					{
+						obj距离 = vsk[i].fDis;
+						返回指针 = vsk[i].objBase;
+					
+					}
 
 
 
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+}
+
+INT64 本人::最厚怪物(DWORD 距离)
+{
+
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD obj距离 = 0;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
+			{
+				if (vsk[i].距离 < 距离)
+				{
+					if (vsk[i].dCurHp > obj距离)
+					{
+						obj距离 = vsk[i].dCurHp;
+						返回指针 = vsk[i].objBase;
+			
+					}
+
+				
+
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+
+
+}
 
 INT64 本人::最近怪物1(DWORD 距离)
 {
@@ -448,7 +517,7 @@ INT64 本人::最近怪物1(DWORD 距离)
 	{
 		if (vsk[i].dType == 2)
 		{
-			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].是否可以攻击 == 0)
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 && vsk[i].是否可以攻击 == 0)
 			{
 				if (vsk[i].距离 < 距离)
 				{

@@ -103,5 +103,5 @@ BYTE getChaosDungeonState()
 }
 INT64 取混沌气息()
 {
-	return 背包::getMoneyNumByType(1);
+	return 背包::getMoneyNumByType(0x65);
 }

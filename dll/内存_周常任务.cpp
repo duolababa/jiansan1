@@ -85,8 +85,10 @@ INT64 周常任务::Fun_getQuestrResAddrById(int dQuestId)
 }
 //DE root1.arkui.windowCanvas.periodQuestNoticeBoardWnd 
 
-void 周常任务::get_UnasDailyQuestList()//遍历日常任务 那个可接 那个不可接
+void 周常任务::get_UnasDailyQuestList(vector<周长日常_>& 日常)//遍历日常任务 那个可接 那个不可接
 {
+	周长日常_ temp;
+	日常.clear();
 	INT64 addr_1 =R_QW(游戏模块+gb_UnasTask);
 	addr_1 = addr_1 + go_UnasWeeklyQuestStart + 0x48;
 	long dtotal =R_DW(addr_1 + 0x10 + 0x18);
@@ -121,35 +123,49 @@ void 周常任务::get_UnasDailyQuestList()//遍历日常任务 那个可接 那个不可接
 			
 			BOOL bState =R_DW(dObj + go_UnasWeeklyQuestState);
 			BOOL isQuestCon = Fun_CheckUnasWeeklyQuestCon( dQuestId);
+
+			temp.ID = dQuestId;
+			temp.csName = cQuestName;
+
+
 			if (isQuestProgress)//已接
 			{
-				MyTrace(L"0%I64X  进行中任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+				temp.状态 = 1;
+			//	MyTrace(L"0%I64X  进行中任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 			}
 			else
 			{
 				if (bState)
 				{
-					MyTrace(L"0%I64X  可接任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+					temp.状态 = 2;
+					//	MyTrace(L"0%I64X  可接任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 				}
 				else
 				{
 					if (isQuestCon)
 					{
-						MyTrace(L"0%I64X  已完成任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						temp.状态 = 3;
+						//	MyTrace(L"0%I64X  已完成任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 					else
 					{
-						MyTrace(L"0%I64X  不符合条件未显示任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						temp.状态 = 0;
+						//	MyTrace(L"0%I64X  不符合条件未显示任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 				}
 			}
+			日常.push_back(temp);
+
+
 		}
 	}
 }
 
 
-void 周常任务::get_UnasWeeklyQuesList()////遍历周常任务 那个可接 那个不可接
+void 周常任务::get_UnasWeeklyQuesList(vector<周长日常_>& 日常)////遍历周常任务 那个可接 那个不可接
 {
+	周长日常_ temp;
+	日常.clear();
 	INT64 addr_1 =R_QW(游戏模块+gb_UnasTask);
 	addr_1 = addr_1 + go_UnasWeeklyQuestStart;
 	long dtotal =R_DW(addr_1 + 0x10 + 0x18);
@@ -183,28 +199,37 @@ void 周常任务::get_UnasWeeklyQuesList()////遍历周常任务 那个可接 那个不可接
 			BOOL isQuestCon = Fun_CheckUnasWeeklyQuestCon(dQuestId);
 			int dWeeklyQuestType =R_DW(dObj + go_UnasWeeklyQuestType);
 			BOOL bState =R_DW(dObj + go_UnasWeeklyQuestState);
+
+
+			temp.ID = dQuestId;
+			temp.csName = cQuestName;
 			if (isQuestProgress)//已接
 			{
-				MyTrace(L"0%I64X  进行中任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+				temp.状态 = 1;
+				//	MyTrace(L"0%I64X  进行中任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 			}
 			else
 			{
 				if (bState)
 				{
-					MyTrace(L"0%I64X  可接任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+					temp.状态 = 2;
+					//MyTrace(L"0%I64X  可接任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 				}
 				else
 				{
 					if (isQuestCon)
 					{
-						MyTrace(L"0%I64X  已完成任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						temp.状态 = 3;
+						//MyTrace(L"0%I64X  已完成任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 					else
 					{
-						MyTrace(L"0%I64X  不符合条件未显示任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						temp.状态 = 0;
+						//	MyTrace(L"0%I64X  不符合条件未显示任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 				}
 			}
+			日常.push_back(temp);
 		}
 	}
 }
@@ -212,139 +237,65 @@ void 周常任务::get_UnasWeeklyQuesList()////遍历周常任务 那个可接 那个不可接
 
 int 周常任务::周常任务状态(int _dQuestId)//
 {
-	INT64 addr_1 = R_QW(游戏模块 + gb_UnasTask);
-	addr_1 = addr_1 + go_UnasWeeklyQuestStart;
-	long dtotal = R_DW(addr_1 + 0x10 + 0x18);
-	INT64 dKeyAddr = R_QW(addr_1 + 0x20);
-	if (!dKeyAddr)
+	周长日常_ temp;
+	vector<周长日常_>vsk;
+
+	周常任务::get_UnasWeeklyQuesList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
 	{
-		dKeyAddr = addr_1 + 0x10;
-	}
-	long dKeyValue = R_DW(addr_1 + 0x10);
-	INT64 objStartAddr = R_QW(addr_1);
-	for (int i = 0; i < dtotal; i++)
-	{
-		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
-		int dNum = i % 0x20;
-		int dCheck = (dKeyValue >> dNum) & 1;
-		if (dCheck)
+		if (vsk[i].ID == _dQuestId)
 		{
-			int dQuestId = R_QW(objStartAddr + i * 0x14);
-			INT64 dObj = R_QW(objStartAddr + i * 0x14 + 4);
-			//INT64 dQuestResAddr = Fun_getQuestrResAddrById(dQuestId);
-			BOOL isQuestProgress = CheckQuestInProgress(dQuestId);//任务已接
-			//INT64 dQuestNameAddr = R_QW(dQuestResAddr + 0xC);
-			//CString cQuestName = R_CString(dQuestNameAddr);
-			INT64 dQuestResAddr = getQuestResAddrById(dQuestId);
-			//MyTrace(L"0x%llx", dQuestResAddr);
-			INT64 dInfoAddr = R_QW(dQuestResAddr + 0x3C);
-			INT64 dNameAddr = R_QW(dInfoAddr + 0x34);
-			DWORD dStrLen = R_DW(dInfoAddr + 0x34 + 8) - 1;
-			INT64 dRealNameAddr = getStringAddr(0, dNameAddr, dStrLen);
-			CString cQuestName = R_CString(dRealNameAddr);
-			BOOL isQuestCon = Fun_CheckUnasWeeklyQuestCon(dQuestId);
-			int dWeeklyQuestType = R_DW(dObj + go_UnasWeeklyQuestType);
-			BOOL bState = R_DW(dObj + go_UnasWeeklyQuestState);
-			if (_dQuestId == dQuestId)
-			{
-				if (isQuestProgress)//已接
-				{
-					MyTrace(L"0%I64X  进行中任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-					return 1;
-				}
-				else
-				{
-					if (bState)
-					{
-						MyTrace(L"0%I64X  可接任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-						return 2;
-					}
-					else
-					{
-						if (isQuestCon)
-						{
-							MyTrace(L"0%I64X  已完成任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-							return 3;
-						}
-						else
-						{
-							MyTrace(L"0%I64X  不符合条件未显示任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-							return 4;
-						}
-					}
-				}
-			}
+			return vsk[i].状态;
 		}
+
 	}
+
 	return 0;
+}
+void 周常任务::领取徽章()
+{
+	INT64 addr_1 = R_QW(游戏模块 + gb_UnasTask);
+	INT64 call = 游戏模块 + 徽章领取call;
+
+	for (int i = 0; i < 5; i++)
+	{
+		MainUniversalCALL4(addr_1, i, 0, 0, call);
+		Sleep(1500);
+
+	}
+}
+
+
+int 周常任务::周长积分()
+{
+	INT64 addr_1 = R_QW(游戏模块 + gb_UnasTask);
+
+	DWORD X=R_W(addr_1+0x35A);
+	DWORD X1 = R_W(addr_1 + 0x35A-2);
+
+
+	return X + X1;
+
+
 }
 
 
 int 周常任务::日常任务状态(int _dQuestId)//遍历日常任务 那个可接 那个不可接
 {
-	INT64 addr_1 = R_QW(游戏模块 + gb_UnasTask);
-	addr_1 = addr_1 + go_UnasWeeklyQuestStart + 0x48;
-	long dtotal = R_DW(addr_1 + 0x10 + 0x18);
-	INT64 dKeyAddr = R_QW(addr_1 + 0x20);
-	if (!dKeyAddr)
+	周长日常_ temp;
+	vector<周长日常_>vsk;
+
+	周常任务::get_UnasDailyQuestList(vsk);
+	for (size_t i = 0; i < vsk.size(); i++)
 	{
-		dKeyAddr = addr_1 + 0x10;
-	}
-	long dKeyValue = R_DW(addr_1 + 0x10);
-	INT64 objStartAddr = R_QW(addr_1);
-	for (int i = 0; i < dtotal; i++)
-	{
-		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
-		int dNum = i % 0x20;
-		int dCheck = (dKeyValue >> dNum) & 1;
-		if (dCheck)
+		if (vsk[i].ID == _dQuestId)
 		{
-			int dQuestId = R_DW(objStartAddr + i * 0x14);
-			INT64 dObj = R_QW(objStartAddr + i * 0x14 + 4);
-			//INT64 dQuestResAddr = Fun_getQuestrResAddrById(dQuestId);
-			BOOL isQuestProgress = CheckQuestInProgress(dQuestId);//任务已接
-			//INT64 dQuestNameAddr = R_QW(dQuestResAddr + 0xC);
-			//CString cQuestName = R_CString(dQuestNameAddr);
-			INT64 dQuestResAddr = getQuestResAddrById(dQuestId);
-			//MyTrace(L"0x%llx", dQuestResAddr);
-			INT64 dInfoAddr = R_QW(dQuestResAddr + 0x3C);
-			INT64 dNameAddr = R_QW(dInfoAddr + 0x34);
-			DWORD dStrLen = R_DW(dInfoAddr + 0x34 + 8) - 1;
-			INT64 dRealNameAddr = getStringAddr(0, dNameAddr, dStrLen);
-			CString cQuestName = R_CString(dRealNameAddr);
-			BOOL bState = R_DW(dObj + go_UnasWeeklyQuestState);
-			BOOL isQuestCon = Fun_CheckUnasWeeklyQuestCon(dQuestId);
-			if (_dQuestId == dQuestId)
-			{
-				if (isQuestProgress)//已接
-				{
-					MyTrace(L"0%I64X  进行中任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-					return 1;
-				}
-				else
-				{
-					if (bState)
-					{
-						MyTrace(L"0%I64X  可接任务  ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-						return 2;
-					}
-					else
-					{
-						if (isQuestCon)
-						{
-							MyTrace(L"0%I64X  已完成任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-							return 3;
-						}
-						else
-						{
-							MyTrace(L"0%I64X  不符合条件未显示任务 ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
-							return 4;
-						}
-					}
-				}
-			}
+			return vsk[i].状态;
 		}
+
 	}
+
+
 	return 0;
 }
 

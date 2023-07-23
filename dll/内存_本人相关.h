@@ -31,6 +31,8 @@ public:
 	//static bool 使用表情CALL(DWORD 表情id);
 	static INT64 最近怪物(DWORD 距离);
 	static INT64 最近怪物1(DWORD 距离);
+	static INT64 最厚怪物(DWORD 距离);
+	static INT64 最远怪物(DWORD 距离);
 	static INT64 最近怪物2(DWORD 距离, CString id);
 	static INT64 最近怪物攻击(DWORD 距离, CString id);
 	static bool 是否战斗中();
