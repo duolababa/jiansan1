@@ -53,6 +53,9 @@
 #define 基址_个人_虚表数组偏移 0x7B8
 #define 基址_个人_虚表数组头 0x328
 #define 基址_个人_判断虚表 0x2B4A9D0
+
+
+
 #define 基址_个人_坐标 0x4EED468
 #define 基址_地图_寻路call 0x267EB90
 #define 基址_背包_遍历 0x4E97248
@@ -61,6 +64,8 @@
 #define 基址_背包_使用物品call_rcx 0x21344A0
 #define 基址_背包_使用物品call 0x2A66660
 #define 基址_背包_使用物品call2 0x2A64B10
+
+
 #define 基址_技能_快捷栏 0x4E97250
 #define 基址_技能_获取名字call 0x12640C0
 #define 基址_技能_获取名字rcx 0x4E8ADF0
@@ -81,6 +86,8 @@
 #define 基址_地图_获取环境名字call 0xE07D40
 #define 基址_副本_入场HOOK地址 0x19C9D63
 #define 基址_副本_入场CALL 0x1E14000
+
+
 #define 基址_环境_判断动画 0x4EEE600
 #define 基址_鼠标_鼠标写入地址 0x28541C6
 #define 基址_鼠标_鼠标写入地址2 0x27F8E60

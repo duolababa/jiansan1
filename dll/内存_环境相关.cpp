@@ -657,7 +657,7 @@ void 环境::小退call()
 		MyTrace(L"0X%I64X", rcx);
 		MainUniversalCALL4(rcx, 0x1F, 2, 0, 游戏模块 + 基址_小退call);
 		Sleep(2000);
-		UI功能::内存按键(VK_RETURN);
+	//	UI功能::内存按键(VK_RETURN);
 	}
 
 

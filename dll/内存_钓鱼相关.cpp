@@ -65,7 +65,7 @@ void 钓鱼::捕鱼()
 {
 	for (size_t i = 0; i < 3000; i++)
 	{
-		DWORD X = 钓鱼::getquickSlotFrameType();
+		DWORD X = 钓鱼::getFishObjState();
 		if (X == 2)
 		{
 			UI功能::内存按键(DWORD('E'));
