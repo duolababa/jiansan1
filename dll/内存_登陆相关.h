@@ -44,7 +44,7 @@ public:
 
 	static 登陆角色信息_ 取未完成任务的角色();
 
-	static void getJmpMapList();
+	static DWORD getJmpMapList();
 	static int getJumpMapCheck(int dIndex);
 	static void Fun_UseJumpByIndex(__int64 dCharacterSrvId, int dIndex);
 

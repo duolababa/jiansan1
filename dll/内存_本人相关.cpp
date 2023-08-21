@@ -6,40 +6,27 @@ INT64 本人::取真实对象()
 }
 INT64 本人::取对象()
 {
-	INT64 局_遍历基址 = 游戏模块 + 基址_个人_遍历;
-	INT64 局_虚表判断地址 = 游戏模块 + 基址_个人_判断虚表;
-	INT64 局_rcx = R_QW(R_QW(局_遍历基址) + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移 + 基址_个人_虚表数组头;
-	INT64 局_数组头 = R_QW(局_rcx);
-	DWORD 局_数量 = R_DW(局_rcx + 0x28);
-	//MyTrace(L"局_rcx 0x%I64x %X", 局_rcx, 局_数量);
-	for (size_t i = 0; i < 局_数量; i++)
-	{
-		INT64 局_对象 = R_QW(局_数组头 + i * 5 * 4 + 4);
-		if (局_对象 != 0)
-		{
-			INT64 局_临时虚表地址 = R_QW(R_QW(局_对象) + 0x60);
-			if (局_临时虚表地址 == 局_虚表判断地址)
-			{
-				return 局_对象;
-			}
-		}
-	}
+	//INT64 局_遍历基址 = 游戏模块 + 基址_个人_遍历;
+	//INT64 局_虚表判断地址 = 游戏模块 + 基址_个人_判断虚表;
+	//INT64 局_rcx = R_QW(R_QW(局_遍历基址) + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移 + 基址_个人_虚表数组头;
+	//INT64 局_数组头 = R_QW(局_rcx);
+	//DWORD 局_数量 = R_DW(局_rcx + 0x28);
+	//////MyTrace(L"局_rcx 0x%I64x %X", 局_rcx, 局_数量);
+	//for (size_t i = 0; i < 局_数量; i++)
+	//{
+	//	INT64 局_对象 = R_QW(局_数组头 + i * 5 * 4 + 4);
+	//	if (局_对象 != 0)
+	//	{
+	//		INT64 局_临时虚表地址 = R_QW(R_QW(局_对象) + 0x60);
+	//		if (局_临时虚表地址 == 局_虚表判断地址)
+	//		{
+	//			return 局_对象;
+	//		}
+	//	}
+	//}
 	return 0;
 }
-void 本人::CALL_发包复活(DWORD 复活类型)
-{
-	INT64 局_rcx = R_QW(游戏模块 + 基址_封包_发包rcx);
-	INT64 局_call = 游戏模块 + 基址_封包_发包call;
-	INT64 局_复活包头 = 游戏模块 + 基址_个人_复活包头;
-	UCHAR pBuff[0x24] = { 0 };
-	W_QW((ULONG64)&pBuff[0x0], 局_复活包头);
-	W_QW((ULONG64)&pBuff[0x8], 0);
-	W_QW((ULONG64)&pBuff[0x10], 0);
-	W_Word((ULONG64)&pBuff[0x16], 0x230);
-	W_BYTE((ULONG64)&pBuff[0x17], 复活类型);
-	MainUniversalCALL2(局_rcx, (ULONG_PTR)pBuff, 局_call);
-	//*(DWORD*)&pBuff[0x0]
-}
+
 
 void 本人::改移动速度(bool 开关, float 修改值)
 {
@@ -90,7 +77,7 @@ bool 本人::乐谱遍历(vector<乐谱信息_>& vsk)
 			temp.Obj = R_QW(R_QW(ret) + 12);
 			temp.序号 = i;
 			temp.名称 = CString(UnicodeToAnsi(R_CString(R_QW(temp.Obj + 0x20))));
-			MyTrace(L"0x%I64X 序号:%d 名称：%s", temp.Obj, temp.序号, temp.名称);
+			//MyTrace(L"0x%I64X 序号:%d 名称：%s", temp.Obj, temp.序号, temp.名称);
 			vsk.push_back(temp);
 		}
 
@@ -112,21 +99,28 @@ ActorInfo_ 本人::取角色信息()
 {
 	ActorInfo_ 临时角色信息;
 	INT64 局_个人真实对象 = 本人::取真实对象();
-	INT64 局_个人对象 = 本人::取对象();
+	INT64 局_个人对象 = 0;
 	临时角色信息.名称 = R_CString(R_QW(局_个人真实对象 + 0x1C));
 	临时角色信息.等级 = R_W(R_QW(R_QW(游戏模块 + gb_AttrList) + 0xE4) + 30);
-	INT64 属性对象 = getAttrAddr(R_DW(局_个人真实对象 + 0x14));
+	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
+	INT64 addr_3 = R_QW(addr_2 + 0x18);
+
+
+
+
+	INT64 属性对象 = getAttrAddr(R_DW(addr_3 + 0x14));
 	临时角色信息.ID1= R_DW(局_个人真实对象 + 0x14);
-	//MyTrace(L"取角色信息 %s %d 0x%I64X",临时角色信息.名称, 临时角色信息.等级, 属性对象);
+	////MyTrace(L"取角色信息 %s %d 0x%I64X",临时角色信息.名称, 临时角色信息.等级, 属性对象);
 	临时角色信息.装备评分 = R_Float(属性对象 + 偏移_本人_装备评分);
-	/*临时角色信息.当前血 = getEncryValue(属性对象, 1);
+	临时角色信息.当前血 = getEncryValue(属性对象, 1);
 	临时角色信息.当前蓝 = getEncryValue(属性对象, 2);
 	临时角色信息.最大血 = getEncryValue(属性对象, 0x1B);
-	临时角色信息.最大蓝 = getEncryValue(属性对象, 0x1C);*/
-	临时角色信息.当前血 = R_DW(局_个人对象 + 偏移_本人_最大血 + 4);
-	临时角色信息.当前蓝 = R_DW(局_个人对象 + 偏移_本人_最大血 + 12);
-	临时角色信息.最大血 = R_DW(局_个人对象 + 偏移_本人_最大血);
-	临时角色信息.最大蓝 = R_DW(局_个人对象 + 偏移_本人_最大血 + 8);
+	临时角色信息.最大蓝 = getEncryValue(属性对象, 0x1C);
+	//临时角色信息.当前血 = R_DW(局_个人对象 + 偏移_本人_最大血 + 4);
+	//临时角色信息.当前蓝 = R_DW(局_个人对象 + 偏移_本人_最大血 + 12);
+	//临时角色信息.最大血 = R_DW(局_个人对象 + 偏移_本人_最大血);
+	//临时角色信息.最大蓝 = R_DW(局_个人对象 + 偏移_本人_最大血 + 8);
 
 	DWORD 航海当前耐久 = R_DW(属性对象 + 偏移_本人_航海耐久);
 	临时角色信息.航海最大耐久 = R_DW(属性对象 + 偏移_本人_航海耐久 + 4);
@@ -151,16 +145,15 @@ ActorInfo_ 本人::取角色信息()
 	临时角色信息.举起状态 = 举起东西状态();
 
 	临时角色信息.对象指针 = 局_个人真实对象;
-
-	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
-	INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
-	INT64 addr_3 = R_QW(addr_2 + 0x18);
+	临时角色信息.真实对象指针 = 0;
+	临时角色信息.属性对象 = 属性对象;
+	
 	临时角色信息.骑行状态 = R_DW(addr_3 + g_是否骑马);
 	临时角色信息.行走状态 = R_BYTE(临时角色信息.对象指针 + g_行走状态);
 	临时角色信息.职业 = R_DW(临时角色信息.对象指针 + 0x2C);
 
-	//MyTrace(L"骑行状态0x%I64x", 临时角色信息.骑行状态);
-	//MyTrace(L"取角色信息2 %d %d/%d  %d %d %d 举起 %d", 临时角色信息.装备评分, 临时角色信息.当前血, 临时角色信息.最大血, 临时角色信息.航海当前耐久, 临时角色信息.怒气值, 临时角色信息.InteractPropState, 临时角色信息.举起状态);
+	////MyTrace(L"骑行状态0x%I64x", 临时角色信息.骑行状态);
+	////MyTrace(L"取角色信息2 %d %d/%d  %d %d %d 举起 %d", 临时角色信息.装备评分, 临时角色信息.当前血, 临时角色信息.最大血, 临时角色信息.航海当前耐久, 临时角色信息.怒气值, 临时角色信息.InteractPropState, 临时角色信息.举起状态);
 	/// <summary>
 	/// /////////////////////
 	/// </summary>
@@ -170,15 +163,18 @@ ActorInfo_ 本人::取角色信息()
 	临时角色信息.坐标.x = R_Float(局_v1 + 偏移_坐标);
 	临时角色信息.坐标.y = R_Float(局_v1 + 偏移_坐标 + 4);
 	临时角色信息.坐标.z = R_Float(局_v1 + 偏移_坐标 + 8);
-	//MyTrace(L"取角色信息3");
-	//MyTrace(L"装备评分 %0.3f", R_Float(属性对象 + 偏移_本人_装备评分));
+	////MyTrace(L"取角色信息3");
+	////MyTrace(L"装备评分 %0.3f", R_Float(属性对象 + 偏移_本人_装备评分));
 	return 临时角色信息;
 }
 
 bool 本人::是否在骑马()
 {
-	INT64 局_人物对象 = 本人::取对象();
-	bool 局_骑马状态 = R_BYTE(局_人物对象 + 偏移_本人_骑马状态);
+	//INT64 局_人物对象 = 本人::取对象();
+
+	ActorInfo_  人物=本人::取角色信息();
+
+	bool 局_骑马状态=人物.骑行状态;
 	return 局_骑马状态;
 }
 
@@ -270,6 +266,12 @@ void 本人::CALL_全部分解()//62014
 	MainUniversalCALL4(局_rcx, 0, 0, 0, dCALL);
 }
 
+void 本人::混沌下一关call()//62014
+{
+	INT64 局_rcx = R_QW(游戏模块 + 基址_个人_打开分解rcx);
+	INT64 dCALL = 游戏模块 + 基址_个人_打开分解call;
+	MainUniversalCALL4(局_rcx, 0x14A, 0, 0, dCALL);
+}
 
 
 
@@ -277,12 +279,12 @@ void 本人::CALL_全部分解()//62014
 {
 	坐标_ 临时坐标;
 	INT64 局_v1 = R_QW(R_QW(R_QW(R_QW(游戏模块 + 基址_个人_坐标) + 0x94) + 0x10) + 0x27C);
-	//MyTrace(L"0x%I64x", 局_v1);
+	////MyTrace(L"0x%I64x", 局_v1);
 	//INT64 局_v1 =R_QW(R_QW(游戏模块 + 基址_个人_坐标) + 0x94);
 	临时坐标.x = R_Float(局_v1 + 偏移_坐标);
 	临时坐标.y = R_Float(局_v1 + 偏移_坐标 + 4);
 	临时坐标.z = R_Float(局_v1 + 偏移_坐标 + 8);
-	//MyTrace(L"装备评分 %0.3f", R_Float(属性对象 + 偏移_本人_装备评分));
+	////MyTrace(L"装备评分 %0.3f", R_Float(属性对象 + 偏移_本人_装备评分));
 	return 临时坐标;
 }
 INT64 本人::取坐标基址()
@@ -385,7 +387,7 @@ bool 本人::get_ActionTimingTime()
 				float dMaxTime = R_Float(addr_Data + go_ActionTimingMaxTime - 8);
 				if (dCurTime < dMaxTime)
 				{
-					MyTrace(L"时间 %0.f / %0.f", dCurTime, dMaxTime);
+					//MyTrace(L"时间 %0.f / %0.f", dCurTime, dMaxTime);
 					return true;
 				}
 
@@ -504,6 +506,39 @@ INT64 本人::最厚怪物(DWORD 距离)
 
 }
 
+INT64 本人::最近特殊怪物(DWORD 距离)
+{
+
+	objInfo_ temp;
+	vector<objInfo_>vsk;
+	环境::遍历全部环境对象1(vsk);
+	DWORD obj距离 = 999999;
+	INT64 返回指针 = 0;
+
+	for (size_t i = 0; i < vsk.size(); i++)
+	{
+		if (vsk[i].dType == 2)
+		{
+			if (vsk[i].dCurHp >= 1 && vsk[i].wName != L"" && vsk[i].IsHide == 0 )
+			{
+				if (vsk[i].距离 < 距离)
+				{
+
+
+					返回指针 = vsk[i].objBase;
+					break;
+
+				}
+			}
+
+		}
+	}
+	return 返回指针;
+
+
+}
+
+
 INT64 本人::最近怪物1(DWORD 距离)
 {
 
@@ -579,7 +614,7 @@ INT64 本人::最近怪物攻击(DWORD 距离, CString ID文本)
 			{
 				if (vsk[i].距离 < 距离)
 				{
-					MyTrace(L"name %s  距离%0.3f", vsk[i].wName, vsk[i].距离);
+					//MyTrace(L"name %s  距离%0.3f", vsk[i].wName, vsk[i].距离);
 
 					if (ID文本 == L"")
 					{
@@ -657,7 +692,7 @@ INT64 本人::最近怪物2(DWORD 距离, CString ID文本)
 			{
 				if (vsk[i].距离 < 距离)
 				{
-					MyTrace(L"name %s  距离%0.3f", vsk[i].wName, vsk[i].距离);
+					//MyTrace(L"name %s  距离%0.3f", vsk[i].wName, vsk[i].距离);
 
 					if (ID文本 == L"")
 					{
@@ -717,15 +752,15 @@ INT64 本人::最近怪物2(DWORD 距离, CString ID文本)
 }
 bool  本人::是否战斗中()
 {
-	INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
-	INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
-	INT64 rdxx = R_QW(addr_2);
-	INT64 rcx = addr_2;
-	INT64 call = R_QW(rdxx + 基址_战斗_是否战斗call偏移);
-	if (IsBadReadPtr((void*)rcx, sizeof(rcx))) return false;
-	INT64 ret = CALL2(rcx, rdxx, call);
-	//MyTrace(L"是否战斗中  0x%I64X", ret);
-	return (bool)ret;
+	//INT64 addr_1 = R_QW(游戏模块 + gb_ActorList);
+	//INT64 addr_2 = R_QW(addr_1 + go_hj_myRole);
+	//INT64 rdxx = R_QW(addr_2);
+	//INT64 rcx = addr_2;
+	//INT64 call = R_QW(rdxx + 基址_战斗_是否战斗call偏移);
+	//if (IsBadReadPtr((void*)rcx, sizeof(rcx))) return false;
+	//INT64 ret = CALL2(rcx, rdxx, call);
+	//////MyTrace(L"是否战斗中  0x%I64X", ret);
+	return 0;
 }
 
 void 本人::设置宝石自动合成()
@@ -751,12 +786,12 @@ void 本人::设置宝石自动合成()
 bool 本人::是否可以骑马call(DWORD ID)
 {
 	INT64 rcx = 本人::取真实对象();
-	//MyTrace(L"本人 0x%I64X  ID 0x%I64X \r\n", rcx, ID);
+	////MyTrace(L"本人 0x%I64X  ID 0x%I64X \r\n", rcx, ID);
 	INT64 call = 是否可以骑马写入基址 + 游戏模块;
 
 	INT64 rax=MainUniversalCALL4_Ret(rcx,ID,1,0,call);
 
-	//MyTrace(L"rax 0x%I64X \r\n", rax);
+	////MyTrace(L"rax 0x%I64X \r\n", rax);
 	//bool d=R_BYTE(rax);
 	return rax;
 

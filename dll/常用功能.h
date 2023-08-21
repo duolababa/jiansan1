@@ -13,5 +13,6 @@ static float 计算距离(坐标_ 当前距离, 坐标_ 对方距离);
 static INT64 hex_to_decimal(string hex_str);
 
 };
-
+CString ConvertDWORDToString(DWORD value);
+CString FloatToString(float value);
 //sscanf(任务ID, "%x", x);

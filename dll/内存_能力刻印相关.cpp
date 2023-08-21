@@ -72,7 +72,7 @@ void getAbilityListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySize)
 								{
 									csName = R_CString(dNameAddr);
 								}
-								MyTrace(L"地址0x%I64X ID%X 类型%d 职业id%X %s\r\n", dAbilityAttrObj, dId, dType, dJobId, csName);
+								//MyTrace(L"地址0x%I64X ID%X 类型%d 职业id%X %s\r\n", dAbilityAttrObj, dId, dType, dJobId, csName);
 							}
 							break;
 						}
@@ -87,7 +87,7 @@ void 能力刻印::getAbilityEngraveAll()//资源获取所有刻印 类型 职业
 {
 	DWORD dAbilityEngraveIndex = getResIndexByName(L"AbilityEngrave");
 	INT64 dAbilityEngraveAddr = getResAddrById(dAbilityEngraveIndex);
-	MyTrace(L"地址0x%I64X \r\n", dAbilityEngraveAddr);
+	//MyTrace(L"地址0x%I64X \r\n", dAbilityEngraveAddr);
 	getAbilityListAll(dAbilityEngraveAddr, 0x20, 0x54);
 }
 //
@@ -268,6 +268,7 @@ void getItemAbilityList(INT64 dItemObj)
 	{
 		WORD dtotalNum = R_W(dstart + i * 0x10);//读双字节 总共强化次数
 		DWORD dAbilityId = R_DW(dstart + 2 - go_ItemAbilityId + i * 0x10);
+		//MyTrace(L"开始地址 %I64X  %I64X \r\n", dAbilityId, dstart + 2 - go_ItemAbilityId + i * 0x10);
 		for (int j = 0; j < dtotalNum && j < 10; j++)
 		{
 			BYTE dstate = R_BYTE(dstart + 2 + i * 0x10 + j);//读字节 0未加工 1 加工成功 2加工失败
@@ -275,23 +276,23 @@ void getItemAbilityList(INT64 dItemObj)
 			if (dstate == 1)
 			{
 				dSuccNum++;
-				MyTrace(L"%s 总次数%d 第%d次状态值%d\r\n", Name, dtotalNum, j, dstate);
+				//MyTrace(L"%s 总次数%d 第%d次状态值%d\r\n", Name, dtotalNum, j, dstate);
 			}
 			if (dstate == 0)
 			{
-				MyTrace(L"%d 强化 %s 能力[%d]", dAbilityId, Name, j);
+				//MyTrace(L"%d 强化 %s 能力[%d]", dAbilityId, Name, j);
 				Fun_marbleWndItemStartBtn(j);
 				Sleep(1000);
 			}
 			else
 			{
-				MyTrace(L"%s 总次数%d 第%d次状态值%d\r\n", Name, dtotalNum, j, dstate);
+				//MyTrace(L"%s 总次数%d 第%d次状态值%d\r\n", Name, dtotalNum, j, dstate);
 			}
 
 		}
 
 	}
-	MyTrace(L"最终加成成功次数 %d\r\n", dSuccNum);
+	//MyTrace(L"最终加成成功次数 %d\r\n", dSuccNum);
 }
 //
 void 诞生石::getmarbleWndItemList()
@@ -304,7 +305,7 @@ void 诞生石::getmarbleWndItemList()
 		INT64 dItemObj = dstart + i * go_marbleWndItemListSize;
 		INT64 dItemSrvId = R_QW(dItemObj + go_marbleWndItemSrvId);
 		BYTE dItemCntrType = R_BYTE(dItemObj + go_marbleWndItemCntrType);//读双字节 0XE是仓库 背包是0
-		MyTrace(L"0%I64X 0%I64X 容器类型%X\r\n", dItemObj, dItemSrvId, dItemCntrType);
+		//MyTrace(L"0%I64X 0%I64X 容器类型%X\r\n", dItemObj, dItemSrvId, dItemCntrType);
 		if (dItemCntrType == 0)
 		{
 			Fun_marbleWndItemSelect(i);
@@ -319,15 +320,18 @@ void 诞生石::getmarbleWndItemList()
 bool 诞生石::诞生石强化()
 {
 	INT64 dUiObj = UI功能::getUiObjById(0x21);//root1.arkui.windowCanvas.marbleWnd 
+	//MyTrace(L"dd 0%I64X", dUiObj);
 	int dtotal = R_DW(dUiObj + go_marbleWndItemListTotal);
 	INT64 dstart = R_QW(dUiObj + go_marbleWndItemListTotal - 8);
 	for (int i = 0; i < dtotal; i++)
 	{
 		INT64 dItemObj = dstart + i * go_marbleWndItemListSize;
 		INT64 dItemSrvId = R_QW(dItemObj + go_marbleWndItemSrvId);
+		//MyTrace(L"dItemObj 0%I64X ,dItemSrvId 0%I64X ", dItemObj, dItemSrvId);
 		BYTE dItemCntrType = R_BYTE(dItemObj + go_marbleWndItemCntrType);//读双字节 0XE是仓库 背包是0
 		if (dItemCntrType == 0)
 		{
+			//MyTrace(L"dItemObj 0%I64X", dItemObj);
 			Fun_marbleWndItemSelect(i);
 			getItemAbilityList(dItemObj);
 			return true;
@@ -346,6 +350,7 @@ INT64 研磨::getItemBuildUpItemList()//物品遍历
 	//INT64 go_ItemGradeLev = 偏移_背包_物品强化等级;//0x6A8;
 	//0F ?? ?? ?? ?? ?? 0F ?? ?? ?? ?? ?? ?? 3C ?? 0F ?? ?? ?? ?? ?? ?? 85 ?? 0F ?? ?? ?? ?? ?? ?? 8B ?? E8 ?? ?? ?? ?? 0F   +0x21 的CALL进去第一行  go_ItemGradeLev
 	INT64 dUiAddr = UI功能::getUiObjById(0x12C);//&"root1.arkui.windowCanvas.itemBuildUpWnd"
+	//MyTrace(L"研磨地址0%I64X ", dUiAddr);
 	if (dUiAddr)
 	{
 		INT64 dstart = R_QW(dUiAddr + go_ItemBuildListStart);
@@ -360,7 +365,7 @@ INT64 研磨::getItemBuildUpItemList()//物品遍历
 			WORD dItemGradeLev = R_W(dItemObj + go_ItemGradeLev + 0x4) - 100;//当前强化等级，需要减去100
 			INT64 dItemResAddr = getItemResAddrById(dItemResId);
 			DWORD 物品等阶 = R_W(dItemResAddr + 偏移_背包_物品等级);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);
 			DWORD WearId = getEquipWearArg(dSlotIndex);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
 			CString csName = L"空";
@@ -368,7 +373,7 @@ INT64 研磨::getItemBuildUpItemList()//物品遍历
 			{
 				csName = R_CString(dNameAddr);
 			}
-			MyTrace(L"地址0%I64X 索引%X 0%I64X 资源ID0%X 装备位置 %d 物品等阶 %d 等级%d %s", dItemObj, dBagIndex, dItemSrvId, dItemResId, WearId, 物品等阶, dItemGradeLev, csName);
+			//MyTrace(L"地址0%I64X 索引%X 0%I64X 资源ID0%X 装备位置 %d 物品等阶 %d 等级%d %s", dItemObj, dBagIndex, dItemSrvId, dItemResId, WearId, 物品等阶, dItemGradeLev, csName);
 		}
 	}
 	return 0;
@@ -382,7 +387,7 @@ void Fun_ItemBuildUpListSelect(int dIndex)//选择需要强化物品 索引从0开始
 		int dShow = R_DW(dUiAddr + 0x27C);
 		if (dShow)
 		{
-			MyTrace(L"show");
+			//MyTrace(L"show");
 			INT64 dItemListAddr = R_QW(dUiAddr + go_ItemBuildUpSelect);
 			INT64 addr_1 = R_QW(dItemListAddr + 0x18);
 			INT64 addr_2 = R_QW(addr_1 + 0x70);
@@ -433,11 +438,11 @@ BOOL 研磨::bCheckItemBuildUpLevelWndContentChildWindowShow(DWORD dChildIndex)
 			DWORD dChildWindow = R_W(addr_2 + 0x6A);
 			if (dChildWindow >> 0xe == 1)//判断显示a
 			{
-				MyTrace(L"addr_2 0x%llX", addr_2);
+				//MyTrace(L"addr_2 0x%llX", addr_2);
 				INT64 dUiDataAddr = R_QW(addr_2 + 0x150);
 				if (dUiDataAddr)
 				{
-					//MyTrace(L"子界面代码 %d", R_DW(dUiDataAddr + 0x2F8));
+					////MyTrace(L"子界面代码 %d", R_DW(dUiDataAddr + 0x2F8));
 					if (R_DW(dUiDataAddr + 0x338) == dChildIndex)
 					{
 						return TRUE;
@@ -508,7 +513,7 @@ void Fun_ItemBuildUpChildLevelUpBtnClick()//点击 研磨 升级按钮
 			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x20);
 			INT64 dCurExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp);
 			INT64 dMaxExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp + 8);
-			MyTrace(L"1 dCurExp %d  dMaxExp %d", dCurExp, dMaxExp);
+			//MyTrace(L"1 dCurExp %d  dMaxExp %d", dCurExp, dMaxExp);
 			if (dMaxExp)
 			{
 				if (dMaxExp > dCurExp)//判断经验值
@@ -588,7 +593,7 @@ BOOL 研磨::bCheckitemBuildUpRenderTargetGroupShow()//判断查看研磨结果
 			INT64 addr_first = getUiFirstAddr(dUiAddr);
 			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
 			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"itemBuildUpRenderTargetGroup");//success_mc
-			MyTrace(L"0x%I64X", addr_2);
+			//MyTrace(L"0x%I64X", addr_2);
 			DWORD dChildWindow = R_W(addr_2 + 0x6A);
 			if (dChildWindow >> 0xe == 1)//判断显示
 			{
@@ -609,7 +614,7 @@ BOOL 研磨::bCheckitemBuildUpSuccess_mc()//判断最终成功窗口
 			INT64 addr_first = getUiFirstAddr(dUiAddr);
 			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
 			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"success_mc");//success_mc
-			MyTrace(L"0x%I64X", addr_2);
+			//MyTrace(L"0x%I64X", addr_2);
 			DWORD dChildWindow = R_W(addr_2 + 0x6A);
 			if (dChildWindow >> 0xe == 1)//判断显示
 			{
@@ -630,7 +635,7 @@ BOOL 研磨::bCheckitemBuildUpFail_mc()//判断最终失败窗口
 			INT64 addr_first = getUiFirstAddr(dUiAddr);
 			INT64 addr_1 = getChildUiAddrByStr(addr_first, L"ItemBuildUpLevelWndContent");
 			INT64 addr_2 = getChildUiAddrByStr(addr_1, L"fail_mc");//success_mc
-			MyTrace(L"0x%I64X", addr_2);
+			//MyTrace(L"0x%I64X", addr_2);
 			DWORD dChildWindow = R_W(addr_2 + 0x6A);
 			if (dChildWindow >> 0xe == 1)//判断显示
 			{
@@ -721,7 +726,7 @@ bool 选定装备是否可升级()
 			INT64 dEnhanceInfo = R_QW(dUiAddr + go_ItemBuildCurItemSrvId - 0x20);
 			INT64 dCurExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp);
 			INT64 dMaxExp = R_QW(dEnhanceInfo + go_ItemBuildUpCurExp + 8);
-			MyTrace(L"1 dCurExp %d  dMaxExp %d", dCurExp, dMaxExp);
+			//MyTrace(L"1 dCurExp %d  dMaxExp %d", dCurExp, dMaxExp);
 			if (dMaxExp)
 			{
 				if (dMaxExp == dCurExp)//判断经验值
@@ -753,7 +758,7 @@ bool 研磨::强化装备()
 {
 	if (研磨::bCheckItemBuildUpLevelWndContentChildWindowShow(0))
 	{
-		MyTrace(L"6666666666");
+		//MyTrace(L"6666666666");
 		Fun_ItemBuildUpChildMaxClick();
 		Sleep(2000);
 		Fun_ItemBuildUpChildLevelUpBtnClick();
@@ -762,7 +767,7 @@ bool 研磨::强化装备()
 	}
 	else if (研磨::bCheckItemBuildUpLevelWndContentChildWindowShow(1))
 	{
-		MyTrace(L"222222222");
+		//MyTrace(L"222222222");
 		Fun_ItemBuildUpChildLevelUpGradeBtnClick();
 		Sleep(1000);
 		Fun_ItemBuildLevUpResult();
@@ -774,13 +779,13 @@ bool 研磨::强化装备()
 	}
 	else if (选定装备是否可升级())//主界面 升级按钮 是否显示
 	{
-		MyTrace(L"111111111");
+		//MyTrace(L"111111111");
 		Fun_ItemBuildUpLevelUpGrade();//主界面装备研磨按钮
 		Sleep(1000);
 	}
 	else if (!选定装备是否可升级())
 	{
-		MyTrace(L"5555555555");
+		//MyTrace(L"5555555555");
 		Fun_ItemBuildUpLevelUp();
 		Sleep(1000);
 	}

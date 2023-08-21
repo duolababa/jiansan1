@@ -6,7 +6,7 @@ int 登陆::服务器遍历(vector<CString>& vsk)
 	INT64 局_rcx = R_QW(游戏模块 + 基址_登录_选择服务器rcx);
 	if (局_rcx == 0)
 	{
-		return 0;
+		return 0;//[[0x5082A78+lostark.0]+9c]+0*33+6
 	}
 	INT64 局_数组头 = R_QW(局_rcx + 156);
 	DWORD 局_成员数 = R_DW(局_rcx + 164);
@@ -17,11 +17,11 @@ int 登陆::服务器遍历(vector<CString>& vsk)
 			break;
 		}
 		INT64 局_服务器对象 = 局_数组头 + i * 51;
-		string temp = UnicodeToAnsi(R_CString(局_服务器对象 + 2));
+		string temp = UnicodeToAnsi(R_CString(局_服务器对象 + 6));
 		CString 局_服务器名称 = CString(temp.c_str());
 		if (局_服务器名称 != L"")
 		{
-			MyTrace(L"%s", 局_服务器名称);
+			//MyTrace(L"%s", 局_服务器名称);
 			vsk.push_back(局_服务器名称);
 		}
 
@@ -186,7 +186,7 @@ bool 登陆::CALL_创建角色(int  创建次数)
 	{
 		srand(time(NULL));
 		CString 名称;
-		//CString 首字 = 随机生成英文名字(1);
+		//CString 首字 = 随机生成英文名字(1);v
 		switch ((rand() % 4))
 		{
 		case 1:
@@ -203,28 +203,29 @@ bool 登陆::CALL_创建角色(int  创建次数)
 			break;
 		}
 
-		MyTrace(L"生成名称 %s", 名称);
-		if (mode)
+		//MyTrace(L"生成名称 %s", 名称);
+	/*	if (mode)
 		{
 			cStringClassPtr = (DWORD64)申请内存2((HANDLE)-1, 0x100);
 			W_QW(cStringClassPtr, UINT64(名称.GetBuffer()));
 			W_QW(cStringClassPtr + 8, 名称.GetLength() + 1);
-			MainUniversalCALL4(0x3ED, 0x5A, cStringClassPtr, 0, 局_call);
+			MainUniversalCALL4(0x3ED, 0x5D, cStringClassPtr, 0, 局_call);
 		}
 		else
-		{
+		{*/
 			temp名称指针 cStringClassPtr2;
 			cStringClassPtr2.名称obj = INT64(名称.GetBuffer());
 			cStringClassPtr2.长度 = 名称.GetLength() + 1;
-			MainUniversalCALL4(0x3ED, 0x5A, (UINT64)&cStringClassPtr2, 0, 局_call);
-		}
+			MainUniversalCALL4(0x3ED, 0x5D, (UINT64)&cStringClassPtr2, 0, 局_call);
+		//}45 33 C9 4C 8D 44 24 ?? 8D 57 ?? B9 ?? ?? ?? ??      RCX  +B     RDX  B
 		Sleep(1000);
-		UI功能::内存按键(VK_RETURN);
+		//MyTrace(L"开始回车");
+		UI功能::内存按键1(g_ENTER);
 		Sleep(2000);
-		if (mode)
+	/*	if (mode)
 		{
 			释放内存2((HANDLE)-1, LPVOID(cStringClassPtr), 0x100);
-		}
+		}*/
 		return true;
 
 	}
@@ -286,13 +287,16 @@ DWORD getCharacterGetJumpState(__int64 dCharacterInfo)
 void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 {
 	vsk.clear();
+	角色信息 ="";
+	CString 临时职业=L" ";
+	CString 临时装等=L" ";
 	登陆角色信息_ temp;
 	INT64 addr_1 = R_QW(游戏模块 + gb_CharacterList);
 	DWORD dtotal = R_DW(addr_1 + go_CharacterListStart + 8);
 	INT64 objStartAddr = R_QW(addr_1 + go_CharacterListStart);
 	DWORD dSize = go_CharacterListSize;
 	for (DWORD i = 0; i < dtotal; i++)
-	{
+	{//[[0x5080568+LOSTARK.0]+A4]+0*1ACD+948
 		INT64  dCharacterInfo = objStartAddr + i * dSize;
 		DWORD dJumpState = getCharacterGetJumpState(dCharacterInfo);//为1直升中 为3 可直升
 		INT64 dNameAddr = dCharacterInfo + go_CharacterName;
@@ -300,24 +304,36 @@ void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 		DWORD dIndex = R_W(dCharacterInfo + go_CharacterIndex);
 		DWORD dJobId = R_W(dCharacterInfo + go_CharacterJob);
 		DWORD dLev = R_W(dCharacterInfo + go_CharacterLev);
+		float 装等=R_Float(dCharacterInfo + go_Character装等评分);
+
 		CString cName = L"";
 		if (dNameAddr)
 		{
 			cName = R_CString(dNameAddr);
-			/*wchar_t buf[100];
-			swprintf(buf, L"地址0x%I64X %s id %I64X 职业ID %X 等级%d\r\n", dCharacterInfo, cName, dSrvId, dJobId, dLev);
-			MyTrace(buf);*/
+			wchar_t buf[100];
+			swprintf(buf, L"地址0x%I64X %s id %I64X 职业ID %X 等级%d 装等 %0.3f\r\n", dCharacterInfo, cName, dSrvId, dJobId, dLev, 装等);
+			MyTrace(buf);
 		}
 		temp.dIndex = dIndex;
 		temp.dJob = dJobId;
 		temp.等级 = dLev;
+		temp.装等 = 装等;
+
 		temp.直升状态 = dJumpState;
 		temp.名称 = cName;
 		temp.对象指针 = dCharacterInfo;
 		temp.SrvId = dSrvId;
+		临时职业 = 临时职业 + ConvertDWORDToString(dJobId)+L"|";
+		临时装等 = 临时装等 + ConvertDWORDToString((int)temp.装等) + L"|";
+
+		//temp.Format(L"%f", 角色信息.坐标.z);//3
+		//arr.push_back(temp);
+		
+		//	发送给控制台1(ConvertDWORDToString(GameIndex), "登录", "初始化成功");
 		vsk.push_back(temp);
 	}
-
+	角色信息 = 临时装等+ 临时职业;
+	发送给控制台1(ConvertDWORDToString(GameIndex), L"装等职业", 角色信息);
 }
 //登陆角色信息_ 登陆::getCharacterInfoByIndex(int 序号)
 //{
@@ -340,6 +356,7 @@ bool 登陆::CALL_进入游戏(int 角色序号)
 	{
 		return false;
 	}
+	当前执行角色 = 角色序号;
 	MainUniversalCALL2(局_rcx, 角色序号, 游戏模块 + 基址_登录_进入游戏call);
 	return true;
 }
@@ -365,19 +382,18 @@ int 登陆::getJumpMapCheck(int dIndex)//索引从1开始
 	dm.AsmAdd(L"add rsp,040");*/
 	return (DWORD)ret;
 }
-void 登陆::getJmpMapList()//获取直升阶段地图信息
+DWORD 登陆::getJmpMapList()//获取直升阶段地图信息
 {
 	for (int i = 0; i < 6; i++)
 	{
 		if (getJumpMapCheck(i + 1))
 		{
-			MyTrace(L"直升地图%d 已吃券", i + 1);
+			return i + 1;
+			//MyTrace(L"直升地图%d 有券", i + 1);
 		}
-		else
-		{
-			MyTrace(L"直升地图%d 未吃券", i + 1);
-		}
+	
 	}
+	return 0;
 }
 void 登陆::Fun_UseJumpByIndex(__int64 dCharacterSrvId, int dIndex)//索引从1开始  使用直升
 {
@@ -450,7 +466,7 @@ bool 是否存在此角色(登陆角色信息_ 角色信息)
 }
 void 登陆::初始化全局角色列表(vector<登陆角色信息_>& vsk)
 {
-	MyTrace(L"vsk.size %d,  全_角色列表.size  %d,  直升状态  %d ", vsk.size(), 全_角色列表.size());
+	//MyTrace(L"vsk.size %d,  全_角色列表.size  %d,  直升状态  %d ", vsk.size(), 全_角色列表.size());
 	if (vsk.size() != 全_角色列表.size())
 	{
 		if (全_角色列表.size() == 0)
@@ -461,8 +477,7 @@ void 登陆::初始化全局角色列表(vector<登陆角色信息_>& vsk)
 		{
 			for (size_t i = 0; i < vsk.size(); i++)
 			{
-				MyTrace(L"遍历角色  %s  ,dIndex %d,  SrvId  %d,  dJob  %d,  直升状态  %d ",
-					vsk[i].名称, vsk[i].dIndex, vsk[i].SrvId, vsk[i].dJob, vsk[i].直升状态);
+				//MyTrace(L"遍历角色  %s  ,dIndex %d,  SrvId  %d,  dJob  %d,  直升状态  %d ",vsk[i].名称, vsk[i].dIndex, vsk[i].SrvId, vsk[i].dJob, vsk[i].直升状态);
 				if (是否存在此角色(vsk[i]) == false)
 				{
 					全_角色列表.push_back(vsk[i]);
@@ -501,11 +516,10 @@ void 登陆::设置任务已完成(CString 名称)
 
 	for (size_t i = 0; i < 全_角色列表.size(); i++)
 	{
-		MyTrace(L"遍历角色2  %s  ,dIndex %d,  SrvId  %d,  dJob  %d,  直升状态  %d ",
-			全_角色列表[i].名称, 全_角色列表[i].dIndex, 全_角色列表[i].SrvId, 全_角色列表[i].dJob, 全_角色列表[i].直升状态);
+		//MyTrace(L"遍历角色2  %s  ,dIndex %d,  SrvId  %d,  dJob  %d,  直升状态  %d ",全_角色列表[i].名称, 全_角色列表[i].dIndex, 全_角色列表[i].SrvId, 全_角色列表[i].dJob, 全_角色列表[i].直升状态);
 		if (名称 == 全_角色列表[i].名称)
 		{
-			MyTrace(L"设置角色完成1-50任务");
+			//MyTrace(L"设置角色完成1-50任务");
 			全_角色列表[i].任务是否完成 = true;
 
 			//break;

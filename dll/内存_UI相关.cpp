@@ -3,8 +3,8 @@ UIinfo_ getUiObjInfo(INT64 dObjAddr, DWORD dIndex, DWORD dId)
 {
 	UIinfo_ temp;
 	DWORD dShow = R_DW(dObjAddr + 0x27C);//更新-0218
-	INT64 addr_1 = R_QW(dObjAddr + 0X18);
-	INT64 addr_2 = R_QW(addr_1 + 0x50 + 0X20);//更新-0218
+	INT64 addr_1 = R_QW(dObjAddr + 0x18);
+	INT64 addr_2 = R_QW(addr_1 + 0x50 + 0x20);//更新-0218
 	INT64 dNameAddr = R_QW(addr_2 + 0xF8);
 	CString csName = L"空";
 	if (dNameAddr)
@@ -20,7 +20,7 @@ UIinfo_ getUiObjInfo(INT64 dObjAddr, DWORD dIndex, DWORD dId)
 	return temp;
 	//if (/*csName.Find(L"quickSlotFrame") > 0*/ dShow)//获取快捷键UI地址
 	/*{
-		MyTrace(L"索引%X 对象地址0x%I64X ID %X 是否显示%d %s\r\n", dIndex, dObjAddr, dId, dShow, csName);
+		//MyTrace(L"索引%X 对象地址0x%I64X ID %X 是否显示%d %s\r\n", dIndex, dObjAddr, dId, dShow, csName);
 	}*/
 
 }
@@ -29,10 +29,14 @@ void UI功能::getUiList(vector<UIinfo_>& vsk)
 	//UIinfo_ temp;
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
 	INT64 addr_2 = R_QW(addr_1 + 基址_个人_遍历偏移);//更新-2023年7月14日 11:04:38
-	long dtotal = R_DW(addr_2 + 0x80C);
-	INT64 objStartAddr = R_QW(addr_2 + 0x7C8);//对象数组地址
-	INT64 indexStartAddr = R_QW(addr_2 + 0x804);//索引数组地址
-	//MyTrace(L"objStartAddr 0x%I64X indexStartAddr 0x%I64X dtotal %d", objStartAddr, indexStartAddr, dtotal);
+
+	long dtotal = R_DW(addr_2 + getUiObjByIdUI);//80 FA ?? 41 0F 94 C0 E8 ?? ?? ?? ?? B8 ?? ?? ?? ?? ,-13CALL 进入 0x64
+	INT64 objStartAddr = R_QW(addr_2 + getUiObjByIdUI - 0x44);//80 FA ?? 41 0F 94 C0 E8 ?? ?? ?? ?? B8 ?? ?? ?? ?? ,-13CALL 进入 0xA4
+	INT64 indexStartAddr = R_QW(addr_2 + getUiObjByIdUI - 8);//80 FA ?? 41 0F 94 C0 E8 ?? ?? ?? ?? B8 ?? ?? ?? ?? ,-13CALL 进入 72+79
+
+
+
+	////MyTrace(L"objStartAddr 0x%I64X indexStartAddr 0x%I64X dtotal %d", objStartAddr, indexStartAddr, dtotal);
 	for (long i = 0; i < dtotal; i++)
 	{
 		long dIndex = R_DW(indexStartAddr + i * 4);
@@ -41,7 +45,7 @@ void UI功能::getUiList(vector<UIinfo_>& vsk)
 			long dOffest = dIndex * 5 * 4;
 			INT64 dObjAddr = R_QW(objStartAddr + dOffest + 4);
 			WORD bId = R_W(objStartAddr + dOffest);//读双字节
-			//MyTrace(L"dObjAddr 0x%I64X dIndex %D bId %d", dObjAddr, dIndex, bId);
+			////MyTrace(L"dObjAddr 0x%I64X dIndex %D bId %d", dObjAddr, dIndex, bId);
 			UIinfo_ temp = getUiObjInfo(dObjAddr, dIndex, bId);
 			vsk.push_back(temp);
 			DWORD dNextIndex = 0;
@@ -97,10 +101,28 @@ void 混沌选项卡()
 	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.reverseRuinEntranceNormalWnd", rcx);
 	if (rcx != 0)
 	{
-		MainUniversalCALL4(R_QW(rcx), 3, 0, 0, 混沌选项卡call+ 游戏模块);
+		MainUniversalCALL4(rcx, 3, 0, 0, 混沌选项卡call+ 游戏模块);
 	}
 
 }
+
+
+
+void  UI功能::点击进入副本()
+{
+	INT64 rcx = 0;
+
+	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.reverseRuinEntranceNormalWnd", rcx);
+	if (rcx != 0)
+	{
+		//MyTrace(L"rcx %I64X ", rcx);
+		MainUniversalCALL4(rcx, 0, 0, 0, 副本进入写入基址 + 游戏模块);
+	}
+
+
+	return;
+}
+
 
 bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 {
@@ -109,8 +131,17 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 	//temp.Format(L"aaa%I64X", aaa);
 	//	DebugPrintf("%s\n", CStringA(temp));getmiddle
 	INT64 a = R_QW(aaa + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移;//更新-0218
-	DWORD 总数 = R_DW(a + 0x308);//308
-	INT64 rdx = R_QW(a + 0x2E0);//对象数组地址
+	DWORD 总数 = R_DW(a + 0x308);//308//0F 29 70 ?? 41 8B F0 45 33 E4   +A  A+16  2E0+10
+	INT64 rdx = R_QW(a + 寻找打开窗口UI);//对象数组地址  0F 29 70 ?? 41 8B F0 45 33 E4   +A
+
+	//美服 rdx  48 81 C3 ? ? ? ? ? ? ? ? 48 89 5C 24 ? ? 48 8D 53 ? ? 45 33 C0 48 8D 4D ? ? E8 ? ? ? ? ? ? ? ? 第三个加0
+	//45 8B C7 49 8B D4 E8 ?? ?? ?? ?? 8B E8 8B C5   +6 进call  国服是最后一个call
+
+
+	// 基址_个人_虚表数组偏移  75 ?? FF C0 83 F8 ?? 7D ?? EB ??  -0X7
+
+
+
 	for (size_t i = 0; i < 总数; i++)
 	{
 
@@ -118,14 +149,14 @@ bool UI功能::寻找打开窗口(CString name, INT64& rcx)
 		DWORD rax = i + 1;
 		INT64 参数 = rdx + rax * 5 * 4 + 4;
 
-		INT64 addr_1 = R_QW(R_QW(参数) + 0X18);
-		INT64 addr_2 = R_QW(addr_1 + 0x50 + 0X20);//更新-0218
+		INT64 addr_1 = R_QW(R_QW(参数) + 0x18);
+		INT64 addr_2 = R_QW(addr_1 + 0x50 + 0x20);//更新-0218
 		INT64 dNameAddr = R_QW(addr_2 + 0xF8);
 		CString name1 = L"空";
 		if (dNameAddr)
 		{
 			 name1 = CString(R_String(R_QW(dNameAddr)));
-		//	MyTrace(L"%s", name1.GetString());
+		//	//MyTrace(L"%s", name1.GetString());
 
 		}
 	
@@ -154,10 +185,10 @@ INT64 UI功能::getUiObjById(DWORD ID)
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
 	INT64 addr_2 = R_QW(addr_1 + 基址_个人_遍历偏移);//更新-0218
-	long dtotal = R_DW(addr_2 + 0x80C);
-	INT64 objStartAddr = R_QW(addr_2 + 0x7C8);//对象数组地址
-	INT64 indexStartAddr = R_QW(addr_2 + 0x804);//索引数组地址
-	//MyTrace(L"objStartAddr 0x%I64X indexStartAddr 0x%I64X dtotal %d", objStartAddr, indexStartAddr, dtotal);
+	long dtotal = R_DW(addr_2 + getUiObjByIdUI);//80 FA ?? 41 0F 94 C0 E8 ?? ?? ?? ?? B8 ?? ?? ?? ?? ,-13CALL 进入 0x64
+	INT64 objStartAddr = R_QW(addr_2 + getUiObjByIdUI-0x44);//80 FA ?? 41 0F 94 C0 E8 ?? ?? ?? ?? B8 ?? ?? ?? ?? ,-13CALL 进入 0xA4
+	INT64 indexStartAddr = R_QW(addr_2 + getUiObjByIdUI-8);//80 FA ?? 41 0F 94 C0 E8 ?? ?? ?? ?? B8 ?? ?? ?? ?? ,-13CALL 进入 72+79
+	////MyTrace(L"objStartAddr 0x%I64X indexStartAddr 0x%I64X dtotal %d", objStartAddr, indexStartAddr, dtotal);
 	for (size_t i = 0; i < dtotal; i++)
 	{
 		/*if (i > 3000)
@@ -375,7 +406,7 @@ bool UI功能::背包界面是否显示()
 	INT64 局_UI对象 = UI功能::getUiObjById(0x1A);//ID 31 是否显示0  root1.arkui.windowCanvas.inventoryWnd
 	if (R_BYTE(局_UI对象 + 0x27C) == 1)
 	{
-		//MyTrace(L"背包显示");
+		////MyTrace(L"背包显示");
 		return true;
 	}
 	return false;
@@ -457,7 +488,7 @@ bool UI功能::航海入港()
 	}
 	INT64 dCALL = 游戏模块 + 基址_UI_航海入港call;
 	INT64 dRCX = R_QW(游戏模块 + 基址_UI_航海出港rcx);
-	MyTrace(L"入港rcx %I64X", dRCX);
+	//MyTrace(L"入港rcx %I64X", dRCX);
 	if (dRCX != 0)
 	{
 		MainUniversalCALL2(dRCX, 0, dCALL);
@@ -508,25 +539,25 @@ bool UI功能::进入副本()
 }
 INT64 内存_UI_取采集标识对象()
 {
-	string 局_文本标识;
-	CString WName;
-	//INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 基址_个人_遍历偏移);
-	INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移 + 基址_个人_虚表数组头;
-	INT64 局_数组头 = R_QW(局_rcx);
-	int 局_成员数 = R_DW(局_rcx + 0x28);
-	for (size_t i = 0; i < 局_成员数; i++)
-	{
-		INT64 局_对象 = R_QW(局_数组头 + (i - 1) * 5 * 4 + 4);
-		if (局_对象 != 0) {
+	//string 局_文本标识;
+	//CString WName;
+	////INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 基址_个人_遍历偏移);
+	//INT64 局_rcx = R_QW(R_QW(游戏模块 + 基址_个人_遍历) + 基址_个人_遍历偏移) + 基址_个人_虚表数组偏移 + 基址_个人_虚表数组头;
+	//INT64 局_数组头 = R_QW(局_rcx);
+	//int 局_成员数 = R_DW(局_rcx + 0x28);
+	//for (size_t i = 0; i < 局_成员数; i++)
+	//{
+	//	INT64 局_对象 = R_QW(局_数组头 + (i - 1) * 5 * 4 + 4);
+	//	if (局_对象 != 0) {
 
-			局_文本标识 = UnicodeToAnsi(R_CString(R_QW(R_QW(局_对象 + 188))));
-			WName = CString(局_文本标识.c_str());
-		}
-		if (WName.Find(L"DataArray") != -1)
-		{
-			return 局_对象;
-		}
-	}
+	//		局_文本标识 = UnicodeToAnsi(R_CString(R_QW(R_QW(局_对象 + 188))));
+	//		WName = CString(局_文本标识.c_str());
+	//	}
+	//	if (WName.Find(L"DataArray") != -1)
+	//	{
+	//		return 局_对象;
+	//	}
+	//}
 	return 0;
 }
 
@@ -534,6 +565,7 @@ INT64 内存_UI_取采集标识对象()
 bool UI功能::是否出现G()
 {
 	INT64 局_UI对象 = 内存_UI_取采集标识对象();
+	//MyTrace(L"局_UI对象 0x%I64X", 局_UI对象);
 	if (局_UI对象 == 0)
 	{
 		return false;
@@ -570,6 +602,7 @@ bool UI功能::是否读条()
 bool UI功能::是否在航海准备界面()
 {
 	INT64 局_UI对象 = UI功能::getUiObjById(178);
+	//MyTrace(L"对象 0x%I64X", 局_UI对象);
 	if (局_UI对象 == 0)
 	{
 		return false;
@@ -635,7 +668,7 @@ void getMiddle_textFieldAddr(INT64 dChildAddr, INT64& dRetAddr)
 				if (_tcscmp(cName, L"textField") == 0)
 				{
 					dRetAddr = dTempAddr;
-				//	MyTrace(L"文本地址%I64X", dTempAddr);
+				//	//MyTrace(L"文本地址%I64X", dTempAddr);
 				}
 			}
 			getMiddle_textFieldAddr(dTempAddr, dRetAddr);
@@ -667,7 +700,7 @@ void getMsgBoxMiddleText(INT64 dUIObj)
 				{
 					dStrAddr = R_QW(dTextAddr + 0x108);
 					CString cTxt = UTF82WCS(R_String(dStrAddr + 0xB));//大漠读的UTF8格式
-					//MyTrace(L"地址%I64X %s", dTextAddr, cTxt);
+					////MyTrace(L"地址%I64X %s", dTextAddr, cTxt);
 					//if (cTxt.Find(L"进入") != -1 || cTxt.Find(L"Enter") != -1)
 					//{
 					//	Fun_MsgBoxConfirm(dUIObj);
@@ -684,13 +717,13 @@ void getMsgBoxMiddleText(INT64 dUIObj)
 }
 void 混沌下一关()
 {
-	INT64 addr_1 = R_QW(游戏模块 + 基址_环境_退出npc对话);
-	INT64 call = 游戏模块 + 混沌下一关call;//
+	//INT64 addr_1 = R_QW(游戏模块 + 基址_环境_退出npc对话);
+	//INT64 call = 游戏模块 + 混沌下一关call;//
 
-	if (addr_1)
-		{
-		MainUniversalCALL8(addr_1, 0x14A,0,0,0,0,0,0, call);
-		}
+	//if (addr_1)
+	//	{
+	//	MainUniversalCALL8(addr_1, 0x14A,0,0,0,0,0,0, call);
+	//	}
 
 
 }
@@ -708,42 +741,42 @@ void Fun_MsgBoxConfirm(INT64 dUIObj)
 bool  UI功能::getMsgBoxTextList()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x230);
-	INT64 dstart = R_QW(addr_1 + 0x228);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + dtotalUI);   //83 7A ?? ?? 0F 84 ?? ?? ?? ?? 8B 82 ?? ?? ?? ??  +A
+	INT64 dstart = R_QW(addr_1 + dtotalUI-8);//对象数组地址  +18
 	for (long i = 0; i < dtotal; i++)
 	{
 		INT64 dUIObj = R_QW(dstart + i * 0xC);
 
 		//DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
 		DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
-		MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
+		//MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 窗口文本 = getMsgBoxMiddleText2(dUIObj);
-		MyTrace(L"窗口文本 %s", 窗口文本);
+		//MyTrace(L"窗口文本 %s", 窗口文本);
 		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"空间移动") != -1)
 			//if (dPraentId == 1)
 		{
-			MyTrace(L"点击游戏内确定弹窗");
+			//MyTrace(L"点击游戏内确定弹窗");
 			Fun_MsgBoxConfirm(dUIObj);
 			return false;
 		}
 		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"作为你的返回点吗") != -1)
 			//if (dPraentId == 1)
 		{
-			MyTrace(L"点击绑定回城城市");
+			//MyTrace(L"点击绑定回城城市");
 			Fun_MsgBoxConfirm(dUIObj);
 			return false;
 		}
 		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"雇佣船员") != -1 || 窗口文本.Find(L"雇用船员") != -1)
 			//if (dPraentId == 1)
 		{
-			MyTrace(L"雇佣船员");
+			//MyTrace(L"雇佣船员");
 			Fun_MsgBoxConfirm(dUIObj);
 			return false;
 		}
 		if (窗口文本.Find(L"Enter the Chaos Dungeon") != -1 || 窗口文本.Find(L"Do you want to go back to the character selection screen") != -1 || 窗口文本.Find(L"Teleport") != -1 || 窗口文本.Find(L"准备出航") != -1 || 窗口文本.Find(L"准备出港") != -1)
 			//if (dPraentId == 1)
 		{
-			MyTrace(L"准备出航");
+			//MyTrace(L"准备出航");
 			Fun_MsgBoxConfirm(dUIObj);
 			return false;
 		}
@@ -781,7 +814,7 @@ CString UI功能::getMsgBoxMiddleText2(INT64 dUIObj)
 					dStrAddr = R_QW(dTextAddr + 0x108);
 					CString cTxt = UTF82WCS(R_String(dStrAddr + 0xB));//大漠读的UTF8格式
 					返回文本 = 返回文本 + cTxt;
-					/*MyTrace(L"地址%I64X %s", dTextAddr, cTxt);
+					/*//MyTrace(L"地址%I64X %s", dTextAddr, cTxt);
 					if (cTxt.Find(L"进入") != -1 || cTxt.Find(L"Enter") != -1)
 					{
 						Fun_MsgBoxConfirm(dUIObj);
@@ -800,8 +833,8 @@ CString UI功能::getMsgBoxMiddleText2(INT64 dUIObj)
 CString  UI功能::getMsgBoxText()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x230);
-	INT64 dstart = R_QW(addr_1 + 0x228);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + dtotalUI);
+	INT64 dstart = R_QW(addr_1 + dtotalUI-8);//对象数组地址
 	for (long i = 0; i < dtotal; i++)
 	{
 		if (i >= 500)
@@ -819,8 +852,8 @@ CString  UI功能::getMsgBoxText()
 CString  UI功能::getMsgBoxText_全()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x230);
-	INT64 dstart = R_QW(addr_1 + 0x228);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + dtotalUI);
+	INT64 dstart = R_QW(addr_1 + dtotalUI-8);//对象数组地址
 	CString 返回文本 = L"";
 	for (long i = 0; i < dtotal; i++)
 	{
@@ -850,7 +883,7 @@ INT64 getChildUiAddrByStr(INT64 dParentAddr, CString cChildName)
 			dStrAddr = R_QW(dStrAddr + 0x10);
 			dStrAddr = R_QW(dStrAddr);
 			CString cName = CString(R_String(dStrAddr));
-			//MyTrace(L"0x%I64X %s", dStrAddr, cName);
+			////MyTrace(L"0x%I64X %s", dStrAddr, cName);
 			if (_tcscmp(cName, cChildName) == 0)
 			{
 				return dChildAddr;
@@ -875,7 +908,7 @@ void UI功能::getNpcTalkSelectList(vector<CString>& 对话组)
 	INT64 addr_first = getUiFirstAddr(dUiObj);
 	INT64 addr_1 = getChildUiAddrByStr(addr_first, L"talkSelectButtonGroup");
 	DWORD dShow = R_W(addr_1 + 0x6A);
-	//MyTrace(L"0x%I64x / 0x%I64x / 0x%I64x %d", dUiObj, addr_first,addr_1,dShow >> 0xe);
+	////MyTrace(L"0x%I64x / 0x%I64x / 0x%I64x %d", dUiObj, addr_first,addr_1,dShow >> 0xe);
 	if (dShow >> 0xe == 1)//判断显示
 	{
 
@@ -885,7 +918,7 @@ void UI功能::getNpcTalkSelectList(vector<CString>& 对话组)
 		{
 			INT64 addr_2 = R_QW(dstart + i * 0x10);
 			dShow = R_W(addr_2 + 0x6A);
-			//MyTrace(L"addr_2 0x%I64x /  %d", addr_2, dShow >> 0xe);
+			////MyTrace(L"addr_2 0x%I64x /  %d", addr_2, dShow >> 0xe);
 			if (dShow >> 0xe == 1)//判断显示
 			{
 				INT64 dStrAddr = R_QW(addr_2 + 0x70);
@@ -894,7 +927,7 @@ void UI功能::getNpcTalkSelectList(vector<CString>& 对话组)
 					dStrAddr = R_QW(dStrAddr + 0x10);
 					dStrAddr = R_QW(dStrAddr);
 					CString cName = CString(R_String(dStrAddr));
-					//MyTrace(L"cName %s",cName);
+					////MyTrace(L"cName %s",cName);
 					if (_tcsstr(cName, L"talkButtonGroup_"))//判断是否包含字符串talkButton_
 					{
 						INT64 dstart2 = R_QW(addr_2 + 0xE0);
@@ -907,25 +940,25 @@ void UI功能::getNpcTalkSelectList(vector<CString>& 对话组)
 							straddr = R_QW(straddr + 0x10);
 							straddr = R_QW(straddr);
 							CString cstrName = CString(R_String(straddr));
-							//MyTrace(L"%s addr_4 0x%I64x /  %d", cstrName, addr_4, dShow4 >> 0xe);
+							////MyTrace(L"%s addr_4 0x%I64x /  %d", cstrName, addr_4, dShow4 >> 0xe);
 							if (dShow4 >> 0xe == 1)//判断显示
 							{
 								INT64 addr_3 = getChildUiAddrByStr(addr_4, L"tf");
 								if (addr_3)
 								{
 									dShow = R_W(addr_3 + 0x6A);
-									//MyTrace(L"addr_3 0x%I64x /  %d", addr_2, dShow >> 0xe);
+									////MyTrace(L"addr_3 0x%I64x /  %d", addr_2, dShow >> 0xe);
 									if (dShow >> 0xe == 1)//判断显示
 									{
 										INT64 dTextAddr = R_QW(addr_3 + 0x108);
-										//MyTrace(L"dTextAddr 0x%I64X", dTextAddr);
+										////MyTrace(L"dTextAddr 0x%I64X", dTextAddr);
 										//string sText = R_CString(dTextAddr+0xB);
 										CString cText = UTF82WCS(R_String(dTextAddr + 0xB));
 										对话组.push_back(cText);
-										//MyTrace(L"对话: %s", cText);
+										////MyTrace(L"对话: %s", cText);
 										//wchar_t buf[MAX_PATH];
 										/*swprintf(buf, L"地址0x%I64X %s 0x%I64X %s\r\n", addr_2, cName, dTextAddr,cText);
-										MyTrace(L"对话: %s", buf);*/
+										//MyTrace(L"对话: %s", buf);*/
 									}
 								}
 							}
@@ -971,7 +1004,7 @@ bool UI功能::复活界面是否显示()
 	INT64 局_UI对象 = UI功能::getUiObjById(0x3A);//ID 31 是否显示0  root1.arkui.windowCanvas.inventoryWnd
 	if (R_BYTE(局_UI对象 + 0x27C) == 1)
 	{
-		MyTrace(L"复活界面显示");
+		//MyTrace(L"复活界面显示");
 		return true;
 	}
 	return false;
@@ -988,13 +1021,13 @@ bool UI功能::复活(CString 复活方式)
 			INT64 dRCX = UI功能::getUiObjById(0x3A);
 			if (dRCX != 0)
 			{
-				MainUniversalCALL2(dRCX, 复活type, dCALL);
+			MainUniversalCALL2(dRCX, 复活type, dCALL);
 				return true;
 			}
 		}
 		else
 		{
-			MyTrace(L"复活type错误");
+			//MyTrace(L"复活type错误");
 			return false;
 		}
 	}
@@ -1004,6 +1037,7 @@ bool UI功能::复活(CString 复活方式)
 int UI功能::get_DeadSceneList(CString 复活方式)
 {
 	INT64 dUiObj = UI功能::getUiObjById(0x3A);
+	////MyTrace(L"dUiObj 0x%I64X", dUiObj);
 	if (dUiObj)
 	{
 		DWORD dShow = R_DW(dUiObj + 0x27C);
@@ -1021,7 +1055,7 @@ int UI功能::get_DeadSceneList(CString 复活方式)
 				{
 					return dType;
 				}
-			//	MyTrace(L"UI地址0x%I64X 索引%d 类型%d %s\r\n", dUiObj, i, dType, cName);
+			////MyTrace(L"UI地址0x%I64X 索引%d 类型%d %s\r\n", dUiObj, i, dType, cName);
 			}
 
 		}
@@ -1031,13 +1065,13 @@ int UI功能::get_DeadSceneList(CString 复活方式)
 
 CString UI功能::getUiName(INT64 dObjAddr)
 {
-	INT64 addr_1 = R_QW(dObjAddr + 0X18);
+	INT64 addr_1 = R_QW(dObjAddr + 0x18);
 	INT64 addr_2 = R_QW(addr_1 + 0x70);
 	INT64 dNameAddr = R_QW(addr_2 + 0xF8);
 	CString csName = L"空";
 	if (dNameAddr)
 	{
-		//MyTrace(L"csName 长度 %d  内容 %s", sizeof(R_String(R_QW(dNameAddr))), UTF82WCS(R_String(R_QW(dNameAddr))));
+		////MyTrace(L"csName 长度 %d  内容 %s", sizeof(R_String(R_QW(dNameAddr))), UTF82WCS(R_String(R_QW(dNameAddr))));
 		csName = UTF82WCS((R_String(R_QW(dNameAddr))));
 	}
 	return csName;
@@ -1053,7 +1087,7 @@ bool UI功能::get_DeadSceneListBtnState()//获取复活按钮状态
 		if (dShow)
 		{
 			long dtotal = R_DW(dUiObj + go_DeadSceneChildList + 0x10 + 0x18);//__int64 go_DeadSceneChildList = 0x17C;
-			INT64 dKeyAddr = R_QW(dUiObj + go_DeadSceneChildList + +0x20);//对象数组地址
+			INT64 dKeyAddr = R_QW(dUiObj + go_DeadSceneChildList + 0x20);//对象数组地址
 			if (!dKeyAddr)
 			{
 				dKeyAddr = dUiObj + go_DeadSceneChildList + 0x10;
@@ -1082,10 +1116,10 @@ bool UI功能::get_DeadSceneListBtnState()//获取复活按钮状态
 						if (dValue >> 0xe == 1 && stateName == L"up")
 						{
 							bView = 1;//显示中
-						//	MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
+						//	//MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
 							return true;
 						}
-					//	MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
+					//	//MyTrace(L"0%I64X %s 是否显示%d 状态%s\r\n", addr_3, cWidgetName, bView, stateName);
 					}
 				}
 			}
@@ -1166,6 +1200,25 @@ void UI功能::控件点击call(INT64 对象)
 
 }
 
+void UI功能::控件输入call(INT64 对象,CString name)
+{
+	//temp名称指针 cStringClassPtr2;
+	//cStringClassPtr2.名称obj = INT64(name.GetBuffer());
+	UCHAR 局_rdx0[0x100] = { 0 };
+	//strcpy(局_rdx0, CStringA(name));
+	memcpy(局_rdx0, name.GetString(),100);
+	INT64 call地址 = R_QW(对象);
+	call地址 = R_QW(call地址 + 0x320);;
+	INT64 rcx = 对象;
+
+	////MyTrace(L"%I64X", &局_rdx0);
+MainUniversalCALL6(rcx, R_DW((UINT64)&局_rdx0), 0, 1, 0x40, 0, call地址);
+	//delete[] 局_rdx0;
+
+}
+
+
+
 CString UI功能::UI名称1(INT64 对象)
 {
 	INT64 addr_1 = R_QW(对象 + 0x70);
@@ -1212,15 +1265,15 @@ CString UI功能::UI名称(INT64 对象)
 DWORD UI功能::窗口数量()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x230);
+	DWORD dtotal = R_DW(addr_1 + dtotalUI);
 	return dtotal;
 
 }
 CString  UI功能::窗口反馈文本()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
-	DWORD dtotal = R_DW(addr_1 + 0x230);
-	INT64 dstart = R_QW(addr_1 + 0x230 - 8);//对象数组地址
+	DWORD dtotal = R_DW(addr_1 + dtotalUI);
+	INT64 dstart = R_QW(addr_1 + dtotalUI - 8);//对象数组地址
 	CString 返回文本 = L" ";
 	for (long i = 0; i < dtotal; i++)
 	{
@@ -1235,14 +1288,55 @@ CString  UI功能::窗口反馈文本()
 
 		//DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
 		DWORD dPraentId = R_DW(dUIObj + 0x12C);//丢弃物品这种不是全局弹窗的用
-		//MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
+		////MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 返回 = getMsgBoxMiddleText2(dUIObj);
 
-		MyTrace(L"%s", 返回);
+	//	//MyTrace(L"%s", 返回);
 		返回文本 = 返回文本 + 返回 + "|";
 
 	}
 	return 返回文本;
+}
+
+
+bool  UI功能::游戏IP异常()
+{
+	CString  文本 = UI功能::窗口反馈文本();
+	//MyTrace(L"弹窗 %s", 文本);
+	if (文本.GetLength() != 0)
+	{
+		if (文本.Find(L"That name is") != -1)
+			{
+				UI功能::内存按键1(g_ENTER);
+			}
+
+		if (文本.Find(L"EAC Offline - Banned") != -1 || 文本.Find(L"BANNED") != -1 || 文本.Find(L"Code of Conduct") != -1 || 文本.Find(L"Code of Conduct") != -1)
+
+		{
+
+			发送给控制台1(ConvertDWORDToString(GameIndex), L"封号", 文本);
+			Sleep(3 * 1000);
+			return 1;
+
+		}
+
+
+		if (文本.Find(L"W0x9") != -1 || 文本.Find(L"Exiting the game") != -1 || 文本.Find(L"[10010]") != -1 || 文本.Find(L"[EAC Offline]") != -1 || 文本.Find(L"G0x9") != -1 || 文本.Find(L"Cannot connect to the server") != -1 || 文本.Find(L"W0x5") != -1 || 文本.Find(L"Duplicate Login Detected") != -1)
+		{
+
+			发送给控制台1(ConvertDWORDToString(GameIndex), L"异常", 文本);
+			Sleep(3 * 1000);
+			return 1;
+		}
+
+	
+
+
+	}
+	
+
+	return 0;
+
 }
 
 //void UI功能::Fun_NarrationAssistance_OnOff(int kaiguan)

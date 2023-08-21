@@ -94,7 +94,7 @@ void ÅäÖÃ::È¡Â¼ÖÆ×ø±ê(int µØÍ¼±êÊ¶, vector<Â¼ÖÆ×ø±ê_>& Â¼ÖÆ×ø±ê×é)
 	µØÍ¼str.Format(L"%d", µØÍ¼±êÊ¶);
 	CString ×ø±êÎÄ±¾ = ¶ÁÈ¡Â¼ÖÆ×ø±êÎÄ±¾(µØÍ¼str);
 	´¦Àí×ø±êÎÄ±¾(×ø±êÎÄ±¾, Â¼ÖÆ×ø±ê×é, µØÍ¼±êÊ¶);
-	MyTrace(L"%d È¡³öÂ¼ÖÆ×ø±ê×é:%d ¸ö", µØÍ¼±êÊ¶, Â¼ÖÆ×ø±ê×é.size());
+	//MyTrace(L"%d È¡³öÂ¼ÖÆ×ø±ê×é:%d ¸ö", µØÍ¼±êÊ¶, Â¼ÖÆ×ø±ê×é.size());
 }
 CString »ñÈ¡LAconfig¸¨ÖúÄ¿Â¼()
 {
@@ -136,6 +136,7 @@ CString ÅäÖÃ::»ñÈ¡Ö¸¶¨ÉèÖÃÎÄ±¾(CString ÅäÖÃÎÄ¼þÃû³Æ, CString ÅäÖÃ½Úµã, CString Å
 //{
 //	½Å±¾ÈÎÎñ = »ñÈ¡Ö¸¶¨ÉèÖÃÎÄ±¾(L"½Å±¾ÅäÖÃ.ini", L"LostArk" + ÕûÊýµ½ÎÄ±¾(GameIndex), L"½Å±¾ÈÎÎñ");
 //	½ÇÉ«ÐòºÅ = »ñÈ¡Ö¸¶¨ÉèÖÃÎÄ±¾(L"½Å±¾ÅäÖÃ.ini", L"LostArk" + ÕûÊýµ½ÎÄ±¾(GameIndex), L"½ÇÉ«");
-//	ÅäÖÃ·þÎñÆ÷ = »ñÈ¡Ö¸¶¨ÉèÖÃÎÄ±¾(L"½Å±¾ÅäÖÃ.ini", L"LostArk" + ÕûÊýµ½ÎÄ±¾(GameIndex), L"·þÎñÆ÷");
-//	MyTrace(L"ÐòºÅ %d ½Å±¾ÈÎÎñ %s ½ÇÉ«ÐòºÅ %s ·þÎñÆ÷: %s", GameIndex, ½Å±¾ÈÎÎñ, ½ÇÉ«ÐòºÅ, ÅäÖÃ·þÎñÆ÷);
+//	ÅäÖÃ
+//  = »ñÈ¡Ö¸¶¨ÉèÖÃÎÄ±¾(L"½Å±¾ÅäÖÃ.ini", L"LostArk" + ÕûÊýµ½ÎÄ±¾(GameIndex), L"·þÎñÆ÷");
+//	//MyTrace(L"ÐòºÅ %d ½Å±¾ÈÎÎñ %s ½ÇÉ«ÐòºÅ %s ·þÎñÆ÷: %s", GameIndex, ½Å±¾ÈÎÎñ, ½ÇÉ«ÐòºÅ, ÅäÖÃ·þÎñÆ÷);
 //}

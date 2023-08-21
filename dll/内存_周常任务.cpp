@@ -90,7 +90,7 @@ void ÖÜ³£ÈÎÎñ::get_UnasDailyQuestList(vector<ÖÜ³¤ÈÕ³£_>& ÈÕ³£)//±éÀúÈÕ³£ÈÎÎñ ÄÇ¸
 	ÖÜ³¤ÈÕ³£_ temp;
 	ÈÕ³£.clear();
 	INT64 addr_1 =R_QW(ÓÎÏ·Ä£¿é+gb_UnasTask);
-	addr_1 = addr_1 + go_UnasWeeklyQuestStart + 0x48;
+	addr_1 = addr_1 + go_UnasWeeklyQuestStart ;
 	long dtotal =R_DW(addr_1 + 0x10 + 0x18);
 	INT64 dKeyAddr =R_QW(addr_1 + 0x20);
 	if (!dKeyAddr)
@@ -111,7 +111,7 @@ void ÖÜ³£ÈÎÎñ::get_UnasDailyQuestList(vector<ÖÜ³¤ÈÕ³£_>& ÈÕ³£)//±éÀúÈÕ³£ÈÎÎñ ÄÇ¸
 			//INT64 dQuestResAddr = Fun_getQuestrResAddrById( dQuestId);
 			//INT64 dQuestNameAddr = R_QW(dQuestResAddr + 0xC);
 			INT64 dQuestResAddr = getQuestResAddrById( dQuestId);
-			//MyTrace(L"0x%llx", dQuestResAddr);
+			////MyTrace(L"0x%llx", dQuestResAddr);
 			INT64 dInfoAddr = R_QW(dQuestResAddr + 0x3C);
 			INT64 dNameAddr = R_QW(dInfoAddr + 0x34);
 			DWORD dStrLen = R_DW(dInfoAddr + 0x34 + 8) - 1;
@@ -127,30 +127,30 @@ void ÖÜ³£ÈÎÎñ::get_UnasDailyQuestList(vector<ÖÜ³¤ÈÕ³£_>& ÈÕ³£)//±éÀúÈÕ³£ÈÎÎñ ÄÇ¸
 			temp.ID = dQuestId;
 			temp.csName = cQuestName;
 
-
+			temp.dObj = dObj;
 			if (isQuestProgress)//ÒÑ½Ó
 			{
 				temp.×´Ì¬ = 1;
-			//	MyTrace(L"0%I64X  ½øĞĞÖĞÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+			//	//MyTrace(L"0%I64X  ½øĞĞÖĞÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 			}
 			else
 			{
 				if (bState)
 				{
 					temp.×´Ì¬ = 2;
-					//	MyTrace(L"0%I64X  ¿É½ÓÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+					//	//MyTrace(L"0%I64X  ¿É½ÓÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 				}
 				else
 				{
 					if (isQuestCon)
 					{
 						temp.×´Ì¬ = 3;
-						//	MyTrace(L"0%I64X  ÒÑÍê³ÉÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						//	//MyTrace(L"0%I64X  ÒÑÍê³ÉÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 					else
 					{
 						temp.×´Ì¬ = 0;
-						//	MyTrace(L"0%I64X  ²»·ûºÏÌõ¼şÎ´ÏÔÊ¾ÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						//	//MyTrace(L"0%I64X  ²»·ûºÏÌõ¼şÎ´ÏÔÊ¾ÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 				}
 			}
@@ -167,7 +167,7 @@ void ÖÜ³£ÈÎÎñ::get_UnasWeeklyQuesList(vector<ÖÜ³¤ÈÕ³£_>& ÈÕ³£)////±éÀúÖÜ³£ÈÎÎñ Ä
 	ÖÜ³¤ÈÕ³£_ temp;
 	ÈÕ³£.clear();
 	INT64 addr_1 =R_QW(ÓÎÏ·Ä£¿é+gb_UnasTask);
-	addr_1 = addr_1 + go_UnasWeeklyQuestStart;
+	addr_1 = addr_1 + go_UnasWeeklyQuestStart-0x48;
 	long dtotal =R_DW(addr_1 + 0x10 + 0x18);
 	INT64 dKeyAddr =R_QW(addr_1 + 0x20);
 	if (!dKeyAddr)
@@ -190,7 +190,7 @@ void ÖÜ³£ÈÎÎñ::get_UnasWeeklyQuesList(vector<ÖÜ³¤ÈÕ³£_>& ÈÕ³£)////±éÀúÖÜ³£ÈÎÎñ Ä
 			//INT64 dQuestNameAddr =R_QW(dQuestResAddr + 0xC);
 			//CString cQuestName = R_CString(dQuestNameAddr);
 			INT64 dQuestResAddr = getQuestResAddrById(dQuestId);
-			//MyTrace(L"0x%llx", dQuestResAddr);
+			////MyTrace(L"0x%llx", dQuestResAddr);
 			INT64 dInfoAddr = R_QW(dQuestResAddr + 0x3C);
 			INT64 dNameAddr = R_QW(dInfoAddr + 0x34);
 			DWORD dStrLen = R_DW(dInfoAddr + 0x34 + 8) - 1;
@@ -200,32 +200,32 @@ void ÖÜ³£ÈÎÎñ::get_UnasWeeklyQuesList(vector<ÖÜ³¤ÈÕ³£_>& ÈÕ³£)////±éÀúÖÜ³£ÈÎÎñ Ä
 			int dWeeklyQuestType =R_DW(dObj + go_UnasWeeklyQuestType);
 			BOOL bState =R_DW(dObj + go_UnasWeeklyQuestState);
 
-
+			temp.dObj = dObj;
 			temp.ID = dQuestId;
 			temp.csName = cQuestName;
 			if (isQuestProgress)//ÒÑ½Ó
 			{
 				temp.×´Ì¬ = 1;
-				//	MyTrace(L"0%I64X  ½øĞĞÖĞÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+				//	//MyTrace(L"0%I64X  ½øĞĞÖĞÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 			}
 			else
 			{
 				if (bState)
 				{
 					temp.×´Ì¬ = 2;
-					//MyTrace(L"0%I64X  ¿É½ÓÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+					////MyTrace(L"0%I64X  ¿É½ÓÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 				}
 				else
 				{
 					if (isQuestCon)
 					{
 						temp.×´Ì¬ = 3;
-						//MyTrace(L"0%I64X  ÒÑÍê³ÉÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						////MyTrace(L"0%I64X  ÒÑÍê³ÉÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 					else
 					{
 						temp.×´Ì¬ = 0;
-						//	MyTrace(L"0%I64X  ²»·ûºÏÌõ¼şÎ´ÏÔÊ¾ÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
+						//	//MyTrace(L"0%I64X  ²»·ûºÏÌõ¼şÎ´ÏÔÊ¾ÈÎÎñ ID %d<0x%X>  %s", dObj, dQuestId, dQuestId, cQuestName);
 					}
 				}
 			}
@@ -268,13 +268,10 @@ void ÖÜ³£ÈÎÎñ::ÁìÈ¡»ÕÕÂ()
 
 int ÖÜ³£ÈÎÎñ::ÖÜ³¤»ı·Ö()
 {
-	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + gb_UnasTask);
 
-	DWORD X=R_W(addr_1+0x35A);
-	DWORD X1 = R_W(addr_1 + 0x35A-2);
+	int X = ÖÜ³£ÈÎÎñ::getUnasTaskPoint();
 
-
-	return X + X1;
+	return X ;
 
 
 }
@@ -298,6 +295,216 @@ int ÖÜ³£ÈÎÎñ::ÈÕ³£ÈÎÎñ×´Ì¬(int _dQuestId)//±éÀúÈÕ³£ÈÎÎñ ÄÇ¸ö¿É½Ó ÄÇ¸ö²»¿É½Ó
 
 	return 0;
 }
+
+void gei_guild(vector<¹¤»á_>& ÁÙÊ±)
+{
+	¹¤»á_ temp;
+	ÁÙÊ±.clear();
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ĞĞ»árcx);
+	INT64 addr_2 = R_QW(addr_1 + 0xB0B8);
+	long dtotal = R_DW(addr_1 + 0xB0B8 + 8);
+	for (int i = 0; i < dtotal; i++)
+	{
+		INT64 addr = addr_2  + i * 0x88;
+		//INT64 dRealNameAddr = R_QW(addr);
+			temp.ĞĞ»áÃû³Æ= R_CString(R_QW(addr+8));
+			//temp.ĞĞ»áµÈ¼¶ = R_CString(R_QW(addr+0x8));
+			temp.ĞĞ»á»á³¤ = R_CString(R_QW(addr + 0x28));
+			temp.ĞĞ»áÈËÊı = R_CString(R_QW(addr + 0x38));
+			temp.ĞĞ»áname = R_CString(R_QW(addr + 0x40));
+			temp.ĞĞ»áID = R_DW(addr);
+			//MyTrace(L" addr %I64X ĞĞ»áID %I64x Ãû³Æ%s  ÈËÊı%s ĞĞ»á»á³¤%s ", addr,temp.ĞĞ»áID ,temp.ĞĞ»áÃû³Æ , temp.ĞĞ»áÈËÊı,temp.ĞĞ»á»á³¤);
+			ÁÙÊ±.push_back(temp);
+	}
+
+
+}
+
+void ËÑË÷¹¤»á(CString Ãû³Æ)
+{
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ĞĞ»árcx);
+	INT64 call = ÓÎÏ·Ä£¿é + ËÑË÷ĞĞ»ácall;
+	tempÃû³ÆÖ¸Õë cStringClassPtr2;
+	cStringClassPtr2.Ãû³Æobj = INT64(Ãû³Æ.GetBuffer());
+	cStringClassPtr2.³¤¶È = Ãû³Æ.GetLength() + 1;
+
+	MainUniversalCALL4(addr_1, 2, (UINT64)&cStringClassPtr2, 0, call);
+
+}
+
+
+CString ¼ÓÈëµÄ¹«»áÃû³Æ()
+{
+	CString ĞĞ»á = L" ";
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ĞĞ»árcx);
+	INT64 name =addr_1 +µ±Ç°¹¤»áÃû³Æ+µ±Ç°¹¤»áÃû³Æ1;
+
+	ĞĞ»á = R_CString(name);
+
+	return ĞĞ»á;
+}
+
+
+
+bool ¹«»áÊÇ·ñ¼ÓÈë()
+{
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ĞĞ»árcx);
+	DWORD ÊÇ·ñ´ò¿ª = R_DW(addr_1 + ÊÇ·ñ¼ÓÈë¹¤»á);   //48 8D 88 ?? ?? ?? ?? 48 8B 01 FF 50 ?? 48 8B 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 85 C0 0F 84 ?? ?? ?? ?? 48 8D B8 ?? ?? ?? ?? 48 85 FF  +0x14  ½øcall   +0x0
+
+	if (ÊÇ·ñ´ò¿ª > 1)
+	{
+		return 1;
+	}
+	return 0;
+
+
+
+}
+
+
+void Àë¿ª¹¤»á()
+{
+	INT64 rcx = 0;
+	DWORD x = 0;
+	bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.guildPortalWnd", rcx);
+	if (rcx >= 1)
+	{
+		DWORD dResId = R_DW(rcx + Æ«ÒÆ_UI_ÏÔÊ¾);
+		if (dResId == 1)
+		{
+			MainUniversalCALL2(rcx, 0, ÓÎÏ·Ä£¿é + »ùÖ·_¹¤»á_Àë¿ªcall);
+		}
+	}
+
+	else
+
+	{
+		bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.guildJoinWnd", rcx);
+		DWORD dResId = R_DW(rcx + Æ«ÒÆ_UI_ÏÔÊ¾);
+		if (dResId == 1)
+		{
+			MainUniversalCALL2(rcx, 0, ÓÎÏ·Ä£¿é + »ùÖ·_¹¤»á_Àë¿ªcall);
+		}
+
+	}
+
+
+
+
+
+}
+
+
+
+void ¹¤»á¾èÔù(DWORD ½ğ±Ò)
+{
+
+	INT64 ¾Ö_rcx = R_QW(ÓÎÏ·Ä£¿é + »ùÖ·_·â°ü_·¢°ürcx);
+	INT64 ¾Ö_call = ÓÎÏ·Ä£¿é + »ùÖ·_·â°ü_·¢°ücall;
+	INT64 ¾Ö_¸´»î°üÍ· = ÓÎÏ·Ä£¿é + »ùÖ·_¹¤»á_¾èÔùrdx;
+
+	UCHAR pBuff[0x100] = { 0 };
+	W_QW((ULONG64)&pBuff[0x0], ¾Ö_¸´»î°üÍ·);
+	//W_BYTE((ULONG64)&pBuff[0x18], 0x8);
+	W_DW((ULONG64)&pBuff[0x18], ½ğ±Ò);
+
+	MainUniversalCALL2(¾Ö_rcx, (ULONG_PTR)pBuff, ¾Ö_call);
+}
+
+
+
+void ÊäÈë¹¤»áÃÜÂëcall(DWORD ID, CString ÃÜÂë)
+{
+	INT64 call = ÓÎÏ·Ä£¿é + »ùÖ·_×é¶Ó_Ìß³ö¶ÓÎécall;
+	INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + »ùÖ·_×é¶Ó_Àë¿ª¶ÓÎércx);
+	INT64 rdx = ÓÎÏ·Ä£¿é + »ùÖ·_¹¤»á_ÊäÈëÃÜÂërdx;
+
+	tempÃû³ÆÖ¸Õë cStringClassPtr2;
+	cStringClassPtr2.Ãû³Æobj = INT64(ÃÜÂë.GetBuffer());
+	cStringClassPtr2.³¤¶È = ÃÜÂë.GetLength() + 1;
+	UCHAR pBuff[0x100] = { 0 };
+	W_QW((ULONG64)&pBuff[0x0], rdx);
+	W_BYTE((ULONG64)&pBuff[0x18], 0x2);
+	//W_DW((ULONG64)&pBuff[0x2C], 0xC1CB);
+	W_CString((ULONG64)&pBuff[0x1A],ÃÜÂë);
+	//W_Word((ULONG64)&pBuff[0x2C],0x71);
+
+	W_DW((ULONG64)&pBuff[0x30], ID);
+
+	////MyTrace(L"  ĞĞ»áID %I64X ", ID);
+	////MyTrace(L" addr %I64X", (ULONG64)&pBuff+0x18);
+MainUniversalCALL6(rcx, (ULONG_PTR)pBuff, 0, 0, (UINT64)&cStringClassPtr2, 0, call);
+	////MyTrace(L" addr %I64X", R_QW(R_QW((UINT64)&cStringClassPtr2)));
+
+
+	//INT64 ¾Ö_rcx = R_QW(ÓÎÏ·Ä£¿é + »ùÖ·_·â°ü_·¢°ürcx);
+	//INT64 ¾Ö_call = ÓÎÏ·Ä£¿é + »ùÖ·_·â°ü_·¢°ücall;
+	//INT64 ¾Ö_¸´»î°üÍ· = ÓÎÏ·Ä£¿é + »ùÖ·_¸öÈË_¸´»î°üÍ·;
+	//UCHAR pBuff[0x24] = { 0 };
+	//W_QW((ULONG64)&pBuff[0x0], ¾Ö_¸´»î°üÍ·);
+	//W_QW((ULONG64)&pBuff[0x8], 0);
+	//W_QW((ULONG64)&pBuff[0x10], 0);
+	//W_Word((ULONG64)&pBuff[0x16], 0x230);
+	//W_BYTE((ULONG64)&pBuff[0x17], ¸´»îÀàĞÍ);
+	//MainUniversalCALL2(¾Ö_rcx, (ULONG_PTR)pBuff, ¾Ö_call);
+
+}
+
+bool ´ò¿ª¹¤»áÇ©µ½½çÃæ()
+{
+	INT64 rcx = 0;
+
+
+
+	DWORD x = 0;
+
+
+
+
+
+	bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.guildPortalWnd", rcx);
+
+	if (rcx >= 1)
+	{
+		DWORD dResId = R_DW(rcx + Æ«ÒÆ_UI_ÏÔÊ¾);
+		if (dResId == 1)
+		{
+			MainUniversalCALL6(rcx, 0, 0, 0, 1, 0, ÓÎÏ·Ä£¿é + gc_CheckAbilityStone);
+			x = 1;
+			return x;
+		}
+	}
+	else
+	{
+		bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.guildJoinWnd", rcx);
+
+		if (rcx >= 1)
+		{
+			DWORD dResId = R_DW(rcx + Æ«ÒÆ_UI_ÏÔÊ¾);
+			if (dResId == 1)
+			{
+				MainUniversalCALL6(rcx, 0, 0, 0, 1, 0, ÓÎÏ·Ä£¿é + gc_CheckAbilityStone);
+				x = 1;
+				return x;
+			}
+		}
+
+
+	}
+
+
+
+
+
+
+
+	return x;
+
+
+
+}
+
+
 
 //
 //if (*(BYTE*)&szBuf[dwCodeIndex + 0x1] == 0x8B

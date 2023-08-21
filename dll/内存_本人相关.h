@@ -5,7 +5,6 @@ class 本人
 public:
 	static INT64 取真实对象();
 	static INT64 取对象();
-	static void CALL_发包复活(DWORD 复活类型);
 	static void 改移动速度(bool 开关, float 修改值);
 	static bool 乐谱遍历(vector<乐谱信息_>& vsk);
 	static DWORD 取当前船只ID();
@@ -21,6 +20,7 @@ public:
 	static void CALL_演奏乐谱(DWORD 乐谱序号);
 	static void CALL_打开分解();
 	static void CALL_全部分解();
+	static void 混沌下一关call();
 	static 坐标_ 取坐标();
 	static INT64 取坐标基址();
 	static bool 是否已召唤宠物();
@@ -31,6 +31,7 @@ public:
 	//static bool 使用表情CALL(DWORD 表情id);
 	static INT64 最近怪物(DWORD 距离);
 	static INT64 最近怪物1(DWORD 距离);
+	static INT64 最近特殊怪物(DWORD 距离);
 	static INT64 最厚怪物(DWORD 距离);
 	static INT64 最远怪物(DWORD 距离);
 	static INT64 最近怪物2(DWORD 距离, CString id);

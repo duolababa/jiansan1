@@ -11,6 +11,8 @@ public:
 	static DWORD getUiIdByName(CString name);
 	static INT64 getUiObjById_Old(DWORD ID);
 	static bool 寻找打开窗口(CString name, INT64& rcx);
+
+	static void 点击进入副本();
 	static CString 节点唯一标识(INT64 对象, INT64& 返回对象);
 
 	static bool 内存按键1(DWORD 加密按键, DWORD 类型 = 2);
@@ -51,6 +53,8 @@ public:
 	static CString UI名称1(INT64 对象);
 	static void 控件点击call(INT64 对象);
 	static CString 窗口反馈文本();
+	static bool 游戏IP异常();
+	static void UI功能::控件输入call(INT64 对象, CString name);
 	//static void Fun_NarrationAssistance_OnOff(int kaiguan);
 	//static void Fun_NarrationAssistance_Continue();
 	/*void generateBmp(BYTE* pData, int width, int height, LPCTSTR filename);

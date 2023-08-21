@@ -12,7 +12,7 @@ BOOL bCheckActorHide(INT64 dObjAddr)
 	for (int i = 0; i < dtotal; i++)
 	{
 		int dVaule = R_DW(dstart + i * 4);
-		//MyTrace(L"判断隐藏值%d", dVaule);
+		////MyTrace(L"判断隐藏值%d", dVaule);
 		if (dVaule == 2 || dVaule == 4)
 		{
 			return TRUE;
@@ -45,7 +45,7 @@ BYTE bCheckActorEnemy1(INT64 dObjAddr)
 
 objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 {
-	//MyTrace(L"getActorInfo 0");
+	////MyTrace(L"getActorInfo 0");
 	objInfo_ bi;
 	//memset(&bi, 0, sizeof(objInfo_));
 	bi.objBase = dObjAddr;
@@ -61,7 +61,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 		//bi.wName = csName;
 	}
 	bi.dType = R_BYTE(dObjAddr + 0x34);
-	//MyTrace(L"getActorInfo 1 名称 %s  resId %d type %d", bi.wName,bi.dResId,bi.dType);
+	////MyTrace(L"getActorInfo 1 名称 %s  resId %d type %d", bi.wName,bi.dResId,bi.dType);
 
 	if (bi.dType == 6 || bi.dType == 7 || bi.dType == 8 || bi.dType == 9)
 	{
@@ -69,9 +69,9 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 		//bi.dResType = dm.ReadIntAddr(bi.dResAddr + 0x36,6);
 		bi.dResType = R_BYTE(dObjAddr + 0xD18);
 		//bi.dResShow = R_BYTE(dObjAddr + 0xD15);
-		//MyTrace(L"getActorInfo 是否");
+		////MyTrace(L"getActorInfo 是否");
 		bi.dResShow = CALL_对象是否可交互(dObjAddr);
-		//MyTrace(L"getActorInfo 可交互");
+		////MyTrace(L"getActorInfo 可交互");
 		bi.dResOpen = R_BYTE(dObjAddr + 0xD16);
 		bi.dPortalOpen = R_BYTE(dObjAddr + go_PortalOpen);
 	}
@@ -118,10 +118,10 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	bi.IsEnemy = bCheckActorEnemy(dObjAddr);
 	bi.dCanAttack = R_BYTE(dObjAddr + 偏移_怪物_不可攻击偏移);
 	bi.是否可以攻击= bCheckActorEnemy1(dObjAddr);
-	bi.ID1 = R_DW(dObjAddr + 怪物目标);
-	//MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
+	bi.ID1 = R_DW(dObjAddr + 偏移_怪物_目标ID);
+	////MyTrace(L"对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f 名称%s\n", dObjAddr, bi.dResId, csName, bi.dType, bi.坐标.x, bi.坐标.y, bi.坐标.z, bi.wName);
 
-	//MyTrace(L"getActorInfo 2");
+	////MyTrace(L"getActorInfo 2");
 	//if (dm.ReadIntAddr(dObjAddr + 0xB2C,4) == 1 || dm.ReadIntAddr(dObjAddr + 0xB28,4) == 1)
 	{
 
@@ -140,13 +140,13 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 	}*/
 	bi.fDis = GetDis(bi.坐标.x, bi.坐标.y, bi.坐标.z);
 	bi.距离 = 常用功能::计算距离(bi.坐标, 本人::取坐标());
-	//MyTrace(L"getActorInfo 3");
+	////MyTrace(L"getActorInfo 3");
 	//if (dm.ReadIntAddr(dObjAddr + 0x28,4)==0x0002BFFD)
 	return bi;
 
 	//swprintf(buf, L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\r\n", bi.dIndex, bi.dObjAddr, bi.dObjId, bi.csName, bi.dType, bi.x, bi.y,bi.z);
 
-	//MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
+	////MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
 }
 
 
@@ -154,7 +154,7 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 
 objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 {
-	//MyTrace(L"getActorInfo 0");
+	////MyTrace(L"getActorInfo 0");
 	objInfo_ bi;
 	//memset(&bi, 0, sizeof(objInfo_));
 	bi.objBase = dObjAddr;
@@ -170,7 +170,7 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 		//bi.wName = csName;
 	}
 	bi.dType = R_BYTE(dObjAddr + 0x34);
-	//MyTrace(L"getActorInfo 1 名称 %s  resId %d type %d", bi.wName,bi.dResId,bi.dType);
+	////MyTrace(L"getActorInfo 1 名称 %s  resId %d type %d", bi.wName,bi.dResId,bi.dType);
 
 	if (bi.dType == 6 || bi.dType == 7 || bi.dType == 8 || bi.dType == 9)
 	{
@@ -178,9 +178,9 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 		//bi.dResType = dm.ReadIntAddr(bi.dResAddr + 0x36,6);
 		bi.dResType = R_BYTE(dObjAddr + 0xD18);
 		//bi.dResShow = R_BYTE(dObjAddr + 0xD15);
-		//MyTrace(L"getActorInfo 是否");
+		////MyTrace(L"getActorInfo 是否");
 		bi.dResShow = CALL_对象是否可交互(dObjAddr);
-		//MyTrace(L"getActorInfo 可交互");
+		////MyTrace(L"getActorInfo 可交互");
 		bi.dResOpen = R_BYTE(dObjAddr + 0xD16);
 		bi.dPortalOpen = R_BYTE(dObjAddr + go_PortalOpen);
 	}
@@ -230,7 +230,7 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 	bi.是否可以攻击 = bCheckActorEnemy1(dObjAddr);
 
 
-	//MyTrace(L"getActorInfo 2");
+	////MyTrace(L"getActorInfo 2");
 	//if (dm.ReadIntAddr(dObjAddr + 0xB2C,4) == 1 || dm.ReadIntAddr(dObjAddr + 0xB28,4) == 1)
 	{
 
@@ -248,13 +248,13 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 		bi.fz = dm.ReadFloatAddr(dTemp + 0x4C);
 	}*/
 	bi.fDis = bi.距离;
-	//MyTrace(L"getActorInfo 3");
+	////MyTrace(L"getActorInfo 3");
 	//if (dm.ReadIntAddr(dObjAddr + 0x28,4)==0x0002BFFD)
 	return bi;
 
 	//swprintf(buf, L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\r\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
 
-	//MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
+	////MyTrace(L"索引%X\r 对象地址0x%I64X ID %X %s 类型%d 坐标%0.f/%0.f/%0.f\n",dIndex,dObjAddr,dObjId,csName,dType,x,y,z);
 }
 
 
@@ -322,7 +322,7 @@ void 环境::遍历全部环境对象(vector<objInfo_>& vsk)
 			if (dObjId && dObjId != 0xFFFFFFFF)
 			{
 				INT64 dObjAddr = R_QW(objStartAddr + i * 0x3 * 8 + 8);
-				//MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
+				////MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
 				临时 = 环境::getActorInfo(dObjAddr);
 				if (临时.dResId != 0)
 				{
@@ -368,7 +368,7 @@ void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
 			if (dObjId && dObjId != 0xFFFFFFFF)
 			{
 				INT64 dObjAddr = R_QW(objStartAddr + i * 0x3 * 8 + 8);
-				//MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
+				////MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
 				临时 = 环境::getActorInfo1(dObjAddr,自己坐标);
 
 
@@ -422,7 +422,7 @@ void 环境::遍历全部环境对象1(vector<objInfo_>& vsk)
 			if (dObjId && dObjId != 0xFFFFFFFF)
 			{
 				INT64 dObjAddr = R_QW(objStartAddr + i * 0x3 * 8 + 8);
-				//MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
+				////MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
 				临时 = 环境::getActorInfo(dObjAddr);
 				if (临时.dResId != 0)
 				{
@@ -557,7 +557,7 @@ void 环境::遍历指定全部环境对象(DWORD dtype, vector<objInfo_>& vsk)
 				DWORD type = R_BYTE(dObjAddr + 0x34);
 				if (type == dtype)
 				{
-					//MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
+					////MyTrace(L"dObjAddr 0X%I64X", dObjAddr);
 					临时 = 环境::getActorInfo(dObjAddr);
 					if (临时.dResId != 0)
 					{
@@ -636,8 +636,8 @@ bool 环境::判断怪物(INT64 对象)
 	INT64 判断地址 = 局_指令地址 + 局_临时 + 7;
 	//CString 文本标识 = CString(UnicodeToAnsi(R_CString(判断地址)));
 	CString 文本标识2 = R_CString(判断地址);
-	//MyTrace(L"文本标识 %s", 文本标识);
-	//MyTrace(L"文本标识2 %s", 文本标识2);
+	////MyTrace(L"文本标识 %s", 文本标识);
+	////MyTrace(L"文本标识2 %s", 文本标识2);
 	if (文本标识2 == L"OUTLINE_MONSTER_ENEMY")
 	{
 		return true;
@@ -654,7 +654,7 @@ void 环境::小退call()
 	if (rcx >= 1)
 	{
 
-		MyTrace(L"0X%I64X", rcx);
+		//MyTrace(L"0X%I64X", rcx);
 		MainUniversalCALL4(rcx, 0x1F, 2, 0, 游戏模块 + 基址_小退call);
 		Sleep(2000);
 	//	UI功能::内存按键(VK_RETURN);
@@ -686,7 +686,7 @@ bool 环境::判断NPC(INT64 对象)
 	INT64 判断地址 = 局_指令地址 + 局_临时 + 7;
 	//CString 文本标识 = CString(UnicodeToAnsi(R_CString(判断地址)));
 	CString 文本标识2 = R_CString(判断地址);
-	//MyTrace(L"文本标识 %s", 文本标识2);
+	////MyTrace(L"文本标识 %s", 文本标识2);
 	if (文本标识2 == L"OUTLINE_NPC_FRIENDLY")
 	{
 		return true;
@@ -812,7 +812,7 @@ objInfo_ 环境::取指定类型NPC(CString tips)
 	环境::遍历NPC(vsk);
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
-		//MyTrace(L"NPC:%s tips:%s", vsk[i].wName, vsk[i].wTips);
+		////MyTrace(L"NPC:%s tips:%s", vsk[i].wName, vsk[i].wTips);
 		if (vsk[i].wTips == tips)
 		{
 			return vsk[i];
@@ -838,7 +838,7 @@ void 环境::遍历击打道具(vector<objInfo_>& 数组)
 {
 	数组.clear();
 	vector<objInfo_>vsk;
-	MyTrace(L"%s 7", __FUNCTIONW__);
+	//MyTrace(L"%s 7", __FUNCTIONW__);
 	环境::遍历指定全部环境对象(7, vsk);
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
@@ -861,7 +861,7 @@ void 环境::遍历击打道具(vector<objInfo_>& 数组)
 			数组.push_back(vsk[i]);
 		}*/
 	}
-	MyTrace(L"%s 11", __FUNCTIONW__);
+	//MyTrace(L"%s 11", __FUNCTIONW__);
 	环境::遍历指定全部环境对象(11, vsk);
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
@@ -1153,7 +1153,7 @@ bool 环境::CALL_点击指定NPC_ByResId(DWORD ResId)
 	{
 		if (ResId == 数组[i].dResId && !数组[i].IsHide)
 		{
-			MyTrace(L"打开NPC,0x%I64X", 数组[i].objBase);
+			//MyTrace(L"打开NPC,0x%I64X", 数组[i].objBase);
 			环境::CALL_打开NPC(数组[i].objBase);
 			return true;
 		}
@@ -1185,7 +1185,7 @@ int 环境::获取对象释放技能组(INT64 obj)
 		//	float x = R_Float(技能释放对象 + 偏移_坐标);
 		//	float y = R_Float(技能释放对象 + 偏移_坐标 + 4);
 		//	float z = R_Float(技能释放对象 + 偏移_坐标 + 8);
-		//	//MyTrace(L"对象 0x%I64X 技能ID %d %0.3f %0.3f %0.3f", 技能释放对象, 技能ID, x, y, z);
+		//	////MyTrace(L"对象 0x%I64X 技能ID %d %0.3f %0.3f %0.3f", 技能释放对象, 技能ID, x, y, z);
 		//}
 		数量 = 数组数量;
 	}

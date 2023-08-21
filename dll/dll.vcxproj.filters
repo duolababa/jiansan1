@@ -192,6 +192,12 @@
     <ClInclude Include="内存_周常任务.h">
       <Filter>内存功能</Filter>
     </ClInclude>
+    <ClInclude Include="通信程序集.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="luac.h">
+      <Filter>Lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -325,6 +331,12 @@
     </ClCompile>
     <ClCompile Include="内存_周常任务.cpp">
       <Filter>内存功能</Filter>
+    </ClCompile>
+    <ClCompile Include="通信程序集.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="luac.cpp">
+      <Filter>Lua</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

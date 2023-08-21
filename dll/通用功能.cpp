@@ -52,7 +52,7 @@ CString UTF82WCS(const char* szU8)
 	for (int k = 0; k < wcsLen; k++)
 	{
 		dUCode = *(WORD*)(m_code + k * 2);
-		//MyTrace(L"%X",dUCode);
+		////MyTrace(L"%X",dUCode);
 		if (dUCode > 0xAC00 && dUCode < 0xE000)
 		{
 			continue;//韩文部分 不做处理
@@ -162,6 +162,24 @@ float R_Float(ULONG64 参_内存地址)
 		return 0.0;
 	}
 }
+
+double R_double(ULONG64 参_内存地址)
+{
+	__try {
+		if (IsBadReadPtr((VOID*)参_内存地址, 4))
+		{
+			return 0.0;
+		}
+		return *(double*)参_内存地址;
+	}
+	__except (1)
+	{
+		DebugPrintf("读双数型出错");
+		return 0.0;
+	}
+}
+
+
 DWORD R_DW(ULONG64 参_内存地址)
 {
 	__try {

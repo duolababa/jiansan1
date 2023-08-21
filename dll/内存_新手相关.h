@@ -13,6 +13,6 @@ class Ö±Éı
 {
 public:
 
-	static bool CALL_Ìø¹ıĞòÄ»(DWORD index);
+	static bool CALL_Ìø¹ıĞòÄ»(DWORD index ,DWORD rdx1);
 
 };

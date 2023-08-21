@@ -57,7 +57,7 @@ void SetHardwareBreakPoint()
 // 异常处理函数
 DWORD NTAPI ExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo)
 {
-	//MyTrace(L"0x%I64X | 0x%I64X", DWORD64(pExceptionInfo->ExceptionRecord->ExceptionAddress), g_dwBreakpoint);
+	////MyTrace(L"0x%I64X | 0x%I64X", DWORD64(pExceptionInfo->ExceptionRecord->ExceptionAddress), g_dwBreakpoint);
 	//if (pExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_SINGLE_STEP)
 	//{
 	//	if ((DWORD64)pExceptionInfo->ExceptionRecord->ExceptionAddress == g_dwBreakpoint)
@@ -122,7 +122,7 @@ DWORD NTAPI ExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo)
 // 设置硬件断点WIN10版本：挂起主线程->设置硬件断点->恢复主线程
 DWORD WINAPI SetHardwareBreakPointWIN10Version(DWORD TreadId)
 {
-	MyTrace(L"%d TreadId", TreadId);
+	//MyTrace(L"%d TreadId", TreadId);
 	HANDLE hMainThread = OpenThread(THREAD_ALL_ACCESS, TRUE, TreadId);
 	SuspendThread(hMainThread);
 	
@@ -135,13 +135,13 @@ DWORD WINAPI SetHardwareBreakPointWIN10Version(DWORD TreadId)
 	ctx.Dr2 = 0; // 设置硬件断点	
 	ctx.Dr3 = 0; // 设置硬件断点	
 	bool status = SetThreadContext(hMainThread, &ctx);
-	MyTrace(L"%d hMainThread %d", DWORD64(hMainThread), status);
+	//MyTrace(L"%d hMainThread %d", DWORD64(hMainThread), status);
 	ResumeThread(hMainThread);
 	return 0;
 }
 DWORD WINAPI SetHardwareBreakPointoffWIN10Version(DWORD TreadId)
 {
-	MyTrace(L"%d TreadId", TreadId);
+	//MyTrace(L"%d TreadId", TreadId);
 	HANDLE hMainThread = OpenThread(THREAD_ALL_ACCESS, TRUE, TreadId);
 
 	SuspendThread(hMainThread);
@@ -155,7 +155,7 @@ DWORD WINAPI SetHardwareBreakPointoffWIN10Version(DWORD TreadId)
 	ctx.Dr3 = 0; // 设置硬件断点	
 	//ctx.Dr1 = g_dwBreakpoint2; // 设置硬件断点	
 	bool status = SetThreadContext(hMainThread, &ctx);
-	MyTrace(L"%d hMainThread %d", DWORD64(hMainThread), status);
+	//MyTrace(L"%d hMainThread %d", DWORD64(hMainThread), status);
 	ResumeThread(hMainThread);
 	return 0;
 }

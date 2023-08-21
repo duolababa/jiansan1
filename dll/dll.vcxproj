@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{4cce4a7d-0667-481f-96cd-a867923aafe7}</ProjectGuid>
     <RootNamespace>dll</RootNamespace>
-    <ProjectName>ARKGFMax</ProjectName>
+    <ProjectName>meifu</ProjectName>
     <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>Intel C++ Compiler 16.0</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 19.2</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
@@ -176,6 +176,8 @@
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)lib\$(PlatformTarget);$(ProjectDir)Detours\ssib\$(PlatformTarget);$(ProjectDir)lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <StackReserveSize>3145728</StackReserveSize>
+      <StackCommitSize>3145728</StackCommitSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -198,6 +200,7 @@
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="ImGui\sytpe.hpp" />
+    <ClInclude Include="luac.h" />
     <ClInclude Include="luaFunc.h" />
     <ClInclude Include="MyCallFunction.h" />
     <ClInclude Include="pch.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="常量.h" />
     <ClInclude Include="游戏_主线.h" />
     <ClInclude Include="自定义数据类型.h" />
+    <ClInclude Include="通信程序集.h" />
     <ClInclude Include="通用功能.h" />
     <ClInclude Include="配置读取.h" />
   </ItemGroup>
@@ -246,6 +250,7 @@
     <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="luac.cpp" />
     <ClCompile Include="luaFunc.cpp" />
     <ClCompile Include="MyCallFunction.cpp" />
     <ClCompile Include="SDK\ClipboardExample.cpp" />
@@ -274,6 +279,7 @@
     <ClCompile Include="常用功能.cpp" />
     <ClCompile Include="常量.cpp" />
     <ClCompile Include="游戏_主线.cpp" />
+    <ClCompile Include="通信程序集.cpp" />
     <ClCompile Include="通用功能.cpp" />
     <ClCompile Include="配置读取.cpp" />
   </ItemGroup>

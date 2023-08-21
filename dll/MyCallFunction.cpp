@@ -14,5 +14,5 @@ void MyCallFun::test()
 {
     auto ptr = &add;
     auto result = call_function(ptr, 3, 10);
-    MyTrace(L"result: %d", result);
+    //MyTrace(L"result: %d", result);
 }

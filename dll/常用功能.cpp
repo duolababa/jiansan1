@@ -2,6 +2,23 @@
 #include "常用功能.h"
 #include <string>
 #include <atlstr.h>
+#include <iomanip>  
+#include <sstream>  
+CString ConvertDWORDToString(DWORD value)
+{
+	char buffer[20]; // 缓冲区，根据需要自行调整大小  
+	sprintf_s(buffer, sizeof(buffer), "%lu", value); // 将DWORD转换为字符串  
+	return CString(buffer);
+}
+
+CString FloatToString(float value)
+{
+	char buffer[50];
+	sprintf_s(buffer, sizeof(buffer), "%.2f", value);
+
+	return buffer;
+}
+
 
 string 常用功能::十进制转十六进制(unsigned long long n) {
 	const char* hex_table = "0123456789ABCDEF";
@@ -30,8 +47,8 @@ float 常用功能::计算距离(坐标_ 当前距离, 坐标_ 对方距离)
 	double xyz = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2)) / 100;*/
 
 
-	//MyTrace(L"对方坐标%0.f/%0.f/%0.f  \n", 对方距离.x, 对方距离.y, 对方距离.z);
-	//MyTrace(L"当前坐标%0.f/%0.f/%0.f  \n", 当前距离.x, 当前距离.y, 当前距离.z);
+	////MyTrace(L"对方坐标%0.f/%0.f/%0.f  \n", 对方距离.x, 对方距离.y, 对方距离.z);
+	////MyTrace(L"当前坐标%0.f/%0.f/%0.f  \n", 当前距离.x, 当前距离.y, 当前距离.z);
 	float dx = abs(当前距离.x - 对方距离.x);
 	float dy = abs(当前距离.y - 对方距离.y);
 	float dz = abs(当前距离.z - 对方距离.z);
@@ -43,7 +60,7 @@ float 常用功能::计算距离(坐标_ 当前距离, 坐标_ 对方距离)
 
 	float xyz = sqrt(x11 + x22+ x33);
 	//float xyz = float xyz = sqrt(x11 + x22); / 100;
-	//MyTrace(L"最终距离%0.f\n", xyz);
+	////MyTrace(L"最终距离%0.f\n", xyz);
 	return xyz/100;
 
 }

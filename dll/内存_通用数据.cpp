@@ -87,9 +87,9 @@ INT64 getResAddrById(DWORD dResTypeIndex)
 }
 INT64 getResAddrByTypeId(DWORD dResTypeIndex, DWORD dResId, DWORD dStartOffest, DWORD dNextOffest, DWORD dArraySize)
 {
-	//MyTrace(L"dResTypeIndex %d", dResTypeIndex);
+	////MyTrace(L"dResTypeIndex %d", dResTypeIndex);
 	INT64 dResAddr = getResAddrById(dResTypeIndex);
-	//MyTrace(L"地址0x%I64X \r\n", dResAddr);
+	////MyTrace(L"地址0x%I64X \r\n", dResAddr);
 	long dtotal = R_DW(dResAddr + dStartOffest + 0x44);
 	DWORD dHash = dResId & (dtotal - 1);
 	INT64 objStartAddr = R_QW(dResAddr + dStartOffest);//对象数组地址
@@ -117,7 +117,7 @@ INT64 getResAddrByTypeId(DWORD dResTypeIndex, DWORD dResId, DWORD dStartOffest, 
 				dObjAddr = R_QW(objStartAddr + dOffest + 4);
 				if (dResId == R_DW(objStartAddr + dOffest))
 				{
-					// MyTrace(L"地址0x%I64X \r\n",dObjAddr); 
+					// //MyTrace(L"地址0x%I64X \r\n",dObjAddr); 
 					return R_QW(dObjAddr + 4);
 				}
 			}
@@ -226,7 +226,7 @@ CString GetName(INT64 dNameAddr)
 	for (int k = 0; k < count / 2; k++)
 	{
 		dUCode = *(WORD*)(m_code + k * 2);
-		//MyTrace(L"%X",dUCode);
+		////MyTrace(L"%X",dUCode);
 		if (dUCode > 0xAC00 && dUCode < 0xE000)
 		{
 			continue;//韩文部分 不做处理
@@ -264,14 +264,14 @@ DWORD getEncryValue(INT64 dAttrAddr, DWORD dIndex)
 	DWORD dEncryValue = R_DW(dAttrAddr + 0x50 + dIndex * 8);
 	DWORD dKeyValue = R_DW(dAttrAddr + dKeyIndex * 8);
 	DWORD dCurValue = dEncryValue ^ dKeyValue;
-	//MyTrace(L"dKeyIndex %d  dEncryValue %d dKeyValue %d \r\n", dKeyIndex, dEncryValue, dKeyValue);
+	////MyTrace(L"dKeyIndex %d  dEncryValue %d dKeyValue %d \r\n", dKeyIndex, dEncryValue, dKeyValue);
 	return dCurValue;
 }
 
 INT64 getAttrAddr(DWORD dId)//内存_环境_取属性对象
 {
 	INT64 count = 0;
-	//MyTrace(L"getAttrAddr ID %d", dId);
+	////MyTrace(L"getAttrAddr ID %d", dId);
 	//INT64 gb_AttrList = 0x141e46ca0;//0x141687b40;
 	INT64 addr_1 = R_QW(游戏模块 + gb_AttrList);
 	DWORD dtotal = R_DW(addr_1 + 0xE0);
@@ -291,7 +291,7 @@ INT64 getAttrAddr(DWORD dId)//内存_环境_取属性对象
 			DWORD dNextIndex = 0;
 			while (1)
 			{
-				if (count >= 10000)
+				if (count >= 30000)
 				{
 					break;
 				}
@@ -375,16 +375,16 @@ uint64_t MurmurHash64A(const void* key, int len, unsigned int seed)
 	while (data != end)
 	{
 		uint64_t k = *data++;
-		//   MyTrace(L"0%I64X \r\n",k);
+		//   //MyTrace(L"0%I64X \r\n",k);
 		k *= m;
 		k ^= k >> r;
 		k *= m;
 
 		h ^= k;
 		h *= m;
-		//	MyTrace(L"0%I64X \r\n",h);
+		//	//MyTrace(L"0%I64X \r\n",h);
 	}
-	//  MyTrace(L"0%I64X \r\n",h);
+	//  //MyTrace(L"0%I64X \r\n",h);
 	const unsigned char* data2 = (const unsigned char*)data;
 
 	switch (len & 7)
@@ -395,11 +395,11 @@ uint64_t MurmurHash64A(const void* key, int len, unsigned int seed)
 	case 4: h ^= uint64_t(data2[3]) << 24;
 	case 3: h ^= uint64_t(data2[2]) << 16;
 	case 2: h ^= uint64_t(data2[1]) << 8;
-		//MyTrace(L"0%I64X \r\n",data2[0]);
+		////MyTrace(L"0%I64X \r\n",data2[0]);
 	case 1: h ^= uint64_t(data2[0]);
-		//MyTrace(L"0%I64X \r\n",h);
+		////MyTrace(L"0%I64X \r\n",h);
 		h *= m;
-		//MyTrace(L"0%I64X \r\n",h);
+		////MyTrace(L"0%I64X \r\n",h);
 	};
 
 	h ^= h >> r;
@@ -412,10 +412,10 @@ INT64  getStringAddrNew(DWORD dStrIndex, INT64 dStrAddr, DWORD dStrLen)
 {
 	//gb_Str = dm.GetModuleBaseAddr(L"LOSTARK.exe") + 0x4557008;//0x42C1320;
 	CString cTargetStr = R_CString(dStrAddr);
-	UINT64 dHashValue = MurmurHash64A(cTargetStr.MakeLower(), dStrLen * 2, 0XC70F6907);
-	//MyTrace(L"dHashValue %I64X \r\n",dHashValue);
+	UINT64 dHashValue = MurmurHash64A(cTargetStr.MakeLower(), dStrLen * 2, 0xC70F6907);
+	////MyTrace(L"dHashValue %I64X \r\n",dHashValue);
 	UINT64 dIndex = (UINT64)((INT)dHashValue + ((INT)(dHashValue >> 32)) * 0x17);
-	//MyTrace(L"dIndex %I64X \r\n",dIndex);
+	////MyTrace(L"dIndex %I64X \r\n",dIndex);
 	INT64 addr_1 = 游戏模块 + gb_Str + 0xD8;
 	DWORD dTotal = R_DW(addr_1 + 0x8C);
 	if (dTotal != 0)
@@ -430,7 +430,7 @@ INT64  getStringAddrNew(DWORD dStrIndex, INT64 dStrAddr, DWORD dStrLen)
 			dStartAddr = addr_1 + 0x80;
 		}
 		DWORD dTempOffest = ((dTotal - 1) & dIndex) * 4;
-		//MyTrace(L"dTempOffest %X \r\n",dTempOffest);
+		////MyTrace(L"dTempOffest %X \r\n",dTempOffest);
 		INT dEnIndex = R_DW(dStartAddr + dTempOffest);
 		if (dEnIndex != -1)
 		{

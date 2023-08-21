@@ -10,7 +10,7 @@ bool IDйг╥Яря╢Фтз(DWORD ID, vector<DWORD>& IDвИ)
 {
 	for (size_t j = 0; j < IDвИ.size(); j++)
 	{
-		//MyTrace(L"сеох╢Р╧жеп╤о  %d/%d", ID, IDвИ[j]);
+		////MyTrace(L"сеох╢Р╧жеп╤о  %d/%d", ID, IDвИ[j]);
 		if (ID == IDвИ[j])
 		{
 			return true;
@@ -87,9 +87,17 @@ size_t ╤алУ╪фйЩ = 0;
 bool сно╥::Pass╦Вжж╢╟©з()
 {
 
-	if (UI╧╕дэ::getGameCurStageValue() == 0 || UI╧╕дэ::getGameCurStageValue() == 3)
+	
+
+	if (UI╧╕дэ::сно╥IPрЛЁё())
 	{
-		MyTrace(L"╣╞╢╟");
+		Sleep(1000);
+		return true;
+	}
+
+	if (UI╧╕дэ::getGameCurStageValue() == 0 || UI╧╕дэ::getGameCurStageValue() == 3 || UI╧╕дэ::getGameCurStageValue() == 5)
+	{
+		//MyTrace(L"╣╞╢╟");
 		//if (UI╧╕дэ::ж╦╤╗UIйг╥Яотй╬(L"root1.arkui.frameCanvas.narrationAssistanceFrame") == true)
 		//{
 		//	UI╧╕дэ::Fun_NarrationAssistance_OnOff(0);
@@ -97,39 +105,43 @@ bool сно╥::Pass╦Вжж╢╟©з()
 		//	return true;
 		//}
 		CString ╣╞╢╟нд╠╬ = UI╧╕дэ::getMsgBoxText();
-		MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
+	
+
+	
 		if (╣╞╢╟нд╠╬.Find(L"Cannot connect") != -1)
 		{
-			MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
-			SendMessageToMoConter(122, L"нч╥╗а╛╫с╥ЧнЯфВ");
+			//MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
+		//	SendMessageToMoConter(122, L"нч╥╗а╛╫с╥ЧнЯфВ");
 			Sleep(10000);
 			return true;
 		}
 		if (╣╞╢╟нд╠╬.Find(L"Server authentication") != -1)
 		{
-			MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
-			SendMessageToMoConter(122, L"10010╣╞╢╟");
+			//MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
+			//SendMessageToMoConter(122, L"10010╣╞╢╟");
 			Sleep(10000);
 			//UI╧╕дэ::getMsgBoxTextList();
 			return true;
 		}
 		if (╣╞╢╟нд╠╬.Find(L"We are unable to provide") != -1)
 		{
-			MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
-			SendMessageToMoConter(122, L"IP╧ИйТ╣ьспнйлБ");
+			//MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
+			///SendMessageToMoConter(122, L"IP╧ИйТ╣ьспнйлБ");
 			Sleep(10000);
 			return true;
 		}
 		if (╣╞╢╟нд╠╬ != L"")
 		{
-			MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
-			SendMessageToMoConter(122, L"н╢ж╙╥ЧнЯфВ╣╞╢╟" + ╣╞╢╟нд╠╬);
+			//MyTrace(L"╣╞╢╟ %s", ╣╞╢╟нд╠╬);
+			//SendMessageToMoConter(122, L"н╢ж╙╥ЧнЯфВ╣╞╢╟" + ╣╞╢╟нд╠╬);
 			Sleep(10000);
 			//UI╧╕дэ::getMsgBoxTextList();
 			return true;
 		}
 		return false;
 	}
+
+
 
 	if (UI╧╕дэ::мкЁЖ╡к╣╔йг╥Я╢Р©╙())
 	{
@@ -146,9 +158,9 @@ bool сно╥::Pass╦Вжж╢╟©з()
 	}
 	if (╩╥╬Ё::йг╥Ятз╪стьрЁцФ2() || ╩╥╬Ё::йг╥Ятз╪стьрЁцФ())
 	{
-		MyTrace(L"╪стьрЁцФжп");
+		//MyTrace(L"╪стьрЁцФжп");
 		╤алУ╪фйЩ = ╤алУ╪фйЩ + 1;
-		SendMessageToMoConter(122, L"╤алУжп:" + уШйЩ╣╫нд╠╬(╤алУ╪фйЩ));
+		//SendMessageToMoConter(122, L"╤алУжп:" + уШйЩ╣╫нд╠╬(╤алУ╪фйЩ));
 		Sleep(3000);
 		return true;
 	}
@@ -159,20 +171,20 @@ bool сно╥::Pass╦Вжж╢╟©з()
 	}
 	if (╠╬хк::get_ActionTimingTime())
 	{
-		MyTrace(L"йг╥Я╤алУ %d", 1);
+		//MyTrace(L"йг╥Я╤алУ %d", 1);
 		Sleep(1000);
 		return true;
 	}
 	/*else if (UI╧╕дэ::йг╥Я╤алУ())
 	{
-		MyTrace(L"йг╥Я╤алУ %d", 1);
+		//MyTrace(L"йг╥Я╤алУ %d", 1);
 		Sleep(1000);
 		return true;
 	}*/
 	if (╠╬хк::х║╫ги╚пео╒().╣╠г╟╤╞вВ == 10)
 	{
 
-		MyTrace(L"╣╠г╟╤╞вВ %d", ╠╬хк::х║╫ги╚пео╒().╣╠г╟╤╞вВ);
+		//MyTrace(L"╣╠г╟╤╞вВ %d", ╠╬хк::х║╫ги╚пео╒().╣╠г╟╤╞вВ);
 		if (╣ьм╪::х║╣ьм╪ID() != 10201)
 		{
 			Sleep(1000);
@@ -240,7 +252,7 @@ bool сно╥::жВоъ_пРуб(QuestInfo_ жВоъхннЯ)
 			{
 				if (UI╧╕дэ::╬╜яИлУ╫ГцФйг╥Яотй╬() == false)
 				{
-					MyTrace(L"я║тЯж╟р╣");
+					//MyTrace(L"я║тЯж╟р╣");
 					пбйж::CALL_я║тЯж╟р╣(0xCD);
 					Sleep(5000);
 
@@ -252,21 +264,21 @@ bool сно╥::жВоъ_пРуб(QuestInfo_ жВоъхннЯ)
 				//objInfo_ ╢╔╥╒я║тЯж╟р╣2 = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(0x272F);
 				if (╢╔╥╒я║тЯж╟р╣.dResShow == 1)
 				{
-					MyTrace(L"я╟б╥╣╫0x272F");
+					//MyTrace(L"я╟б╥╣╫0x272F");
 					╣ьм╪::╠╬╣ьм╪я╟б╥(╢╔╥╒я║тЯж╟р╣.вЬ╠Й.x, ╢╔╥╒я║тЯж╟р╣.вЬ╠Й.y, ╢╔╥╒я║тЯж╟р╣.вЬ╠Й.z, 0);
 					Sleep(5000);
 					return false;
 				}
 				if (UI╧╕дэ::╬╜яИлУ╫ГцФйг╥Яотй╬() == false)
 				{
-					MyTrace(L"я║тЯлЕяИ");
+					//MyTrace(L"я║тЯлЕяИ");
 					пбйж::CALL_я║тЯлЕяИ(0xCD);
 					Sleep(5000);
 					return false;
 				}
 				if (UI╧╕дэ::лЕяИж╟р╣жп╫ГцФйг╥Яотй╬() == true)
 				{
-					MyTrace(L"мкЁЖлЕяИ");
+					//MyTrace(L"мкЁЖлЕяИ");
 					пбйж::CALL_мкЁЖлЕяИ();
 					Sleep(5000);
 					return false;
@@ -677,14 +689,14 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 11295, жВоъхннЯ.dQuestId, -1, 50);
 					return;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 12333, 34652, 292, 200);
 					return;
@@ -860,13 +872,13 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 	//	{
 	//		if (╠╬хк::х║вЬ╠Й().z > 1530)
 	//		{
-	//			MyTrace(L"╥ж╤н1");
+	//			//MyTrace(L"╥ж╤н1");
 	//			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), 15566, 11229, 1535, 50);
 	//			return;
 	//		}
 	//		if (╠╬хк::х║вЬ╠Й().z > 1200)
 	//		{
-	//			MyTrace(L"╥ж╤н2");
+	//			//MyTrace(L"╥ж╤н2");
 	//			if (╧╕дэ::рф╤╞╢Р╧ж(16679, 11454, 1279.82, 0, 300))
 	//			{
 	//				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), 16679, 11454, 1279.82, 50);
@@ -878,7 +890,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 	//	{
 	//		if (╠╬хк::х║вЬ╠Й().z > 1200)
 	//		{
-	//			MyTrace(L"╥ж╤н2");
+	//			//MyTrace(L"╥ж╤н2");
 	//			if (╧╕дэ::рф╤╞╢Р╧ж(16679, 11454, 1279.82, 0, 300))
 	//			{
 	//				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), 16679, 11454, 1279.82, 50);
@@ -896,7 +908,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 	//	{
 	//		if (╠╬хк::х║вЬ╠Й().z < 1050)
 	//		{
-	//			MyTrace(L"╥ж╤н2");
+	//			//MyTrace(L"╥ж╤н2");
 
 	//			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 	//			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 150);
@@ -926,7 +938,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 	//		{
 	//			if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 	//			{
-	//				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+	//				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 	//				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 	//				CString temp;
 	//				temp.Format(L"%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
@@ -937,7 +949,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 	//			}
 	//			if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 	//			{
-	//				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+	//				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 	//				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 	//				CString temp;
 	//				temp.Format(L"%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
@@ -971,7 +983,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 			{
 				if (╧╕дэ::й╟х║╣ю╬ъ(2000) == true)
 				{
-					MyTrace(L"╦╠╠╬жпё╛ящвЮюжфв");
+					//MyTrace(L"╦╠╠╬жпё╛ящвЮюжфв");
 					╠╬хк::CALL_ящвЮюжфв(1);
 					Sleep(10000);
 
@@ -1009,7 +1021,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					if (╧╕дэ::сеох╢Р╧ж(100))
 					{
 						if (╧╕дэ::сеохфф╩╣╩В╢Р╣ю╬ъ(500))
@@ -1068,7 +1080,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"всхннЯ1");
+					//MyTrace(L"всхннЯ1");
 					if (╧╕дэ::сеох╢Р╧ж(100))
 					{
 						if (╧╕дэ::сеохфф╩╣╩В╢Р╣ю╬ъ(2000))
@@ -1080,7 +1092,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"всхннЯ2");
+					//MyTrace(L"всхннЯ2");
 					if (╧╕дэ::сеох╢Р╧ж(100))
 					{
 						if (╧╕дэ::сеохфф╩╣╩В╢Р╣ю╬ъ(2000))//if (╧╕дэ::рф╤╞╢Р╧ж(8327, 6423, 256, 200, 500, 600))
@@ -1110,26 +1122,26 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed)
 				{
-					MyTrace(L"всхннЯ3");
+					//MyTrace(L"всхннЯ3");
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					if (GetDis(9042.29, 8507.98, -15356.8) <= 3000)
 					{
 						objInfo_ ╦╫╫ЭNPC = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(11360,0);
-						MyTrace(L"╦╫╫ЭNPC %d", ╦╫╫ЭNPC.dResId);
+						//MyTrace(L"╦╫╫ЭNPC %d", ╦╫╫ЭNPC.dResId);
 						if (╦╫╫ЭNPC.dResId == 11360)
 						{
 							╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╦╫╫ЭNPC.вЬ╠Й.x, ╦╫╫ЭNPC.вЬ╠Й.y, ╦╫╫ЭNPC.вЬ╠Й.z, 11360, жВоъхннЯ.dQuestId, -1, 600);
 							return;
 						}
 						╦╫╫ЭNPC = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(11333,0);
-						MyTrace(L"╦╫╫ЭNPC2 %d", ╦╫╫ЭNPC.dResId);
+						//MyTrace(L"╦╫╫ЭNPC2 %d", ╦╫╫ЭNPC.dResId);
 						if (╦╫╫ЭNPC.dResId == 11333)
 						{
 							╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╦╫╫ЭNPC.вЬ╠Й.x, ╦╫╫ЭNPC.вЬ╠Й.y, ╦╫╫ЭNPC.вЬ╠Й.z, 11333, жВоъхннЯ.dQuestId, -1, 600);
 							return;
 						}
 						╦╫╫ЭNPC = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(11289,0);
-						MyTrace(L"╦╫╫ЭNPC3 %d", ╦╫╫ЭNPC.dResId);
+						//MyTrace(L"╦╫╫ЭNPC3 %d", ╦╫╫ЭNPC.dResId);
 						if (╦╫╫ЭNPC.dResId == 11289)
 						{
 							╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╦╫╫ЭNPC.вЬ╠Й.x, ╦╫╫ЭNPC.вЬ╠Й.y, ╦╫╫ЭNPC.вЬ╠Й.z, 11289, жВоъхннЯ.dQuestId, -1, 600);
@@ -1150,7 +1162,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[3].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[3].dNeed)
 				{
-					MyTrace(L"всхннЯ4");
+					//MyTrace(L"всхннЯ4");
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					if (GetDis(7660, 8879, -18011) <= 3000)
 					{
@@ -1174,7 +1186,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 					}
 					else
 					{
-						MyTrace(L"г╟жц");
+						//MyTrace(L"г╟жц");
 						if (╧╕дэ::сеохфф╩╣╩В╢Р╣ю╬ъ(3000))//if (╧╕дэ::рф╤╞╢Р╧ж(8327, 6423, 256, 200, 500, 600))
 						{
 							╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7660, 8879, -18011, 50);
@@ -1197,7 +1209,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 				{
 					╧╕дэ::рф╤╞╢Р╧ж(9859, 4033, 517.211, 100, 1500, 600);
 					Sleep(500);
-					MyTrace(L"с╙╬х╟мм╪Юе");
+					//MyTrace(L"с╙╬х╟мм╪Юе");
 
 				}
 			}
@@ -1218,7 +1230,7 @@ void сно╥::жВоъ_юЁнд╧Чльбч╦Я╤Ш(QuestInfo_ жВоъхннЯ)
 			{
 				if (!╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(10847, 3961, 766))
 				{
-					MyTrace(L"╟ммл2");
+					//MyTrace(L"╟ммл2");
 					╧╕дэ::рф╤╞╢Р╧ж(9966, 3937, 517.211, 0, 1500, 500);
 					Sleep(1000);
 					return;
@@ -1369,7 +1381,7 @@ void сно╥::жВоъ_╟╡╦Яд╙к╧и╫б╢(QuestInfo_ жВоъхннЯ)
 			╩╥╬Ё::╠ИюЗх╚╡©╩╥╬Ё╤тоС(vsk);
 			for (size_t i = 0; i < vsk.size(); i++)
 			{
-				MyTrace(L"цШЁф %d", vsk[i].dObjId);
+				//MyTrace(L"цШЁф %d", vsk[i].dObjId);
 			}*/
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return;
@@ -1388,13 +1400,13 @@ void сно╥::жВоъ_╟╡╦Яд╙к╧и╫б╢(QuestInfo_ жВоъхннЯ)
 
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"1");
+					//MyTrace(L"1");
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 3251, 11883, 0, 3000, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID, 200);
 					return;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"2");
+					//MyTrace(L"2");
 					//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 3251, 11883, 0, 3000, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID, 300);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 3352.752, 13465.304, 0, 50, 100);
 					return;
@@ -1556,7 +1568,7 @@ void сно╥::жВоъ_╧З╬Ё╣ь╢Ь(QuestInfo_ жВоъхннЯ)
 					CString temp;
 					temp.Format(L"%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					╪схКсеох╢Р╧жID(temp);
-					MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+					//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 					╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 500, 2000, 200);
 					return;
 				}
@@ -1564,7 +1576,7 @@ void сно╥::жВоъ_╧З╬Ё╣ь╢Ь(QuestInfo_ жВоъхннЯ)
 				{
 
 					ActorInfo_ ╬ж_╫ги╚пео╒ = ╠╬хк::х║╫ги╚пео╒();
-					MyTrace(L"╫Ь╤х2 ╬ыфПв╢л╛ %d ", ╬ж_╫ги╚пео╒.╬ыфПв╢л╛);
+					//MyTrace(L"╫Ь╤х2 ╬ыфПв╢л╛ %d ", ╬ж_╫ги╚пео╒.╬ыфПв╢л╛);
 					if (╬ж_╫ги╚пео╒.╬ыфПв╢л╛ == 1)
 					{
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
@@ -1671,7 +1683,7 @@ void сно╥::жВоъ_╧З╬Ё╣ь╢Ь(QuestInfo_ жВоъхннЯ)
 			вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 			if (╫ги╚вЬ╠Й.y >= -858 || (-858) - ╫ги╚вЬ╠Й.y <= 50)
 			{
-				MyTrace(L"╥ж╤н1");
+				//MyTrace(L"╥ж╤н1");
 				if (╧╕дэ::рф╤╞╢Р╧ж(8268, -887, 483, 50, 1000, 100))
 				{
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8268, -887, 483, 50);
@@ -1907,7 +1919,7 @@ void сно╥::жВоъ_хЬ╤Шю╪╣бгПаЙ(QuestInfo_ жВоъхннЯ)
 					CString temp;
 					temp.Format(L"%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					╪схКсеох╢Р╧жID(temp);
-					MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+					//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 					╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 500, 2000, 200);
 					return;
 				}
@@ -2612,7 +2624,7 @@ void сно╥::жВоъ_хЬ╤Шю╪╣бгПаЙ(QuestInfo_ жВоъхннЯ)
 			ActorInfo_ ╫ги╚пео╒ = ╠╬хк::х║╫ги╚пео╒();
 			if (╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 1000, 3000, 300))
 			{
-				MyTrace(L"╣╫ж╦╤╗╣ь╣Ц╡и╪╞");
+				//MyTrace(L"╣╫ж╦╤╗╣ь╣Ц╡и╪╞");
 				if (╫ги╚пео╒.╬ыфПв╢л╛ == 1)
 				{
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬(17, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 3000, 0xEC6E, 100, 100);
@@ -3764,14 +3776,14 @@ void сно╥::жВоъ_╠х╤Ш╡╪и╜аж(QuestInfo_ жВоъхннЯ)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"╫Ь╤х1");
+					//MyTrace(L"╫Ь╤х1");
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(14, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 2000, 80607, 500, 250);
 					return;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"╫Ь╤х2");
+					//MyTrace(L"╫Ь╤х2");
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					if (!╧╕дэ::сеох╢Р╧ж(100))
 					{
@@ -3798,7 +3810,7 @@ void сно╥::жВоъ_╠х╤Ш╡╪и╜аж(QuestInfo_ жВоъхннЯ)
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed)
 				{
-					MyTrace(L"╫Ь╤х3");
+					//MyTrace(L"╫Ь╤х3");
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(14, хннЯвЬ╠Й.╣ьм╪ID, 23677, 18731, 1791, 2000, 80673, 500, 250);
 					return;
@@ -4389,7 +4401,7 @@ void сно╥::жВоъ_╪╓у╫ф╫т╜(QuestInfo_ жВоъхннЯ)
 			{
 				if (UI╧╕дэ::╧жнО╩Ви╠гСхд╫ГцФйг╥Я╢Р©╙())
 				{
-					MyTrace(L"╟╢H╥Ч╢с");
+					//MyTrace(L"╟╢H╥Ч╢с");
 					UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('H'));
 				}
 				else
@@ -5444,10 +5456,10 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 			{
 				//вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 				int ╫г╤х = DWORD(Get_Rel_Angle(9104, 43919, ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y) * 0.00549317);
-				MyTrace(L"╫г╤х %d", ╫г╤х);
+				//MyTrace(L"╫г╤х %d", ╫г╤х);
 				if (╫г╤х > 80 && ╫г╤х < 220)
 				{
-					MyTrace(L"╣зр╩╧ь ╫г╤х:%d", ╫г╤х);
+					//MyTrace(L"╣зр╩╧ь ╫г╤х:%d", ╫г╤х);
 					objInfo_ ©╙╧ьпео╒ = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(0x138E8);
 					if (©╙╧ьпео╒.dPortalOpen != 2 && ©╙╧ьпео╒.dObjId != 0)
 					{
@@ -5456,7 +5468,7 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 						{
 							if (GetDis(8168, 43876, 8709) <= 200)
 							{
-								MyTrace(L"╢Р╧ж");
+								//MyTrace(L"╢Р╧ж");
 								╧жнОпео╒.вЬ╠Й.x = 8724;
 								╧жнОпео╒.вЬ╠Й.y = 44160;
 								╧жнОпео╒.вЬ╠Й.z = 8705;
@@ -5487,7 +5499,7 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 				}
 				if (╫г╤х > 218 && ╫г╤х < 260)
 				{
-					MyTrace(L"╣зр╩╦Жрф╤╞╦║╟Е");
+					//MyTrace(L"╣зр╩╦Жрф╤╞╦║╟Е");
 					if (╠╬хк::йг╥Ятзвъб╥2())
 					{
 						Sleep(1000);
@@ -5540,7 +5552,7 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 				}
 				if (╫г╤х > 260 && ╫г╤х < 320)
 				{
-					MyTrace(L"╣з╤Ч╧ь ╫г╤х:%d", ╫г╤х);
+					//MyTrace(L"╣з╤Ч╧ь ╫г╤х:%d", ╫г╤х);
 					objInfo_ ©╙╧ьпео╒1 = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(0x138E9);
 					if (©╙╧ьпео╒1.dPortalOpen != 2 && ©╙╧ьпео╒1.dObjId != 0)
 					{
@@ -5549,7 +5561,7 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 						{
 							if (GetDis(10221, 41434, 8705) <= 200)
 							{
-								MyTrace(L"╢Р╧ж");
+								//MyTrace(L"╢Р╧ж");
 								╧жнОпео╒.вЬ╠Й.x = 10225.1;
 								╧жнОпео╒.вЬ╠Й.y = 42049.3;
 								╧жнОпео╒.вЬ╠Й.z = 8705;
@@ -5582,7 +5594,7 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 				}
 				if (╫г╤х >= 320 && ╫г╤х <= 349)
 				{
-					MyTrace(L"╣з╤Ч╦Жрф╤╞╦║╟Е %d", ╫г╤х);
+					//MyTrace(L"╣з╤Ч╦Жрф╤╞╦║╟Е %d", ╫г╤х);
 					if (╠╬хк::йг╥Ятзвъб╥())
 					{
 						Sleep(1000);
@@ -5640,17 +5652,17 @@ void сно╥::жВоъ_т╡╨Гж╝гП(QuestInfo_ жВоъхннЯ)
 				}
 				if (╫г╤х >= 350 || ╫г╤х <= 35)
 				{
-					MyTrace(L"╣зхЩ╫в╤н %d", ╫г╤х);
+					//MyTrace(L"╣зхЩ╫в╤н %d", ╫г╤х);
 					objInfo_ ©╙╧ьпео╒1 = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(0x138EA);
 					if (©╙╧ьпео╒1.dPortalOpen != 2 && ©╙╧ьпео╒1.dObjId != 0)
 					{
 						objInfo_ ╧жнОпео╒ = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(0x2BF99);
-						MyTrace(L"╧жнОпео╒ йг╥ЯкюмЖ%d", ╧жнОпео╒.dIsDead);
+						//MyTrace(L"╧жнОпео╒ йг╥ЯкюмЖ%d", ╧жнОпео╒.dIsDead);
 						if (╧жнОпео╒.dResId == 0x2BF99 && ©╙╧ьпео╒1.dResShow == 0 && ╧жнОпео╒.IsHide == false)
 						{
 							if (GetDis(11408, 44250, 8705) <= 200)
 							{
-								MyTrace(L"╢Р╧ж");
+								//MyTrace(L"╢Р╧ж");
 								╧жнОпео╒.вЬ╠Й.x = 11408;
 								╧жнОпео╒.вЬ╠Й.y = 44250;
 								╧жнОпео╒.вЬ╠Й.z = 8705;
@@ -6976,7 +6988,7 @@ void сно╥::жВоъ_╡╘бвягаЛ╣ь(QuestInfo_ жВоъхннЯ)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"╫Ь╤х1");
+					//MyTrace(L"╫Ь╤х1");
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╪схКсеох╢Р╧жID(L"82608");
 					╧╕дэ::рф╤╞╢Р╧ж(-15113, -14502, 512, 100, 1000, 50, true, 3000);
@@ -8724,13 +8736,13 @@ bool ╧╕дэ::©╙фТ╢╚км╣Ц()
 	}
 	objInfo_ ╦╫╫Э╢╚км╣Ц;
 	vector<objInfo_>╡и╪╞вИ;
-	//MyTrace(L"╠ИюЗ╡и╪╞нО");
+	////MyTrace(L"╠ИюЗ╡и╪╞нО");
 	╩╥╬Ё::╠ИюЗ╡и╪╞нО(╡и╪╞вИ);
-	MyTrace(L"╡и╪╞нОйЩа© %d", ╡и╪╞вИ.size());
+	//MyTrace(L"╡и╪╞нОйЩа© %d", ╡и╪╞вИ.size());
 	╦╫╫Э╢╚км╣Ц = х║ЁЖ╦╫╫Эн╢©╙фТ╣д╢╚км╣Ц(╡и╪╞вИ, 3000);
 	if (╦╫╫Э╢╚км╣Ц.dObjId != 0)
 	{
-		MyTrace(L"вН╫Эипн╢©╙фТ╢╚км╣Ц %s ╬ЮюК%0.3f", ╦╫╫Э╢╚км╣Ц.wName, ╦╫╫Э╢╚км╣Ц.fDis);
+		//MyTrace(L"вН╫Эипн╢©╙фТ╢╚км╣Ц %s ╬ЮюК%0.3f", ╦╫╫Э╢╚км╣Ц.wName, ╦╫╫Э╢╚км╣Ц.fDis);
 		if (╦╫╫Э╢╚км╣Ц.fDis > 200)
 		{
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╦╫╫Э╢╚км╣Ц.вЬ╠Й.x, ╦╫╫Э╢╚км╣Ц.вЬ╠Й.y, ╦╫╫Э╢╚км╣Ц.вЬ╠Й.z))
@@ -8868,7 +8880,7 @@ bool сно╥::ж╖оъ_бч╦Я╤Ш(vector<DWORD>& vsk)
 					{
 						сеох╢Р╧жID.clear();
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-						//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+						////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 						╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 11304, ж╖оъхннЯ.dQuestId, -1, 25);
 						/*if (хннЯвЬ╠Й.╣ьм╪ID == 0 && хннЯвЬ╠Й.x == 0)
 						{
@@ -8904,7 +8916,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 11410, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -8927,7 +8939,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 					if (ж╖оъхннЯ.dStep == 1)
 					{
 						ActorInfo_ ╬ж_╫ги╚пео╒ = ╠╬хк::х║╫ги╚пео╒();
-						MyTrace(L"╬ыфПв╢л╛ %d", ╬ж_╫ги╚пео╒.╬ыфПв╢л╛);
+						//MyTrace(L"╬ыфПв╢л╛ %d", ╬ж_╫ги╚пео╒.╬ыфПв╢л╛);
 						if (╬ж_╫ги╚пео╒.╬ыфПв╢л╛ == 1)
 						{
 							вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
@@ -8960,7 +8972,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2C8F, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -8987,7 +8999,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 					CString temp;
 					temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 					╪схКсеох╢Р╧жID(L"122030");
-					MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+					//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 					╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 500, 3000, 200);
 					/*╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 1000, ж╖оъхннЯ.TargetId, 100, 150);*/
 					return false;
@@ -8995,7 +9007,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2C93, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9022,7 +9034,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 							╪схКсеох╢Р╧жID(L"122030");
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(2796, 14266, 0, 500, 3000, 200);
 							return false;
 						}
@@ -9032,7 +9044,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 							╪схКсеох╢Р╧жID(L"122010");
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(2796, 14266, 0, 500, 2000, 100);
 							return false;
 						}
@@ -9045,7 +9057,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2C94, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9068,7 +9080,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 					CString temp;
 					temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 					╪схКсеох╢Р╧жID(temp);
-					MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+					//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 					╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 500, 3000, 200);
 					/*╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 1000, ж╖оъхннЯ.TargetId, 100, 150);*/
 					return false;
@@ -9076,7 +9088,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2C98, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9107,7 +9119,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2C99, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9133,7 +9145,7 @@ bool сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2C9A, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9166,7 +9178,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2DE0, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9196,7 +9208,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 500, 3000, 200);
 							return false;
 						}
@@ -9206,7 +9218,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 500, 3000, 100);
 							return false;
 						}
@@ -9215,7 +9227,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2CC0, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9231,12 +9243,12 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 	}
 	if (хннЯ::хннЯйг╥ЯрямЙЁи(208004, vsk) || хннЯ::х║ЁЖж╦╤╗жВоъхннЯ(208004).dStep >= 2)//╧З╬Ё╣ь╢Ь о╝╩Вилме╣дйгё©
 	{
-		//MyTrace(L"208004");
+		////MyTrace(L"208004");
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x32CF1, vsk))//╣╠й╠╣д╩ьрД  тзбрЁир╩╤я╣д╠╕оДюОур╣╫<FONT COLOR='#CFF960'>р╘оД</FONT>
 		{
 			if (!хннЯ::йг╥Яря╫схннЯ(0x32CF1))
 			{
-				MyTrace(L"╫с0x32CF1");
+				//MyTrace(L"╫с0x32CF1");
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(1, 10222, 6568, 13424, 0, 0x2CC0, 0x32CF1, 50);
 				return false;
 			}
@@ -9255,7 +9267,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dStep == 2)//ж╖т╝<FONT COLOR='#CFF960'>╧З╬ЁизкЫ</FONT>
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2CC5, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9270,7 +9282,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 					if (ж╖оъхннЯ.dState == 2)//ж╖т╝<FONT COLOR='#CFF960'>╧З╬ЁизкЫ</FONT>
 					{
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-						//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+						////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 						╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, ж╖оъхннЯ.dQuestId, -1, 100);
 						return false;
 					}
@@ -9298,7 +9310,7 @@ bool сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vector<DWORD>& vsk)
 				if (ж╖оъхннЯ.dState == 2)//ж╖т╝<FONT COLOR='#CFF960'>╧З╬ЁизкЫ</FONT>
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x2CCB, ж╖оъхннЯ.dQuestId, -1, 25);
 					return false;
 				}
@@ -9403,7 +9415,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1000, 150);
 							return false;
 						}
@@ -9436,7 +9448,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 						CString temp;
 						temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 						╪схКсеох╢Р╧жID(temp);
-						MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+						//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 						╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1000, 150);
 						return false;
 					}
@@ -9499,7 +9511,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 							╪схКсеох╢Р╧жID(L"60152");
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 5000, 100, true, 200);
 							return false;
 
@@ -9532,7 +9544,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 					CString temp;
 					temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 					╪схКсеох╢Р╧жID(temp);
-					MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+					//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 					╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 2000, 150);
 					return false;
 				}
@@ -9578,7 +9590,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1500, 150);
 							return false;
 						}
@@ -9588,7 +9600,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1500, 150);
 							return false;
 
@@ -9627,7 +9639,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 						CString temp;
 						temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 						╪схКсеох╢Р╧жID(temp);
-						MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+						//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 						╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 500, 150);
 						return false;
 					}
@@ -9637,7 +9649,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 						CString temp;
 						temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 						╪схКсеох╢Р╧жID(temp);
-						MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+						//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 						╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 500, 150);
 						return false;
 
@@ -9678,7 +9690,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 500, 150);
 							return false;
 
@@ -9745,7 +9757,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 					CString temp;
 					temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 					╪схКсеох╢Р╧жID(temp);
-					MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+					//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 					╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 2000, 150, true, 100);
 					return false;
 				}
@@ -9777,7 +9789,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 						CString temp;
 						temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 						╪схКсеох╢Р╧жID(temp);
-						MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+						//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 						╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 300, 150);
 						return false;
 					}
@@ -9888,7 +9900,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1500, 150);
 							return false;
 						}
@@ -9898,7 +9910,7 @@ bool сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vector<DWORD>& vsk)
 							CString temp;
 							temp.Format(L"%d", ж╖оъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 							╪схКсеох╢Р╧жID(temp);
-							MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+							//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 							╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1500, 150);
 							return false;
 						}
@@ -10074,7 +10086,7 @@ bool сно╥::ж╖оъ_╟бвх╩ТгПаЙ(vector<DWORD>& vsk)
 						CString temp;
 						temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 						╪схКсеох╢Р╧жID(temp);
-						MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+						//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 						╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 300, 1500, 150);
 						return false;
 					}
@@ -10102,7 +10114,7 @@ bool сно╥::ж╖оъ_╟бвх╩ТгПаЙ(vector<DWORD>& vsk)
 						CString temp;
 						temp.Format(L"%d", ж╖оъхннЯ.TargetId);
 						╪схКсеох╢Р╧жID(temp);
-						MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
+						//MyTrace(L"сеох╢Р╧жйЩа©%d", сеох╢Р╧жID.size());
 						╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 100, 500, 150);
 						return false;
 					}
@@ -10391,7 +10403,7 @@ bool сно╥::ж╖оъ_тЗ╦Яю╜к╧и╫(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0xC3D37, vsk))
 		{
-			MyTrace(L"0xC3D37 н╢мЙЁи");
+			//MyTrace(L"0xC3D37 н╢мЙЁи");
 			if (!хннЯ::йг╥Яря╫схннЯ(0xC3D37))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(14, 10811, 4353, 2670, 1024, 0x2EE2, 0xC3D37, 50);
@@ -10399,14 +10411,14 @@ bool сно╥::ж╖оъ_тЗ╦Яю╜к╧и╫(vector<DWORD>& vsk)
 			}
 			else
 			{
-				//MyTrace(L"0xC3D37 ря╫с");
+				////MyTrace(L"0xC3D37 ря╫с");
 				QuestInfo_ ж╖оъхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0xC3D37);
 				if (ж╖оъхннЯ.dState == 1)
 				{
-					//MyTrace(L"0xC3D37 state=1");
+					////MyTrace(L"0xC3D37 state=1");
 					if (ж╖оъхннЯ.dStep == 1)
 					{
-						//MyTrace(L"0xC3D37 dStep=1");
+						////MyTrace(L"0xC3D37 dStep=1");
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(14, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 1500, 0x139B8, 100, 200);
 						return false;
@@ -10439,10 +10451,10 @@ bool сно╥::ж╖оъ_тЗ╦Яю╜к╧и╫(vector<DWORD>& vsk)
 				QuestInfo_ ж╖оъхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0xC3D3A);
 				if (ж╖оъхннЯ.dState == 1)
 				{
-					//MyTrace(L"0xC3D37 state=1");
+					////MyTrace(L"0xC3D37 state=1");
 					if (ж╖оъхннЯ.dStep == 1)
 					{
-						//MyTrace(L"0xC3D37 dStep=1");
+						////MyTrace(L"0xC3D37 dStep=1");
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(14, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 200);
 						return false;
@@ -10928,7 +10940,7 @@ bool сно╥::ж╖оъ_ц╥╣бюО©кпч╣ют╨(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0xC48FB, vsk))
 		{
-			MyTrace(L"ж╢ппж╖оъ %x", 0xC48FB);
+			//MyTrace(L"ж╢ппж╖оъ %x", 0xC48FB);
 			if (!хннЯ::йг╥Яря╫схннЯ(0xC48FB))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(14, 10813, 28895, -1797, 2673, 0x2F4F, 0xC48FB, 50);
@@ -10960,7 +10972,7 @@ bool сно╥::ж╖оъ_ц╥╣бюО©кпч╣ют╨(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0xC48F5, vsk))
 		{
-			MyTrace(L"ж╢ппж╖оъ %x", 0xC48F5);
+			//MyTrace(L"ж╢ппж╖оъ %x", 0xC48F5);
 			if (!хннЯ::йг╥Яря╫схннЯ(0xC48F5))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(14, 10813, 26805, 12770, 609, 0x2F7E, 0xC48F5, 50);
@@ -11039,7 +11051,7 @@ bool сно╥::ж╖оъ_ц╥╣бюО©кпч╣ют╨(vector<DWORD>& vsk)
 	{
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0xC48FA, vsk))
 		{
-			MyTrace(L"ж╢ппж╖оъ %x", 0xC48FA);
+			//MyTrace(L"ж╢ппж╖оъ %x", 0xC48FA);
 			if (!хннЯ::йг╥Яря╫схннЯ(0xC48FA))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(14, 10813, 21062, 17353, 0, 0x2F14, 0xC48FA, 50);
@@ -11052,7 +11064,7 @@ bool сно╥::ж╖оъ_ц╥╣бюО©кпч╣ют╨(vector<DWORD>& vsk)
 	{
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0xC48FA, vsk))
 		{
-			MyTrace(L"ж╢ппж╖оъ %x", 0xC48FA);
+			//MyTrace(L"ж╢ппж╖оъ %x", 0xC48FA);
 			if (!хннЯ::йг╥Яря╫схннЯ(0xC48FA))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(14, 10813, 21062, 17353, 0, 0x2F14, 0xC48FA, 50);
@@ -11455,7 +11467,7 @@ bool сно╥::ж╖оъ_╠х╤Ш╡╪и╜аж(vector<DWORD>& vsk)
 	}
 	/*if (хннЯ::хннЯйг╥ЯрямЙЁи(822001, vsk))
 	{
-		MyTrace(L"822001 рямЙЁи");
+		//MyTrace(L"822001 рямЙЁи");
 		if (╣ьм╪::х║╣ьм╪ID() == 10855)
 		{
 			╠╬хк::CALL_ящвЮюжфв(1);
@@ -15142,7 +15154,7 @@ bool сно╥::ж╖оъ_йю╫Г1(vector<DWORD>& vsk)
 {
 	if (хннЯ::хннЯйг╥ЯрямЙЁи(1002002, vsk) || хннЯ::х║ЁЖж╦╤╗жВоъхннЯ(1002002).dStep >= 2) //╣ьж╥0x219CA950010 вйт╢╣ьж╥0x21A05377A80 хннЯID C3CD1 юЮпм0 ╡╫жХ3 в╢л╛1 йг╥ЯрявЖ0 сЖо╝╣др╙хШ  
 	{
-		//MyTrace(L"ж╖оъ 0xF4A76");
+		////MyTrace(L"ж╖оъ 0xF4A76");
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0xF4A76, vsk))
 		{
 			if (!хннЯ::йг╥Яря╫схннЯ(0xF4A76))
@@ -16492,7 +16504,7 @@ bool сно╥::ж╖оъ_йю╫Г4(vector<DWORD>& vsk)
 				{
 					if (ж╖оъхннЯ.dStep == 1)
 					{
-						MyTrace(L"╦Звы1");
+						//MyTrace(L"╦Звы1");
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╖оъхннЯ.dQuestId, ж╖оъхннЯ.objBase, ж╖оъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 						return false;
@@ -16509,16 +16521,16 @@ bool сно╥::ж╖оъ_йю╫Г4(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x10D8E6, vsk))//сЙ╨мпгпг╨м╥Г   н╢п╢мЙ
 		{
-			MyTrace(L"╦Звы7");
+			//MyTrace(L"╦Звы7");
 			if (!хннЯ::йг╥Яря╫схннЯ(0x10D8E6))
 			{
-				MyTrace(L"╫схннЯ");
+				//MyTrace(L"╫схннЯ");
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(18, 11113, 1503, 2867, 4120, 22270, 0x10D8E6, 150);
 				return false;
 			}
 			else
 			{
-				MyTrace(L"вЖхннЯ");
+				//MyTrace(L"вЖхннЯ");
 				QuestInfo_ ж╖оъхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0x10D8E6);
 				if (ж╖оъхннЯ.dState == 1)
 				{
@@ -16597,7 +16609,7 @@ bool сно╥::ж╖оъ_йю╫Г4(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x10D8E7, vsk))//╧Щх╔╣дгЮдЙ 
 		{
-			MyTrace(L"╦Звы8");
+			//MyTrace(L"╦Звы8");
 			if (!хннЯ::йг╥Яря╫схннЯ(0x10D8E7))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(18, 11113, 7375, 8338, 4490, 22278, 0x10D8E7, 150);
@@ -16662,7 +16674,7 @@ bool сно╥::ж╖оъ_йю╫Г4(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x10D8E8, vsk))//сЙ╨мпгпг╨м╥Г   н╢п╢мЙ
 		{
-			MyTrace(L"╦Звы9");
+			//MyTrace(L"╦Звы9");
 			if (!хннЯ::йг╥Яря╫схннЯ(0x10D8E8))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(18, 11113, 19303, 8900, 3466, 22271, 0x10D8E8, 150);
@@ -16751,7 +16763,7 @@ bool сно╥::ж╖оъ_йю╫Г4(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x10D8E9, vsk))//сЙ╨мпгпг╨м╥Г   н╢п╢мЙ
 		{
-			MyTrace(L"╦Звы10");
+			//MyTrace(L"╦Звы10");
 			if (!хннЯ::йг╥Яря╫схннЯ(0x10D8E9))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(18, 11113, 10383, 15434, 3467, 22280, 0x10D8E9, 150);
@@ -16805,7 +16817,7 @@ bool сно╥::ж╖оъ_йю╫Г4(vector<DWORD>& vsk)
 		}
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x10D8EA, vsk))//╤ИбДфОй©ме╣д╟╡о╒m
 		{
-			MyTrace(L"╦Звы11");
+			//MyTrace(L"╦Звы11");
 			if (!хннЯ::йг╥Яря╫схннЯ(0x10D8EA))
 			{
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(18, 11113, 19541, 14149, 3975, 22283, 0x10D8EA, 150);
@@ -16937,7 +16949,7 @@ bool сно╥::ж╢пп╢╔╥╒хннЯ()
 	QuestInfo_ ╢╔╥╒хннЯ = хннЯ::х║ЁЖ╢╔╥╒хннЯ();
 	if (╢╔╥╒хннЯ.dQuestId != 0)
 	{
-		MyTrace(L"╢╔╥╒хннЯ [%s] Questid [%d]", ╢╔╥╒хннЯ.QuestName, ╢╔╥╒хннЯ.dQuestId);
+		//MyTrace(L"╢╔╥╒хннЯ [%s] Questid [%d]", ╢╔╥╒хннЯ.QuestName, ╢╔╥╒хннЯ.dQuestId);
 		if (╢╔╥╒хннЯ.dQuestId == 0xC40B9)
 		{
 			if (╢╔╥╒хннЯ.dState == 1)
@@ -17308,20 +17320,20 @@ bool сно╥::ж╢пп╢╔╥╒хннЯ()
 bool сно╥::ж╢пп╦╠╠╬хннЯ()
 {
 	QuestInfo_ жВоъхннЯ = хннЯ::х║ЁЖ╦╠╠╬хннЯ();
-	MyTrace(L"хннЯID %d<%I64X> ╦╠╠╬хннЯ: %s ╫в╤н%d в╢л╛%d ╣╠г╟╣ьм╪ %d всхннЯйЩа© %d ╡ывВ %s", жВоъхннЯ.dQuestId, жВоъхннЯ.dQuestId, жВоъхннЯ.QuestName, жВоъхннЯ.dStep, жВоъхннЯ.dState, ╣ьм╪::х║╣ьм╪ID(), жВоъхннЯ.всхннЯ╫Ь╤х.size(), жВоъхннЯ.QuestOption);
+	//MyTrace(L"хннЯID %d<%I64X> ╦╠╠╬хннЯ: %s ╫в╤н%d в╢л╛%d ╣╠г╟╣ьм╪ %d всхннЯйЩа© %d ╡ывВ %s", жВоъхннЯ.dQuestId, жВоъхннЯ.dQuestId, жВоъхннЯ.QuestName, жВоъхннЯ.dStep, жВоъхннЯ.dState, ╣ьм╪::х║╣ьм╪ID(), жВоъхннЯ.всхннЯ╫Ь╤х.size(), жВоъхннЯ.QuestOption);
 	if (жВоъхннЯ.dQuestId == 204002)//ц╥╣блА╧╘ак╤╬в╕м╣╣амем╥д©╡ьиМ╣д╤╢я╗н╩жц.дг╦Ж╤╢я╗н╩сз©ф╤Швхи╜аж╦╫╫Эё╛╣╚╨цоЯ╩╧ц╩сп╠╩╬╞╠╦╤ст╠цг╥╒ож.<br>н╙ак╬║©Лур╣╫т©ж╝й╞╟Её╛дЦ╠Ц╢рц╕╦омЫм╣╣аме╡ьиМ╣д╤╢я╗.
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
 			if (╠╬хк::х║вЬ╠Й().z > 1530)
 			{
-				MyTrace(L"╥ж╤н1");
+				//MyTrace(L"╥ж╤н1");
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), 15566, 11229, 1535, 50);
 				return false;
 			}
 			if (╠╬хк::х║вЬ╠Й().z > 1200)
 			{
-				MyTrace(L"╥ж╤н2");
+				//MyTrace(L"╥ж╤н2");
 				if (╧╕дэ::рф╤╞╢Р╧ж(16679, 11454, 1279.82, 0, 300))
 				{
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), 16679, 11454, 1279.82, 50);
@@ -17333,7 +17345,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		{
 			if (╠╬хк::х║вЬ╠Й().z > 1200)
 			{
-				MyTrace(L"╥ж╤н2");
+				//MyTrace(L"╥ж╤н2");
 				if (╧╕дэ::сеох╢Р╧ж(2000))
 				{
 					╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), 16679, 11454, 1280, 100);
@@ -17352,7 +17364,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		{
 			if (╠╬хк::х║вЬ╠Й().z < 1050)
 			{
-				MyTrace(L"╥ж╤н2");
+				//MyTrace(L"╥ж╤н2");
 
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 150);
@@ -17385,7 +17397,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					CString temp;
 					temp.Format(L"%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
@@ -17396,7 +17408,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					CString temp;
 					temp.Format(L"%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
@@ -17669,21 +17681,21 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		{
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 			{
-				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 				return false;
 			}
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 			{
-				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 				return false;
 			}
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur == 0)
 			{
-				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 				return false;
@@ -17755,21 +17767,21 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		{
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 			{
-				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 				return false;
 			}
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 			{
-				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 				return false;
 			}
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur == 0)
 			{
-				MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+				//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 				return false;
@@ -17864,14 +17876,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3 хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3 хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 0)
 			{
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 5648, 6842, 4331.8, 50, true))
 				{
 					хннЯаВЁл = 1;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(7000);
 				}
 				//╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50);
@@ -17881,7 +17893,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7178, 6847, 4338.56, 300, true))
 				{
 					хннЯаВЁл = 2;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(9000);
 				}
 			}
@@ -17889,14 +17901,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4 хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4 хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 2)
 			{
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 6417, 6919, 4343.23, 50, true))
 				{
 					хннЯаВЁл = 3;
-					MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(500);
 				}
 				//╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50);
@@ -17906,7 +17918,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 6517, 7499, 4338.56, 50, true))
 				{
 					хннЯаВЁл = 4;
-					MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(200);
 				}
 			}
@@ -17915,7 +17927,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 6785, 7841, 4338.56, 50, true))
 				{
 					хннЯаВЁл = 0;
-					MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(2000);
 				}
 			}
@@ -17924,17 +17936,17 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		if (жВоъхннЯ.dStep == 5)
 		{
 			хннЯаВЁл = 0;
-			MyTrace(L"Step5 хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step5 хннЯаВЁл %d", хннЯаВЁл);
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 			{
-				MyTrace(L"всхннЯ%d╫Ь╤х %s %d/%d TargetID:%d", 0, жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+				//MyTrace(L"всхннЯ%d╫Ь╤х %s %d/%d TargetID:%d", 0, жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 50);
 				return false;
 			}
 			if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 			{
-				MyTrace(L"всхннЯ%d╫Ь╤х %s %d/%d TargetID:%d", 1, жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+				//MyTrace(L"всхннЯ%d╫Ь╤х %s %d/%d TargetID:%d", 1, жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 50);
 				return false;
@@ -17954,11 +17966,11 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 8)
 		{
-			MyTrace(L"Step8 хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step8 хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 0)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 6750, 7640, 4338.56, 50, true))
 				{
 					хннЯаВЁл = 1;
@@ -17966,7 +17978,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 1)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(6518, 7049, 4338.56, 100, 131222))//т╤ю╢йгё║
 				{
 					хннЯаВЁл = 2;
@@ -17975,7 +17987,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 2)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 6528, 7412, 4338.56, 50, true))
 				{
 					хннЯаВЁл = 3;
@@ -17984,7 +17996,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 3)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 6429, 6885, 4343.23, 50, true))
 				{
 					хннЯаВЁл = 4;
@@ -17993,7 +18005,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 4)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7296, 6705, 4388.62, 50, true))
 				{
 					хннЯаВЁл = 5;
@@ -18002,7 +18014,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 5)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7728, 6711, 4466.11, 50, true))
 				{
 					хннЯаВЁл = 6;
@@ -18011,7 +18023,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 6)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7683, 6044, 4697, 50, true))
 				{
 					хннЯаВЁл = 7;
@@ -18019,12 +18031,12 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 7)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				//╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7749.000, 5544.000, 4733.580, 300, 131224)╥╣╩ьfalseё╛  ╬мвъ╣╫уБ╦ЖвЬ╠Й ╫ги╚вЬ╠Й 8115.000,5473.000,4744.053 
 				//╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8087.000, 5138.000, 4744.829, 300, 131224)╥╣╩ьfalseё╛  ╬мвъ╣╫хннЯвЬ╠Й 
 				bool еп╤о1 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7755, 5480, 4744.05, 400, 131224);
 				bool еп╤о2 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7727, 5461, 4744.05, 400, 131224);
-				MyTrace(L"Step8    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d", еп╤о1, еп╤о2);
+				//MyTrace(L"Step8    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d", еп╤о1, еп╤о2);
 				if (еп╤о1 || еп╤о2)
 				{
 					хннЯаВЁл = 8;
@@ -18032,7 +18044,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 8)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7545, 5027, 4742.73, 50, true))
 				{
 					хннЯаВЁл = 9;
@@ -18041,13 +18053,13 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 9)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8193, 4528, 4741, 300, 131224);
 				bool еп╤о2 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7723, 5718, 4697, 100, 131224);
 				bool еп╤о3 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8021, 4724, 4741, 300, 131224);
 				bool еп╤о4 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8398, 5240, 4743.52, 300, 131224);
 				bool еп╤о5 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8281.99, 4409.66, 4741, 300, 131224);
-				MyTrace(L"Step8    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  еп╤о4 %d  еп╤о5 %d", еп╤о1, еп╤о2, еп╤о3, еп╤о4, еп╤о5);
+				//MyTrace(L"Step8    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  еп╤о4 %d  еп╤о5 %d", еп╤о1, еп╤о2, еп╤о3, еп╤о4, еп╤о5);
 				if (еп╤о1 && еп╤о2 && еп╤о3 && еп╤о4 && еп╤о5)
 				{
 					хннЯаВЁл = 10;
@@ -18055,7 +18067,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 10)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8400, 4790, 4743.52, 50, true))
 				{
 					хннЯаВЁл = 11;
@@ -18064,7 +18076,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 11)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7995.35, 4592.81, 4741, 50, true))
 				{
 					хннЯаВЁл = 12;
@@ -18073,7 +18085,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 12)
 			{
-				MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7346, 5244, 4745, 50, true);
 			}
 			return false;
@@ -18090,10 +18102,10 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 0)
 			{
-				MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7975, 5130, 4744.83, 300, 131224);
 				bool еп╤о2 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7803, 5476, 4744.05, 300, 131224);
-				MyTrace(L"Step10    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d ", еп╤о1, еп╤о2);
+				//MyTrace(L"Step10    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d ", еп╤о1, еп╤о2);
 				if (еп╤о1 && еп╤о2)
 				{
 					if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7983, 5497, 4744.05, 50, true))
@@ -18105,11 +18117,11 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 1)
 			{
-				MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7719.92, 5713.94, 4697, 200, 131224);
 				bool еп╤о2 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7864.4, 4727.05, 4741, 200, 131224);
 				bool еп╤о3 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8862.5, 4598.91, 4744.93, 200, 131224);
-				MyTrace(L"Step10    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
+				//MyTrace(L"Step10    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
 				if (еп╤о1 && еп╤о2 && еп╤о3)
 				{
 					хннЯаВЁл = 2;
@@ -18118,7 +18130,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 
 			if (хннЯаВЁл == 2)
 			{
-				MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8905, 5141, 4750.82, 50, true))
 				{
 					хннЯаВЁл = 3;
@@ -18127,7 +18139,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 3)
 			{
-				MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 100);
 			}
@@ -18138,9 +18150,9 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 3)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = !╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8717, 4481, 4744.95, 200, 131224);
-				MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  ", еп╤о1);
+				//MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  ", еп╤о1);
 				if (еп╤о1)
 				{
 					хннЯаВЁл = 4;
@@ -18148,7 +18160,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 4)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8716, 4575, 4744.95, 50, true))
 				{
 					хннЯаВЁл = 5;
@@ -18157,7 +18169,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 5)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8866, 4357, 4744.95, 50, true))
 				{
 					хннЯаВЁл = 6;
@@ -18166,7 +18178,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 6)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 9354, 4233, 4682.6, 50, true))
 				{
 					хннЯаВЁл = 7;
@@ -18175,7 +18187,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 7)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 9354, 4233, 4682.6, 100);
 				хннЯаВЁл = 0;
 			}
@@ -18186,11 +18198,11 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 0)
 			{
-				MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8191.94, 4970.83, 4745.49, 200, 131224);
 				bool еп╤о2 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8635.85, 5583.67, 4745.52, 100, 131224);
 				bool еп╤о3 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8473, 4514.11, 4740.89, 100, 131224);
-				MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
+				//MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
 				if (еп╤о1 && еп╤о2 && еп╤о3)
 				{
 					хннЯаВЁл = 1;
@@ -18198,7 +18210,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 1)
 			{
-				MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8789, 4497, 4744.95, 50, true))
 				{
 					хннЯаВЁл = 2;
@@ -18207,7 +18219,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 2)
 			{
-				MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8470, 6036, 4744.55, 50, true))
 				{
 					хннЯаВЁл = 3;
@@ -18215,17 +18227,17 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 3)
 			{
-				MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8470, 6036, 4744.55, 100);
 				хннЯаВЁл = 4;
 			}
 			if (хннЯаВЁл == 4)
 			{
-				MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step12        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7894, 4854, 4744.829, 300, 131224);//  8713.11, 4381.14, 4744.86
 				bool еп╤о2 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8126, 5021, 4744.829, 200, 131224);//   8134.02, 4983.01, 4744.83
 				bool еп╤о3 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8589, 4350, 4744.952, 200, 131224);//   7887.23, 4877.73, 4744.65
-				MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
+				//MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
 				if (еп╤о1 && еп╤о2 && еп╤о3)
 				{
 					хннЯаВЁл = 5;
@@ -18233,7 +18245,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 5)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 8516.000, 5006.000, 4750.822, 50, true))//7983, 5497, 4744.05
 				{
 					хннЯаВЁл = 6;
@@ -18242,9 +18254,9 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 6)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7712, 5851, 4697, 100, 131224);
-				MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  ", еп╤о1);
+				//MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  ", еп╤о1);
 				if (еп╤о1)
 				{
 					хннЯаВЁл = 7;
@@ -18252,7 +18264,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 7)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7336, 5273, 4745, 50, true))
 				{
 					хннЯаВЁл = 8;
@@ -18261,7 +18273,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 8)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				вЬ╠Й_ хннЯвЬ╠Й2 = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й2.╢Сб╫ID, хннЯвЬ╠Й2.╣ьм╪ID, хннЯвЬ╠Й2.x, хннЯвЬ╠Й2.y, хннЯвЬ╠Й2.z, 0, жВоъхннЯ.dQuestId, -1, 50);
 				хннЯаВЁл = 9;
@@ -18273,11 +18285,11 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 4)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				bool еп╤о1 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8713.11, 4381.14, 4744.86, 200, 131224);
 				bool еп╤о2 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(8134.02, 4983.01, 4744.83, 100, 131224);
 				bool еп╤о3 = ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(7887.23, 4877.73, 4744.65, 100, 131224);
-				MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
+				//MyTrace(L"Step12    ╬╞нюеп╤о╫А╧Ш   еп╤о1 %d  еп╤о2 %d  еп╤о3 %d  ", еп╤о1, еп╤о2, еп╤о3);
 				if (еп╤о1 && еп╤о2 && еп╤о3)
 				{
 					хннЯаВЁл = 5;
@@ -18285,7 +18297,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 5)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 7737, 6436, 4549.89, 50, true))
 				{
 					хннЯаВЁл = 6;
@@ -18294,7 +18306,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			}
 			if (хннЯаВЁл == 6)
 			{
-				MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
+				//MyTrace(L"Step11        хннЯаВЁл %d", хннЯаВЁл);
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 9015, 7965, 4082, 50, true))
 				{
 					хннЯаВЁл = 0;
@@ -18383,7 +18395,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3 хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3 хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 0)
 			{
@@ -18396,7 +18408,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 					UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('G'));
 					Sleep(500);
 					хннЯаВЁл = 1;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(5000);
 				}
 			}
@@ -18405,7 +18417,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::рф╤╞╢Р╧ж(-4214, 3048, 289, 50, 1000, 500))
 				{
 					хннЯаВЁл = 2;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}
 			if (хннЯаВЁл == 2)
@@ -18413,7 +18425,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::рф╤╞╢Р╧ж(-2216.05, 1417.62, 415.535, 50, 1000, 500))
 				{
 					хннЯаВЁл = 3;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}
 			if (хннЯаВЁл == 3)
@@ -18421,7 +18433,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::рф╤╞╢Р╧ж(-812, -215, 289, 50, 1000, 500))
 				{
 					хннЯаВЁл = 3;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}
 			return false;
@@ -18487,7 +18499,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 					UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('G'));
 					Sleep(500);
 					хннЯаВЁл = 1;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(5000);
 				}
 			}
@@ -18506,7 +18518,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 2168.000, -237.000, -207.000, 50, true))
 				{
 					хннЯаВЁл = 3;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}
 			if (хннЯаВЁл == 3)
@@ -18514,7 +18526,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, -943.000, -73.000, 289.000, 50, true))
 				{
 					хннЯаВЁл = 4;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}
 			if (хннЯаВЁл == 4)
@@ -18526,7 +18538,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 					UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('G'));
 					Sleep(500);
 					хннЯаВЁл = 5;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(5000);
 				}
 			}//
@@ -18535,7 +18547,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::рф╤╞╢Р╧ж(-247.661, 2047.047, 433.000, 50, 3300, 500))
 				{
 					хннЯаВЁл = 6;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}//-309.000,1476.000,432.000
 			if (хннЯаВЁл == 6)
@@ -18543,7 +18555,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, true))
 				{
 					хннЯаВЁл = 7;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 				}
 			}//-309.000,1476.000,432.000
 			return false;
@@ -18567,7 +18579,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 					UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('G'));
 					Sleep(500);
 					хннЯаВЁл = 1;
-					MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+					//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 					Sleep(5000);
 				}
 			}//
@@ -18602,28 +18614,28 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(16108.6, 8007.48, 4685.07, 50, 1000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 1000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -18635,14 +18647,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(2328.000, 4864.000, -957.000))
 			{
@@ -18678,35 +18690,35 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		if (жВоъхннЯ.dStep == 3)
 		{
 			хннЯаВЁл = 0;
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(7967.853, 4131.286, -504.696, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(9877, 4858, 3, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 7)
 		{
-			//MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
+			////MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
 			//вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			//if (хннЯаВЁл == 0)
 			//{
@@ -18721,7 +18733,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 			//}
 			//return false;
 
-			MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z))
 			{
@@ -18736,21 +18748,21 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		if (жВоъхннЯ.dStep == 8)
 		{
 			хннЯаВЁл = 0;
-			MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 9)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 10)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			╪схКсеох╢Р╧жID(L"131583|131587");
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(15110, 16241, -15, 50, 3000, 500);
@@ -18758,7 +18770,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 11)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (!╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(15324.000, 17882.000, 25.000))
 			{
@@ -18789,14 +18801,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 13)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 20246.6, 22264.4, 892.865, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 14)
 		{
-			MyTrace(L"Step14       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step14       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z))
 			{
@@ -18811,21 +18823,21 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 15)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 26528.3, 26882.9, 1259.06, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 16)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 17)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -18837,7 +18849,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -18845,14 +18857,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		if (жВоъхннЯ.dStep == 2)
 		{
 			хннЯаВЁл = 0;
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -18863,26 +18875,26 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(-6385, -4461, 258.105))
 			{
-				MyTrace(L"Step2        хннЯ╣ь╣Ц©и╢О");
+				//MyTrace(L"Step2        хннЯ╣ь╣Ц©и╢О");
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			}
 			else
 			{
-				MyTrace(L"Step2        хннЯ╣ь╣Ц╡╩©и╢Оё╛г╟мЫгЕюМуо╟╜");
+				//MyTrace(L"Step2        хннЯ╣ь╣Ц╡╩©и╢Оё╛г╟мЫгЕюМуо╟╜");
 				if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, -6411, -9735, 522.105, 50))
 				{
-					MyTrace(L"Step2        хннЯ╣ь╣Ц╡╩©и╢Оё╛гЕюМуо╟╜");
+					//MyTrace(L"Step2        хннЯ╣ь╣Ц╡╩©и╢Оё╛гЕюМуо╟╜");
 					гЕюМ╩В╢Р╣ю╬ъ(-6428.07, -9696.1, 522.105, 500, 500);
 				}
 			}
@@ -18891,14 +18903,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		if (жВоъхннЯ.dStep == 3)
 		{
 			хннЯаВЁл = 0;
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(-987, -8094, 268.076))
 			{
@@ -18928,21 +18940,21 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, -556, -7717, 268.076, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 7)
 		{
-			MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 
@@ -18950,7 +18962,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 8)
 		{
-			MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step8        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z))
 			{
@@ -18980,7 +18992,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 9)// -1510.000,-785.000,550.955??
 		{
-			MyTrace(L"Step9        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step9        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z))
 			{
@@ -18998,7 +19010,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 10)
 		{
-			MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step10        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╧╕дэ::рф╤╞╢Р╧ж(-2420.000, 1473.000, 548.076, 50, 3000, 500))// -1584.908,-774.630,550.955
 			{
@@ -19008,7 +19020,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 11)
 		{
-			MyTrace(L"Step11       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step11       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
@@ -19021,14 +19033,14 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 13)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 14)
 		{
-			MyTrace(L"Step14       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step14       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(2934.000, 6223.000, 717.779))
 			{
@@ -19046,7 +19058,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 15)//youwnti
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╣ьм╪::╠╬╣ьм╪я╟б╥(5845.38, 6264.95, 1464.37, 0);
 			//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 5845.38, 6264.95, 1464.37, 50);
@@ -19054,28 +19066,28 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		}
 		if (жВоъхннЯ.dStep == 16)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, 3000, 500);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 17)
 		{
-			MyTrace(L"Step17        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step17        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 18)
 		{
-			MyTrace(L"Step18        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step18        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 19)
 		{
-			MyTrace(L"Step19        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step19        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -19085,49 +19097,49 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 7)
 		{
-			MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step7        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (UI╧╕дэ::╬╜яИлУ╫ГцФйг╥Яотй╬() == false)
 			{
@@ -19142,7 +19154,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
@@ -19150,7 +19162,7 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 		if (жВоъхннЯ.dStep == 2)
 		{
 			хннЯаВЁл = 0;
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
@@ -19161,131 +19173,131 @@ bool сно╥::ж╢пп╦╠╠╬хннЯ()
 }
 bool сно╥::ж╢ппж╖оъхннЯ()
 {
-	MyTrace(L"ж╢ппж╖оъхннЯ");
+	//MyTrace(L"ж╢ппж╖оъхннЯ");
 	//return true;
 	vector<DWORD>vsk;
 	хннЯ::get_FinishQuestList(vsk);
-	//MyTrace(L"еп╤оюЁнд╧Чльж╖оъ");
+	////MyTrace(L"еп╤оюЁнд╧Чльж╖оъ");
 	if (!сно╥::ж╖оъ_юЁнб╧Чль(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"еп╤обч╦Я╤Шж╖оъ");
+	////MyTrace(L"еп╤обч╦Я╤Шж╖оъ");
 	if (!сно╥::ж╖оъ_бч╦Я╤Ш(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"еп╤о╟╡╦Яд╙к╧и╫б╢ж╖оъ");
+	////MyTrace(L"еп╤о╟╡╦Яд╙к╧и╫б╢ж╖оъ");
 	if (!сно╥::ж╖оъ_╟╡╦Яд╙к╧и╫б╢(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"еп╤о╧З╬Ё╣ь╢Ьж╖оъ");
+	////MyTrace(L"еп╤о╧З╬Ё╣ь╢Ьж╖оъ");
 	if (!сно╥::ж╖оъ_╧З╬Ё╣ь╢Ь(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_хЬ╤Шю╪╣бгПаЙ");
+	////MyTrace(L"ж╖оъ_хЬ╤Шю╪╣бгПаЙ");
 	if (!сно╥::ж╖оъ_хЬ╤Шю╪╣бгПаЙ(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_╟бвх╩ТгПаЙ");
+	////MyTrace(L"ж╖оъ_╟бвх╩ТгПаЙ");
 	if (!сно╥::ж╖оъ_╟бвх╩ТгПаЙ(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_тЗ╦Яю╜к╧и╫");
+	////MyTrace(L"ж╖оъ_тЗ╦Яю╜к╧и╫");
 	if (!сно╥::ж╖оъ_тЗ╦Яю╜к╧и╫(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_юв©ф╟м");
+	////MyTrace(L"ж╖оъ_юв©ф╟м");
 	if (!сно╥::ж╖оъ_юв©ф╟м(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_ц╥╣бюО©кпч╣ют╨");
+	////MyTrace(L"ж╖оъ_ц╥╣бюО©кпч╣ют╨");
 	if (!сно╥::ж╖оъ_ц╥╣бюО©кпч╣ют╨(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_╠х╤Ш╡╪и╜аж");
+	////MyTrace(L"ж╖оъ_╠х╤Ш╡╪и╜аж");
 	if (!сно╥::ж╖оъ_╠х╤Ш╡╪и╜аж(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_╪╓у╫ф╫т╜");
+	////MyTrace(L"ж╖оъ_╪╓у╫ф╫т╜");
 	if (!сно╥::ж╖оъ_╪╓у╫ф╫т╜(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_б╛лью╪Ёг");
+	////MyTrace(L"ж╖оъ_б╛лью╪Ёг");
 	if (!сно╥::ж╖оъ_б╛лью╪Ёг(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_╣о╟бюШ©╗ф╫т╜");
+	////MyTrace(L"ж╖оъ_╣о╟бюШ©╗ф╫т╜");
 	if (!сно╥::ж╖оъ_╣о╟бюШ©╗ф╫т╜(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_т╡╨Гж╝гП");
+	////MyTrace(L"ж╖оъ_т╡╨Гж╝гП");
 	if (!сно╥::ж╖оъ_т╡╨Гж╝гП(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_юФйВфэо╒╣ь");
+	////MyTrace(L"ж╖оъ_юФйВфэо╒╣ь");
 	if (!сно╥::ж╖оъ_юФйВфэо╒╣ь(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_╨зц╣╧Е╫ллц");
+	////MyTrace(L"ж╖оъ_╨зц╣╧Е╫ллц");
 	if (!сно╥::ж╖оъ_╨зц╣╧Е╫ллц(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_ю╜раяг╫в╣ь");
+	////MyTrace(L"ж╖оъ_ю╜раяг╫в╣ь");
 	if (!сно╥::ж╖оъ_ю╜раяг╫в╣ь(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_╡╘бвягаЛ╣ь");
+	////MyTrace(L"ж╖оъ_╡╘бвягаЛ╣ь");
 	if (!сно╥::ж╖оъ_╡╘бвягаЛ╣ь(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_вв╡╗╦ш");
+	////MyTrace(L"ж╖оъ_вв╡╗╦ш");
 	if (!сно╥::ж╖оъ_вв╡╗╦ш(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_©фбч©кдАк╧сФ╢Е");
+	////MyTrace(L"ж╖оъ_©фбч©кдАк╧сФ╢Е");
 	if (!сно╥::ж╖оъ_©фбч©кдАк╧сФ╢Е(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_йю╫Г1");
+	////MyTrace(L"ж╖оъ_йю╫Г1");
 	if (!сно╥::ж╖оъ_йю╫Г1(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_йю╫Г2");
+	////MyTrace(L"ж╖оъ_йю╫Г2");
 	if (!сно╥::ж╖оъ_йю╫Г2(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_йю╫Г3");
+	////MyTrace(L"ж╖оъ_йю╫Г3");
 	if (!сно╥::ж╖оъ_йю╫Г3(vsk))
 	{
 		return false;
 	}
-	//MyTrace(L"ж╖оъ_йю╫Г4");
+	////MyTrace(L"ж╖оъ_йю╫Г4");
 	if (!сно╥::ж╖оъ_йю╫Г4(vsk))
 	{
 		return false;
 	}
-	MyTrace(L"еп╤омЙ╠о");
+	//MyTrace(L"еп╤омЙ╠о");
 	return true;
 	//205004
 }
@@ -19331,7 +19343,7 @@ bool сно╥::йю╫Г1(QuestInfo_ ╠ьвЖрЩ╣╪хннЯ)
 					if (UI╧╕дэ::йг╥Ятз╨╫╨ёв╪╠╦╫ГцФ())
 					{
 						UI╧╕дэ::╨╫╨ёЁЖ╦ш();
-						MyTrace(L"╨╫╨ёЁЖ╦ш");
+						//MyTrace(L"╨╫╨ёЁЖ╦ш");
 					}
 				}
 			}
@@ -21356,7 +21368,7 @@ bool сно╥::йю╫Г1(QuestInfo_ ╠ьвЖрЩ╣╪хннЯ)
 				}
 				if (!UI╧╕дэ::йг╥Ятз╨╫╨ёв╪╠╦╫ГцФ())
 				{
-					MyTrace(L"в╪╠╦ЁЖ╨╫");
+					//MyTrace(L"в╪╠╦ЁЖ╨╫");
 					UI╧╕дэ::в╪╠╦ЁЖ╨╫();
 					return false;
 				}
@@ -26727,7 +26739,7 @@ bool сно╥::йю╫Г4(QuestInfo_ жВоъхннЯ)
 			if (жВоъхннЯ.dStep == 2)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
-				MyTrace(L"хннЯ©Гт╫╠Ы╥Бж╝╨ёdStep2 ╣ь╣Ц  %0.3f %0.3f %0.3f ", хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
+				//MyTrace(L"хннЯ©Гт╫╠Ы╥Бж╝╨ёdStep2 ╣ь╣Ц  %0.3f %0.3f %0.3f ", хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
 				╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(18, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 				return false;
 			}
@@ -26735,7 +26747,7 @@ bool сно╥::йю╫Г4(QuestInfo_ жВоъхннЯ)
 		else
 		{
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
-			MyTrace(L"хннЯ©Гт╫╠Ы╥Бж╝╨ёdState=2 ╣ь╣Ц  %0.3f %0.3f %0.3f ", хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
+			//MyTrace(L"хннЯ©Гт╫╠Ы╥Бж╝╨ёdState=2 ╣ь╣Ц  %0.3f %0.3f %0.3f ", хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(18, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 			return false;
 		}
@@ -26767,14 +26779,14 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 				{
 					if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 					{
-						MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+						//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 11295, жВоъхннЯ.dQuestId, -1, 50);
 						return false;
 					}
 					if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 					{
-						MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+						//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 11295, жВоъхннЯ.dQuestId, -1, 50);
 						return false;
@@ -26794,14 +26806,14 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 				{
 					if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 					{
-						MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+						//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 						return false;
 					}
 					if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 					{
-						MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+						//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 						вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 						╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(4, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 100, жВоъхннЯ.dStep);
 						return false;
@@ -26945,7 +26957,7 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50); 
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(6, 10301, 9116, 6240, 1029, 0, жВоъхннЯ.dQuestId, -1, 50);
@@ -26953,7 +26965,7 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50); 
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 50);
@@ -27006,21 +27018,21 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur == 0)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 50);
 					return false;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur == 0)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 50);
 					return false;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur == 0)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[2].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[2].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[2].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[2].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0, жВоъхннЯ.dQuestId, -1, 50);
 					return false;
@@ -27324,7 +27336,7 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2 хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2 хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			if (хннЯаВЁл == 0)
 			{
@@ -27484,21 +27496,21 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50))
@@ -27509,7 +27521,7 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Цй╧сц╠МгИ(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50, ╧╕дэ::╥╣╩ь╠МгИ╠Ю╨е(L"ринй"));//ринй
 			//╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
@@ -27517,33 +27529,33 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step5        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step5        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step6        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step6        хннЯаВЁл %d", хннЯаВЁл);
 			if (жВоъхннЯ.всхннЯ╫Ь╤х.size() == 3)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х0 %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х0 %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 					return false;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х1 %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х1 %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 					return false;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х2 %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[2].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[2].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х2 %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[2].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[2].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[2].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[2].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.всхннЯ╫Ь╤х[2].TargetID, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 					return false;//ceshi 
@@ -27556,28 +27568,28 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -27588,56 +27600,56 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 7)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 100, 3000);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 8)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -27648,28 +27660,28 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 11583, 33527, 4814.38, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			if (╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50))
@@ -27680,21 +27692,21 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 24467, 25405, 4750, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 7)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 
@@ -27702,42 +27714,42 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 		}
 		if (жВоъхннЯ.dStep == 8)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 26153, 28853, 4750, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 9)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 22668, 32063, 4958.79, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 10)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 11)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::я╟б╥╣╫╦╠╠╬(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 12)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 13)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -27747,14 +27759,14 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 24906, 31071, 4733.15, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -27780,42 +27792,42 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::рф╤╞╢Р╧ж(хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 100, 3000);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step6       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step6       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 20991.000, 17548.000, 513.789, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -27826,35 +27838,35 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
@@ -27864,63 +27876,63 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::я╟б╥╣╫╦╠╠╬(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 4)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 5)
 		{
-			MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Цй╧сц╠МгИ(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, 23330, 21243, -503.354, 50, ╧╕дэ::╥╣╩ь╠МгИ╠Ю╨е(L"╠╞ик"));//ринй
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 6)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 7)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 8)
 		{
-			MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step4        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 50);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 9)
 		{
-			MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step5       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
@@ -27930,21 +27942,21 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::я╟б╥╣╫╦╠╠╬(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
 			return false;
@@ -27955,19 +27967,19 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			if (жВоъхннЯ.всхннЯ╫Ь╤х.size() == 2)
 			{
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[0].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[0].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[0].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[0].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, -1, жВоъхннЯ.dQuestId, -1, 50);
 					return false;
 				}
 				if (жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur < жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed)
 				{
-					MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
+					//MyTrace(L"всхннЯ╫Ь╤х %s %d/%d TargetID:%d", жВоъхннЯ.всхннЯ╫Ь╤х[1].хннЯцХйЖ, жВоъхннЯ.всхннЯ╫Ь╤х[1].dCur, жВоъхннЯ.всхннЯ╫Ь╤х[1].dNeed, жВоъхннЯ.всхннЯ╫Ь╤х[1].TargetID);
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, -1, жВоъхннЯ.dQuestId, -1, 50);
 					return false;
@@ -27976,14 +27988,14 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 3)
 		{
-			MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step3        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::я╟б╥╣╫╦╠╠╬(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z);
 			return false;
@@ -27994,14 +28006,14 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 	{
 		if (жВоъхннЯ.dStep == 1)
 		{
-			MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step1        хннЯаВЁл %d", хннЯаВЁл);
 			вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 			╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, жВоъхннЯ.TargetId, жВоъхннЯ.dQuestId, -1, 50, жВоъхннЯ.dStep);
 			return false;
 		}
 		if (жВоъхннЯ.dStep == 2)
 		{
-			MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
+			//MyTrace(L"Step2       хннЯаВЁл %d", хннЯаВЁл);
 			if (жВоъхннЯ.dState == 1)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
@@ -28010,7 +28022,7 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 			}
 			if (жВоъхннЯ.dState == 2)
 			{
-				MyTrace(L"Step2       dState %d", жВоъхннЯ.dState);
+				//MyTrace(L"Step2       dState %d", жВоъхннЯ.dState);
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(жВоъхннЯ.dQuestId, жВоъхннЯ.objBase, жВоъхннЯ.dResAddr);
 				QuestInfo_ я╟ур╥╫жшхннЯ = хннЯ::х║ЁЖя╟ур╥╫жшхннЯ();
 				if (я╟ур╥╫жшхннЯ.CurNum == 4)
@@ -28031,7 +28043,7 @@ bool сно╥::йю╫Г5(QuestInfo_ жВоъхннЯ)//╠Ы╣╨хннЯ
 bool сно╥::ж╢ппйю╫ГхннЯ()
 {
 	QuestInfo_ ╠ьвЖрЩ╣╪хннЯ = хннЯ::х║ЁЖйю╫ГхннЯ();
-	MyTrace(L"Type:%d QuestID:%d QuestName:%s ╫в╤н:%d  в╢л╛:%d ╣╠г╟╣ьм╪ID:%d всхннЯйЩа©:%d жВоъхннЯд©╠Й:%d ╡ывВ:%s", ╠ьвЖрЩ╣╪хннЯ.dType, ╠ьвЖрЩ╣╪хннЯ.dQuestId, ╠ьвЖрЩ╣╪хннЯ.QuestName, ╠ьвЖрЩ╣╪хннЯ.dStep, ╠ьвЖрЩ╣╪хннЯ.dState, ╣ьм╪::х║╣ьм╪ID(), ╠ьвЖрЩ╣╪хннЯ.всхннЯ╫Ь╤х.size(), ╠ьвЖрЩ╣╪хннЯ.TargetId, ╠ьвЖрЩ╣╪хннЯ.QuestOption);
+	//MyTrace(L"Type:%d QuestID:%d QuestName:%s ╫в╤н:%d  в╢л╛:%d ╣╠г╟╣ьм╪ID:%d всхннЯйЩа©:%d жВоъхннЯд©╠Й:%d ╡ывВ:%s", ╠ьвЖрЩ╣╪хннЯ.dType, ╠ьвЖрЩ╣╪хннЯ.dQuestId, ╠ьвЖрЩ╣╪хннЯ.QuestName, ╠ьвЖрЩ╣╪хннЯ.dStep, ╠ьвЖрЩ╣╪хннЯ.dState, ╣ьм╪::х║╣ьм╪ID(), ╠ьвЖрЩ╣╪хннЯ.всхннЯ╫Ь╤х.size(), ╠ьвЖрЩ╣╪хннЯ.TargetId, ╠ьвЖрЩ╣╪хннЯ.QuestOption);
 	if (!сно╥::йю╫Г1(╠ьвЖрЩ╣╪хннЯ))
 	{
 		return false;
@@ -28046,13 +28058,13 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 	{
 		if (хннЯ::йг╥Яря╫схннЯ(0x451FD9))
 		{
-			MyTrace(L"йг╥Яря╫сж╦рЩ %x", 0x451FD9);
+			//MyTrace(L"йг╥Яря╫сж╦рЩ %x", 0x451FD9);
 			QuestInfo_ ж╦рЩхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0x451FD9);
-			//MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ©и╫сж╦рЩ.QuestName, ©и╫сж╦рЩ.dQuestId, ©и╫сж╦рЩ.dStep, ©и╫сж╦рЩ.dState, ©и╫сж╦рЩ.QuestOption);
+			////MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ©и╫сж╦рЩ.QuestName, ©и╫сж╦рЩ.dQuestId, ©и╫сж╦рЩ.dStep, ©и╫сж╦рЩ.dState, ©и╫сж╦рЩ.QuestOption);
 			if (ж╦рЩхннЯ.dStep == 1)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-				//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+				////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50);
 				return false;
 			}
@@ -28067,7 +28079,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 				if (╧╕дэ::й╟х║╣ю╬ъ(3000))
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 1);
 				}
 				return false;
@@ -28076,7 +28088,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 			{
 
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-				//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+				////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 1);
 
 				return false;
@@ -28085,7 +28097,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 			{
 
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-				//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+				////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 0);
 
 				return false;
@@ -28103,13 +28115,13 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 
 		if (хннЯ::йг╥Яря╫схннЯ(0x451FDA))
 		{
-			//MyTrace(L"йг╥Яря╫сж╦рЩ %x", 0x451FD9);
+			////MyTrace(L"йг╥Яря╫сж╦рЩ %x", 0x451FD9);
 			QuestInfo_ ж╦рЩхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0x451FDA);
-			//MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ©и╫сж╦рЩ.QuestName, ©и╫сж╦рЩ.dQuestId, ©и╫сж╦рЩ.dStep, ©и╫сж╦рЩ.dState, ©и╫сж╦рЩ.QuestOption);
+			////MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ©и╫сж╦рЩ.QuestName, ©и╫сж╦рЩ.dQuestId, ©и╫сж╦рЩ.dStep, ©и╫сж╦рЩ.dState, ©и╫сж╦рЩ.QuestOption);
 			if (ж╦рЩхннЯ.dStep == 1)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-				//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+				////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 0);
 			}
 			if (ж╦рЩхннЯ.dStep == 2)
@@ -28117,7 +28129,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 				if (╠╬хк::уы╩╫ЁХнО())
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 0);
 				}
 
@@ -28125,7 +28137,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 			if (ж╦рЩхннЯ.dStep == 3)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-				//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+				////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 				╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 0);
 			}
 			if (ж╦рЩхннЯ.dStep == 4)
@@ -28138,13 +28150,13 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 				if (ж╦рЩхннЯ.dState == 1)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, ж╦рЩхннЯ.TargetId, ж╦рЩхннЯ.dQuestId, -1, 50, 0);
 				}
 				else
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
-					//MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+					////MyTrace(L"хннЯд©╠Й ╢Сб╫ID:%d ╣ьм╪ID %d ╠╬╢Сб╫IDё╨%d", хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 					╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(хннЯвЬ╠Й.╢Сб╫ID, хннЯвЬ╠Й.╣ьм╪ID, хннЯвЬ╠Й.x, хннЯвЬ╠Й.y, хннЯвЬ╠Й.z, 0x13899, ж╦рЩхннЯ.dQuestId, -1, 50, 0);
 				}
 			}
@@ -28260,9 +28272,9 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 	{
 		if (хннЯ::йг╥Яря╫схннЯ(0x10EC6E))
 		{
-			//MyTrace(L"йг╥Яря╫сж╦рЩ %x", 0x451FD9);
+			////MyTrace(L"йг╥Яря╫сж╦рЩ %x", 0x451FD9);
 			QuestInfo_ ж╦рЩхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0x10EC6E);
-			//MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ж╦рЩхннЯ.QuestName, ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.dStep, ж╦рЩхннЯ.dState, ©и╫сж╦рЩ.QuestOption);
+			////MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ж╦рЩхннЯ.QuestName, ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.dStep, ж╦рЩхннЯ.dState, ©и╫сж╦рЩ.QuestOption);
 			if (ж╦рЩхннЯ.dStep == 1)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
@@ -28296,7 +28308,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 			if (г╟жцхннЯ.IsFinish == 1)
 			{
 				QuestInfo_ ж╦рЩхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0x44AED1);
-				MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ©и╫сж╦рЩ.QuestName, ©и╫сж╦рЩ.dQuestId, ©и╫сж╦рЩ.dStep, ©и╫сж╦рЩ.dState, ©и╫сж╦рЩ.QuestOption);
+				//MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ©и╫сж╦рЩ.QuestName, ©и╫сж╦рЩ.dQuestId, ©и╫сж╦рЩ.dStep, ©и╫сж╦рЩ.dState, ©и╫сж╦рЩ.QuestOption);
 				if (ж╦рЩхннЯ.dStep == 1)
 				{
 					вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
@@ -28330,7 +28342,7 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 		if (хннЯ::йг╥Яря╫схннЯ(0x452019))
 		{
 			QuestInfo_ ж╦рЩхннЯ = хннЯ::х║ЁЖж╦╤╗ж╖оъхннЯ(0x452019);
-			//MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ж╦рЩхннЯ.QuestName, ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.dStep, ж╦рЩхннЯ.dState, ж╦рЩхннЯ.QuestOption);
+			////MyTrace(L"ж╦рЩхннЯ %s %X ╣╠г╟step %d state %d  %s", ж╦рЩхннЯ.QuestName, ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.dStep, ж╦рЩхннЯ.dState, ж╦рЩхннЯ.QuestOption);
 			if (ж╦рЩхннЯ.dStep == 2)
 			{
 				вЬ╠Й_ хннЯвЬ╠Й = хннЯ::CALL_х║хннЯвЬ╠Й(ж╦рЩхннЯ.dQuestId, ж╦рЩхннЯ.objBase, ж╦рЩхннЯ.dResAddr);
@@ -28494,12 +28506,12 @@ bool сно╥::ж╢ппж╦рЩхннЯ()
 }
 bool сно╥::ж╢ппвои╚хннЯ()
 {
-	MyTrace(L"ж╢ппвои╚хннЯ");
+	//MyTrace(L"ж╢ппвои╚хннЯ");
 	vector<DWORD>vsk;
 	хннЯ::get_FinishQuestList(vsk);
 	if (хннЯ::хннЯйг╥ЯрямЙЁи(0x10EC6F, vsk))
 	{
-		MyTrace(L"ж╢ппвои╚хннЯ1");
+		//MyTrace(L"ж╢ппвои╚хннЯ1");
 		if (!хннЯ::хннЯйг╥ЯрямЙЁи(0x10EC74, vsk))
 		{
 			if (!хннЯ::йг╥Яря╫схннЯ(0x10EC74))
@@ -28563,7 +28575,7 @@ void ╧╕дэ::я╟б╥╣╫ж╦╤╗╢╚кмце(float x, float y, float z, DWORD ╢╚кмцеID, int ╧╔╩В╥
 		objInfo_ ╢╚кмце = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(╢╚кмцеID);
 		if (╢╚кмце.dResId == ╢╚кмцеID)
 		{
-			MyTrace(L"╢╚кмце %d %0.3f %0.3f %0.3f", ╢╚кмце.dResId, ╢╚кмце.вЬ╠Й.x, ╢╚кмце.вЬ╠Й.y, ╢╚кмце.вЬ╠Й.z);
+			//MyTrace(L"╢╚кмце %d %0.3f %0.3f %0.3f", ╢╚кмце.dResId, ╢╚кмце.вЬ╠Й.x, ╢╚кмце.вЬ╠Й.y, ╢╚кмце.вЬ╠Й.z);
 			╧╕дэ::рф╤╞╢Р╧ж(╢╚кмце.вЬ╠Й.x, ╢╚кмце.вЬ╠Й.y, ╢╚кмце.вЬ╠Й.z, 0, ╧╔╩В╥╤н╖);
 		}
 		Sleep(500);
@@ -28585,7 +28597,7 @@ void ╧╕дэ::я╟б╥╣╫╦╠╠╬(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z)
 	{
 		if (UI╧╕дэ::╫ЬхК╦╠╠╬())
 		{
-			MyTrace(L"╣Ц╩В╫ЬхК╦╠╠╬");
+			//MyTrace(L"╣Ц╩В╫ЬхК╦╠╠╬");
 			Sleep(2000);
 			UI╧╕дэ::getMsgBoxTextList();
 			//UI╧╕дэ::дз╢Ф╟╢╪Э(VK_RETURN);
@@ -28629,12 +28641,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, 
 	else
 	{
 		╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-		MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+		//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 	}
 	/*}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	}*/
 }
 void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╤т╩╟╥╤н╖)
@@ -28673,7 +28685,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, fl
 				}
 				if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(x, y, z))
 				{
-					MyTrace(L"╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж д©╠Й©и╢О");
+					//MyTrace(L"╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж д©╠Й©и╢О");
 					if (╥ж╤н╢╕юМвЬ╠Й.x1 != 0 && ╥ж╤н╢╕юМвЬ╠Й.╡ывВ == 2)
 					{
 						г╟мЫ╥ж╤н╢╕юМвЬ╠Й(x, y, z);
@@ -28689,7 +28701,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, fl
 				}
 				else
 				{
-					MyTrace(L"г╟мЫ╥ж╤н╢╕юМ");
+					//MyTrace(L"г╟мЫ╥ж╤н╢╕юМ");
 					г╟мЫ╥ж╤н╢╕юМвЬ╠Й(x, y, z);
 				}
 			}
@@ -28697,12 +28709,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G_нч╢Р╧ж(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, fl
 		else
 		{
 			╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-			MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+			//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 		}
 	}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	}
 }
 void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦЁквЬ╣Глщ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╤т╩╟╥╤н╖, DWORD ╣ГлщResId)
@@ -28724,7 +28736,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦЁквЬ╣Глщ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, floa
 					objInfo_ ╣Глщпео╒ = ╩╥╬Ё::х║ж╦╤╗╤тоСпео╒(╣ГлщResId);
 					if (╣Глщпео╒.dType == 15)
 					{
-						MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
+						//MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
 						if (╣ьм╪::╠╬╣ьм╪я╟б╥(╣Глщпео╒.вЬ╠Й.x, ╣Глщпео╒.вЬ╠Й.y, ╣Глщпео╒.вЬ╠Й.z, ╣Глщпео╒.ModId))
 						{
 							Sleep(2000);
@@ -28734,7 +28746,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦЁквЬ╣Глщ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, floa
 					}
 					else
 					{
-						MyTrace(L"д©╠Й╡╩йг╣Глщ");
+						//MyTrace(L"д©╠Й╡╩йг╣Глщ");
 					}
 				}
 				else
@@ -28744,7 +28756,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦЁквЬ╣Глщ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, floa
 					if (йЩвИ.size() > 0)
 					{
 						objInfo_ ╣Глщпео╒ = йЩвИ[0];
-						MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
+						//MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
 						if (╣ьм╪::╠╬╣ьм╪я╟б╥(╣Глщпео╒.вЬ╠Й.x, ╣Глщпео╒.вЬ╠Й.y, ╣Глщпео╒.вЬ╠Й.z, ╣Глщпео╒.ModId))
 						{
 							Sleep(2000);
@@ -28767,12 +28779,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦЁквЬ╣Глщ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, floa
 		else
 		{
 			╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-			MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+			//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 		}
 	}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	}
 }
 void ╧╕дэ::╣╫ж╦╤╗╣ь╣Цфф╩╣╩В╢Р╣ю╬ъ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╡и╪╞╥╤н╖, int ╡и╪╞д©╠ЙID, int ╢Р╧ж╥╤н╖)
@@ -28824,12 +28836,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Цфф╩╣╩В╢Р╣ю╬ъ(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 		else
 		{
 			╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-			MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+			//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 		}
 	}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	}
 }
 void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╡и╪╞╥╤н╖, int ╡и╪╞д©╠ЙID, int ╢Р╧ж╥╤н╖, int ╟╢G╥╤н╖)
@@ -28914,12 +28926,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z,
 		else
 		{
 			╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-			MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+			//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 		}
 	}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	}
 }
 void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╡и╪╞╥╤н╖, int ╡и╪╞д©╠ЙID, int ╢Р╧ж╥╤н╖, int ╟╢G╥╤н╖, bool ╡╩╢Р╧ж)
@@ -28961,7 +28973,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 		}
 		bool йг╥Я©и╢О = false;
 		objInfo_ ╡и╪╞д©╠Й = ╩╥╬Ё::х║ж╦╤╗╥╤н╖хннЯотй╬╤тоСпео╒(x, y, z, ╡и╪╞╥╤н╖, ╡и╪╞д©╠ЙID);
-		MyTrace(L"╡и╪╞д©╠Й 0x%I64x %s %d %0.3f,%0.3f %0.3f|╬ЮюК:%0.3f ╡и╪╞╥╤н╖ %d", ╡и╪╞д©╠Й.objBase, ╡и╪╞д©╠Й.wName, ╡и╪╞д©╠Й.dResShow, ╡и╪╞д©╠Й.вЬ╠Й.x, ╡и╪╞д©╠Й.вЬ╠Й.y, ╡и╪╞д©╠Й.вЬ╠Й.z, ╡и╪╞д©╠Й.fDis, ╡и╪╞╥╤н╖);
+		//MyTrace(L"╡и╪╞д©╠Й 0x%I64x %s %d %0.3f,%0.3f %0.3f|╬ЮюК:%0.3f ╡и╪╞╥╤н╖ %d", ╡и╪╞д©╠Й.objBase, ╡и╪╞д©╠Й.wName, ╡и╪╞д©╠Й.dResShow, ╡и╪╞д©╠Й.вЬ╠Й.x, ╡и╪╞д©╠Й.вЬ╠Й.y, ╡и╪╞д©╠Й.вЬ╠Й.z, ╡и╪╞д©╠Й.fDis, ╡и╪╞╥╤н╖);
 		if (╡и╪╞д©╠Й.dResId != 0)
 		{
 			if (╡и╪╞д©╠Й.fDis >= ╟╢G╥╤н╖)
@@ -29020,14 +29032,14 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 		{
 			if (GetDis(x, y, z) <= 100)
 			{
-				MyTrace(L"╦╫╫Энч╡и╪╞нО");
+				//MyTrace(L"╦╫╫Энч╡и╪╞нО");
 				иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 				б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 				Sleep(500);
 			}
 			else
 			{
-				MyTrace(L"рф╤╞╣╫ж╦╤╗н╩жц");
+				//MyTrace(L"рф╤╞╣╫ж╦╤╗н╩жц");
 				if (╡╩╢Р╧ж == false)
 				{
 					╧╕дэ::рф╤╞╢Р╧ж(x, y, z, 50, ╢Р╧ж╥╤н╖, 100);
@@ -29046,12 +29058,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 	else
 	{
 		╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-		MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+		//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 	}
 	//}
 	//else
 	//{
-	//	MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+	//	//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	//}
 }
 void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╡и╪╞╥╤н╖, int ╡и╪╞д©╠ЙID, int ╡и╪╞д©╠ЙID2, int ╢Р╧ж╥╤н╖, int ╟╢G╥╤н╖, bool ╡╩╢Р╧ж)
@@ -29076,7 +29088,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, fl
 				if (сеох╢Р╧ж(╢Р╧ж╥╤н╖) == true)
 				{
 					objInfo_ ╡и╪╞д©╠Й = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(╡и╪╞д©╠ЙID);
-					MyTrace(L"╡и╪╞д©╠Й 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й.objBase, ╡и╪╞д©╠Й.wName, ╡и╪╞д©╠Й.dResShow, ╡и╪╞д©╠Й.вЬ╠Й.x, ╡и╪╞д©╠Й.вЬ╠Й.y, ╡и╪╞д©╠Й.вЬ╠Й.z, ╡и╪╞д©╠Й.fDis);
+					//MyTrace(L"╡и╪╞д©╠Й 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й.objBase, ╡и╪╞д©╠Й.wName, ╡и╪╞д©╠Й.dResShow, ╡и╪╞д©╠Й.вЬ╠Й.x, ╡и╪╞д©╠Й.вЬ╠Й.y, ╡и╪╞д©╠Й.вЬ╠Й.z, ╡и╪╞д©╠Й.fDis);
 					if (╡и╪╞д©╠Й.dResId != 0)
 					{
 						if (╡и╪╞д©╠Й.fDis >= ╟╢G╥╤н╖)
@@ -29094,7 +29106,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, fl
 						}
 					}
 					objInfo_ ╡и╪╞д©╠Й2 = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(╡и╪╞д©╠ЙID2);
-					MyTrace(L"╡и╪╞д©╠Й2 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й2.objBase, ╡и╪╞д©╠Й2.wName, ╡и╪╞д©╠Й2.dResShow, ╡и╪╞д©╠Й2.вЬ╠Й.x, ╡и╪╞д©╠Й2.вЬ╠Й.y, ╡и╪╞д©╠Й2.вЬ╠Й.z, ╡и╪╞д©╠Й2.fDis);
+					//MyTrace(L"╡и╪╞д©╠Й2 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й2.objBase, ╡и╪╞д©╠Й2.wName, ╡и╪╞д©╠Й2.dResShow, ╡и╪╞д©╠Й2.вЬ╠Й.x, ╡и╪╞д©╠Й2.вЬ╠Й.y, ╡и╪╞д©╠Й2.вЬ╠Й.z, ╡и╪╞д©╠Й2.fDis);
 					if (╡и╪╞д©╠Й2.dResId != 0)
 					{
 						if (╡и╪╞д©╠Й2.fDis >= ╟╢G╥╤н╖)
@@ -29114,7 +29126,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, fl
 			else
 			{
 				objInfo_ ╡и╪╞д©╠Й = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(╡и╪╞д©╠ЙID);
-				MyTrace(L"╡и╪╞д©╠Й 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й.objBase, ╡и╪╞д©╠Й.wName, ╡и╪╞д©╠Й.dResShow, ╡и╪╞д©╠Й.вЬ╠Й.x, ╡и╪╞д©╠Й.вЬ╠Й.y, ╡и╪╞д©╠Й.вЬ╠Й.z, ╡и╪╞д©╠Й.fDis);
+				//MyTrace(L"╡и╪╞д©╠Й 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й.objBase, ╡и╪╞д©╠Й.wName, ╡и╪╞д©╠Й.dResShow, ╡и╪╞д©╠Й.вЬ╠Й.x, ╡и╪╞д©╠Й.вЬ╠Й.y, ╡и╪╞д©╠Й.вЬ╠Й.z, ╡и╪╞д©╠Й.fDis);
 				if (╡и╪╞д©╠Й.dResId != 0)
 				{
 					if (╡и╪╞д©╠Й.fDis >= ╟╢G╥╤н╖)
@@ -29130,7 +29142,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, fl
 					}
 				}
 				objInfo_ ╡и╪╞д©╠Й2 = ╩╥╬Ё::х║ж╦╤╗хннЯотй╬╤тоСпео╒(╡и╪╞д©╠ЙID2);
-				MyTrace(L"╡и╪╞д©╠Й2 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й2.objBase, ╡и╪╞д©╠Й2.wName, ╡и╪╞д©╠Й2.dResShow, ╡и╪╞д©╠Й2.вЬ╠Й.x, ╡и╪╞д©╠Й2.вЬ╠Й.y, ╡и╪╞д©╠Й2.вЬ╠Й.z, ╡и╪╞д©╠Й2.fDis);
+				//MyTrace(L"╡и╪╞д©╠Й2 0x%I64x %s %d %0.3f,%0.3f %0.3f %d", ╡и╪╞д©╠Й2.objBase, ╡и╪╞д©╠Й2.wName, ╡и╪╞д©╠Й2.dResShow, ╡и╪╞д©╠Й2.вЬ╠Й.x, ╡и╪╞д©╠Й2.вЬ╠Й.y, ╡и╪╞д©╠Й2.вЬ╠Й.z, ╡и╪╞д©╠Й2.fDis);
 				if (╡и╪╞д©╠Й2.dResId != 0)
 				{
 					if (╡и╪╞д©╠Й2.fDis >= ╟╢G╥╤н╖)
@@ -29151,7 +29163,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, fl
 		}
 		else
 		{
-			MyTrace(L"рф╤╞╣╫ж╦╤╗н╩жц");
+			//MyTrace(L"рф╤╞╣╫ж╦╤╗н╩жц");
 			if (╡╩╢Р╧ж == false)
 			{
 				╧╕дэ::рф╤╞╢Р╧ж(x, y, z, 50, ╢Р╧ж╥╤н╖, 100);
@@ -29168,12 +29180,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╡и╪╞хннЯотй╬_╤Юд©╠Й(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, fl
 	else
 	{
 		╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-		MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+		//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ ╣╠г╟╣ьм╪:%d д©╠Й╣ьм╪%d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 	}
 	//}
 	//else
 	//{
-	//	MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
+	//	//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ ╣╠г╟╢Сб╫:%d д©╠Й╢Сб╫%d", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╢Сб╫ID);
 	//}
 }
 int ╥╣╩ь╣з╪╦╢Сб╫(DWORD ╢Сб╫ID)
@@ -29223,7 +29235,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float
 
 	//if (йг╥Я╢╕сзм╛р╩╢Сб╫(╢Сб╫ID,╣ьм╪::х║╣╠г╟╢Сб╫ID()))
 	//{
-	MyTrace(L"╣╠г╟╣ьм╪ %d   хннЯ╣ьм╪ %d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
+	//MyTrace(L"╣╠г╟╣ьм╪ %d   хннЯ╣ьм╪ %d", ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪ID);
 	if (╣ьм╪::х║╣ьм╪ID() == ╣ьм╪ID)
 	{
 		if (x == 0)
@@ -29232,7 +29244,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float
 		}
 		if (GetDis(x, y, z) <= ╤т╩╟╥╤н╖)
 		{
-			MyTrace(L"NPC╤т╩╟╥╤н╖дз");
+			//MyTrace(L"NPC╤т╩╟╥╤н╖дз");
 			if (!сеох╢Р╧ж(150))
 			{
 				return;
@@ -29241,12 +29253,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float
 			б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 			if (NpcResId != 0 && NpcResId != -1)
 			{
-				MyTrace(L"хннЯ╢╕юМ ╢Р©╙NPC %d", NpcResId);
+				//MyTrace(L"хннЯ╢╕юМ ╢Р©╙NPC %d", NpcResId);
 				╩╥╬Ё::CALL_╣Ц╩Вж╦╤╗NPC_ByResId(NpcResId);
 			}
 			else
 			{
-				MyTrace(L"хннЯ╢╕юМ ╟╢G");
+				//MyTrace(L"хннЯ╢╕юМ ╟╢G");
 				UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('G'));
 			}
 
@@ -29255,7 +29267,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float
 		}
 		else
 		{
-			MyTrace(L"рф╤╞╢Р╧ж");
+			//MyTrace(L"рф╤╞╢Р╧ж");
 			рф╤╞╢Р╧ж(x, y, z, 0, 100, 100);
 			//╣ьм╪::╠╬╣ьм╪я╟б╥(x, y, z, 0);
 			Sleep(500);
@@ -29264,12 +29276,12 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float
 	else
 	{
 		╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-		MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ");
+		//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ");
 	}
 	//}
 	/*else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ %d/%d", ╢Сб╫ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ %d/%d", ╢Сб╫ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 	}*/
 }
 bool ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int ╣╫╢О╥╤н╖, bool ╡╩╢Р╧ж)
@@ -29325,12 +29337,12 @@ bool ╧╕дэ::╣╫ж╦╤╗╣ь╣Ц(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z, int
 	else
 	{
 		╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-		MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ");
+		//MyTrace(L"╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ");
 	}
 	/*}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ %d/%d", ╢Сб╫ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ %d/%d", ╢Сб╫ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 	}*/
 	return false;
 }
@@ -29375,10 +29387,10 @@ bool ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦхК╦ш(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z,
 				{
 					if (╨╫╨ё::вт╤╞я║тЯвНсеу╫╢╛())
 					{
-						MyTrace(L"пчюМ╢╛ж╩");
+						//MyTrace(L"пчюМ╢╛ж╩");
 						╠╬хк::CALL_пчюМ╢╛ж╩(╨╫╨ё::getCurVoyageShipResId());
 						Sleep(1000);
-						MyTrace(L"ЁЖ╦ш");
+						//MyTrace(L"ЁЖ╦ш");
 						UI╧╕дэ::╨╫╨ёЁЖ╦ш();
 						Sleep(1000);
 					}
@@ -29393,12 +29405,12 @@ bool ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦхК╦ш(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, float z,
 	else
 	{
 		╧╕дэ::©Г╣ьм╪ID╢╕юМ(╣ьм╪ID);
-		MyTrace(L"╣╫ж╦╤╗╣ь╣ЦхК╦ш ╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ д©╣д╣ьм╪ %d", ╣ьм╪ID);
+		//MyTrace(L"╣╫ж╦╤╗╣ь╣ЦхК╦ш ╡╩тзм╛р╩╣ьм╪,пХр╙г╟мЫ д©╣д╣ьм╪ %d", ╣ьм╪ID);
 	}
 	/*}
 	else
 	{
-		MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ %d/%d", ╢Сб╫ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
+		//MyTrace(L"╡╩тзм╛р╩╢Сб╫,пХр╙г╟мЫ %d/%d", ╢Сб╫ID, ╣ьм╪::х║╣╠г╟╢Сб╫ID());
 	}*/
 	return false;
 }
@@ -30222,7 +30234,7 @@ int ╧╕дэ::г╟мЫж╦╤╗╥ж╤н(╫з╣Ц╢╕юМ_ ╫з╣Цпео╒, DWORD д©╠Й╥ж╤н, вЬ╠Й_ д©╠ЙвЬ╠Й, DWORD
 	{
 		//вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 		return -1;
-		//MyTrace(L"нч╥╗еп╤о╫ги╚╣╠г╟╥ж╤н ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
+		////MyTrace(L"нч╥╗еп╤о╫ги╚╣╠г╟╥ж╤н ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
 	}
 	if (╫ги╚╥ж╤н == д©╠Й╥ж╤н)
 	{
@@ -30249,7 +30261,7 @@ int ╧╕дэ::г╟мЫж╦╤╗╥ж╤н(╫з╣Ц╢╕юМ_ ╫з╣Цпео╒, DWORD д©╠Й╥ж╤н, вЬ╠Й_ д©╠ЙвЬ╠Й, DWORD
 	{
 		if (╫ги╚╥ж╤н < д©╠Й╥ж╤н)
 		{
-			MyTrace(L"╥ж╤н %d/%d г╟мЫобр╩╦Ж╥ж╤н", ╫ги╚╥ж╤н, д©╠Й╥ж╤н);
+			//MyTrace(L"╥ж╤н %d/%d г╟мЫобр╩╦Ж╥ж╤н", ╫ги╚╥ж╤н, д©╠Й╥ж╤н);
 			╥ж╤н╢╕юМпео╒_ д©╠Й╥ж╤н = х║ЁЖ╫ги╚╣╠г╟╥ж╤н╢╕юМ╣Ц(╫ги╚╥ж╤н, ╫з╣Цпео╒.г╟мЫобр╩╦Ж╥ж╤нвИ);
 			if (д©╠Й╥ж╤н.йТсз╥ж╤н != 0)
 			{
@@ -30274,7 +30286,7 @@ int ╧╕дэ::г╟мЫж╦╤╗╥ж╤н(╫з╣Ц╢╕юМ_ ╫з╣Цпео╒, DWORD д©╠Й╥ж╤н, вЬ╠Й_ д©╠ЙвЬ╠Й, DWORD
 		}
 		else if (╫ги╚╥ж╤н > д©╠Й╥ж╤н)
 		{
-			MyTrace(L"╥ж╤н %d/%d ╥╣╩ьиор╩╦Ж╥ж╤н", ╫ги╚╥ж╤н, д©╠Й╥ж╤н);
+			//MyTrace(L"╥ж╤н %d/%d ╥╣╩ьиор╩╦Ж╥ж╤н", ╫ги╚╥ж╤н, д©╠Й╥ж╤н);
 			╥ж╤н╢╕юМпео╒_ д©╠Й╥ж╤н = х║ЁЖ╫ги╚╣╠г╟╥ж╤н╢╕юМ╣Ц(╫ги╚╥ж╤н, ╫з╣Цпео╒.╥╣╩ьиор╩╦Ж╥ж╤нвИ);
 			if (д©╠Й╥ж╤н.йТсз╥ж╤н != 0)
 			{
@@ -30292,7 +30304,7 @@ int ╧╕дэ::г╟мЫж╦╤╗╥ж╤н(╫з╣Ц╢╕юМ_ ╫з╣Цпео╒, DWORD д©╠Й╥ж╤н, вЬ╠Й_ д©╠ЙвЬ╠Й, DWORD
 			else
 			{
 				return -4;
-				//MyTrace(L"╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫобр╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), ╫ги╚╥ж╤н);
+				////MyTrace(L"╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫобр╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), ╫ги╚╥ж╤н);
 			}
 
 		}
@@ -30355,7 +30367,7 @@ void г╟мЫобр╩╦Ж╢╚кмце(DWORD д©╠Й╣ьм╪ID)
 	if (╫з╣Цпео╒.╣ьм╪ID == 0)
 	{
 
-		MyTrace(L"©Г╣ьм╪ID╢╕юМ:╩Ях║╣ьм╪ID [%d] ╫з╣Цпео╒й╖╟э", ╣╠г╟╣ьм╪ID);
+		//MyTrace(L"©Г╣ьм╪ID╢╕юМ:╩Ях║╣ьм╪ID [%d] ╫з╣Цпео╒й╖╟э", ╣╠г╟╣ьм╪ID);
 		return;
 	}
 	if (д©╠Й╣ьм╪ID == 10804)
@@ -30364,12 +30376,12 @@ void г╟мЫобр╩╦Ж╢╚кмце(DWORD д©╠Й╣ьм╪ID)
 		{
 			вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 			╧╕дэ::я╟б╥╣╫ж╦╤╗╢╚кмце(╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z, 20251, 100);
-			MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
+			//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
 
 		}
 		else
 		{
-			MyTrace(L"%d ╩Ях║ ╫з╣Ц:г╟мЫобр╩уе╣ьм╪╢╚кмце й╖╟э", д©╠Й╣ьм╪ID);
+			//MyTrace(L"%d ╩Ях║ ╫з╣Ц:г╟мЫобр╩уе╣ьм╪╢╚кмце й╖╟э", д©╠Й╣ьм╪ID);
 		}
 	}
 
@@ -30380,12 +30392,12 @@ void г╟мЫобр╩╦Ж╢╚кмце(DWORD д©╠Й╣ьм╪ID)
 		{
 			вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 			╧╕дэ::я╟б╥╣╫ж╦╤╗╢╚кмце(╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z, 20251, 100);
-			MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
+			//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
 
 		}
 		else
 		{
-			MyTrace(L"%d ╩Ях║ ╫з╣Ц:г╟мЫобр╩уе╣ьм╪╢╚кмце й╖╟э", д©╠Й╣ьм╪ID);
+			//MyTrace(L"%d ╩Ях║ ╫з╣Ц:г╟мЫобр╩уе╣ьм╪╢╚кмце й╖╟э", д©╠Й╣ьм╪ID);
 		}
 	}
 	else
@@ -30480,7 +30492,7 @@ void ╧╕дэ::©Г╣ьм╪ID╢╕юМ(DWORD д©╠Й╣ьм╪ID)
 			{
 				if (╧╕дэ::сеох╢Р╧ж(150))
 				{
-					MyTrace(L"©Г╣ьм╪╢╚км╢╚кмжа Map %d  %s %d ", vsk[0].Mapid, vsk[0].cTeleportName, vsk[0].dTeleportId);
+					//MyTrace(L"©Г╣ьм╪╢╚км╢╚кмжа Map %d  %s %d ", vsk[0].Mapid, vsk[0].cTeleportName, vsk[0].dTeleportId);
 					╣ьм╪::╢╚км(vsk[0].dTeleportId);
 					Sleep(10000);
 				}
@@ -30488,7 +30500,7 @@ void ╧╕дэ::©Г╣ьм╪ID╢╕юМ(DWORD д©╠Й╣ьм╪ID)
 			}
 			else
 			{
-				MyTrace(L"я╟б╥г╟мЫобр╩╦Ж╣ьм╪  Map %d  %s %d ", vsk[0].Mapid, vsk[0].cTeleportName, vsk[0].dTeleportId);
+				//MyTrace(L"я╟б╥г╟мЫобр╩╦Ж╣ьм╪  Map %d  %s %d ", vsk[0].Mapid, vsk[0].cTeleportName, vsk[0].dTeleportId);
 				г╟мЫобр╩╦Ж╢╚кмце(д©╠Й╣ьм╪ID);
 			}
 
@@ -30497,7 +30509,7 @@ void ╧╕дэ::©Г╣ьм╪ID╢╕юМ(DWORD д©╠Й╣ьм╪ID)
 		{
 			if (╧╕дэ::сеох╢Р╧ж(150))
 			{
-				MyTrace(L"╢╚кмжа Map %d  %s %d ", vsk[0].Mapid, vsk[0].cTeleportName, vsk[0].dTeleportId);
+				//MyTrace(L"╢╚кмжа Map %d  %s %d ", vsk[0].Mapid, vsk[0].cTeleportName, vsk[0].dTeleportId);
 				╣ьм╪::╢╚км(vsk[vsk.size() - 1].dTeleportId);
 				Sleep(10000);
 			}
@@ -30508,7 +30520,7 @@ void ╧╕дэ::©Г╣ьм╪ID╢╕юМ(DWORD д©╠Й╣ьм╪ID)
 	{
 		/*if (╠╬хк::йг╥Ятзвъб╥())
 		{
-			MyTrace(L"д©╠Й╣ьм╪IDё╨©Г╣ьм╪ID╢╕юМ ╫ги╚тзя╟б╥жп нч╥╗еп╤о╥ж╤н:", д©╠Й╣ьм╪ID);
+			//MyTrace(L"д©╠Й╣ьм╪IDё╨©Г╣ьм╪ID╢╕юМ ╫ги╚тзя╟б╥жп нч╥╗еп╤о╥ж╤н:", д©╠Й╣ьм╪ID);
 			Sleep(2000);
 			return;
 		}*/
@@ -30569,7 +30581,7 @@ void ╧╕дэ::©Г╣ьм╪ID╢╕юМ(DWORD д©╠Й╣ьм╪ID)
 		if (╫з╣Цпео╒.╣ьм╪ID == 0)
 		{
 
-			MyTrace(L"©Г╣ьм╪ID╢╕юМ:╩Ях║╣ьм╪ID [%d] ╫з╣Цпео╒й╖╟э", ╣╠г╟╣ьм╪ID);
+			//MyTrace(L"©Г╣ьм╪ID╢╕юМ:╩Ях║╣ьм╪ID [%d] ╫з╣Цпео╒й╖╟э", ╣╠г╟╣ьм╪ID);
 			return;
 		}
 
@@ -30580,72 +30592,72 @@ void ╧╕дэ::©Г╣ьм╪ID╢╕юМ(DWORD д©╠Й╣ьм╪ID)
 			{
 				вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 				я╟б╥╣╫ж╦╤╗╢╚кмце(╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z, 20251, 100);
-				MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
+				//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
 				/*	int ╥╣╩ьж╣ = г╟мЫж╦╤╗╥ж╤н(╫з╣Цпео╒, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.йТсз╥ж╤н, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.╢╕юМ╥╫й╫);
 					if (╥╣╩ьж╣ == 1)
 					{
-						MyTrace(L"г╟мЫж╦╤╗╥ж╤н[%d]обр╩╦Ж╢╚кмцепео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© фПй╪вЬ╠Й:%0.3f,%0.3f,%0.3f =>>д©╠ЙвЬ╠Й:%0.3f,%0.3f,%0.3f", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.йТсз╥ж╤н, ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(),
+						//MyTrace(L"г╟мЫж╦╤╗╥ж╤н[%d]обр╩╦Ж╢╚кмцепео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© фПй╪вЬ╠Й:%0.3f,%0.3f,%0.3f =>>д©╠ЙвЬ╠Й:%0.3f,%0.3f,%0.3f", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.йТсз╥ж╤н, ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(),
 							╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
 					}
 					else if (╥╣╩ьж╣ == -1)
 					{
-						MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨нч╥╗еп╤о╫ги╚╣╠г╟╥ж╤н ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
+						//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨нч╥╗еп╤о╫ги╚╣╠г╟╥ж╤н ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
 					}
 					else if (╥╣╩ьж╣ == -2)
 					{
-						MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╫ги╚сК╢╚кмце╢╕сзм╛р╩╦Ж╥ж╤н,еп╤ойг╥Я©и╣╫╢Ой╖╟э ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
+						//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╫ги╚сК╢╚кмце╢╕сзм╛р╩╦Ж╥ж╤н,еп╤ойг╥Я©и╣╫╢Ой╖╟э ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
 					}
 					else if (╥╣╩ьж╣ == -3)
 					{
-						MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмце: ╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫобр╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
+						//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмце: ╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫобр╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
 
 					}
 					else if (╥╣╩ьж╣ == -4)
 					{
-						MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫиор╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
+						//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫиор╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
 					}
 					else if (╥╣╩ьж╣ == 0)
 					{
-						MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╣ьм╪ID:%d ╫ги╚╥ж╤н:%d ╢МнСн╢ж╙", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
+						//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╣ьм╪ID:%d ╫ги╚╥ж╤н:%d ╢МнСн╢ж╙", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
 					}
 					Sleep(500);*/
 			}
 			else
 			{
-				MyTrace(L"%d ╩Ях║ ╫з╣Ц:г╟мЫобр╩уе╣ьм╪╢╚кмце й╖╟э", д©╠Й╣ьм╪ID);
+				//MyTrace(L"%d ╩Ях║ ╫з╣Ц:г╟мЫобр╩уе╣ьм╪╢╚кмце й╖╟э", д©╠Й╣ьм╪ID);
 			}
 		}
 		else
 		{
 			вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 			я╟б╥╣╫ж╦╤╗╢╚кмце(╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.z, 20251, 100);
-			MyTrace(L"г╟мЫиор╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
+			//MyTrace(L"г╟мЫиор╩уе╣ьм╪╢╚км╣Ц %0.3f %0.3f %0.3f ", ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
 			/*int ╥╣╩ьж╣ = г╟мЫж╦╤╗╥ж╤н(╫з╣Цпео╒, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.йТсз╥ж╤н, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.╢╕юМ╥╫й╫);
 			if (╥╣╩ьж╣ == 1)
 			{
-				MyTrace(L"г╟мЫж╦╤╗╥ж╤н[%d]иор╩╦Ж╢╚кмцепео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© фПй╪вЬ╠Й:%0.3f,%0.3f,%0.3f =>>д©╠ЙвЬ╠Й:%0.3f,%0.3f,%0.3f", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.йТсз╥ж╤н, ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(),
+				//MyTrace(L"г╟мЫж╦╤╗╥ж╤н[%d]иор╩╦Ж╢╚кмцепео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© фПй╪вЬ╠Й:%0.3f,%0.3f,%0.3f =>>д©╠ЙвЬ╠Й:%0.3f,%0.3f,%0.3f", ╫з╣Цпео╒.г╟мЫобр╩уе╣ьм╪╢╚кмце.йТсз╥ж╤н, ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(),
 					╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.x, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.y, ╫з╣Цпео╒.г╟мЫиор╩уе╣ьм╪╢╚кмце.вЬ╠Й.z);
 			}
 			else if (╥╣╩ьж╣ == -1)
 			{
-				MyTrace(L"╥╣╩ьиор╩уе╣ьм╪╢╚кмцеё╨нч╥╗еп╤о╫ги╚╣╠г╟╥ж╤н ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
+				//MyTrace(L"╥╣╩ьиор╩уе╣ьм╪╢╚кмцеё╨нч╥╗еп╤о╫ги╚╣╠г╟╥ж╤н ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
 			}
 			else if (╥╣╩ьж╣ == -2)
 			{
-				MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╫ги╚сК╢╚кмце╢╕сзм╛р╩╦Ж╥ж╤н,еп╤ойг╥Я©и╣╫╢Ой╖╟э ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
+				//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╫ги╚сК╢╚кмце╢╕сзм╛р╩╦Ж╥ж╤н,еп╤ойг╥Я©и╣╫╢Ой╖╟э ╣╠г╟╫ги╚пео╒:╢Сб╫ID: %d ╣ьм╪ID %d ╢С╣ьм╪цШЁф:║╬%s║© п║╣ьм╪цШЁф:║╬%s║© вЬ╠Й:%0.3f,%0.3f,%0.3f", ╣ьм╪::х║╣╠г╟╢Сб╫ID(), ╣ьм╪::х║╣ьм╪ID(), ╣ьм╪::х║╢С╣ьм╪цШ(), ╣ьм╪::х║п║╣ьм╪цШ(), ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
 			}
 			else if (╥╣╩ьж╣ == -3)
 			{
-				MyTrace(L"╥╣╩ьиор╩уе╣ьм╪╢╚кмце: ╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫобр╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
+				//MyTrace(L"╥╣╩ьиор╩уе╣ьм╪╢╚кмце: ╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫобр╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
 
 			}
 			else if (╥╣╩ьж╣ == -4)
 			{
-				MyTrace(L"╥╣╩ьиор╩уе╣ьм╪╢╚кмце: ╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫиор╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
+				//MyTrace(L"╥╣╩ьиор╩уе╣ьм╪╢╚кмце: ╣ьм╪ID:%d ╫ги╚╥ж╤н:%d н╢х║ЁЖг╟мЫиор╩╦Ж╥ж╤н╣дпео╒", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
 			}
 			else if (╥╣╩ьж╣ == 0)
 			{
-				MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╣ьм╪ID:%d ╫ги╚╥ж╤н:%d ╢МнСн╢ж╙", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
+				//MyTrace(L"г╟мЫобр╩уе╣ьм╪╢╚кмцеё╨╣ьм╪ID:%d ╫ги╚╥ж╤н:%d ╢МнСн╢ж╙", ╣ьм╪::х║╣ьм╪ID(), еп╤о╫ги╚╣╠г╟╥ж╤н(╫з╣Цпео╒));
 			}*/
 			Sleep(500);
 		}
@@ -30693,7 +30705,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ2(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 			{
 				vector<CString>╤т╩╟вИ;
 				UI╧╕дэ::getNpcTalkSelectList(╤т╩╟вИ);
-				MyTrace(L"╤т╩╟я║оНйЩа© %d", ╤т╩╟вИ.size());
+				//MyTrace(L"╤т╩╟я║оНйЩа© %d", ╤т╩╟вИ.size());
 				if (╤т╩╟вИ.size() > 1)
 				{
 					╩╥╬Ё::CALL_NPC╤т╩╟╥жж╖(╤т╩╟╥жж╖);
@@ -30722,7 +30734,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 {
 	if (UI╧╕дэ::йг╥Ятз╫╩╫схннЯ╫ГцФ())
 	{
-		MyTrace(L"╫╩╫срЁцФ");
+		//MyTrace(L"╫╩╫срЁцФ");
 		if (╫╠юЬ != -1)
 		{
 			хннЯ::CALL_╫╩хннЯ(хннЯID, ╫╠юЬ);
@@ -30740,26 +30752,26 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 	else
 	{
 		DWORD ╥╣╩ьж╣ = ╩╥╬Ё::йг╥Ятз╨мNPC╤т╩╟();
-		MyTrace(L"%s  йг╥Ятз╤т╩╟ %d ,", UTF82WCS(__FUNCDNAME__), ╥╣╩ьж╣);
+		//MyTrace(L"%s  йг╥Ятз╤т╩╟ %d ,", UTF82WCS(__FUNCDNAME__), ╥╣╩ьж╣);
 		if (╩╥╬Ё::йг╥Ятз╨мNPC╤т╩╟())
 		{
-			//MyTrace(L"рф╤╞╢Р╧ж");
+			////MyTrace(L"рф╤╞╢Р╧ж");
 			//рф╤╞╢Р╧ж(x, y, z, 0, 100, 100);
 			if (хннЯ╫в╤н != 0)
 			{
 				if (NPCResId)
 				{
-					MyTrace(L"%d / %d", NPCResId, ╩╥╬Ё::╤ах║╣╠г╟╤т╩╟NPC());
+					//MyTrace(L"%d / %d", NPCResId, ╩╥╬Ё::╤ах║╣╠г╟╤т╩╟NPC());
 					/*if (NPCResId != ╩╥╬Ё::╤ах║╣╠г╟╤т╩╟NPC())
 					{
 						╩╥╬Ё::CALL_мкЁЖNPC();
 						return;
 					}*/
-					MyTrace(L"©╙й╪╫в╤н╤т╩╟");
+					//MyTrace(L"©╙й╪╫в╤н╤т╩╟");
 					int sendarg = хннЯ::getNpcTaklEndSendArg(NPCResId, хннЯID, хннЯ╫в╤н);
 					if (sendarg)
 					{
-						MyTrace(L"╫в╤нмЙЁи%d", sendarg);
+						//MyTrace(L"╫в╤нмЙЁи%d", sendarg);
 
 						хннЯ::Fun_╫в╤нхннЯмЙЁиCALL(sendarg);
 						Sleep(1000);
@@ -30783,17 +30795,17 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫╩хннЯ3(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 			{
 				vector<CString>╤т╩╟вИ;
 				UI╧╕дэ::getNpcTalkSelectList(╤т╩╟вИ);
-				MyTrace(L"╢Фтз╤т╩╟йЩа© %d", ╤т╩╟вИ.size());
+				//MyTrace(L"╢Фтз╤т╩╟йЩа© %d", ╤т╩╟вИ.size());
 				if (╤т╩╟вИ.size() > 1)
 				{
-					MyTrace(L"я║тЯ╤т╩╟ %s", ╤т╩╟вИ[1]);
+					//MyTrace(L"я║тЯ╤т╩╟ %s", ╤т╩╟вИ[1]);
 					╩╥╬Ё::CALL_NPC╤т╩╟╥жж╖(1);
 				}
 				else
 				{
 					if (╤т╩╟вИ.size() == 1)
 					{
-						MyTrace(L"я║тЯ╤т╩╟ %s", ╤т╩╟вИ[0]);
+						//MyTrace(L"я║тЯ╤т╩╟ %s", ╤т╩╟вИ[0]);
 						╩╥╬Ё::CALL_NPC╤т╩╟╥жж╖(0);
 					}
 
@@ -30821,7 +30833,7 @@ void ╧╕дэ::╣╝иЗй╞хннЯ(DWORD ╣ьм╪ID, float x, float y, float z, DWORD NPCResId, i
 		}
 		else
 		{
-			MyTrace(L"╪с╧╓╫ГцФн╢╢Р©╙");
+			//MyTrace(L"╪с╧╓╫ГцФн╢╢Р©╙");
 			Sleep(5000);
 		}
 
@@ -30900,14 +30912,14 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 	{
 		if (хннЯID != 0)
 		{
-			MyTrace(L"╫схннЯ");
+			//MyTrace(L"╫схннЯ");
 			хннЯ::CALL_╫схннЯ(хннЯID);
 			Sleep(500);
 			╩╥╬Ё::CALL_мкЁЖNPC();
 		}
 		else
 		{
-			MyTrace(L"GGGGGGG");
+			//MyTrace(L"GGGGGGG");
 			for (size_t i = 0; i < 10; i++)
 			{
 				UI╧╕дэ::дз╢Ф╟╢╪Э(DWORD('G'));
@@ -30917,7 +30929,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPC╫схннЯ2(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, 
 	}
 	else
 	{
-		MyTrace(L"╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC");
+		//MyTrace(L"╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC");
 		╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╢Р©╙NPC(╢Сб╫ID, ╣ьм╪ID, x, y, z, ╤т╩╟╥╤н╖, NPCResId);
 		//╧╕дэ::╣╫ж╦╤╗╣ь╣Ц╟╢G(╢Сб╫ID, ╣ьм╪ID, x, y, z, ╤т╩╟╥╤н╖);
 	}
@@ -30932,7 +30944,7 @@ void ╧╕дэ::╣╫ж╦╤╗╣ь╣ЦурNPCбРнОф╥(DWORD ╢Сб╫ID, DWORD ╣ьм╪ID, float x, float y, f
 		NPCил╣Й::get_ShopItemList(vsk);
 		for (size_t i = 0; i < vsk.size(); i++)
 		{
-			//MyTrace(L"Item Name %s Item ResId", vsk[i].ItemName, vsk[i].ItemResId);
+			////MyTrace(L"Item Name %s Item ResId", vsk[i].ItemName, vsk[i].ItemResId);
 			if (itemResID == vsk[i].ItemResId)
 			{
 				NPCил╣Й::Fun_ShopBuyAddItem(vsk[i].dindex, йЩа©);
@@ -31036,11 +31048,10 @@ bool ╧╕дэ::╥╤н╖дзйг╥Я╬╞╠╦╠Ь(float x, float y, float z, int ╥╤н╖, DWORD ╧жнОID)
 		if (╩╥╬Ё╤тоСйЩвИ[i].dResId == ╧жнОID)
 		{
 			int ╬ЮюК = ╬ЮюК╪фкЦ3(x, y, z, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.x, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.y, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.z);
-			MyTrace(L"╬╞╠╦╠Ь╬ЮюК %d ", ╬ЮюК);
+			//MyTrace(L"╬╞╠╦╠Ь╬ЮюК %d ", ╬ЮюК);
 			if (╬ЮюК < ╥╤н╖)
 			{
-				MyTrace(L"╬ЮюК %d х╚╤тоС 0x%I64X Type: %d, цШЁф:%s modid:%d resid:%d йг╥ЯрЧ╡ь:%d йг╥Я╣пхк:%d HP:%d/%d ╩В╢Р╣ю╬ъйг╥ЯкюмЖ %d dResShow %d dResDead %d вЬ╠Й %0.3f,%0.3f,%0.3f",
-					╬ЮюК╪фкЦ(╠╬хквЬ╠Й.x, ╠╬хквЬ╠Й.y, ╠╬хквЬ╠Й.z, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.x, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.y, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.z), ╩╥╬Ё╤тоСйЩвИ[i].objBase, ╩╥╬Ё╤тоСйЩвИ[i].dType, ╩╥╬Ё╤тоСйЩвИ[i].wName, ╩╥╬Ё╤тоСйЩвИ[i].ModId, ╩╥╬Ё╤тоСйЩвИ[i].dResId, ╩╥╬Ё╤тоСйЩвИ[i].IsHide, ╩╥╬Ё╤тоСйЩвИ[i].IsEnemy, ╩╥╬Ё╤тоСйЩвИ[i].dCurHp, ╩╥╬Ё╤тоСйЩвИ[i].dMaxHp, ╩╥╬Ё::╩В╢Р╣ю╬ъйг╥ЯкюмЖ(╩╥╬Ё╤тоСйЩвИ[i].objBase), ╩╥╬Ё╤тоСйЩвИ[i].dResShow, ╩╥╬Ё╤тоСйЩвИ[i].dIsDead, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.x, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.y, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.z);
+				//MyTrace(L"╬ЮюК %d х╚╤тоС 0x%I64X Type: %d, цШЁф:%s modid:%d resid:%d йг╥ЯрЧ╡ь:%d йг╥Я╣пхк:%d HP:%d/%d ╩В╢Р╣ю╬ъйг╥ЯкюмЖ %d dResShow %d dResDead %d вЬ╠Й %0.3f,%0.3f,%0.3f",╬ЮюК╪фкЦ(╠╬хквЬ╠Й.x, ╠╬хквЬ╠Й.y, ╠╬хквЬ╠Й.z, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.x, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.y, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.z), ╩╥╬Ё╤тоСйЩвИ[i].objBase, ╩╥╬Ё╤тоСйЩвИ[i].dType, ╩╥╬Ё╤тоСйЩвИ[i].wName, ╩╥╬Ё╤тоСйЩвИ[i].ModId, ╩╥╬Ё╤тоСйЩвИ[i].dResId, ╩╥╬Ё╤тоСйЩвИ[i].IsHide, ╩╥╬Ё╤тоСйЩвИ[i].IsEnemy, ╩╥╬Ё╤тоСйЩвИ[i].dCurHp, ╩╥╬Ё╤тоСйЩвИ[i].dMaxHp, ╩╥╬Ё::╩В╢Р╣ю╬ъйг╥ЯкюмЖ(╩╥╬Ё╤тоСйЩвИ[i].objBase), ╩╥╬Ё╤тоСйЩвИ[i].dResShow, ╩╥╬Ё╤тоСйЩвИ[i].dIsDead, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.x, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.y, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.z);
 				return true;
 			}
 			//if (╬ЮюК╪фкЦ3(╠╬хквЬ╠Й.x, ╠╬хквЬ╠Й.y, ╠╬хквЬ╠Й.z, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.x, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.y, ╩╥╬Ё╤тоСйЩвИ[i].вЬ╠Й.z) < ╥╤н╖)
@@ -31194,19 +31205,19 @@ objInfo_ х║ж╦╤╗вЬ╠Й╥╤н╖дз╧жнО(vector<objInfo_>& ╧жнОйЩвИ, float x, float y, floa
 	}
 	if (╧жнОйЩвИ.size() > 0)
 	{
-		MyTrace(L"сеох╧жнОйЩа© %d", сеох╢Р╧жID.size());
+		//MyTrace(L"сеох╧жнОйЩа© %d", сеох╢Р╧жID.size());
 		if (сеох╢Р╧жID.size() != 0)
 		{
 			for (size_t i = 0; i < ╧жнОйЩвИ.size(); i++)
 			{
-				//MyTrace(L"пео╒::╠ИюЗ сеох  ╧жнО %s   вЬ╠Й %0.3f, %0.3f, %0.3f", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
+				////MyTrace(L"пео╒::╠ИюЗ сеох  ╧жнО %s   вЬ╠Й %0.3f, %0.3f, %0.3f", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
 				if (IDйг╥Яря╢Фтз(╧жнОйЩвИ[i].dResId, сеох╢Р╧жID))
 				{
 					if (╧жнОйЩвИ[i].fDis <= ╬ЮюКвтиМ╥╤н╖)
 					{
 						if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z))
 						{
-							MyTrace(L"╧жнО%s©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
+							//MyTrace(L"╧жнО%s©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
 							return ╧жнОйЩвИ[i];
 						}
 					}
@@ -31218,7 +31229,7 @@ objInfo_ х║ж╦╤╗вЬ╠Й╥╤н╖дз╧жнО(vector<objInfo_>& ╧жнОйЩвИ, float x, float y, floa
 
 			if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╧жнОйЩвИ[0].вЬ╠Й.x, ╧жнОйЩвИ[0].вЬ╠Й.y, ╧жнОйЩвИ[0].вЬ╠Й.z))
 			{
-				MyTrace(L"╧жнО%s©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[0].wName, ╧жнОйЩвИ[0].вЬ╠Й.x, ╧жнОйЩвИ[0].вЬ╠Й.y, ╧жнОйЩвИ[0].вЬ╠Й.z);
+				//MyTrace(L"╧жнО%s©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[0].wName, ╧жнОйЩвИ[0].вЬ╠Й.x, ╧жнОйЩвИ[0].вЬ╠Й.y, ╧жнОйЩвИ[0].вЬ╠Й.z);
 				return ╧жнОйЩвИ[0];
 			}
 		}
@@ -31228,17 +31239,17 @@ objInfo_ х║ж╦╤╗вЬ╠Й╥╤н╖дз╧жнО(vector<objInfo_>& ╧жнОйЩвИ, float x, float y, floa
 			{
 				for (size_t i = 0; i < ╧жнОйЩвИ.size(); i++)
 				{
-					//MyTrace(L"пео╒::╠ИюЗ сеох╧жнО1 %s   вЬ╠Й вЬ╠Й %0.3f, %0.3f, %0.3f", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
+					////MyTrace(L"пео╒::╠ИюЗ сеох╧жнО1 %s   вЬ╠Й вЬ╠Й %0.3f, %0.3f, %0.3f", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
 					if (IDйг╥Яря╢Фтз(╧жнОйЩвИ[i].dResId, сеох╢Р╧жID) && ╬ЮюК╪фкЦ(x, y, z, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z) <= ╥╤н╖)
 					{
 						if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z))
 						{
-							MyTrace(L"╧жнО%s©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
+							//MyTrace(L"╧жнО%s©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
 							return ╧жнОйЩвИ[i];
 						}
 						else
 						{
-							MyTrace(L"******╧жнО%s╡╩©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
+							//MyTrace(L"******╧жнО%s╡╩©и╢О   вЬ╠Й %d,%d,%d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z);
 						}
 					}
 				}
@@ -31247,7 +31258,7 @@ objInfo_ х║ж╦╤╗вЬ╠Й╥╤н╖дз╧жнО(vector<objInfo_>& ╧жнОйЩвИ, float x, float y, floa
 			{
 				if (╬ЮюК╪фкЦ(x, y, z, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z) <= ╥╤н╖)
 				{
-					MyTrace(L"пео╒::╠ИюЗ ╧жнО2 %s   вЬ╠Й  %0.3f, %0.3f, %0.3f  ╬ЮюК %d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z, GetDis(╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z));
+					//MyTrace(L"пео╒::╠ИюЗ ╧жнО2 %s   вЬ╠Й  %0.3f, %0.3f, %0.3f  ╬ЮюК %d", ╧жнОйЩвИ[i].wName, ╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z, GetDis(╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z));
 
 					if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╧жнОйЩвИ[i].вЬ╠Й.x, ╧жнОйЩвИ[i].вЬ╠Й.y, ╧жнОйЩвИ[i].вЬ╠Й.z))
 					{
@@ -31404,12 +31415,12 @@ void ╧╕дэ::╢Р╧жЁлпР(INT64 ╧жнОobj)
 		{
 			if (╧жнОпео╒.dIsDead == 0)
 			{
-				MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
+				//MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
 				╪╪дэ::╪╪дэйм╥е2(╧жнОпео╒.вЬ╠Й);
 			}
 			else
 			{
-				MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+				//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 				break;
 			}
 		}
@@ -31417,7 +31428,7 @@ void ╧╕дэ::╢Р╧жЁлпР(INT64 ╧жнОobj)
 		{
 			if (╧жнОпео╒.dCurHp <= 180)
 			{
-				MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+				//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 				break;
 			}
 		}
@@ -31425,12 +31436,12 @@ void ╧╕дэ::╢Р╧жЁлпР(INT64 ╧жнОobj)
 		{
 			if (╧жнОпео╒.dObjId != 0)
 			{
-				MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
+				//MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
 				╪╪дэ::╪╪дэйм╥е2(╧жнОпео╒.вЬ╠Й);
 			}
 			else
 			{
-				MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+				//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 				break;
 			}
 
@@ -31439,17 +31450,17 @@ void ╧╕дэ::╢Р╧жЁлпР(INT64 ╧жнОobj)
 		{
 			if (╧жнОпео╒.fDis >= 500)
 			{
-				MyTrace(L"%s ╧жнОЁ╛ЁЖ╧╔╩В╬ЮюКлЬЁЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+				//MyTrace(L"%s ╧жнОЁ╛ЁЖ╧╔╩В╬ЮюКлЬЁЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 				break;
 			}
 			if (╧жнОпео╒.dCurHp <= 0)
 			{
-				MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+				//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 				break;
 			}
 			else
 			{
-				MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
+				//MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
 				╪╪дэ::╪╪дэйм╥е2(╧жнОпео╒.вЬ╠Й);
 			}
 		}
@@ -31472,14 +31483,14 @@ void ╧╕дэ::╢Р╧жЁлпР2(INT64 ╧жнОobj, вЬ╠Й_ ╧л╤╗вЬ╠Й, objInfo_ ╡н_©╙╧ьпео╒)
 		╧жнОпео╒.вЬ╠Й = ╧л╤╗вЬ╠Й;
 		/*if (╧жнОпео╒.fDis >= 500)
 		{
-			MyTrace(L"%s ╧жнОЁ╛ЁЖ╧╔╩В╬ЮюКлЬЁЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+			//MyTrace(L"%s ╧жнОЁ╛ЁЖ╧╔╩В╬ЮюКлЬЁЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 			break;
 		}*/
 		if (╡н_©╙╧ьпео╒.dResId == 0)
 		{
 			if (╧жнОпео╒.dCurHp <= 0)
 			{
-				MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+				//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 				break;
 			}
 		}
@@ -31489,7 +31500,7 @@ void ╧╕дэ::╢Р╧жЁлпР2(INT64 ╧жнОobj, вЬ╠Й_ ╧л╤╗вЬ╠Й, objInfo_ ╡н_©╙╧ьпео╒)
 			{
 				if (©╙╧ьпео╒.dResShow == 1)
 				{
-					MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+					//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 					break;
 				}
 			}
@@ -31497,7 +31508,7 @@ void ╧╕дэ::╢Р╧жЁлпР2(INT64 ╧жнОobj, вЬ╠Й_ ╧л╤╗вЬ╠Й, objInfo_ ╡н_©╙╧ьпео╒)
 			{
 				if (╧жнОпео╒.dIsDead == 1)
 				{
-					MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
+					//MyTrace(L"%s ╧жнОрякюмЖ %0.3f, %0.3f, %0.3f", ╧жнОпео╒.wName, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z);
 					break;
 				}
 			}
@@ -31507,7 +31518,7 @@ void ╧╕дэ::╢Р╧жЁлпР2(INT64 ╧жнОobj, вЬ╠Й_ ╧л╤╗вЬ╠Й, objInfo_ ╡н_©╙╧ьпео╒)
 		{
 			UI╧╕дэ::дз╢Ф╟╢╪Э(VK_SPACE);
 		}
-		MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
+		//MyTrace(L"CanAttack %d ╧╔╩В╧жнО %s %d/%d %0.3f, %0.3f, %0.3f ╬ЮюК%0.3f", ╧жнОпео╒.dCanAttack, ╧жнОпео╒.wName, ╧жнОпео╒.dCurHp, ╧жнОпео╒.dMaxHp, ╧жнОпео╒.вЬ╠Й.x, ╧жнОпео╒.вЬ╠Й.y, ╧жнОпео╒.вЬ╠Й.z, ╧жнОпео╒.fDis);
 		╪╪дэ::╪╪дэйм╥е2(╧жнОпео╒.вЬ╠Й);
 		Sleep(100);
 	}
@@ -31518,7 +31529,7 @@ void ╧╕дэ::фф╩╣╩В╢Р╣ю╬ъЁлпР(INT64 ╧жнОobj, DWORD dResId)
 	while (х║фТ╤╞й╠╪Д() - ╢Р╧жй╠╪Д <= 0.5 * 60 * 1000)
 	{
 		objInfo_ ╩В╢Р╣ю╬ъпео╒ = ╩╥╬Ё::getActorInfo(╧жнОobj);
-		MyTrace(L"╩В╢Р╣ю╬ъпео╒ 0x%I64X,%d ", ╩В╢Р╣ю╬ъпео╒.objBase, ╩В╢Р╣ю╬ъпео╒.dResId);
+		//MyTrace(L"╩В╢Р╣ю╬ъпео╒ 0x%I64X,%d ", ╩В╢Р╣ю╬ъпео╒.objBase, ╩В╢Р╣ю╬ъпео╒.dResId);
 		if (╩В╢Р╣ю╬ъпео╒.dResId == dResId)
 		{
 			if (╩В╢Р╣ю╬ъпео╒.dType == 7)
@@ -31527,12 +31538,12 @@ void ╧╕дэ::фф╩╣╩В╢Р╣ю╬ъЁлпР(INT64 ╧жнОobj, DWORD dResId)
 				//{
 				if (╩╥╬Ё::╩В╢Р╣ю╬ъйг╥ЯкюмЖ(╩В╢Р╣ю╬ъпео╒.objBase) || ╩В╢Р╣ю╬ъпео╒.dResShow == 0 || ╩В╢Р╣ю╬ъпео╒.dIsDead == 0) //|| ╩В╢Р╣ю╬ъпео╒.dPortalOpen == 2 83BF??????????0F85????????0FB687????????3C??0F84????????3C??0F84????????33F63C??75??0FB687????????2C??A8??
 				{
-					MyTrace(L"0x%I64x ╩В╢Р╣ю╬ърякюмЖ %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.objBase, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
+					//MyTrace(L"0x%I64x ╩В╢Р╣ю╬ърякюмЖ %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.objBase, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
 					break;
 				}
 				else
 				{
-					MyTrace(L"╧╔╩В╩В╢Р╣ю╬ъ %s %d/%d %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.wName, ╩В╢Р╣ю╬ъпео╒.dCurHp, ╩В╢Р╣ю╬ъпео╒.dMaxHp, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
+					//MyTrace(L"╧╔╩В╩В╢Р╣ю╬ъ %s %d/%d %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.wName, ╩В╢Р╣ю╬ъпео╒.dCurHp, ╩В╢Р╣ю╬ъпео╒.dMaxHp, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
 					╪╪дэ::╪╪дэйм╥е2(╩В╢Р╣ю╬ъпео╒.вЬ╠Й);
 				}
 				//}
@@ -31545,12 +31556,12 @@ void ╧╕дэ::фф╩╣╩В╢Р╣ю╬ъЁлпР(INT64 ╧жнОobj, DWORD dResId)
 			{
 				if (╩В╢Р╣ю╬ъпео╒.dIsDead == 1 || ╩В╢Р╣ю╬ъпео╒.dResId == 0) //|| ╩В╢Р╣ю╬ъпео╒.dPortalOpen == 2 83BF??????????0F85????????0FB687????????3C??0F84????????3C??0F84????????33F63C??75??0FB687????????2C??A8??
 				{
-					MyTrace(L"0x%I64x ╩В╢Р╣ю╬ърякюмЖ %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.objBase, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
+					//MyTrace(L"0x%I64x ╩В╢Р╣ю╬ърякюмЖ %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.objBase, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
 					break;
 				}
 				else
 				{
-					MyTrace(L"╧╔╩В╩В╢Р╣ю╬ъ %s %d/%d %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.wName, ╩В╢Р╣ю╬ъпео╒.dCurHp, ╩В╢Р╣ю╬ъпео╒.dMaxHp, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
+					//MyTrace(L"╧╔╩В╩В╢Р╣ю╬ъ %s %d/%d %0.3f, %0.3f, %0.3f", ╩В╢Р╣ю╬ъпео╒.wName, ╩В╢Р╣ю╬ъпео╒.dCurHp, ╩В╢Р╣ю╬ъпео╒.dMaxHp, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.x, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.y, ╩В╢Р╣ю╬ъпео╒.вЬ╠Й.z);
 					╪╪дэ::╪╪дэйм╥е2(╩В╢Р╣ю╬ъпео╒.вЬ╠Й);
 				}
 			}
@@ -31568,12 +31579,12 @@ bool гЕюМ╧жнО(float x, float y, float z, int ╢Р╧ж╥╤н╖, int ╬ЮюКвтиМ╥╤н╖ = 100)
 	objInfo_ вН╫Э╧жнО;
 	vector<objInfo_>╧жнОйЩвИ;
 	╩╥╬Ё::╠ИюЗ╧жнО(╧жнОйЩвИ);
-	MyTrace(L"╧жнОйЩа© %d", ╧жнОйЩвИ.size());
+	//MyTrace(L"╧жнОйЩа© %d", ╧жнОйЩвИ.size());
 	вН╫Э╧жнО = х║ж╦╤╗вЬ╠Й╥╤н╖дз╧жнО(╧жнОйЩвИ, x, y, z, ╢Р╧ж╥╤н╖, ╬ЮюКвтиМ╥╤н╖);
-	MyTrace(L"вН╫Э╧жнОцШвж %s", вН╫Э╧жнО.wName);
+	//MyTrace(L"вН╫Э╧жнОцШвж %s", вН╫Э╧жнО.wName);
 	if (вН╫Э╧жнО.dObjId != 0)
 	{
-		//MyTrace(L"вН╫Э╧жнО %s ╬ЮюК%0.3f", вН╫Э╧жнО.wName, вН╫Э╧жнО.fDis);
+		////MyTrace(L"вН╫Э╧жнО %s ╬ЮюК%0.3f", вН╫Э╧жнО.wName, вН╫Э╧жнО.fDis);
 		if (вН╫Э╧жнО.fDis > 700)
 		{
 			╣ьм╪::╠╬╣ьм╪я╟б╥(вН╫Э╧жнО.вЬ╠Й.x, вН╫Э╧жнО.вЬ╠Й.y, вН╫Э╧жнО.вЬ╠Й.z, 0);
@@ -31589,10 +31600,10 @@ bool гЕюМ╧жнО(float x, float y, float z, int ╢Р╧ж╥╤н╖, int ╬ЮюКвтиМ╥╤н╖ = 100)
 			}
 
 		}
-		//MyTrace(L"╥╣╩ь╪ы");
+		////MyTrace(L"╥╣╩ь╪ы");
 		return false;
 	}
-	//MyTrace(L"╥╣╩ьуФ");
+	////MyTrace(L"╥╣╩ьуФ");
 	return true;
 }
 bool гЕюМNPCв╙╧жнО(float x, float y, float z, int ╢Р╧ж╥╤н╖, int ╬ЮюКвтиМ╥╤н╖ = 100)
@@ -31600,15 +31611,15 @@ bool гЕюМNPCв╙╧жнО(float x, float y, float z, int ╢Р╧ж╥╤н╖, int ╬ЮюКвтиМ╥╤н╖ = 1
 	objInfo_ вН╫ЭNPC╧жнО;
 	vector<objInfo_>NPC╧жнОйЩвИ;
 	╩╥╬Ё::╠ИюЗNPC(NPC╧жнОйЩвИ);
-	MyTrace(L"NPC╧жнОйЩа© %d", NPC╧жнОйЩвИ.size());
+	//MyTrace(L"NPC╧жнОйЩа© %d", NPC╧жнОйЩвИ.size());
 	//вН╫Э╧жнО = х║╥╤н╖дз╧жнО(╧жнОйЩвИ, ╢Р╧ж╥╤н╖);
 	//return false;
 
 	вН╫ЭNPC╧жнО = х║ж╦╤╗вЬ╠Й╥╤н╖дзNPC╧жнО(NPC╧жнОйЩвИ, x, y, z, ╢Р╧ж╥╤н╖, ╬ЮюКвтиМ╥╤н╖);
-	MyTrace(L"вН╫Э╧жнОцШвж %s", вН╫ЭNPC╧жнО.wName);
+	//MyTrace(L"вН╫Э╧жнОцШвж %s", вН╫ЭNPC╧жнО.wName);
 	if (вН╫ЭNPC╧жнО.dObjId != 0)
 	{
-		MyTrace(L"вН╫ЭNPC╧жнО %s ╬ЮюК%0.3f", вН╫ЭNPC╧жнО.wName, вН╫ЭNPC╧жнО.fDis);
+		//MyTrace(L"вН╫ЭNPC╧жнО %s ╬ЮюК%0.3f", вН╫ЭNPC╧жнО.wName, вН╫ЭNPC╧жнО.fDis);
 		if (вН╫ЭNPC╧жнО.fDis > 700)
 		{
 			╣ьм╪::╠╬╣ьм╪я╟б╥(вН╫ЭNPC╧жнО.вЬ╠Й.x, вН╫ЭNPC╧жнО.вЬ╠Й.y, вН╫ЭNPC╧жнО.вЬ╠Й.z, 0);
@@ -31624,10 +31635,10 @@ bool гЕюМNPCв╙╧жнО(float x, float y, float z, int ╢Р╧ж╥╤н╖, int ╬ЮюКвтиМ╥╤н╖ = 1
 			}
 
 		}
-		MyTrace(L"╥╣╩ь╪ы");
+		//MyTrace(L"╥╣╩ь╪ы");
 		return false;
 	}
-	MyTrace(L"╥╣╩ьуФ");
+	//MyTrace(L"╥╣╩ьуФ");
 	return true;
 }
 bool йг╥Ян╙сеох╢Р╧жID(DWORD resid)
@@ -31646,9 +31657,9 @@ bool гЕюМ╩В╢Р╣ю╬ъ(float x, float y, float z, int ╬ЮюКвтиМ╥╤н╖, int ╢Р╧ж╥╤н╖)
 	objInfo_ вН╫Э╩В╢Р╣ю╬ъ;
 	vector<objInfo_>╩В╢Р╣ю╬ъйЩвИ;
 	╩╥╬Ё::╠ИюЗ╩В╢Р╣ю╬ъ(╩В╢Р╣ю╬ъйЩвИ);
-	MyTrace(L"╩В╢Р╣ю╬ъйЩвИ %d сеох╢Р╧ж%d  ╬ЮюКвтиМ╥╤н╖ %d   ╢Р╧ж╥╤н╖ %d", ╩В╢Р╣ю╬ъйЩвИ.size(), сеох╢Р╧жID.size(), ╬ЮюКвтиМ╥╤н╖, ╢Р╧ж╥╤н╖);
+	//MyTrace(L"╩В╢Р╣ю╬ъйЩвИ %d сеох╢Р╧ж%d  ╬ЮюКвтиМ╥╤н╖ %d   ╢Р╧ж╥╤н╖ %d", ╩В╢Р╣ю╬ъйЩвИ.size(), сеох╢Р╧жID.size(), ╬ЮюКвтиМ╥╤н╖, ╢Р╧ж╥╤н╖);
 	вН╫Э╩В╢Р╣ю╬ъ = х║╥╤н╖дз╩В╢Р╣ю╬ъ(╩В╢Р╣ю╬ъйЩвИ, x, y, z, ╢Р╧ж╥╤н╖, ╬ЮюКвтиМ╥╤н╖);
-	MyTrace(L"вН╫Э╩В╢Р╣ю╬ъ %d ╬ЮюК %0.3f ->%0.3f %0.3f %0.3f", вН╫Э╩В╢Р╣ю╬ъ.dResId, вН╫Э╩В╢Р╣ю╬ъ.fDis, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.x, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.y, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.z);
+	//MyTrace(L"вН╫Э╩В╢Р╣ю╬ъ %d ╬ЮюК %0.3f ->%0.3f %0.3f %0.3f", вН╫Э╩В╢Р╣ю╬ъ.dResId, вН╫Э╩В╢Р╣ю╬ъ.fDis, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.x, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.y, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.z);
 	if (вН╫Э╩В╢Р╣ю╬ъ.dObjId != 0)
 	{
 		if (вН╫Э╩В╢Р╣ю╬ъ.fDis > 500)
@@ -31657,14 +31668,14 @@ bool гЕюМ╩В╢Р╣ю╬ъ(float x, float y, float z, int ╬ЮюКвтиМ╥╤н╖, int ╢Р╧ж╥╤н╖)
 			{
 				if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.x, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.y, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.z))
 				{
-					MyTrace(L"©и╢О");
+					//MyTrace(L"©и╢О");
 					╣ьм╪::╠╬╣ьм╪я╟б╥(вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.x, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.y, вН╫Э╩В╢Р╣ю╬ъ.вЬ╠Й.z, 0);
 					Sleep(1000);
 
 				}
 				else
 				{
-					MyTrace(L"еп╤о╦╫╫Э©ивъ");
+					//MyTrace(L"еп╤о╦╫╫Э©ивъ");
 					bool йг╥Я©и╢О = false;
 					for (size_t i = 0; i < 8; i++)
 					{
@@ -31700,10 +31711,10 @@ bool гЕюМ╩В╢Р╣ю╬ъ(float x, float y, float z, int ╬ЮюКвтиМ╥╤н╖, int ╢Р╧ж╥╤н╖)
 					}
 					//if (йг╥Я©и╢О == false)//6тб5ху linjinmao фа╠н
 					//{
-					//	MyTrace(L"я╟б╥нч╥╗╣╫╢О еп╤ойг╥Я╪схКтщй╠╡╩╢Р");
+					//	//MyTrace(L"я╟б╥нч╥╗╣╫╢О еп╤ойг╥Я╪схКтщй╠╡╩╢Р");
 					//	if (йг╥Ян╙сеох╢Р╧жID(вН╫Э╩В╢Р╣ю╬ъ.dResId) == false)
 					//	{
-					//		MyTrace(L"╪схКтщй╠╡╩╢Р %d", вН╫Э╩В╢Р╣ю╬ъ.dResId);
+					//		//MyTrace(L"╪схКтщй╠╡╩╢Р %d", вН╫Э╩В╢Р╣ю╬ъ.dResId);
 					//		╪схКтщй╠╡╩╢РID_йЩвж(вН╫Э╩В╢Р╣ю╬ъ.dResId);
 					//	}
 
@@ -31796,9 +31807,9 @@ bool ╧╕дэ::й╟х║╣ю╬ъ(int ╢Р╧ж╥╤н╖)
 	objInfo_ вН╫Эй╟х║╣ю╬ъ;
 	vector<objInfo_>й╟х║╣ю╬ъвИ;
 	╩╥╬Ё::╠ИюЗ╣ьцФнОф╥(й╟х║╣ю╬ъвИ);
-	MyTrace(L"й╟х║╣ю╬ъйЩа© %d", й╟х║╣ю╬ъвИ.size());
+	//MyTrace(L"й╟х║╣ю╬ъйЩа© %d", й╟х║╣ю╬ъвИ.size());
 	вН╫Эй╟х║╣ю╬ъ = х║╥╤н╖дзй╟х║нОф╥(й╟х║╣ю╬ъвИ, ╢Р╧ж╥╤н╖);
-	MyTrace(L"вН╫Эй╟х║╣ю╬ъ %s %d", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.fDis);
+	//MyTrace(L"вН╫Эй╟х║╣ю╬ъ %s %d", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.fDis);
 	if (вН╫Эй╟х║╣ю╬ъ.dObjId != 0)
 	{
 		if (вН╫Эй╟х║╣ю╬ъ.fDis > 500)
@@ -31807,7 +31818,7 @@ bool ╧╕дэ::й╟х║╣ю╬ъ(int ╢Р╧ж╥╤н╖)
 		}
 		else
 		{
-			MyTrace(L"й╟х║╣ю╬ъ %s %d ╬ЮюК%0.3f", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.dResId, вН╫Эй╟х║╣ю╬ъ.fDis);
+			//MyTrace(L"й╟х║╣ю╬ъ %s %d ╬ЮюК%0.3f", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.dResId, вН╫Эй╟х║╣ю╬ъ.fDis);
 
 			╩╥╬Ё::й╟нО(вН╫Эй╟х║╣ю╬ъ.objBase);
 			//╧╕дэ::╢Р╧жЁлпР(вН╫Эй╟х║╣ю╬ъ.objBase);
@@ -31823,9 +31834,9 @@ bool ╧╕дэ::й╟х║╣ю╬ъ1(int ╢Р╧ж╥╤н╖)
 	objInfo_ вН╫Эй╟х║╣ю╬ъ;
 	vector<objInfo_>й╟х║╣ю╬ъвИ;
 	╩╥╬Ё::╠ИюЗ╣ьцФнОф╥(й╟х║╣ю╬ъвИ);
-	MyTrace(L"й╟х║╣ю╬ъйЩа© %d", й╟х║╣ю╬ъвИ.size());
+	//MyTrace(L"й╟х║╣ю╬ъйЩа© %d", й╟х║╣ю╬ъвИ.size());
 	вН╫Эй╟х║╣ю╬ъ = х║╥╤н╖дзй╟х║нОф╥(й╟х║╣ю╬ъвИ, ╢Р╧ж╥╤н╖);
-	MyTrace(L"вН╫Эй╟х║╣ю╬ъ %s %d", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.fDis);
+	//MyTrace(L"вН╫Эй╟х║╣ю╬ъ %s %d", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.fDis);
 	if (вН╫Эй╟х║╣ю╬ъ.dObjId != 0)
 	{
 		if (вН╫Эй╟х║╣ю╬ъ.fDis/100 > 500)
@@ -31834,7 +31845,7 @@ bool ╧╕дэ::й╟х║╣ю╬ъ1(int ╢Р╧ж╥╤н╖)
 		}
 		else
 		{
-			MyTrace(L"й╟х║╣ю╬ъ %s %d ╬ЮюК%0.3f", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.dResId, вН╫Эй╟х║╣ю╬ъ.fDis);
+			//MyTrace(L"й╟х║╣ю╬ъ %s %d ╬ЮюК%0.3f", вН╫Эй╟х║╣ю╬ъ.wName, вН╫Эй╟х║╣ю╬ъ.dResId, вН╫Эй╟х║╣ю╬ъ.fDis);
 			╩╥╬Ё::й╟нО(вН╫Эй╟х║╣ю╬ъ.objBase);
 			//╧╕дэ::╢Р╧жЁлпР(вН╫Эй╟х║╣ю╬ъ.objBase);
 		}
@@ -31895,9 +31906,9 @@ bool ╣ьм╪IDсКб╪жфвЬ╠ЙвИIDйг╥ЯоЮм╛(DWORD ╣ьм╪ID)
 	{
 		int вНжуdis;
 		int dis = ╬ЮюК╪фкЦ(x, y, z, ╡нб╪жфвЬ╠ЙвИ[i].x1, ╡нб╪жфвЬ╠ЙвИ[i].y1, ╡нб╪жфвЬ╠ЙвИ[i].z1);
-		//MyTrace(L"1 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x1, ╡нб╪жфвЬ╠ЙвИ[i].y1, ╡нб╪жфвЬ╠ЙвИ[i].z1, dis);
+		////MyTrace(L"1 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x1, ╡нб╪жфвЬ╠ЙвИ[i].y1, ╡нб╪жфвЬ╠ЙвИ[i].z1, dis);
 		int dis2 = ╬ЮюК╪фкЦ(x, y, z, ╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2);
-		//MyTrace(L"2 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2, dis2);
+		////MyTrace(L"2 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2, dis2);
 		if (dis < dis2)
 		{
 			вНжуdis = dis;
@@ -31943,7 +31954,7 @@ bool ╣ьм╪IDсКб╪жфвЬ╠ЙвИIDйг╥ЯоЮм╛(DWORD ╣ьм╪ID)
 			dis = 9999999;
 		}
 
-		//MyTrace(L"1 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x1, ╡нб╪жфвЬ╠ЙвИ[i].y1, ╡нб╪жфвЬ╠ЙвИ[i].z1, dis);
+		////MyTrace(L"1 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x1, ╡нб╪жфвЬ╠ЙвИ[i].y1, ╡нб╪жфвЬ╠ЙвИ[i].z1, dis);
 		if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2))
 		{
 			dis2 = ╬ЮюК╪фкЦ(x, y, z, ╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2);
@@ -31952,7 +31963,7 @@ bool ╣ьм╪IDсКб╪жфвЬ╠ЙвИIDйг╥ЯоЮм╛(DWORD ╣ьм╪ID)
 		{
 			dis2 = 9999999;
 		}
-		//MyTrace(L"2 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2, dis2);
+		////MyTrace(L"2 %0.3f %0.3f %0.3f ,dis:%d", ╡нб╪жфвЬ╠ЙвИ[i].x2, ╡нб╪жфвЬ╠ЙвИ[i].y2, ╡нб╪жфвЬ╠ЙвИ[i].z2, dis2);
 		if (dis < dis2)
 		{
 			вНжуdis = dis;
@@ -31998,15 +32009,15 @@ bool ╧╕дэ::╩Ях║я╟б╥╥ж╤нвЬ╠ЙвИ(DWORD ╣ьм╪ID, float x, float y, float z, vector<б╪
 	ур╣╫д©╣доЮ╫ЭвЬ╠Й = х║ЁЖвН╫Эб╪жфвЬ╠Й(x, y, z, б╪жфвЬ╠ЙвИ);
 	if (ур╣╫д©╣доЮ╫ЭвЬ╠Й.x1 == 0)
 	{
-		MyTrace(L"н╢ур╣╫я╟б╥вН╫Э╥ж╤нвЬ╠Й");
+		//MyTrace(L"н╢ур╣╫я╟б╥вН╫Э╥ж╤нвЬ╠Й");
 		return false;
 	}
-	MyTrace(L"д©╣д╣ьм╪ID:%d д©╣двЬ╠Й %0.3f %0.3f %0.3f ур╣╫оЮ╫Эд©╣двЬ╠Й сеох╣╫╢Од©╣двЬ╠Й %0.3f %0.3f %0.3f", ╣ьм╪ID, x, y, z, ур╣╫д©╣доЮ╫ЭвЬ╠Й.x1, ур╣╫д©╣доЮ╫ЭвЬ╠Й.y1, ур╣╫д©╣доЮ╫ЭвЬ╠Й.z1);
+	//MyTrace(L"д©╣д╣ьм╪ID:%d д©╣двЬ╠Й %0.3f %0.3f %0.3f ур╣╫оЮ╫Эд©╣двЬ╠Й сеох╣╫╢Од©╣двЬ╠Й %0.3f %0.3f %0.3f", ╣ьм╪ID, x, y, z, ур╣╫д©╣доЮ╫ЭвЬ╠Й.x1, ур╣╫д©╣доЮ╫ЭвЬ╠Й.y1, ур╣╫д©╣доЮ╫ЭвЬ╠Й.z1);
 	//╣ьм╪::╠╬╣ьм╪я╟б╥(╫ги╚вЬ╠Й.x+50, ╫ги╚вЬ╠Й.y+50, ╫ги╚вЬ╠Й.z, 0);
 	Sleep(100);
 	if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(ур╣╫д©╣доЮ╫ЭвЬ╠Й.x1, ур╣╫д©╣доЮ╫ЭвЬ╠Й.y1, ур╣╫д©╣доЮ╫ЭвЬ╠Й.z1))
 	{
-		MyTrace(L"д©╠Й╣ь╣Ц©и╣╫╢О");
+		//MyTrace(L"д©╠Й╣ь╣Ц©и╣╫╢О");
 		╥жгЬ╥╫оР = 1;
 		╥╣╩ьб╥╬╤╥ж╤нвЬ╠ЙвИ.push_back(ур╣╫д©╣доЮ╫ЭвЬ╠Й);
 		return true;
@@ -32015,19 +32026,19 @@ bool ╧╕дэ::╩Ях║я╟б╥╥ж╤нвЬ╠ЙвИ(DWORD ╣ьм╪ID, float x, float y, float z, vector<б╪
 	{
 		if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(ур╣╫д©╣доЮ╫ЭвЬ╠Й.x2, ур╣╫д©╣доЮ╫ЭвЬ╠Й.y2, ур╣╫д©╣доЮ╫ЭвЬ╠Й.z2))
 		{
-			MyTrace(L"д©╠Й╣ь╣Ц©и╣╫╢О");
+			//MyTrace(L"д©╠Й╣ь╣Ц©и╣╫╢О");
 			╥жгЬ╥╫оР = 2;
 			╥╣╩ьб╥╬╤╥ж╤нвЬ╠ЙвИ.push_back(ур╣╫д©╣доЮ╫ЭвЬ╠Й);
 			return true;
 		}
 		х║ЁЖж╦╤╗б╥╬╤вИ(ур╣╫д©╣доЮ╫ЭвЬ╠Й.оъб╥, б╪жфвЬ╠ЙвИ, ╥ж╤нб╪жфвЬ╠ЙвИ);
-		MyTrace(L"╣ьм╪ID:%d ╥╣╩ь╥ж╤н[%d]╥ж╤нб╪жфвЬ╠ЙвИйЩа© %d", ╣ьм╪ID, ур╣╫д©╣доЮ╫ЭвЬ╠Й.оъб╥, ╥ж╤нб╪жфвЬ╠ЙвИ.size());
+		//MyTrace(L"╣ьм╪ID:%d ╥╣╩ь╥ж╤н[%d]╥ж╤нб╪жфвЬ╠ЙвИйЩа© %d", ╣ьм╪ID, ур╣╫д©╣доЮ╫ЭвЬ╠Й.оъб╥, ╥ж╤нб╪жфвЬ╠ЙвИ.size());
 		вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 		ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й = х║ЁЖвН╫Э©и╢Об╪жфвЬ╠Й(╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z, ╥ж╤нб╪жфвЬ╠ЙвИ);
-		MyTrace(L"д©╣д╣ьм╪ID:%d д©╣двЬ╠Й %0.3f %0.3f %0.3f  ╬ЮюК╫ги╚вН╫ЭвЬ╠Й %0.3f %0.3f %0.3f", ╣ьм╪ID, x, y, z, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.x1, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.y1, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.z1);
+		//MyTrace(L"д©╣д╣ьм╪ID:%d д©╣двЬ╠Й %0.3f %0.3f %0.3f  ╬ЮюК╫ги╚вН╫ЭвЬ╠Й %0.3f %0.3f %0.3f", ╣ьм╪ID, x, y, z, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.x1, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.y1, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.z1);
 		if (ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.x1 == 0)
 		{
-			MyTrace(L"н╢ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й");
+			//MyTrace(L"н╢ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й");
 			return false;
 		}
 		if (ур╣╫д©╣доЮ╫ЭвЬ╠Й.оъб╥╥ж╤н == ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.оъб╥╥ж╤н)
@@ -32047,7 +32058,7 @@ bool ╧╕дэ::╩Ях║я╟б╥╥ж╤нвЬ╠ЙвИ(DWORD ╣ьм╪ID, float x, float y, float z, vector<б╪
 			else
 			{
 				вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
-				MyTrace(L"╩Ях║оъб╥╥ж╤ноЮм╛,╣╚йгнч╥╗╣╫╢О,х║╫ги╚вН╫Э©и╢ОвЬ╠Й   д©╣двЬ╠Й %0.3f %0.3f %0.3f  ╫ги╚вЬ╠Й %0.3f %0.3f %0.3f ", x, y, z, ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
+				//MyTrace(L"╩Ях║оъб╥╥ж╤ноЮм╛,╣╚йгнч╥╗╣╫╢О,х║╫ги╚вН╫Э©и╢ОвЬ╠Й   д©╣двЬ╠Й %0.3f %0.3f %0.3f  ╫ги╚вЬ╠Й %0.3f %0.3f %0.3f ", x, y, z, ╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z);
 				/*ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й = х║ЁЖвН╫Э©и╢Об╪жфвЬ╠Й(╫ги╚вЬ╠Й.x, ╫ги╚вЬ╠Й.y, ╫ги╚вЬ╠Й.z, б╪жфвЬ╠ЙвИ);
 				if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.x1, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.y1, ур╣╫сК╫ги╚оЮ╫ЭвЬ╠Й.z1))
 				{
@@ -32107,7 +32118,7 @@ bool ╧╕дэ::╩Ях║я╟б╥╥ж╤нвЬ╠ЙвИ(DWORD ╣ьм╪ID, float x, float y, float z, vector<б╪
 				╥╣╩ьб╥╬╤╥ж╤нвЬ╠ЙвИ.push_back(╥ж╤нб╪жфвЬ╠ЙвИ[i]);
 			}
 		}
-		MyTrace(L"╣ьм╪ID:%d ╥╣╩ь╥ж╤н[%d]и╦я║╥ж╤нб╪жфвЬ╠ЙвИйЩа© %d", ╣ьм╪ID, ур╣╫д©╣доЮ╫ЭвЬ╠Й.оъб╥, ╥╣╩ьб╥╬╤╥ж╤нвЬ╠ЙвИ.size());
+		//MyTrace(L"╣ьм╪ID:%d ╥╣╩ь╥ж╤н[%d]и╦я║╥ж╤нб╪жфвЬ╠ЙвИйЩа© %d", ╣ьм╪ID, ур╣╫д©╣доЮ╫ЭвЬ╠Й.оъб╥, ╥╣╩ьб╥╬╤╥ж╤нвЬ╠ЙвИ.size());
 	}
 	return true;
 }
@@ -32154,7 +32165,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 	{
 
 		//╥жгЬ╥╫оР  1 2 й╧сц╣зр╩лввЬ╠Й ╩╧йг╣з╤ЧлввЬ╠Й
-		MyTrace(L"╥ж╤н╢╕юМвЬ╠Й вЬ╠Й  %0.3f|%0.3f|%0.3f    ╡ывВ%d ╥ж╤н %d", ╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1, ╥ж╤н╢╕юМвЬ╠Й.╡ывВ, ╥жгЬ╥╫оР);
+		//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й вЬ╠Й  %0.3f|%0.3f|%0.3f    ╡ывВ%d ╥ж╤н %d", ╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1, ╥ж╤н╢╕юМвЬ╠Й.╡ывВ, ╥жгЬ╥╫оР);
 		if (╥ж╤н╢╕юМвЬ╠Й.╡ывВ == 4)
 		{
 
@@ -32162,7 +32173,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 			{
 				if (╩╥╬Ё::╩Ях║╣╠г╟╣ГлщID() != 0)
 				{
-					MyTrace(L"ряЁквЬ╣Глщ");
+					//MyTrace(L"ряЁквЬ╣Глщ");
 					if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2))
 					{
 						╣ьм╪::╠╬╣ьм╪я╟б╥(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2, 0);
@@ -32176,14 +32187,14 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1) <= 50)
 				{
 
-					MyTrace(L"ЁквЬ╣Глщ1");
+					//MyTrace(L"ЁквЬ╣Глщ1");
 					vector<objInfo_>йЩвИ;
 					╩╥╬Ё::╠ИюЗ╣Глщ(йЩвИ);
 					if (йЩвИ.size() > 0)
 					{
 
 						objInfo_ ╣Глщпео╒ = йЩвИ[0];
-						MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
+						//MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
 						if (╣ьм╪::╠╬╣ьм╪я╟б╥(╣Глщпео╒.вЬ╠Й.x, ╣Глщпео╒.вЬ╠Й.y, ╣Глщпео╒.вЬ╠Й.z, ╣Глщпео╒.ModId))
 						{
 							if (╣Глщпео╒.dResId == 1069101)
@@ -32191,7 +32202,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 								int ╪ф╢н = 0;
 								while (╩╥╬Ё::╩Ях║╣╠г╟╣ГлщID() != 0 && ╪ф╢н <= 60)
 								{
-									MyTrace(L"ряЁквЬд╬╥╓");
+									//MyTrace(L"ряЁквЬд╬╥╓");
 									if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2))
 									{
 										╣ьм╪::╠╬╣ьм╪я╟б╥(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2, 0);
@@ -32209,7 +32220,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 								Sleep(2000);
 								if (╩╥╬Ё::╩Ях║╣╠г╟╣ГлщID() != 0)
 								{
-									MyTrace(L"ряЁквЬ╣Глщ");
+									//MyTrace(L"ряЁквЬ╣Глщ");
 									Sleep(2000);
 									/*иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 
@@ -32245,7 +32256,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 			{
 				if (╩╥╬Ё::╩Ях║╣╠г╟╣ГлщID() != 0)
 				{
-					MyTrace(L"ряЁквЬ╣Глщ");
+					//MyTrace(L"ряЁквЬ╣Глщ");
 					if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1))
 					{
 						╣ьм╪::╠╬╣ьм╪я╟б╥(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1, 0);
@@ -32258,19 +32269,19 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 				}
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2) <= 50)
 				{
-					MyTrace(L"ЁквЬ╣Глщ2");
+					//MyTrace(L"ЁквЬ╣Глщ2");
 					vector<objInfo_>йЩвИ;
 					╩╥╬Ё::╠ИюЗ╣Глщ(йЩвИ);
 					if (йЩвИ.size() > 0)
 					{
 						objInfo_ ╣Глщпео╒ = йЩвИ[0];
-						MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
+						//MyTrace(L"ЁквЬ %s->%d ->modID %x", ╣Глщпео╒.wName, ╣Глщпео╒.dResId, ╣Глщпео╒.ModId);
 						if (╣ьм╪::╠╬╣ьм╪я╟б╥(╣Глщпео╒.вЬ╠Й.x, ╣Глщпео╒.вЬ╠Й.y, ╣Глщпео╒.вЬ╠Й.z, ╣Глщпео╒.ModId))
 						{
 							Sleep(2000);
 							if (╩╥╬Ё::╩Ях║╣╠г╟╣ГлщID() != 0)
 							{
-								MyTrace(L"ряЁквЬ╣Глщ");
+								//MyTrace(L"ряЁквЬ╣Глщ");
 								/*иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 
 								б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();*/
@@ -32304,7 +32315,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 		{
 			if (╥жгЬ╥╫оР == 1)
 			{
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 2 ╥╫оР1");
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 2 ╥╫оР1");
 				if (!╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1))
 				{
 					иХжц╥ж╤нвЬ╠Йря╣╫╢О();
@@ -32317,7 +32328,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 					вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 					if (╫ги╚вЬ╠Й.x != ╥ж╤н╢╕юМвЬ╠Й.x1 || ╫ги╚вЬ╠Й.y != ╥ж╤н╢╕юМвЬ╠Й.y1 || ╫ги╚вЬ╠Й.z != ╥ж╤н╢╕юМвЬ╠Й.z1)
 					{
-						MyTrace(L"иХжцря╣╫╢О");
+						//MyTrace(L"иХжцря╣╫╢О");
 						иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 					}
 					/*if (!╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1))
@@ -32334,13 +32345,13 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 			}
 			else
 			{
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 2 ╥╫оР2 %0.3f %0.3f %0.3f", ╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2);
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 2 ╥╫оР2 %0.3f %0.3f %0.3f", ╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2);
 				if (!╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2))
 				{
 					иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 					б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 				}
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й еп╤о 2 ╥╫оР2");
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й еп╤о 2 ╥╫оР2");
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2) <= 50)
 				{
 
@@ -32350,7 +32361,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 					вЬ╠Й_ ╫ги╚вЬ╠Й = ╠╬хк::х║вЬ╠Й();
 					if (╫ги╚вЬ╠Й.x != ╥ж╤н╢╕юМвЬ╠Й.x2 || ╫ги╚вЬ╠Й.y != ╥ж╤н╢╕юМвЬ╠Й.y2 || ╫ги╚вЬ╠Й.z != ╥ж╤н╢╕юМвЬ╠Й.z2)
 					{
-						MyTrace(L"иХжцря╣╫╢О");
+						//MyTrace(L"иХжцря╣╫╢О");
 						иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 					}
 					/*if (!╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2))
@@ -32371,7 +32382,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 		{
 			if (╥жгЬ╥╫оР == 1)
 			{
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 0");
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 0");
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1) <= 50)
 				{
 					иХжц╥ж╤нвЬ╠Йря╣╫╢О();
@@ -32394,7 +32405,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 			}
 			else
 			{
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 0");
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 0");
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2) <= 50)
 				{
 
@@ -32410,7 +32421,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 					}
 					else
 					{
-						MyTrace(L"иХжцря╣╫╢О");
+						//MyTrace(L"иХжцря╣╫╢О");
 						иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 						б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 						return;
@@ -32424,16 +32435,16 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 		{
 			if (╥жгЬ╥╫оР == 1)
 			{
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 3");
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 3");
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1) <= 50)
 				{
-					MyTrace(L"я╟ур╢╚кмце");
+					//MyTrace(L"я╟ур╢╚кмце");
 					vector<objInfo_>йЩвИ;
 					╩╥╬Ё::╠ИюЗ╢╚кмце(йЩвИ);
 					if (йЩвИ.size() > 0)
 					{
 						objInfo_ ╢╚кмцепео╒ = йЩвИ[0];
-						MyTrace(L"╫ЬхК╢╚кмце %x ->fDis %0.3f", ╢╚кмцепео╒.dResId, ╢╚кмцепео╒.fDis);
+						//MyTrace(L"╫ЬхК╢╚кмце %x ->fDis %0.3f", ╢╚кмцепео╒.dResId, ╢╚кмцепео╒.fDis);
 
 						if (GetDis(7645, 8792, -18011) < 500)
 						{
@@ -32492,7 +32503,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 						{
 							Sleep(1000);
 
-							MyTrace(L"ря╫ЬхК╢╚кмце %0.3f %0.3f %0.3f ", ╢╚кмцепео╒.вЬ╠Й.x, ╢╚кмцепео╒.вЬ╠Й.y, ╢╚кмцепео╒.вЬ╠Й.z);
+							//MyTrace(L"ря╫ЬхК╢╚кмце %0.3f %0.3f %0.3f ", ╢╚кмцепео╒.вЬ╠Й.x, ╢╚кмцепео╒.вЬ╠Й.y, ╢╚кмцепео╒.вЬ╠Й.z);
 							иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 							б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 							return;
@@ -32503,7 +32514,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 					}
 					else
 					{
-						MyTrace(L"н╢ур╣╫╢╚кмце");
+						//MyTrace(L"н╢ур╣╫╢╚кмце");
 						//иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 						//б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 					}
@@ -32527,16 +32538,16 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 			}
 			else
 			{
-				MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 3");
+				//MyTrace(L"╥ж╤н╢╕юМвЬ╠Й ╡ывВ 3");
 				if (GetDis(╥ж╤н╢╕юМвЬ╠Й.x2, ╥ж╤н╢╕юМвЬ╠Й.y2, ╥ж╤н╢╕юМвЬ╠Й.z2) <= 50)
 				{
-					MyTrace(L"я╟ур╢╚кмце");
+					//MyTrace(L"я╟ур╢╚кмце");
 					vector<objInfo_>йЩвИ;
 					╩╥╬Ё::╠ИюЗ╢╚кмце(йЩвИ);
 					if (йЩвИ.size() > 0)
 					{
 						objInfo_ ╢╚кмцепео╒ = йЩвИ[0];
-						MyTrace(L"╫ЬхК╢╚кмце %x ->fDis %d", ╢╚кмцепео╒.dResId, ╢╚кмцепео╒.fDis);
+						//MyTrace(L"╫ЬхК╢╚кмце %x ->fDis %d", ╢╚кмцепео╒.dResId, ╢╚кмцепео╒.fDis);
 						if (GetDis(7645, 8792, -18011) < 200)
 						{
 							if (╢╚кмцепео╒.dResId == 0x4F1B)
@@ -32559,7 +32570,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 						{
 							Sleep(1000);
 
-							MyTrace(L"ря╫ЬхК╢╚кмце %0.3f %0.3f %0.3f ", ╢╚кмцепео╒.вЬ╠Й.x, ╢╚кмцепео╒.вЬ╠Й.y, ╢╚кмцепео╒.вЬ╠Й.z);
+							//MyTrace(L"ря╫ЬхК╢╚кмце %0.3f %0.3f %0.3f ", ╢╚кмцепео╒.вЬ╠Й.x, ╢╚кмцепео╒.вЬ╠Й.y, ╢╚кмцепео╒.вЬ╠Й.z);
 							иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 							б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 							return;
@@ -32568,7 +32579,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 						}
 
 					}
-					MyTrace(L"н╢ур╣╫╢╚кмце╢╚кмце");
+					//MyTrace(L"н╢ур╣╫╢╚кмце╢╚кмце");
 					//иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 					//б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 					return;
@@ -32581,7 +32592,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 					}
 					else
 					{
-						MyTrace(L"иХжцря╣╫╢О");
+						//MyTrace(L"иХжцря╣╫╢О");
 						иХжц╥ж╤нвЬ╠Йря╣╫╢О();
 						б╥╬╤╥ж╤нвЬ╠ЙвИ.clear();
 						return;
@@ -32603,20 +32614,20 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 		{
 			╥ж╤н╢╕юМвЬ╠Й = б╥╬╤╥ж╤нвЬ╠ЙвИ[0];
 			б╥╬╤╥ж╤нвЬ╠ЙвИ[0].ря╥жеД = true;
-			MyTrace(L"╩Ях║╣╫╥ж╤н╢╕юМвЬ╠Й %0.3f %0.3f %0.3f", ╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1);
+			//MyTrace(L"╩Ях║╣╫╥ж╤н╢╕юМвЬ╠Й %0.3f %0.3f %0.3f", ╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1);
 			return;
 		}
 		else
 		{
 			::sort(б╥╬╤╥ж╤нвЬ╠ЙвИ.begin(), б╥╬╤╥ж╤нвЬ╠ЙвИ.end(), б╪жфвЬ╠ЙеепР);
-			MyTrace(L"б╥╬╤╥ж╤нйЩа© %d", б╥╬╤╥ж╤нвЬ╠ЙвИ.size());
+			//MyTrace(L"б╥╬╤╥ж╤нйЩа© %d", б╥╬╤╥ж╤нвЬ╠ЙвИ.size());
 			for (size_t i = 0; i < б╥╬╤╥ж╤нвЬ╠ЙвИ.size(); i++)
 			{
-				MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f ╬ЮюК %d", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].dis);
+				//MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f ╬ЮюК %d", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].dis);
 			}
 			for (size_t i = 0; i < б╥╬╤╥ж╤нвЬ╠ЙвИ.size(); i++)
 			{
-				MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1);
+				//MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1);
 				if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1) && б╥╬╤╥ж╤нвЬ╠ЙвИ[i].ря╥жеД == false)
 				{
 					╥жгЬ╥╫оР = 1;
@@ -32624,7 +32635,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 					б╥╬╤╥ж╤нвЬ╠ЙвИ[i].ря╥жеД = true;
 					break;
 				}
-				MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z2);
+				//MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z2);
 				if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z2) && б╥╬╤╥ж╤нвЬ╠ЙвИ[i].ря╥жеД == false)
 				{
 					╥жгЬ╥╫оР = 2;
@@ -32637,7 +32648,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 			{
 				for (size_t i = 0; i < б╥╬╤╥ж╤нвЬ╠ЙвИ.size(); i++)
 				{
-					MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ2 %0.3f %0.3f %0.3f", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1);
+					//MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ2 %0.3f %0.3f %0.3f", б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y1, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z1);
 					if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(б╥╬╤╥ж╤нвЬ╠ЙвИ[i].x2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].y2, б╥╬╤╥ж╤нвЬ╠ЙвИ[i].z2) && б╥╬╤╥ж╤нвЬ╠ЙвИ[i].ря╥жеД == false)
 					{
 						╥жгЬ╥╫оР = 2;
@@ -32648,12 +32659,12 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 				}
 			}*/
 			//╥ж╤н╢╕юМвЬ╠Й = б╥╬╤╥ж╤нвЬ╠ЙвИ[0];
-			MyTrace(L"╩Ях║╣╫╥ж╤н╢╕юМвЬ╠Й %0.3f %0.3f %0.3f ╥жгЬ╥╫оР %d", ╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1, ╥жгЬ╥╫оР);
+			//MyTrace(L"╩Ях║╣╫╥ж╤н╢╕юМвЬ╠Й %0.3f %0.3f %0.3f ╥жгЬ╥╫оР %d", ╥ж╤н╢╕юМвЬ╠Й.x1, ╥ж╤н╢╕юМвЬ╠Й.y1, ╥ж╤н╢╕юМвЬ╠Й.z1, ╥жгЬ╥╫оР);
 			if (╥ж╤н╢╕юМвЬ╠Й.x1 == 0)
 			{
 				for (size_t i = 0; i < б╪жфвЬ╠ЙвИ.size(); i++)
 				{
-					MyTrace(L"б╪жфвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╪жфвЬ╠ЙвИ[i].x1, б╪жфвЬ╠ЙвИ[i].y1, б╪жфвЬ╠ЙвИ[i].z1);
+					//MyTrace(L"б╪жфвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╪жфвЬ╠ЙвИ[i].x1, б╪жфвЬ╠ЙвИ[i].y1, б╪жфвЬ╠ЙвИ[i].z1);
 					if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(б╪жфвЬ╠ЙвИ[i].x1, б╪жфвЬ╠ЙвИ[i].y1, б╪жфвЬ╠ЙвИ[i].z1) && б╪жфвЬ╠ЙвИ[i].ря╥жеД == false)
 					{
 						╥жгЬ╥╫оР = 1;
@@ -32661,7 +32672,7 @@ void г╟мЫ╥ж╤н╢╕юМвЬ╠Й(float x, float y, float z)//╥ж╤н╢╕юМ╡ывВ  0 въ╣╫╥ж╤нд©╠Ймё
 						//б╥╬╤╥ж╤нвЬ╠ЙвИ[i].ря╥жеД = true;
 						break;
 					}
-					MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╪жфвЬ╠ЙвИ[i].x2, б╪жфвЬ╠ЙвИ[i].y2, б╪жфвЬ╠ЙвИ[i].z2);
+					//MyTrace(L"б╥╬╤╥ж╤нвЬ╠ЙвИ %0.3f %0.3f %0.3f", б╪жфвЬ╠ЙвИ[i].x2, б╪жфвЬ╠ЙвИ[i].y2, б╪жфвЬ╠ЙвИ[i].z2);
 					if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(б╪жфвЬ╠ЙвИ[i].x2, б╪жфвЬ╠ЙвИ[i].y2, б╪жфвЬ╠ЙвИ[i].z2) && б╪жфвЬ╠ЙвИ[i].ря╥жеД == false)
 					{
 						╥жгЬ╥╫оР = 2;
@@ -32692,7 +32703,7 @@ bool ╧╕дэ::рф╤╞╢Р╧ж(float x, float y, float z, int ╣╫╢О╥╤н╖, int ╢Р╧ж╥╤н╖, int ╬
 
 	if (сеохгЕюМ╩В╢Р╣ю╬ъ == true)
 	{
-		//MyTrace(L"гЕюМ╧жнО");
+		////MyTrace(L"гЕюМ╧жнО");
 		if (гЕюМ╧жнО(x, y, z, 0, 50) == false)
 		{
 			return false;
@@ -32702,24 +32713,24 @@ bool ╧╕дэ::рф╤╞╢Р╧ж(float x, float y, float z, int ╣╫╢О╥╤н╖, int ╢Р╧ж╥╤н╖, int ╬
 			return false;
 		}
 	}
-	//MyTrace(L"гЕюМ╧жнО2");
+	////MyTrace(L"гЕюМ╧жнО2");
 	if (гЕюМ╧жнО(x, y, z, ╢Р╧ж╥╤н╖, ╬ЮюКвтиМ╥╤н╖) == false)
 	{
 		return false;
 	}
-	//MyTrace(L"гЕюМ╩В╢Р╣ю╬ъ");
+	////MyTrace(L"гЕюМ╩В╢Р╣ю╬ъ");
 	if (гЕюМ╩В╢Р╣ю╬ъ(x, y, z, ╩В╢Р╣ю╬ъ╬ЮюКвтиМ╬ЮюК, ╢Р╧ж╥╤н╖) == false)
 	{
 		return false;
 	}
-	//MyTrace(L"й╟х║╣ю╬ъ");
+	////MyTrace(L"й╟х║╣ю╬ъ");
 	if (й╟х║╣ю╬ъ(1000) == false)
 	{
 		return false;
 	}
 	if (GetDis(x, y, z) <= ╣╫╢О╥╤н╖)
 	{
-		MyTrace(L"ря╣╫╢Ож╦╤╗╣ь╣Ц %0.3f %0.3f %0.3f", x, y, z);
+		//MyTrace(L"ря╣╫╢Ож╦╤╗╣ь╣Ц %0.3f %0.3f %0.3f", x, y, z);
 		return true;
 	}
 	else
@@ -32731,7 +32742,7 @@ bool ╧╕дэ::рф╤╞╢Р╧ж(float x, float y, float z, int ╣╫╢О╥╤н╖, int ╢Р╧ж╥╤н╖, int ╬
 		}
 		if (╣ьм╪::ж╦╤╗╣ь╣Цйг╥Я©и╣╫╢О_M(x, y, z))
 		{
-			MyTrace(L"рф╤╞╢Р╧ж д©╠Й©и╢О");
+			//MyTrace(L"рф╤╞╢Р╧ж д©╠Й©и╢О");
 			if (╥ж╤н╢╕юМвЬ╠Й.x1 != 0 && ╥ж╤н╢╕юМвЬ╠Й.╡ывВ == 2)
 			{
 				г╟мЫ╥ж╤н╢╕юМвЬ╠Й(x, y, z);
@@ -32747,13 +32758,13 @@ bool ╧╕дэ::рф╤╞╢Р╧ж(float x, float y, float z, int ╣╫╢О╥╤н╖, int ╢Р╧ж╥╤н╖, int ╬
 		}
 		else
 		{
-			MyTrace(L"г╟мЫ╥ж╤н╢╕юМ");
+			//MyTrace(L"г╟мЫ╥ж╤н╢╕юМ");
 			г╟мЫ╥ж╤н╢╕юМвЬ╠Й(x, y, z);
 
 		}
 
 	}
-	//MyTrace(L"рф╤╞╢Р╧ж ╫АйЬ");
+	////MyTrace(L"рф╤╞╢Р╧ж ╫АйЬ");
 	return false;
 }
 

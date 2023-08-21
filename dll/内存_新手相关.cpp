@@ -32,7 +32,7 @@ bool 新手::CALL_选择职业(DWORD 职业ID)
 	MainUniversalCALL2(职业ID, 2, 局_call);
 	return true;
 }
-bool 直升::CALL_跳过序幕(DWORD index) //1开始 1-6
+bool 直升::CALL_跳过序幕(DWORD index, DWORD  rdx1)
 {
 	//INT64 局_获取序幕对象call = 游戏模块 + 基址_新手_获取序幕对象call;
 	//INT64 局_获取序幕对象rcx = R_QW(游戏模块 + 基址_新手_获取序幕对象rcx);
@@ -40,9 +40,9 @@ bool 直升::CALL_跳过序幕(DWORD index) //1开始 1-6
 	INT64 dCALL = 游戏模块 + 基址_直升_跳过序幕call;
 	if (rcx)
 	{
-		MainUniversalCALL4(rcx, 1, index, 0, dCALL);
-		return false;
+		MainUniversalCALL4(rcx, rdx1, index, 0, dCALL);
+		return true;
 	}
+	return false;
 
-	return true;
 }

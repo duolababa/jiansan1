@@ -43,7 +43,7 @@ void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySiz
 									临时.csName = R_CString(dNameAddr);
 									vsk.push_back(临时);
 								}
-								MyTrace(L"地址0x%I64X ID%X %s\r\n", dResAddr, dFbId, 临时.csName);
+								//MyTrace(L"地址0x%I64X ID%X %s\r\n", dResAddr, dFbId, 临时.csName);
 							}
 						}
 					}
@@ -60,13 +60,15 @@ DWORD getReverseRuinAll(CString csName)//资源获取混沌资源
 	{
 		return 0;
 	}
-	MyTrace(L"地址0x%I64X \r\n", dReverseRuinAddr);
+	//MyTrace(L"地址0x%I64X \r\n", dReverseRuinAddr);
 	vector<副本信息_> vsk;
-	gettReverseRuinListAll(dReverseRuinAddr, 0x68, 0x54 , vsk);
+	//	return getResAddrByTypeId(getResIndexByName(L"ZoneBase"), dResId, 0x68, 0x4C, 0x54);
+	gettReverseRuinListAll(dReverseRuinAddr, 0x68, 0x54, vsk);
 	DWORD iterm = 0;
 
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
+		//MyTrace(L"%s ", csName);
 		if (vsk[i].csName.Find(csName) != -1)
 		{
 			iterm = vsk[i].ID;

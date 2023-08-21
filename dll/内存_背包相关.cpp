@@ -128,7 +128,7 @@ void 背包::get_InventoryItemList(vector<Inventoryinfo_>& vsk)
 	Inventoryinfo_ temp;
 	INT64 addr_1 = R_QW(游戏模块 + gb_ShortKey);
 	INT64 addr_2 = R_QW(addr_1 + go_AttrList_off1/*0x94*/);
-	DWORD dSize = go_bag_dSize;//0x1E0;
+	DWORD dSize = go_bag_dSize;//0x1E0;[[0x5025D70+lostark.exe.0]+E4]+28530+1*330+0
 	//DWORD dSize = 1744;//0x1E0;
 	INT64 dStart = addr_2 + 偏移_背包_物品遍历数组头;//0x17DD8;//0x690;
 	//INT64 dStart = addr_2 + 0x55A2C ;//0x17DD8;//0x690;
@@ -140,10 +140,10 @@ void 背包::get_InventoryItemList(vector<Inventoryinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			DWORD dItemDur = R_DW(dStart + i * dSize + 0x14);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
-			//MyTrace(L"dItemResAddr");
+			////MyTrace(L"dItemResAddr");
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 物品颜色);//更新-2023年7月14日 00:24:01
 			DWORD 物品等级 = R_W(dItemResAddr + 偏移_背包_物品等级);
 			DWORD 强化等级 = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
 			int dBoxType = 0;
@@ -208,8 +208,8 @@ void 背包::get_EquipList(vector<Equipinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 物品颜色);//更新-2023年7月14日 00:24:01
 			DWORD 物品等级 = R_W(dItemResAddr + 偏移_背包_物品等级);
 			DWORD 强化等级 = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
 			CString csName = L"空";
@@ -258,8 +258,8 @@ void 背包::get_UpEquipList(vector<Equipinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 物品颜色);//更新-2023年7月14日 00:24:01
 			DWORD 物品等级 = R_W(dItemResAddr + 偏移_背包_物品等级);
 			DWORD 强化等级 = R_W(dStart + i * dSize + go_ItemGradeLev) - 100;
 			CString csName = L"空";
@@ -307,8 +307,8 @@ void 背包::get_LifeToolList(vector<Equipinfo_>& vsk)  //生活装备
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 物品颜色);//更新-2023年7月14日 00:24:01
 			CString csName = L"空";
 			if (dNameAddr)
 			{
@@ -353,8 +353,8 @@ void 背包::get_cangkuList(vector<Inventoryinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 物品颜色);//更新-2023年7月14日 00:24:01
 			CString csName = L"空";
 			if (dNameAddr)
 			{
@@ -397,7 +397,7 @@ Inventoryinfo_ 背包::取单独仓库(CString name)
 
 	for (size_t i = 0; i < vsk.size(); i++)
 	{
-		MyTrace(L"ItemName %s / %s    ItemResId %s/%s ", vsk[i].ItemName, name, CString(常用功能::十进制转十六进制(vsk[i].ItemResId).c_str()), name);
+		//MyTrace(L"ItemName %s / %s    ItemResId %s/%s ", vsk[i].ItemName, name, CString(常用功能::十进制转十六进制(vsk[i].ItemResId).c_str()), name);
 		if (vsk[i].ItemName == name || CString(常用功能::十进制转十六进制(vsk[i].ItemResId).c_str()) == name || vsk[i].WearId == _ttoi(name))
 		{
 			if (vsk[i].ItemId != 0)
@@ -462,12 +462,12 @@ void 背包::get_feicangkuList(vector<Inventoryinfo_>& vsk)
 							   //DWORD dSize = 1744;//0x1E0;
 	INT64 dStart = addr_2 + g_背包仓库头;//0x17DD8;//0x690;
 									 //INT64 dStart = addr_2 + 0x55A2C ;//0x17DD8;//0x690;
-	MyTrace(L"输出:dStart 0x%I64X", dStart);
+	//MyTrace(L"输出:dStart 0x%I64X", dStart);
 	for (DWORD i = 0; i < 100; i++)
 	{
 
 		INT64 dItemId = R_QW(dStart + i * dSize + 偏移_背包_物品id);
-		MyTrace(L"输出:i %d 地址0x%I64X ID %X", i, dStart + i * dSize + 偏移_背包_物品id, dItemId);
+		//MyTrace(L"输出:i %d 地址0x%I64X ID %X", i, dStart + i * dSize + 偏移_背包_物品id, dItemId);
 		/*	INT64 ace = dStart + i * dSize + 偏移_背包_物品id;
 			wchar_t buf[MAX_PATH];
 
@@ -482,8 +482,8 @@ void 背包::get_feicangkuList(vector<Inventoryinfo_>& vsk)
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
 			INT64 dItemResAddr = getItemResAddrById(dItmeResId);
 			INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
-			DWORD dSlotIndex = R_DW(dItemResAddr + 0x8C);//更新-2023年7月14日 00:23:58
-			DWORD dpinzhi = R_DW(dItemResAddr + 0x90);//更新-2023年7月14日 00:24:01
+			DWORD dSlotIndex = R_DW(dItemResAddr + 物品分类);//更新-2023年7月14日 00:23:58
+			DWORD dpinzhi = R_DW(dItemResAddr + 物品颜色);//更新-2023年7月14日 00:24:01
 			CString csName = L"空";
 			if (dNameAddr)
 			{
@@ -614,7 +614,7 @@ DWORD 背包::取复活币数()
 
 	INT64 局_rcx = R_QW(游戏模块 + 基址_背包_遍历) + 288;
 	DWORD 局_数量 = R_DW(局_rcx + 0x43);
-	//MyTrace(L"局_取复活币数 %d", 局_数量);
+	////MyTrace(L"局_取复活币数 %d", 局_数量);
 	return 局_数量;
 }
 INT64 背包::getMoneyNumByType(int dMoneyType)//A 海盗币
@@ -672,7 +672,7 @@ DWORD 背包::坐骑遍历()
 	INT64 跟 = R_QW(b + C);
 	DWORD ID = 0;
 	跟 = 跟 + g_坐骑_index单;
-	//MyTrace(L"推荐装备槽位0x%I64X \r\n", 跟);
+	////MyTrace(L"推荐装备槽位0x%I64X \r\n", 跟);
 	if (dtotal >= 1)
 	{
 		for (DWORD i = 0; i < dtotal; i++)
@@ -680,7 +680,7 @@ DWORD 背包::坐骑遍历()
 			ID = R_DW(跟 + i*g_坐骑_叠加单);
 			if (ID > 1)
 			{
-				//MyTrace(L"ID 0x%I64X \r\n", ID);
+				////MyTrace(L"ID 0x%I64X \r\n", ID);
 				DWORD rax = 0;
 				rax =本人::是否可以骑马call(ID);
 				if (rax == 1)
@@ -696,7 +696,7 @@ DWORD 背包::坐骑遍历()
 	if (vsk.size() >= 1)
 	{
 		int randomNumber = rand() % vsk.size() + 1;
-	//	MyTrace(L"随机数 0x%I64X \r\n", vsk[randomNumber - 1]);
+	//	//MyTrace(L"随机数 0x%I64X \r\n", vsk[randomNumber - 1]);
 		return vsk[randomNumber-1];
 	}
 	return 0;
@@ -708,7 +708,7 @@ DWORD 背包::坐骑遍历()
 void 背包::丢弃物品call(INT64 ItemId)
 {
 
-	INT64 rcx = 游戏模块 + 采集物品数量;
+	INT64 rcx = 游戏模块 + 基址_背包_丢弃Rcx;
 
 	MainUniversalCALL4(rcx, ItemId, 0, 0, 游戏模块 + 基址_背包_丢弃CALL);
 
@@ -756,6 +756,7 @@ void 背包::get_RecommendEquipList(vector<Inventoryinfo_>& vsk)//推荐装备
 	Inventoryinfo_ 临时;
 	vsk.clear();
 	INT64 inventoryWndAddr = UI功能::getUiObjById(0x1A);//背包UI地址D 1A root1.arkui.windowCanvas.inventoryWnd 
+	//MyTrace(L"对象0x%I64X",inventoryWndAddr);
 
 	long dtotal = R_DW(inventoryWndAddr + go_RecomEquip + 0x28);
 	INT64 objStartAddr = R_QW(inventoryWndAddr + go_RecomEquip);
@@ -767,7 +768,7 @@ void 背包::get_RecommendEquipList(vector<Inventoryinfo_>& vsk)//推荐装备
 			INT64 dItmeId = R_QW(objStartAddr + i * 0x5 * 4 + 4);
 			临时.ItemId = dItmeId;
 			vsk.push_back(临时);
-			MyTrace(L"推荐装备槽位%X 物品ID 0x%X\r\n", dSlotIndex, dItmeId);
+			//MyTrace(L"推荐装备槽位%X 物品ID 0x%X\r\n", dSlotIndex, dItmeId);
 		}
 	}
 }
@@ -802,6 +803,35 @@ Inventoryinfo_ 背包::get_ItemInfobyItemID(INT64 itemId)
 }
 
 
+
+Equipinfo_ 背包::遍历材料背包(CString 物品名称)
+{
+	CString ID数组 = "0x6902D5|0x690529|0x69052C|0x69052D|0x690CFF|0x6910E8|0x690530|0x6929E5|0x692C43|0x692C46|0x692C47|0x692C49|0x693031|0x6902D1|0x690335|0x690399|0x690338|0x69039C|0x69033B|0x69039F|0x6929E1|0x692A4F|0x692AB3|0x692A52|0x692AB6|0x692A55|0x692AB9|0x6902D3|0x6903FD|0x690400|0x690BD3|0x6929E3|0x692B17|0x692B1A|0x692B1D|0x6902D2|0x690461|0x690464|0x690C37|0x6929E2|0x692B7B|0x692B7E|0x692B81|0x6902D4|0x6904C5|0x6904C8|0x6904C9|0x690C9B|0x691084|0x6904CC|0x6929E4|0x692BDF|0x692BE2|0x692BE3|0x692BE5|0x692FCD|0x6902D6|0x69058D|0x690590|0x690D63|0x69114C|0x690594|0x6929E6|0x692CA7|0x692CAA|0x692CAD|0x693095|";
+	Equipinfo_ 临时;
+	CArray<CString, CString>返回文本组;
+	文本分割(ID数组, '|', &返回文本组);
+	if (返回文本组.GetCount() != 0)
+	{
+		for (size_t i = 0; i < 返回文本组.GetCount(); i++)
+		{
+			DWORD ID = 常用功能::十六进制转十进制(CStringA(返回文本组[i].GetString()));
+			DWORD ID1 = 常用功能::十六进制转十进制(CStringA(物品名称));
+			if (ID!=0 && ID == ID1)
+			{
+
+
+			}
+
+
+			////MyTrace(L"%s", 返回文本组[i].GetString());
+		}
+	}
+		
+
+	return 临时;
+}
+
+
 void 背包::使用背包指定物品(CString 物品名称)
 {
 	vector<Inventoryinfo_> vsk;
@@ -823,7 +853,7 @@ void 背包::使用背包指定物品_ByResId(DWORD ResId)
 	{
 		if (vsk[i].ItemResId == ResId)
 		{
-			MyTrace(L"使用物品 %s", vsk[i].ItemName);
+			//MyTrace(L"使用物品 %s", vsk[i].ItemName);
 			背包::使用物品2(vsk[i].dindex);
 			break;
 		}
@@ -837,7 +867,7 @@ void 背包::装备背包指定物品_ByResId(DWORD ResId)
 	{
 		if (vsk[i].ItemResId == ResId)
 		{
-			MyTrace(L"使用物品 %s", vsk[i].ItemName);
+			//MyTrace(L"使用物品 %s", vsk[i].ItemName);
 			背包::使用物品(vsk[i].dindex);
 			break;
 		}
@@ -890,7 +920,7 @@ void 背包::自定装备推荐装备()
 		{
 			return;
 		}
-		MyTrace(L"穿戴 %s 格子%d", item.ItemName, item.dindex);
+		//MyTrace(L"穿戴 %s 格子%d", item.ItemName, item.dindex);
 		if (item.WearId == 7)//耳环
 		{
 			if (计次 >= 2)
@@ -908,7 +938,7 @@ void 背包::自定装备推荐装备()
 			temp2 = get_EquipInfobyIndex(8);//左耳环
 			if (temp.ItemId != 0 && temp2.ItemId != 0)
 			{
-				MyTrace(L"脱下耳环");
+				//MyTrace(L"脱下耳环");
 				背包::Fun_UnWearEquip(7);
 				Sleep(500);
 				背包::Fun_UnWearEquip(8);
@@ -942,7 +972,7 @@ void 背包::自定装备推荐装备()
 			temp2 = get_EquipInfobyIndex(9);//左耳环
 			if (temp.ItemId != 0 && temp2.ItemId != 0)
 			{
-				MyTrace(L"脱下戒指");
+				//MyTrace(L"脱下戒指");
 				背包::Fun_UnWearEquip(9);
 				Sleep(500);
 				背包::Fun_UnWearEquip(0xA);
@@ -989,15 +1019,15 @@ void Fun_CheckBSItem_Wnd(int dNum)//普通
 	if (dUiObj)
 	{
 		DWORD dShow = R_DW(dUiObj + 0x27C);
-
+		//MyTrace(L"箱子选中物品%I64X", dUiObj);
 		if (dShow)
 		{
 			INT64 dRCX = dUiObj + go_BSItem_WndInfo;
 			INT64 dCall = R_QW(R_QW(dRCX) + 0x28);
 			MainUniversalCALL2(dRCX, dNum, dCall);
 			Sleep(5000);
-			INT64 dCloseUiCall = R_QW(R_QW(dUiObj) + 0xB8);
-			MainUniversalCALL2(dUiObj, 0, dCloseUiCall);
+			/*INT64 dCloseUiCall = R_QW(R_QW(dUiObj) + 0xB8);
+			MainUniversalCALL2(dUiObj, 0, dCloseUiCall);*/
 
 		}
 	}
@@ -1015,9 +1045,9 @@ void Fun_CheckBSSelectItem_Wnd(int dItemResId, int dNum)//选择箱子 打开全部
 			W_DW(dRCX + 0x34, dItemResId);
 
 			MainUniversalCALL2(dRCX, dNum, dCall);
-			Sleep(5000);
+		/*	Sleep(5000);
 			INT64 dCloseUiCall = R_QW(R_QW(dUiObj) + 0xB8);
-			MainUniversalCALL2(dUiObj, 0, dCloseUiCall);
+			MainUniversalCALL2(dUiObj, 0, dCloseUiCall);*/
 		}
 	}
 }
@@ -1051,7 +1081,7 @@ void get_BsItem_Select()
 {
 	INT64 dUiObj = UI功能::getUiObjById(0x9C);//BS_SelectItem_Wnd  需要选择的
 	INT64 dRCX = dUiObj + go_BSItem_WndInfo;
-	DWORD dItemResId = R_DW(dRCX + 0x34);//85 ?? 0F ?? ?? ?? ?? ?? ?? 8D ?? ?? ?? 8B ?? FF ?? ?? ?? 8B ?? E8 ?? ?? ?? ?? ?? 85 ?? 0F +8+3
+	DWORD dItemResId = R_DW(dRCX + go_BS_RandomItemOpenAll);//85 ?? 0F ?? ?? ?? ?? ?? ?? 8D ?? ?? ?? 8B ?? FF ?? ?? ?? 8B ?? E8 ?? ?? ?? ?? ?? 85 ?? 0F +8+3
 	INT64 dItemResAddr = getItemResAddrById(dItemResId);
 	INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
 
@@ -1060,7 +1090,7 @@ void get_BsItem_Select()
 	{
 		csName = R_CString(dNameAddr);
 	}
-	MyTrace(L"箱子选中物品ResId %X %s", dItemResId, csName);
+MyTrace(L"箱子选中物品ResId %X %s", dItemResId, csName);
 }
 void Fun_BS_RandomItemOpenAll(DWORD dNum)//随机卡片箱全部打开
 {
@@ -1086,7 +1116,7 @@ void Fun_BS_RandomItemOpenAll(DWORD dNum)//随机卡片箱全部打开
 void  背包::自动入包call()
 {
 	INT64 dCall = 入包call + 游戏模块;
-	INT64 rcx = R_QW(采集物品数量 + 游戏模块);
+	INT64 rcx = R_QW(基址_背包_丢弃Rcx + 游戏模块);
 	MainUniversalCALL4(rcx, 0, 0, 0, dCall);
 
 
@@ -1097,7 +1127,7 @@ void  背包::点击分解颜色call()
 	INT64 rcx = 0;
 	//root1.arkui.windowCanvas.itemDisassembleWnd
 	bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.windowCanvas.itemDisassembleWnd", rcx);
-	//MyTrace(L"是否打开%I64X 是否打开%d", rcx, 是否打开);
+	////MyTrace(L"是否打开%I64X 是否打开%d", rcx, 是否打开);
 	if (rcx >= 1)
 	{
 		INT64 dRcx =rcx;
@@ -1120,7 +1150,7 @@ bool 背包::背包物品处理()
 	vector<Inventoryinfo_> vsk;
 	vector<Inventoryinfo_> 待分解物品列表;
 	背包::get_InventoryItemList(vsk);
-	MyTrace(L"背包物品数量%d", vsk.size());
+	//MyTrace(L"背包物品数量%d", vsk.size());
 	if (UI功能::背包界面是否显示())
 	{
 		UI功能::Fun_UiShowCtrl(0x1A);
@@ -1152,7 +1182,7 @@ bool 背包::背包物品处理()
 			}
 			背包::使用物品(vsk[i].dindex);
 			Sleep(500);
-			MyTrace(L"使用卡牌物品 回车键");
+			//MyTrace(L"使用卡牌物品 回车键");
 			UI功能::内存按键(VK_RETURN);//使用回车键 会导致聊天窗口打开 之后 别的功能案件不好使
 		}
 		if (vsk[i].ItemResId == 0x3C4D034 || vsk[i].ItemResId == 0x3C4D032 || vsk[i].ItemResId == 0x3C4D031 || vsk[i].ItemResId == 0x3C4D033 || vsk[i].ItemResId == 0x3C4D036 || vsk[i].ItemResId == 0x3C4D035 || vsk[i].ItemResId == 0x3C4D037)//传说卡牌包
@@ -1329,7 +1359,7 @@ void 背包::SetBufItemSlot(DWORD dItemId, DWORD dTargetIndex)// dTargetIndex  从0
 
 DWORD 背包::采集数量(DWORD ID)
 {
-	INT64 dRCX = R_QW(游戏模块 + 采集物品数量);
+	INT64 dRCX = R_QW(游戏模块 + 基址_背包_丢弃Rcx);
 	INT64 dCall = 游戏模块 + 采集数量call;
 	DWORD addr=MainUniversalCALL4_Ret(dRCX,ID,0,0, dCall);
 	return addr;

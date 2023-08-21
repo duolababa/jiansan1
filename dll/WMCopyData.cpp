@@ -60,9 +60,9 @@ void WINAPI SendMessageToMoConter(int tag, CString CMSG)
 	//#pragma pack(16)
 
 
-	if (g_hWnd_kzt == NULL)
+//if (g_hWnd_kzt == NULL)
 	{
-		char* windowClassName1 = "WatchMonitor";
+		char* windowClassName1 = "abcdefg";
 		g_hWnd_kzt = ::FindWindowA(windowClassName1, NULL);
 		if (g_hWnd_kzt == NULL)
 		{
@@ -80,13 +80,14 @@ void WINAPI SendMessageToMoConter(int tag, CString CMSG)
 	cpd.lpData = (PVOID)toSendmsg;
 	cpd.dwData = tag;
 	cpd.cbData = strlen(toSendmsg) + 1;//多加一个长度，防止乱码
-	::SendMessageTimeoutA(g_hWnd_kzt, WM_COPYDATA, NULL, (LPARAM)&cpd, SMTO_NORMAL, 100, 0);
+
+	SendMessageTimeoutA(g_hWnd_kzt, WM_COPYDATA, NULL, (LPARAM)&cpd, SMTO_NORMAL, 1000, 0);
 	//::SendMessage(g_hWnd_kzt,WM_COPYDATA,NULL,(LPARAM)&cpd);
 	//#pragma pack()
 
-	/*char tempstrsend[0x200] = {0};
-	sprintf(tempstrsend,"xxx-mmm==>1[窗口:%d]发来[%d][%s]",游戏窗口索引,tag,msg);
-	OutputDebugStringA(tempstrsend);*/
+	char tempstrsend[0x200] = {0};
+	sprintf(tempstrsend,"xxx-mmm==>1[窗口:%d]发来[%d][%s]", g_hWnd_kzt,tag,msg);
+	OutputDebugStringA(tempstrsend);
 }
 void WINAPI SendMessageToMoConter02(int tag, BYTE* msg, int 长度)
 {
@@ -95,7 +96,7 @@ void WINAPI SendMessageToMoConter02(int tag, BYTE* msg, int 长度)
 
 	if (g_hWnd_kzt == NULL)
 	{
-		char* windowClassName1 = "WatchMonitor";
+		char* windowClassName1 = "abcdefg";
 		g_hWnd_kzt = ::FindWindowA(windowClassName1, NULL);
 		if (g_hWnd_kzt == NULL)
 		{
@@ -109,9 +110,7 @@ void WINAPI SendMessageToMoConter02(int tag, BYTE* msg, int 长度)
 	cpd.cbData = 长度;//多加一个长度，防止乱码
 	::SendMessageTimeoutA(g_hWnd_kzt, WM_COPYDATA, NULL, (LPARAM)&cpd, SMTO_NORMAL, 100, 0);
 
-	/*char tempstrsend[0x200] = {0};
-	sprintf(tempstrsend,"xxx-mmm==>1[窗口:%d]发来[%d][%s]",游戏窗口索引,tag,msg);
-	OutputDebugStringA(tempstrsend);*/
+
 	//#pragma pack()
 }
 void WINAPI SendMessageToMoConter03(int tag, CString CMSG)
@@ -121,7 +120,7 @@ void WINAPI SendMessageToMoConter03(int tag, CString CMSG)
 
 	if (g_HWnd_yz == NULL)
 	{
-		char* windowClassName1 = "VerifyMonitor";
+		char* windowClassName1 = "abcdefg";
 		g_HWnd_yz = ::FindWindowA(windowClassName1, NULL);
 		if (g_HWnd_yz == NULL)
 		{

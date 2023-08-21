@@ -25,6 +25,6 @@ public:
 	static void Fun_ExpeditionInRecv_M(int dLev);
 	static void get_BookListInfo();
 	static void Fun_ExpeditionInRecv(int dLev);
-
+	static void ÃÙ’Ω¡Ï»°();
 };
 

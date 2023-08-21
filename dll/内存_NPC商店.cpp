@@ -11,11 +11,48 @@ void NPCÉÌµê::Fun_ShopBuyAddItem(int dItemIndex, int dum)//Ë÷Òı´Ó1¿ªÊ¼ ÏÈµ÷ÓÃÌí¼
 
 }
 
+void NPCÉÌµê::ÁìÈ¡Ïä×Ó(DWORD ID)
+{
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ÉÌ³ÇÏä×Órcx);
+
+
+	MainUniversalCALL4(addr_1, ID, 0, 0, ÓÎÏ·Ä£¿é + ´ò¿ªÏä×ÓĞ´Èë»ùÖ·);
+}
+
+
+
+DWORD NPCÉÌµê::²éÑ¯×êÊ¯ÊıÁ¿()
+{
+	INT64 rcx = ÓÎÏ·Ä£¿é + ×êÊ¯rcx;
+
+	DWORD num = R_DW(rcx + g_×êÊ¯);
+	INT64 addr = rcx + g_×êÊ¯ + 2;
+	if (num > 6)
+	{
+		num = 5;
+
+	}
+	//MyTrace(L"×ÓÊı%d", num);
+		for (size_t i = 0; i < num; i++)
+		{
+			double c=R_double(addr+i*0x11);
+			int b = static_cast<int>(c);
+			//MyTrace(L"×ÓÊıÁ¿%d", b);
+			if (b!= 0)
+			{
+				MyTrace(L"×ÓÊıÁ¿%d", b);
+				return c;
+			}
+
+		}
+		return 0;
+
+}
 void NPCÉÌµê::Fub_ShopBuyItemClick()//µã»÷¹ºÂò°´Å¥
 {
 
 	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + gb_ShopBase);
-	if (R_DW(addr_1 + go_ShopBuyItemState) == 0)//×´Ì¬
+	if (R_DW(addr_1 + go_ShopBuyItemState) == 0)//×´Ì¬  
 	{
 		if (R_DW(addr_1 + go_ShopBuyItemListStart + 8))//ÅĞ¶ÏÌí¼ÓÎïÆ·
 		{
@@ -55,6 +92,169 @@ int  getMoneyType(int cl) {
 	}
 }
 
+
+void NPCÉÌµê::funshop(DWORD ID,DWORD ´ÎÊı)
+{
+	//	vector<Inventoryinfo_>vsk;
+	vector<ÉÌ³ÇĞÅÏ¢_> vsk;
+	DWORD W=0;
+		NPCÉÌµê::shoppingmall(vsk);
+		for (size_t i = 0; i < vsk.size(); i++)
+		{
+
+			if (ID == vsk[i].WearId)
+			{
+				
+
+				if (UI¹¦ÄÜ::´°¿Ú·´À¡ÎÄ±¾().Find(L"Do you want to purchase") != -1)
+				{
+					W = W + 1;
+					UI¹¦ÄÜ::ÄÚ´æ°´¼ü1(g_ENTER);
+					Sleep(2222);
+				}
+
+				INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + »ùÖ·_¸öÈË_±éÀú);
+				INT64 rdx = ÓÎÏ·Ä£¿é + ´ò¿ªÉÌÆ·rdx;
+
+				MainUniversalCALL6(rcx, rdx, ID, 0, vsk[i].ItemId, 0, ÓÎÏ·Ä£¿é + ´ò¿ªÉÌÆ·call);
+				Sleep(2222);
+
+
+				INT64 rcx1;
+				bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.cashShopBuyWnd", rcx1);
+				if (rcx != 0)
+				{
+					DWORD dResId = R_DW(rcx1 + Æ«ÒÆ_UI_ÏÔÊ¾);
+					if (dResId == 1)
+					{
+						MainUniversalCALL4(rcx1, 0, 0, 0, ÓÎÏ·Ä£¿é + ¹ºÂòÉÌÆ·Ïä×ÓĞ´Èë»ùÖ·);
+						Sleep(4000);
+					}
+
+
+					if (UI¹¦ÄÜ::´°¿Ú·´À¡ÎÄ±¾().Find(L"Do you want to purchase") != -1)
+					{
+						W = W + 1;
+						UI¹¦ÄÜ::ÄÚ´æ°´¼ü1(g_ENTER);
+						Sleep(5000);
+					}
+
+
+
+				}
+
+
+
+
+
+			}
+			
+			if (W >= ´ÎÊı)
+			{
+				break;
+			}
+
+
+		}
+
+
+
+}
+void NPCÉÌµê::openshop(vector<ÉÌ³ÇĞÅÏ¢_>& vsk)
+{
+	vsk.clear();
+
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ÉÌ³ÇÏä×Órcx);
+	INT64 addr = R_QW(addr_1 + g_ÉÌ³Ç±éÀú);
+	DWORD dtotal = R_DW(addr_1 + g_ÉÌ³Ç±éÀú + 8);
+	for (size_t i = 0; i < dtotal; i++)
+	{
+		DWORD ID = R_DW(addr + i * g_ÉÌ³ÇÑ­»·);
+		ÉÌ³ÇĞÅÏ¢_ temp;
+		temp.WearId = ID;
+
+		INT64 dNameAddr = addr + i * g_ÉÌ³ÇÑ­»· + 0x78;
+		CString csName = L"¿Õ";
+		if (dNameAddr)
+		{
+			csName = R_CString(dNameAddr);
+			temp.CName = csName;
+		}
+		vsk.push_back(temp);
+
+	}
+
+
+
+}
+
+
+void NPCÉÌµê::shoppingmall(vector<ÉÌ³ÇĞÅÏ¢_>& vsk)
+{
+	vsk.clear();
+
+	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ÉÌ³ÇÏä×Órcx);
+	INT64 addr = R_QW(addr_1 + g_ÉÌ³Ç±éÀúx);
+	DWORD dtotal = R_DW(addr_1 + g_ÉÌ³Ç±éÀúx+8);
+
+
+	if (dtotal < 1)
+	{
+		UI¹¦ÄÜ::Fun_UiShowCtrl(190);
+		Sleep(9000);
+		 addr_1 = R_QW(ÓÎÏ·Ä£¿é + ÉÌ³ÇÏä×Órcx);
+		 addr = R_QW(addr_1 + g_ÉÌ³Ç±éÀúx);
+		 dtotal = R_DW(addr_1 + g_ÉÌ³Ç±éÀúx + 8);
+	}
+	//MyTrace(L"ÊıÁ¿%d", dtotal);
+	if (dtotal > 1 && dtotal < 100)
+	{
+
+		for (size_t i = 0; i < dtotal; i++)
+		{
+			INT64 ItemId = addr + i * 0x28;
+			DWORD dNum = R_DW(addr + i * 0x28 + 0x18);
+			if (dNum != 0)
+			{
+				INT64 addr_shop = R_QW(addr + i * 0x28 + 0x10);
+				
+				for (size_t b = 0; b < dNum; b++)
+				{
+					ÉÌ³ÇĞÅÏ¢_ temp;
+					temp.ItemId = ItemId;
+					temp.WearId = R_DW(addr_shop + b * 0x10);
+					//MyTrace(L"ID%d", temp.ItemId);
+				/*	INT64 dItemResAddr = getItemResAddrById(temp.WearId);
+					MyTrace(L"dItemResAddr0x%I64x", dItemResAddr);
+					INT64 dNameAddr = R_QW(dItemResAddr + 0x10);
+					CString csName = L"¿Õ";
+					if (dNameAddr)
+					{
+						csName = R_CString(dNameAddr);
+						temp.CName = csName;
+					}*/
+
+
+
+					vsk.push_back(temp);
+			//	MyTrace(L" ×ÊÔ´ID%d Åú´Î0x%I64x", temp.WearId, temp.ItemId);
+				}
+
+
+			}
+
+
+		}
+
+
+	}
+
+
+
+
+
+
+}
 void NPCÉÌµê::get_ShopItemList(vector<Inventoryinfo_>& vsk)
 {
 	vsk.clear();
@@ -69,6 +269,7 @@ void NPCÉÌµê::get_ShopItemList(vector<Inventoryinfo_>& vsk)
 	}
 	long dKeyValue = R_DW(addr_1 + dOffest + 0x10);
 	__int64 objStartAddr = R_QW(addr_1 + dOffest);
+	//MyTrace(L"ÉÌµêOBJ 0x%I64X", objStartAddr);
 	for (size_t i = 0; i < dtotal; i++)
 	{
 		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
@@ -95,7 +296,7 @@ void NPCÉÌµê::get_ShopItemList(vector<Inventoryinfo_>& vsk)
 			temp.dItemResAddr = dResAddr;
 			temp.ÑÕÉ« = dpinzhi;
 			vsk.push_back(temp);
-			MyTrace(L"Ë÷Òı%d ×ÊÔ´ID %X %s ÀàĞÍ%X Æ·ÖÊ %d ¼Û¸ñ%d", dIndex, dResId, csName, dSlotIndex, dpinzhi, dPrice);
+			//MyTrace(L"Ë÷Òı%d ×ÊÔ´ID %X %s ÀàĞÍ%X Æ·ÖÊ %d ¼Û¸ñ%d", dIndex, dResId, csName, dSlotIndex, dpinzhi, dPrice);
 		}
 	}
 }
@@ -108,7 +309,7 @@ bool ÅĞ¶Ï´æÔÚĞèĞŞÀíµÄ×°±¸()
 	{
 
 		double ÄÍ¾Ã°Ù·Ö±È = ((double)vsk[i].ÄÍ¾Ã¶È.µ±Ç°ÄÍ¾Ã¶È / (double)vsk[i].ÄÍ¾Ã¶È.×î´óÄÍ¾Ã¶È) * 100;
-		//MyTrace(L"×°±¸Ãû³Æ %s µ±Ç°ÄÍ¾Ã:%d/%d", vsk[i].ItemName, vsk[i].ÄÍ¾Ã¶È.µ±Ç°ÄÍ¾Ã¶È, vsk[i].ÄÍ¾Ã¶È.×î´óÄÍ¾Ã¶È);
+		////MyTrace(L"×°±¸Ãû³Æ %s µ±Ç°ÄÍ¾Ã:%d/%d", vsk[i].ItemName, vsk[i].ÄÍ¾Ã¶È.µ±Ç°ÄÍ¾Ã¶È, vsk[i].ÄÍ¾Ã¶È.×î´óÄÍ¾Ã¶È);
 		if (ÄÍ¾Ã°Ù·Ö±È <= 60)
 		{
 
@@ -186,10 +387,208 @@ void NPCÉÌµê::Fun_BarterShopExchange(DWORD dItemIndex, DWORD dNum)//½»»»ÎïÆ·
 	INT64 addr_1 = R_QW(ÓÎÏ·Ä£¿é + gb_ShopBase);
 
 	//UCHAR dInfoAddr[0x1000] = { 0 };
-	if (!IsBadReadPtr((void*)addr_1, sizeof(addr_1)))
+	if (addr_1 > 1)
 	{
-		MainUniversalCALL4(addr_1, dItemIndex, dNum, 0, ÓÎÏ·Ä£¿é + gc_BarterShopExchange);
+		MainUniversalCALL4(addr_1, dItemIndex, dNum, 1, ÓÎÏ·Ä£¿é + gc_BarterShopExchange);
 	}
+
+	
+
+
+}
+
+DWORD ÅÄÂô::²éÑ¯½ğ¶îcall()
+{
+	INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + »ùÖ·_ÅÄÂô_»ñÈ¡±éÀú¶ÔÏórcx);
+
+	INT64 ret = MainUniversalCALL4_Ret(rcx, 0xD8, 0, 0, ÓÎÏ·Ä£¿é + ½»Ò×½ğ¶îcall);
+
+	INT64 rcx1 = R_QW(ret + 0x10);
+
+	//MyTrace(L"rcx1 0x%I64X", rcx1);
+
+
+	DWORD x = R_DW(rcx1 +g_ÊĞ³¡×î½ü¼Û¸ñ+4);
+		return x;
+
+}
+
+void ¿ªÊ¼ÓÊ¼Ä()
+{
+	INT64 rcx = 0;
+	bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.mailWnd", rcx);
+	if (rcx > 1)
+	{
+	MainUniversalCALL4(rcx, 0, 0, 0, ÓÎÏ·Ä£¿é + sendÓÊ¼Äcall);
+	}
+	
+	
+}
+DWORD ÓÊ¼ÄÑ¡Ïî¿¨()
+{
+	INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + gb_ExpressMailList);
+	DWORD rcx1 = R_DW(rcx + ÓÊ¼ÄÑ¡Ïî);//E8 ?? ?? ?? ?? 85 FF 0F 88 ?? ?? ?? ?? 83 FF ?? 7E ?? 83 FF ?? 0F 85 ?? ?? ?? ?? 8D 57 ?? 48 8B CB +0 ½øCALL
+
+
+	return rcx1;
+
+	//INT64 call = ÓÎÏ·Ä£¿é + ÓÊ¼ÄÑ¡Ïî¿¨call;
+	//MainUniversalCALL4(rcx, ID, 0, 0, call);
+}
+
+bool ÊÇ·ñÊäÈë()
+{
+	DWORD rcx = R_BYTE(ÓÎÏ·Ä£¿é + ¹â±êÊÇ·ñ¼¤»î);
+		if (rcx != 0)
+		{
+			return 1;
+		}
+		return 0;
+}
+
+
+
+
+void ÊäÈëÓÊ¼ÄÃû³Æ(CString name)
+{
+		INT64 call = ÓÎÏ·Ä£¿é + ÓÊ¼ÄÊäÈëêÇ³Æcall;
+		INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + gb_ExpressMailList);
+		tempÃû³ÆÖ¸Õë cStringClassPtr2;
+		cStringClassPtr2.Ãû³Æobj = INT64(name.GetBuffer());
+		cStringClassPtr2.³¤¶È = name.GetLength() + 1;
+	//	INT64 rcx1 = 0;
+	//	bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.mailWnd", rcx1);
+
+		//if (rcx1 > 1)
+		//{
+		//	W_QW(rcx1+0x578, (UINT64)&cStringClassPtr2);
+		//}
+
+		MainUniversalCALL4(rcx, (UINT64)&cStringClassPtr2, 0, 0, call);
+
+}
+void ÊäÈëÓÊ¼ÄÎïÆ·(DWORD ID, DWORD ÊıÁ¿,DWORD ÎïÆ·Î»ÖÃ)
+{
+	INT64 call = ÓÎÏ·Ä£¿é + ÓÊ¼ÄÌí¼ÓÎïÆ·call;
+	//INT64 call1 = ÓÎÏ·Ä£¿é + ÓÊ¼ÄÌí¼ÓÎïÆ·call1;//×ÊÔ´ÎïÆ·
+	INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + gb_ExpressMailList);
+
+	if (ÎïÆ·Î»ÖÃ != 0)
+	{
+
+		MainUniversalCALL6(rcx,0xFFFFFFFF,ID, ÊıÁ¿,1,0, call);
+	}
+	else
+	{
+
+		vector<Inventoryinfo_> vsk2;
+		±³°ü::get_InventoryItemList(vsk2);
+		DWORD a = 0;
+
+		for (size_t i = 0; i < vsk2.size(); i++)
+		{
+			if (vsk2[i].ItemResId == ID && vsk2[i].dNum >= ÊıÁ¿)
+			{
+				MainUniversalCALL6(rcx, vsk2[i].dindex, ID, ÊıÁ¿, 1, 0, call);
+
+			}
+
+	//MyTrace(L"Î»ÖÃ%d  ÎïÆ·ID 0x%I64X ×ÊÔ´ID  0x%I64X ÊıÁ¿%d  Ïä×ÓÀàĞÍ%d ÄÍ¾Ã%d  Ãû³Æ %s ÎïÆ·µÈ¼¶%d ÎïÆ·¶ÔÏó0x%I64X \r\n", vsk2[i].dindex, vsk2[i].ItemId, vsk2[i].ItemResId, vsk2[i].dNum, vsk2[i].dSlotIndex, vsk2[i].ÄÍ¾Ã¶È.µ±Ç°ÄÍ¾Ã¶È, vsk2[i].ItemName, vsk2[i].dLev, vsk2[i].dItemResAddr);
+		
+		}
+
+
+
+	}
+
+
+
+
+}
+
+
+
+
+
+void  ÅÄÂô::×Ô¶¯ÅÄÂô(DWORD ID, DWORD ×ÜÁ¿, DWORD ¼Û¸ñ, INT64 ÎïÆ·ID1)
+{
+	INT64 rcx = R_QW(ÓÎÏ·Ä£¿é + µÇ¼Çrcx);
+	INT64 rdx = rcx+ g_ÊĞ³¡ÅÄÂôrdx;
+	INT64 call = ÓÎÏ·Ä£¿é + ÅÄÂôĞ´Èë»ùÖ·;
+	W_QW(rdx, ID);
+	if (ÎïÆ·ID1 > 1)
+	{
+		W_QW(rdx+8, ÎïÆ·ID1);
+	}
+
+	W_DW(rdx +  0x10, ×ÜÁ¿);
+	W_DW(rdx + 0x14, ¼Û¸ñ);
+	if (ÎïÆ·ID1 == 0)
+	{
+		W_DW(rdx + 0x1C, 0);
+		W_DW(rdx+0x1D ,1);
+	}
+
+
+
+MainUniversalCALL2(rcx, rdx, call);
+}
+
+bool ÅÄÂô::ÅÄÂôĞĞÊÇ·ñ´ò¿ª()
+{
+	INT64 rcx = 0;
+	bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.exchangeShopWnd", rcx);
+	if (rcx >= 1)
+	{
+		DWORD dResId = R_DW(rcx + Æ«ÒÆ_UI_ÏÔÊ¾);
+		if (dResId == 1)
+		{
+			return 1;
+		}
+
+
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
+void ÅÄÂô::µÇ¼ÇÅÄÂô(DWORD ID, DWORD ID1)
+{
+
+	INT64 call = ÓÎÏ·Ä£¿é + µÇ¼Çcall;
+	INT64 rcx = 0;
+
+	if (ID1 == 1)
+	{
+
+	}
+	else
+	{
+		bool ÊÇ·ñ´ò¿ª = UI¹¦ÄÜ::Ñ°ÕÒ´ò¿ª´°¿Ú("root1.arkui.windowCanvas.exchangeShopWnd", rcx);
+		if (rcx >= 1)
+		{
+			MainUniversalCALL2(R_QW(rcx + g_µÇ¼ÇÎïÆ·), ID, call);
+
+		}
+	}
+
+	
+
+	//if (ID1 == 1)
+	//{
+	//	MainUniversalCALL4(addr_1, ID, 1, 0, call);
+	//}
+	//else
+	//{
+	//	MainUniversalCALL4(addr_1, ID, 0, 0, call);
+
+	//}
 
 
 }

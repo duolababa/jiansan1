@@ -35,7 +35,7 @@ INT64 getSkillResAddrByIdAndLev(DWORD dResId, DWORD dLev)
 {
 	DWORD dSkillResTypeIndex = getResIndexByName(L"Skill");
 	INT64 dSkillResAddr = getResAddrById(dSkillResTypeIndex);
-	//MyTrace(L"getSkillResAddrByIdAndLev 0x%I64X", dSkillResAddr);
+	////MyTrace(L"getSkillResAddrByIdAndLev 0x%I64X", dSkillResAddr);
 	long dtotal = R_DW(dSkillResAddr + 0xAC);
 	DWORD dHash = dResId & (dtotal - 1);
 	INT64 objStartAddr = R_QW(dSkillResAddr + 0x68);//对象数组地址
@@ -44,7 +44,7 @@ INT64 getSkillResAddrByIdAndLev(DWORD dResId, DWORD dLev)
 	DWORD dOffest = dIndex * 0x54;
 	if (dResId == R_DW(objStartAddr + dOffest))
 	{
-		//MyTrace(L"getSkillResAddrByLev 0x%I64x", objStartAddr + dOffest + 4);
+		////MyTrace(L"getSkillResAddrByLev 0x%I64x", objStartAddr + dOffest + 4);
 		return getSkillResAddrByLev(objStartAddr + dOffest + 4, dLev);
 	}
 	else
@@ -62,7 +62,7 @@ INT64 getSkillResAddrByIdAndLev(DWORD dResId, DWORD dLev)
 				dOffest = dNextIndex * 0x54;
 				if (dResId == R_DW(objStartAddr + dOffest))
 				{
-					MyTrace(L"getSkillResAddrByLev 0x%I64x", objStartAddr + dOffest + 4);
+					//MyTrace(L"getSkillResAddrByLev 0x%I64x", objStartAddr + dOffest + 4);
 					//return 0
 					return getSkillResAddrByLev(objStartAddr + dOffest + 4, dLev);
 				}
@@ -91,7 +91,7 @@ DWORD 技能::getRoleCurSkillPoints()
 }
 SkillInfo_ getSkillInfo(INT64 dSkillObj)
 {
-	//MyTrace(L"1");
+	////MyTrace(L"1");
 	SkillInfo_ temp;
 	INT64 dSkillInfo = R_QW(dSkillObj + 0x50);
 	DWORD dSkillId = R_DW(dSkillInfo);
@@ -119,7 +119,7 @@ SkillInfo_ getSkillInfo(INT64 dSkillObj)
 		//csName = GetName( dNameAddr);//dm.ReadStringAddr(dNameAddr,1,0); //
 		//wcscpy(bi.wName,csName.GetBuffer(0));
 	}
-	//MyTrace(L"2");
+	////MyTrace(L"2");
 	//wchar_t buf[100];
 	if (bCanUpGrade)
 	{
@@ -145,7 +145,7 @@ SkillInfo_ getSkillInfo(INT64 dSkillObj)
 	temp.天赋3 = dSkillD3;
 	temp.dRange = dRange;
 	temp.是否冷却 = 技能::冷却判断(dSkillObj);
-	//MyTrace(L"2.5");
+	////MyTrace(L"2.5");
 	if (temp.dSkillId == 37100)//魔力释放
 	{
 		temp.键位 = 8;
@@ -158,8 +158,8 @@ SkillInfo_ getSkillInfo(INT64 dSkillObj)
 	{
 		temp.键位 = 通过技能ID获取键码(dSkillId);
 	}
-	//MyTrace(L"3");
-	//MyTrace(L"地址0x%I64X ID %X 类型%d %s \r\n", dSkillInfo, dSkillId, dSkillType, temp.名称);
+	////MyTrace(L"3");
+	////MyTrace(L"地址0x%I64X ID %X 类型%d %s \r\n", dSkillInfo, dSkillId, dSkillType, temp.名称);
 	return temp;
 
 }
@@ -206,7 +206,7 @@ void getSkillShortInfo(INT64 dSkillArray, DWORD dPage, vector<ShortCutInfo_>& vs
 		temp.dId = dSkillId;
 		temp.type = 1;
 		vsk.push_back(temp);
-		//MyTrace(L"页面%d 键索引%d 地址0x%I64X  id %X\r\n", dPage, i, dSkillArray, dSkillId);
+		////MyTrace(L"页面%d 键索引%d 地址0x%I64X  id %X\r\n", dPage, i, dSkillArray, dSkillId);
 	//}
 	}
 }
@@ -233,6 +233,7 @@ void TravelTreeSkillShort(INT64 BTaddr, vector<ShortCutInfo_>& vsk, DWORD dCurPa
 void geQuickSlotStateByType(DWORD dSlotType, vector<ShortCutInfo_>& vsk)//战斗技能传0
 {
 	INT64 dUiObj = UI功能::getUiObjById(0x2D);//quickSlotFrame
+	//MyTrace(L"技能obj 0x%I64X", dUiObj);
 	dUiObj = R_QW(dUiObj + go_quickSlotFramePageArray);
 	if (dUiObj)
 	{
@@ -251,7 +252,7 @@ void geQuickSlotStateByType(DWORD dSlotType, vector<ShortCutInfo_>& vsk)//战斗技
 			{
 
 				INT64 addr_4 = R_QW(dstart + i * 0x10);
-				INT64 dataAddr = R_QW(addr_4 + 0X150);
+				INT64 dataAddr = R_QW(addr_4 + 0x150);
 				DWORD dStateValue = R_DW(dataAddr + 0x358);
 				INT64 dCoolAddr = getChildUiAddrByStr(addr_4, L"coolDown");
 				DWORD dCoolValue = R_W(dCoolAddr + 0x6A);
@@ -271,7 +272,7 @@ void geQuickSlotStateByType(DWORD dSlotType, vector<ShortCutInfo_>& vsk)//战斗技
 				}
 
 				vsk[i].技能状态 = dStateValue;
-				//MyTrace(L"快捷键索引%d 0x%I64X 冷却显示%X  状态值 %d \r\n", i, dCoolAddr, bCollView, dStateValue);//dStateValue 正常为0 脱下武器为2 不够能量为3
+				////MyTrace(L"快捷键索引%d 0x%I64X 冷却显示%X  状态值 %d \r\n", i, dCoolAddr, bCollView, dStateValue);//dStateValue 正常为0 脱下武器为2 不够能量为3
 			}
 		}
 	}
@@ -329,7 +330,7 @@ void 技能::get_RightShortList(vector<ShortCutInfo_>& vsk)
 			temp.名称 = Name;
 			temp.键位 = i + 1;
 			vsk.push_back(temp);
-			MyTrace(L"dStartAddr 0x%I64X %d键 物品id %X %s\r\n", dStartAddr, i + 1, dItemId, Name);
+			//MyTrace(L"dStartAddr 0x%I64X %d键 物品id %X %s\r\n", dStartAddr, i + 1, dItemId, Name);
 		}
 
 	}
@@ -350,7 +351,7 @@ void 技能::get_RightShortList(vector<ShortCutInfo_>& vsk)
 			temp.名称 = Name;
 			temp.键位 = i + 1;
 			vsk.push_back(temp);
-			MyTrace(L"%d键 战斗物品id %X %s \r\n", i + 1, dItemId, Name);
+			//MyTrace(L"%d键 战斗物品id %X %s \r\n", i + 1, dItemId, Name);
 		}
 
 	}
@@ -442,7 +443,7 @@ bool 技能::写怪物坐标到鼠标(坐标_ 怪物坐标)
 	//释放内存2(HANDLE(-1), (LPVOID)局_鼠标结果指针, 100);
 	//释放内存2(HANDLE(-1), (LPVOID)局_坐标指针, 100);
 	//CALL4(局_鼠标_游戏坐标转鼠标rcx, ULONG_PTR(pBuff), (INT64)&局_鼠标结果指针, 0,游戏坐标转鼠标CALL);
-	/*MyTrace(L"转换结果 %d,%d", R_DW(局_鼠标结果指针), R_DW(局_鼠标结果指针 + 4));
+	/*//MyTrace(L"转换结果 %d,%d", R_DW(局_鼠标结果指针), R_DW(局_鼠标结果指针 + 4));
 	W_DW(鼠标地址, R_DW(局_鼠标结果指针));
 	W_DW(鼠标地址 + 4, R_DW(局_鼠标结果指针 + 4));*/
 	return true;
@@ -483,7 +484,7 @@ bool 技能::写怪物坐标到鼠标2(float fx, float fy, float fz)
 	//释放内存2(HANDLE(-1), (LPVOID)局_鼠标结果指针, 100);
 	//释放内存2(HANDLE(-1), (LPVOID)局_坐标指针, 100);
 	//CALL4(局_鼠标_游戏坐标转鼠标rcx, ULONG_PTR(pBuff), (INT64)&局_鼠标结果指针, 0,游戏坐标转鼠标CALL);
-	/*MyTrace(L"转换结果 %d,%d", R_DW(局_鼠标结果指针), R_DW(局_鼠标结果指针 + 4));
+	/*//MyTrace(L"转换结果 %d,%d", R_DW(局_鼠标结果指针), R_DW(局_鼠标结果指针 + 4));
 	W_DW(鼠标地址, R_DW(局_鼠标结果指针));
 	W_DW(鼠标地址 + 4, R_DW(局_鼠标结果指针 + 4));*/
 	return true;
@@ -599,7 +600,7 @@ void 技能::技能释放(坐标_ 怪物坐标)
 	{
 		if (技能数组[i].是否冷却 == true && 技能数组[i].键位 != -1 && 技能数组[i].键位 != 8 && 技能数组[i].键位 != 9)
 		{
-			MyTrace(L"使用技能 %s %d", 技能数组[i].名称, 技能数组[i].键位);
+			//MyTrace(L"使用技能 %s %d", 技能数组[i].名称, 技能数组[i].键位);
 			if (技能数组[i].dSkillId == 37340)//极寒召唤
 			{
 				UI功能::内存按键(技能::技能键码转换(技能数组[i].键位), 0);
@@ -669,7 +670,7 @@ void 技能::技能释放2(坐标_ 怪物坐标)
 		{
 			if (技能数组[i].dId > 0 && 技能数组[i].是否冷却 == true && 技能数组[i].技能状态 == 0 && 技能数组[i].键位 != -1 && 技能数组[i].键位 != 8 && 技能数组[i].键位 != 9)
 			{
-				MyTrace(L"使用技能 %d", 技能数组[i].键位);
+				//MyTrace(L"使用技能 %d", 技能数组[i].键位);
 				if (技能数组[i].dId == 37340)//极寒召唤
 				{
 					UI功能::内存按键(技能::技能键码转换(技能数组[i].键位), 0);
@@ -723,7 +724,7 @@ void 技能::技能释放2(坐标_ 怪物坐标)
 					break;
 				}
 
-				MyTrace(L"dpage %d 使用技能 %d ID %X", 技能数组[i].dPage, 技能数组[i].键位, 技能数组[i].dId);
+				//MyTrace(L"dpage %d 使用技能 %d ID %X", 技能数组[i].dPage, 技能数组[i].键位, 技能数组[i].dId);
 				UI功能::内存按键(技能::技能键码转换(技能数组[i].键位));
 				是否释放技能 = true;
 				Sleep(300);
@@ -751,12 +752,12 @@ void 测试打怪(INT64 怪物obj)
 		objInfo_ 怪物信息 = 环境::getActorInfo(怪物obj);
 		if (怪物信息.dCurHp <= 0)
 		{
-			MyTrace(L"%s 怪物已死亡 %0.3f, %0.3f, %0.3f", 怪物信息.wName, 怪物信息.坐标.x, 怪物信息.坐标.y, 怪物信息.坐标.z);
+			//MyTrace(L"%s 怪物已死亡 %0.3f, %0.3f, %0.3f", 怪物信息.wName, 怪物信息.坐标.x, 怪物信息.坐标.y, 怪物信息.坐标.z);
 			break;
 		}
 		else
 		{
-			MyTrace(L"攻击怪物 %s %d/%d %0.3f, %0.3f, %0.3f", 怪物信息.wName, 怪物信息.dCurHp, 怪物信息.dMaxHp, 怪物信息.坐标.x, 怪物信息.坐标.y, 怪物信息.坐标.z);
+			//MyTrace(L"攻击怪物 %s %d/%d %0.3f, %0.3f, %0.3f", 怪物信息.wName, 怪物信息.dCurHp, 怪物信息.dMaxHp, 怪物信息.坐标.x, 怪物信息.坐标.y, 怪物信息.坐标.z);
 			技能::技能释放(怪物信息.坐标);
 		}
 	}
@@ -779,7 +780,7 @@ SkillInfo_ 技能::取出指定技能信息(DWORD SkillID, vector<SkillInfo_>& vsk)
 
 bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2, DWORD 特性3)
 {
-	MyTrace(L"升级技能 %d 等级 %d", 技能ID, 等级);
+	//MyTrace(L"升级技能 %d 等级 %d", 技能ID, 等级);
 	INT64 局_RCX = R_QW(游戏模块 + 基址_封包_发包rcx);
 	if (局_RCX == 0)
 	{
@@ -818,19 +819,20 @@ bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2,
 	W_BYTE((INT64)&puff[0x21], 特性3);*/
 	for (size_t i = 0; i <= 15; i++)
 	{
-		W_QW((INT64)&puff[0x1A + i * 0xE], 0x100010001);
+		W_QW((INT64)&puff[0x1E + i * 0xE], 0x100010001);
 		//W_Word((INT64)&puff[0x21 + i * 0xE + 4], 1);
 	}
 	W_QW((INT64)&puff[0], 局_包头);
 	W_QW((INT64)&puff[8], 0);
 	W_QW((INT64)&puff[16], 0);
 	W_BYTE((INT64)&puff[0x18], 1);
-	W_DW((INT64)&puff[0x23], 技能ID);
-	W_BYTE((INT64)&puff[0x20], 特性1);
-	W_BYTE((INT64)&puff[0x21], 特性2);
-	W_BYTE((INT64)&puff[0x22], 特性3);
 
-	W_BYTE((INT64)&puff[0x27], 等级);
+
+	W_BYTE((INT64)&puff[0x1A], 特性1);
+	W_BYTE((INT64)&puff[0x1B], 特性2);
+	W_BYTE((INT64)&puff[0x1C], 特性3);
+	W_BYTE((INT64)&puff[0x1D], 等级);
+	W_DW((INT64)&puff[0x24], 技能ID);
 	//W_DW((INT64)&puff[0x110], 0xC0);
 	MainUniversalCALL2(局_RCX, (ULONG_PTR)puff, 局_CALL);
 
@@ -838,16 +840,16 @@ bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2,
 }
 bool 技能::自动升级技能(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2, DWORD 特性3, DWORD 优先等级)
 {
-	//MyTrace(L"自动升级技能1");
+	////MyTrace(L"自动升级技能1");
 	vector<SkillInfo_>vsk;
 	get_SkillList(vsk);
-	//MyTrace(L"自动升级技能2");
+	////MyTrace(L"自动升级技能2");
 	SkillInfo_ SKILL;
 	SKILL = 取出指定技能信息(技能ID, vsk);
 
 	if (SKILL.dSkillId = 技能ID)
 	{
-		MyTrace(L"自动升级技能 SKill %d  %d 天赋1 %d 天赋2 %d 天赋3 %d", SKILL.dSkillId, SKILL.dSkillLev, SKILL.天赋1, SKILL.天赋2, SKILL.天赋3);
+		//MyTrace(L"自动升级技能 SKill %d  %d 天赋1 %d 天赋2 %d 天赋3 %d", SKILL.dSkillId, SKILL.dSkillLev, SKILL.天赋1, SKILL.天赋2, SKILL.天赋3);
 		if (SKILL.dSkillLev >= 4)
 		{
 			if (SKILL.天赋1 != 特性1)
@@ -872,7 +874,7 @@ bool 技能::自动升级技能(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2, DWOR
 
 		if (SKILL.dCanUpGrade == true && SKILL.dSkillLev < 等级)
 		{
-			MyTrace(L"技能升级 %s", SKILL.名称);
+			//MyTrace(L"技能升级 %s", SKILL.名称);
 			技能::CALL_升级技能天赋(SKILL.dSkillId, SKILL.dSkillLev + 1, SKILL.天赋1, SKILL.天赋2, SKILL.天赋3);
 			return false;
 		}
@@ -951,10 +953,10 @@ void 技能::摆放与学习技能()
 {
 	if (技能::get_SkillShortCurPage() == 0)
 	{
-		//MyTrace(L"判断技能加点时间2");
+		////MyTrace(L"判断技能加点时间2");
 		vector<ShortCutInfo_>vsk;
 		技能::get_SkillShortList(vsk);
-		//MyTrace(L"判断技能加点时间3");
+		////MyTrace(L"判断技能加点时间3");
 		for (size_t i = 0; i < vsk.size(); i++)
 		{
 			if (i == 0)
@@ -963,7 +965,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37260) > 0)
 					{
-						MyTrace(L"判断技能加点时间37260");
+						//MyTrace(L"判断技能加点时间37260");
 						技能::CALL_快捷键技能摆放(37260, i);
 					}
 				}
@@ -974,7 +976,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37280) > 0)
 					{
-						MyTrace(L"判断技能加点时间37280");
+						//MyTrace(L"判断技能加点时间37280");
 						技能::CALL_快捷键技能摆放(37280, i);
 					}
 				}
@@ -985,7 +987,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37320) > 0)
 					{
-						MyTrace(L"判断技能加点时间37320");
+						//MyTrace(L"判断技能加点时间37320");
 						技能::CALL_快捷键技能摆放(37320, i);
 					}
 				}
@@ -996,7 +998,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37310) > 0)
 					{
-						MyTrace(L"判断技能加点时间37310");
+						//MyTrace(L"判断技能加点时间37310");
 						技能::CALL_快捷键技能摆放(37310, i);
 					}
 				}
@@ -1007,7 +1009,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37210) > 0)
 					{
-						MyTrace(L"判断技能加点时间37210");
+						//MyTrace(L"判断技能加点时间37210");
 						技能::CALL_快捷键技能摆放(37210, i);
 					}
 				}
@@ -1018,7 +1020,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37220) > 0)
 					{
-						MyTrace(L"判断技能加点时间37220");
+						//MyTrace(L"判断技能加点时间37220");
 						技能::CALL_快捷键技能摆放(37220, i);
 					}
 				}
@@ -1029,7 +1031,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37230) > 0)
 					{
-						MyTrace(L"判断技能加点时间37230");
+						//MyTrace(L"判断技能加点时间37230");
 						技能::CALL_快捷键技能摆放(37230, i);
 					}
 				}
@@ -1040,7 +1042,7 @@ void 技能::摆放与学习技能()
 				{
 					if (技能::判断技能等级(37200) > 0)
 					{
-						MyTrace(L"判断技能加点时间37200");
+						//MyTrace(L"判断技能加点时间37200");
 						技能::CALL_快捷键技能摆放(37200, i);
 					}
 				}
@@ -1048,7 +1050,7 @@ void 技能::摆放与学习技能()
 
 		}
 		//Sleep(2000);
-		MyTrace(L"升级技能");
+		//MyTrace(L"升级技能");
 		技能::自动升级女巫技能();
 	}
 }

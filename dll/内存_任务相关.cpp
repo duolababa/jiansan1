@@ -66,7 +66,7 @@ bool 任务::CALL_接任务(DWORD 任务ID)
 	//	局_地图ID参数 = R_DW(raxx + 0x25C);
 	//	//局_地图ID参数 = R_DW(raxx + 0x25C);
 	//}
-	MyTrace(L"type:%d 局_地图ID参数 %d 状态 %d 可能参数1 %d 可能参数2 %d ", type, 局_地图ID参数, R_BYTE(objbase + 0x94), R_DW(raxx + 偏移_任务_获取任务地图ID偏移), R_DW(QuestTypeAddr + 偏移_任务_获取任务地图ID偏移2));
+	//MyTrace(L"type:%d 局_地图ID参数 %d 状态 %d 可能参数1 %d 可能参数2 %d ", type, 局_地图ID参数, R_BYTE(objbase + 0x94), R_DW(raxx + 偏移_任务_获取任务地图ID偏移), R_DW(QuestTypeAddr + 偏移_任务_获取任务地图ID偏移2));
 	//DWORD 任务ID;
 	/*if (任务.dType == 2)
 	{
@@ -94,7 +94,7 @@ bool 任务::CALL_接任务(DWORD 任务ID)
 		返回坐标.地图ID = R_DW(局_rdx + 20);
 
 	}
-	MyTrace(L"返回任务坐标state:%d 返回坐标.地图ID %d 坐标:%0.3f %0.3f %0.3f", 返回坐标.大陆ID, 返回坐标.地图ID, 返回坐标.x, 返回坐标.y, 返回坐标.z);
+	//MyTrace(L"返回任务坐标state:%d 返回坐标.地图ID %d 坐标:%0.3f %0.3f %0.3f", 返回坐标.大陆ID, 返回坐标.地图ID, 返回坐标.x, 返回坐标.y, 返回坐标.z);
 
 
 	return 返回坐标;
@@ -120,7 +120,7 @@ INT64 getQuesResArrayAddr()
 			DWORD dId = R_DW(objStartAddr + dOffest);
 			if (dId == 1)
 			{
-				//MyTrace(L"对象地址0x%I64X\r\n", dObjAddr);
+				////MyTrace(L"对象地址0x%I64X\r\n", dObjAddr);
 				return dObjAddr;
 			}
 			DWORD dNextIndex = 0;
@@ -138,7 +138,7 @@ INT64 getQuesResArrayAddr()
 					dId = R_DW(objStartAddr + dOffest);
 					if (dId == 1)
 					{
-						//MyTrace(L"对象地址0x%I64X", dObjAddr);
+						////MyTrace(L"对象地址0x%I64X", dObjAddr);
 						return dObjAddr;
 					}
 				}
@@ -173,10 +173,10 @@ void getQuestStepInfo(INT64 dResAddr, DWORD dStep, QuestInfo_& bi)
 					bi.TargetId = dId;
 				}
 				bi.TargetNum = dNum;
-			//	MyTrace(L"任务目标 数量 %d\r\n", dNum);
+			//	//MyTrace(L"任务目标 数量 %d\r\n", dNum);
 				DWORD dStrLen = R_DW(dInfoAddr + 0x20 + 8) - 1;
 				INT64 dRealNameAddr = getStringAddr(0, dNameAddr, dStrLen);
-				MyTrace(L"dRealNameAddr 0x%I64x", dRealNameAddr);
+				//MyTrace(L"dRealNameAddr 0x%I64x", dRealNameAddr);
 				CString csName = R_CString(dRealNameAddr);
 				bi.DescribeName = csName;
 				if (dconTotal == bi.子任务进度.size())
@@ -184,7 +184,7 @@ void getQuestStepInfo(INT64 dResAddr, DWORD dStep, QuestInfo_& bi)
 					bi.子任务进度[k].TargetID = dId;
 					bi.子任务进度[k].任务描述 = csName;
 				}
-			//	MyTrace(L"%s\r\n 0x%I64X ", csName, dRealNameAddr);
+			//	//MyTrace(L"%s\r\n 0x%I64X ", csName, dRealNameAddr);
 
 			}
 		}
@@ -197,6 +197,7 @@ void 任务::getQuestCurStepInfo(INT64 dObj, QuestInfo_& bi, vector<SubQuestNeed_>
 	//long dCurConTotal = dm.ReadIntAddr(dObj + 0x8D0,4);
 	/*INT64 dCurConStartAddr = R_QW(dObj + 0x6D0,3);
 	long dCurConTotal = dm.ReadIntAddr(dObj + 0x6D8,4);*/
+	//MyTrace(L"测试%X \r\n", dObj);
 	INT64 dCurConStartAddr = R_QW(dObj + go_QuestStepCompStart);//更新-0220
 	long dCurConTotal = R_DW(dObj + go_QuestStepCompStart + 8);//更新-0220
 	for (DWORD i = 0; i < dCurConTotal; i++)
@@ -239,11 +240,10 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 	任务::getQuestCurStepInfo(dObj, bi, 子任务进度组);
 	bi.子任务进度 = 子任务进度组;
 	bi.objBase = dObj;
-	bi.dQuestId = R_DW(dObj);//2023年7月13日 23:45:21
+	bi.dQuestId = R_DW(dObj);
 	bi.dStep = R_BYTE(dObj + 0x4);//单字节
-	bi.dState = R_W(dObj + 0x94);//双字节 1为正在做 2 为可交 //更新-0220
+	bi.dState = R_W(dObj + 0x94);//双字节 1为正在做 2 为可交 //更新-0518
 	bi.dResAddr = getQuestResAddrById(bi.dQuestId);
-	//MyTrace(L"getQuestInfo bi.dResAddr 0x%I64X", bi.dResAddr);
 	INT64 dResInfoAddr = R_QW(bi.dResAddr + 0x3C);//更新-0220
 	bi.dType = R_BYTE(dResInfoAddr + 0xD4);//更新-0220
 	if (bi.dType == 0)
@@ -266,7 +266,7 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 	// INT64 dVlaue = getStringAddr( 0, dNameAddr, dStrLen);
 
 	//CString cSumary = GetName(getStringAddr( 0, dNameAddr, dStrLen));
-	// MyTrace(L"%s \r\n",cSumary);
+	// //MyTrace(L"%s \r\n",cSumary);
 
 	//if (bi.dQuestId == 0x3157A)
 	{
@@ -288,24 +288,32 @@ void 任务::get_CurQuestList(vector<QuestInfo_>& vsk)
 	}
 	long dKeyValue = R_DW(addr_1 + 0xB8);//更新-0220
 	INT64 objStartAddr = R_QW(addr_1 + 0xA8);//更新-0220
+
+
 	for (DWORD i = 0; i < dtotal; i++)
 	{
+		////MyTrace(L"dKeyAddr 0x%I64X ", dKeyAddr);
 		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
+		////MyTrace(L"dKeyValue 0x%I64X  0x%I64X %d", dKeyValue, dKeyAddr + (i / 0x20) * 4,i);
+
 		DWORD dNum = i % 0x20;
 		DWORD dCheck = (dKeyValue >> dNum) & 1;
+		////MyTrace(L"dCheck 0x%I64X ", dCheck);
 		if (dCheck)
 		{
 			DWORD dQuesId = R_DW(objStartAddr + i * 0x5 * 4);
+			////MyTrace(L"dQuesId 0x%I64X objStartAddr  0x%I64X", dQuesId, objStartAddr);
 			if (dQuesId && dQuesId != 0xFFFFFFFF)
 			{
 				INT64 dObj = R_QW(objStartAddr + i * 0x5 * 4 + 4);
+				////MyTrace(L"0x%I64X ", dObj);
 				if (dObj)
 				{
 					if (R_DW(dObj + 0X1C + 4) && R_W(dObj + 0x1C))
 					{
-						//MyTrace(L"dObj + 4  %d<0x%I64X>  dObj + 0xC  %d<0x%I64X> "
+						////MyTrace(L"0x%I64X ", dObj);
 							//, R_DW(dObj + 4), R_DW(dObj + 4), R_W(dObj + 0xC), R_W(dObj + 0xC));
-						dObj = dObj + 0x1C;//2023年7月13日 23:49:49
+						dObj = dObj + 0x1C;//更新-0220
 						QuestInfo_ bi;
 						//memset(&bi, 0, sizeof(_QuestInfo));
 						getQuestInfo(dObj, bi);
@@ -542,7 +550,7 @@ QuestInfo_ 任务::取出指定支线任务(DWORD 任务ID)
 	}
 	if (temp.QuestName != L"")
 	{
-		MyTrace(L"QuestName %s QuestId %x dStep %d", temp.QuestName, temp.dQuestId, temp.dStep);
+		//MyTrace(L"QuestName %s QuestId %x dStep %d", temp.QuestName, temp.dQuestId, temp.dStep);
 	}
 
 	return temp;
@@ -604,7 +612,7 @@ void 任务::get_FinishQuestList(vector<DWORD>& vsk)
 		{
 			DWORD dQuesId = R_DW(objStartAddr + i * 0x4 * 4 + 4);
 			vsk.push_back(dQuesId);
-			//MyTrace(L"已完成任务ID 0x%X\r\n", dQuesId);
+			////MyTrace(L"已完成任务ID 0x%X\r\n", dQuesId);
 		}
 	}
 
@@ -688,7 +696,7 @@ INT64 getNpcQuestTalkResAddr(INT64 dNpcQuestTalkListAddr, int dTaklResId)
 				dObjAddr = R_QW(objStartAddr + dOffest + 4);
 				if (dResId == R_DW(objStartAddr + dOffest))
 				{
-					// MyTrace(L"地址0x%I64X \r\n",dObjAddr); 
+					// //MyTrace(L"地址0x%I64X \r\n",dObjAddr); 
 					return dObjAddr;
 				}
 			}
@@ -711,7 +719,7 @@ void getAllQuestNpcTalkList(INT64 dNpcQuestTalkListAddr, int dTalkResId, int dPa
 {
 
 	if (!dTalkResId || dTalkTotal > 1000) return;
-	//MyTrace(L"dTalkResId %d dTalkTotal %d ", dTalkResId, dTalkTotal);
+	////MyTrace(L"dTalkResId %d dTalkTotal %d ", dTalkResId, dTalkTotal);
 	INT64 dResAddr = getNpcQuestTalkResAddr(dNpcQuestTalkListAddr, dTalkResId);
 	if (dResAddr)
 	{
@@ -733,19 +741,19 @@ void getAllQuestNpcTalkList(INT64 dNpcQuestTalkListAddr, int dTalkResId, int dPa
 }
 int getQuestNpcTalkAchievementAddr(INT64 dNpcQuestTalkListAddr, INT64 dTalkAddr)
 {
-	MyTrace(L"getQuestNpcTalkAchievementAddr 1");
+	//MyTrace(L"getQuestNpcTalkAchievementAddr 1");
 	memset(g_QuestTalkInfoList, 0, sizeof(_QuestTalkInfo) * 2000);
-	//MyTrace(L"getQuestNpcTalkAchievementAddr 2");
+	////MyTrace(L"getQuestNpcTalkAchievementAddr 2");
 	int dTalkTotal = 0;
 	int dTalkId = R_DW(dTalkAddr + 8);
 	getAllQuestNpcTalkList(dNpcQuestTalkListAddr, dTalkId, 0, dTalkTotal);
-	MyTrace(L"getQuestNpcTalkAchievementAddr 3 dTalkTotal %d", dTalkTotal);
+	//MyTrace(L"getQuestNpcTalkAchievementAddr 3 dTalkTotal %d", dTalkTotal);
 	for (int i = 0; i < dTalkTotal; i++)
 	{
-		MyTrace(L"地址%I64X 父ID%X 对话ID%X %s", g_QuestTalkInfoList[i].dResAddr, g_QuestTalkInfoList[i].dParentId, g_QuestTalkInfoList[i].dTalkId, g_QuestTalkInfoList[i].wName);//CEFTalkConditionSeq_Achievement
+		//MyTrace(L"地址%I64X 父ID%X 对话ID%X %s", g_QuestTalkInfoList[i].dResAddr, g_QuestTalkInfoList[i].dParentId, g_QuestTalkInfoList[i].dTalkId, g_QuestTalkInfoList[i].wName);//CEFTalkConditionSeq_Achievement
 		if (wcscmp(g_QuestTalkInfoList[i].wName, L"CEFTalkConditionSeq_Achievement") == 0)
 		{
-			MyTrace(L"Find it 地址%I64X 父ID%X 对话ID%X %s", g_QuestTalkInfoList[i].dResAddr, g_QuestTalkInfoList[i].dParentId, g_QuestTalkInfoList[i].dTalkId, g_QuestTalkInfoList[i].wName);
+			//MyTrace(L"Find it 地址%I64X 父ID%X 对话ID%X %s", g_QuestTalkInfoList[i].dResAddr, g_QuestTalkInfoList[i].dParentId, g_QuestTalkInfoList[i].dTalkId, g_QuestTalkInfoList[i].wName);
 			return R_DW(g_QuestTalkInfoList[i].dResAddr + 0x54);
 		}
 	}
@@ -755,7 +763,7 @@ int getNpcTaklEndSendArgFinally(int dNpcResId, int dQuestId, int dType, int dSte
 {
 	INT64 go_NpcQuestTalkListStart = 0x114;
 	INT64 dNpcQuestTalkListAddr = getNpcQuestTalkListResAddr(dNpcResId);
-	MyTrace(L"dNpcQuestTalkListAddr 0x%I64x", dNpcQuestTalkListAddr);
+	//MyTrace(L"dNpcQuestTalkListAddr 0x%I64x", dNpcQuestTalkListAddr);
 	if (!dNpcQuestTalkListAddr) return 0;
 	INT64 addr_1 = dNpcQuestTalkListAddr + go_NpcQuestTalkListStart;
 	long dtotal = R_DW(addr_1 + 0x10 + 0x18);
@@ -779,7 +787,7 @@ int getNpcTaklEndSendArgFinally(int dNpcResId, int dQuestId, int dType, int dSte
 			{
 		
 				INT64 dInfo = R_QW(dObjAddr + 4);
-				MyTrace(L"比较任务 %I64X %d", dObjAddr, R_DW(dInfo + 0x44));
+				//MyTrace(L"比较任务 %I64X %d", dObjAddr, R_DW(dInfo + 0x44));
 				if (dType == R_DW(dInfo + 0x48))
 				{
 					if (dType == 4)
@@ -791,7 +799,7 @@ int getNpcTaklEndSendArgFinally(int dNpcResId, int dQuestId, int dType, int dSte
 					}
 					else
 					{
-						//MyTrace(L"对话首地址 %I64X", dInfo);
+						////MyTrace(L"对话首地址 %I64X", dInfo);
 						return getQuestNpcTalkAchievementAddr(dNpcQuestTalkListAddr, dInfo);
 					}
 
@@ -808,7 +816,7 @@ int 任务::getNpcTaklEndSendArg(int dNpcResId, int dQuestId, int dStep)
 	INT64 addr_1 = R_QW(游戏模块 + gb_QuestCur);
 	UCHAR dInfoAddr[0x100] = { 0 };
 	MainUniversalCALL4(addr_1, dNpcResId, (ULONG_PTR)dInfoAddr, 0, 游戏模块 + gc_GetNpcQuestTalkCurList);
-	MyTrace(L"获取信息");
+	//MyTrace(L"获取信息");
 	//DbgPrintf_Mine("获取信息 %s", __FUNCTION__);
 	//INT64 dInfoAddr = dm.VirtualAllocEx( 0, 0x100, 0);
 	/*CString cBuf;
@@ -834,7 +842,7 @@ int 任务::getNpcTaklEndSendArg(int dNpcResId, int dQuestId, int dStep)
 			{
 				int dArg = getNpcTaklEndSendArgFinally(dNpcResId, dQuestId, dType, dStep);
 				返回值 = dArg;
-				MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
+				//MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
 				//return dArg;
 			}
 
@@ -864,7 +872,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 	INT64 addr_1 = R_QW(游戏模块 + gb_QuestCur);
 	UCHAR dInfoAddr[0x100] = { 0 };
 	MainUniversalCALL4(addr_1, dNpcResId, (ULONG_PTR)dInfoAddr, 0, 游戏模块 + gc_GetNpcQuestTalkCurList);
-	//MyTrace(L"获取信息");
+	////MyTrace(L"获取信息");
 	//DbgPrintf_Mine("获取信息 %s", __FUNCTION__);
 	//INT64 dInfoAddr = dm.VirtualAllocEx( 0, 0x100, 0);
 	/*CString cBuf;
@@ -879,7 +887,7 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 	dm.AsmAdd(L"add rsp,040");
 	dm.AsmCall( 6);*/
 	int dtotal = R_DW((INT64)&dInfoAddr + 8);
-//	MyTrace(L"dtotal 0x%I64Xd", dInfoAddr);
+//	//MyTrace(L"dtotal 0x%I64Xd", dInfoAddr);
 	if (dtotal)
 	{
 		INT64 dstart = R_QW((INT64)&dInfoAddr);//更新-0220
@@ -887,27 +895,30 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 		{
 			INT64 dObj = dstart + i * 8;
 			int dType = R_DW(dObj);
-		//	MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
+		//	//MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
 			if (dQuestId == R_DW(dObj + 4))
 			{
 				int dArg = getNpcTaklEndSendArgFinally(dNpcResId, dQuestId, dType, dStep);
 				返回值 = dArg;
-			//	MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
+		//MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
 				if (dType == 4)								   //return dArg;
 				{
-				//	MyTrace(L"开始执行call");
+					//MessageBoxA(NULL, "4！", "提示", MB_OK);
+				//	//MyTrace(L"开始执行call");
 					任务::Fun_阶段任务完成CALL(dArg);
-					//MyTrace(L"执行call结束");
+					////MyTrace(L"执行call结束");
 				}
 				if (dType == 3)
 				{
-					//MyTrace(L"开始执行交任务");
+					//MessageBoxA(NULL, "3！", "提示", MB_OK);
+					////MyTrace(L"开始执行交任务");
 					任务::CALL_交任务(dQuestId, -1);
 				}
 			}
 
 		}
 		///////////////////////释放指针///////////////////////////////////////////////////
+	//	MessageBoxA(NULL, "释放！", "提示", MB_OK);
 		MainUniversalCALL2((ULONG_PTR)dInfoAddr, 0, 游戏模块 + gc_GameListFree);
 		return 返回值;
 		/*dm.AsmClear();
@@ -995,19 +1006,19 @@ INT64 环境::鼠标获取对象call(float px, float y)
 	INT64 call = 游戏模块_EFEngine + en鼠标call;
 	INT64 x = 0;
 	x = R_QW(游戏模块_EFEngine + en鼠标基址);
-	//MyTrace(L"打开rcx,0x%I64X", 游戏模块_EFEngine + en鼠标基址);
+	////MyTrace(L"打开rcx,0x%I64X", 游戏模块_EFEngine + en鼠标基址);
 
-	//MyTrace(L"打开rcx,0x%I64X", x);
+	////MyTrace(L"打开rcx,0x%I64X", x);
 	x = R_QW(x + 0x2F0);
 	x = R_QW(x);
 	rcx = R_QW(x + 0x3C);
-	MyTrace(L"打开rcx,0x%I64X", rcx);
+	////MyTrace(L"打开rcx,0x%I64X", rcx);
 	DWORD r9 = 1;
 	DWORD r8 = 0;
 	UCHAR 局_rdx0[0x100] = { 0 };
 	W_Float((ULONG64)&局_rdx0[0], px);
 	W_Float((ULONG64)&局_rdx0[4], y);
-	// MyTrace(L"px x %0.3f %0.3f", px, y);
+	// //MyTrace(L"px x %0.3f %0.3f", px, y);
 	INT64 rdx = (INT64)&局_rdx0;
 	ret = MainUniversalCALL4_Ret(rcx, rdx, r8, r9, call);
 

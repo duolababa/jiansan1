@@ -18,6 +18,7 @@ struct ActorInfo_
 {
 	INT64 真实对象指针;
 	INT64 对象指针;
+	INT64 属性对象;
 	DWORD 当前血;
 	DWORD 最大血;
 	DWORD 当前蓝;
@@ -116,6 +117,7 @@ struct 登陆角色信息_
 	INT64 SrvId = 0;
 	DWORD 直升状态 = 0;
 	bool 任务是否完成 = false;
+	float 装等 = 0;
 	//int 课题状态;
 };
 struct temp名称指针
@@ -418,6 +420,43 @@ struct 周长日常_
 	DWORD ID;
 	CString csName = L"空";
 	DWORD 状态 = 0;
+	INT64 dObj = 0;
+};
+
+struct mypid
+{
+	int 序号 = 0;
+	int mapid = 0;
+	int Lev = 0;
+	char 账户[100];
+	char 密码[100];
+	char 区[100];
+	char 服务器[100];
+	char 仓库[100];
+	char 流程[100];
+	int 角色 = 0;
+	char 执行[100];
+	char 交易密码[100];
+	char 运行目录[500];
+	char 反馈中控[1024];
 
 };
 
+struct 工会_
+{
+	CString 行会名称 = L" ";
+	CString 行会等级 = L" ";
+	CString 行会会长 = L" ";
+	CString 行会人数 = L" ";
+
+	CString 行会name = L" ";
+	DWORD 行会ID = 0;
+};
+
+struct 商城信息_
+{
+	INT64 ItemId;
+	DWORD WearId;
+	CString CName;
+
+};

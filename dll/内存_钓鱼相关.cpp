@@ -53,6 +53,7 @@ int 钓鱼::getFishObjState()//5为初始化 1为普通 3为来鱼 2为出现感叹
 int 钓鱼::getquickSlotFrameType()//1普通 3 生活 5骑马
 {
 	INT64 dUiObj = UI功能::getUiObjById( 0x2D);//quickSlotFrame
+	//MyTrace(L"dUiObj 0x%I64X", dUiObj);
 	if (dUiObj)
 	{
 		return R_DW(dUiObj + go_QuickSlotType);

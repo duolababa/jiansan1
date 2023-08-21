@@ -24,7 +24,7 @@ DWORD 航海::getRoleCrewList(vector<CrewInfo_>& vsk)//已拥有船员列表
 		temp.wName = csName;
 		vsk.push_back(temp);
 		//VoyageShipAddCrew( dResId);
-		MyTrace(L"当前已拥有 船员ID %X 0x%I64X %s \r\n", dResId, dResAddr, csName);
+		//MyTrace(L"当前已拥有 船员ID %X 0x%I64X %s \r\n", dResId, dResAddr, csName);
 	}
 	return 0;
 }
@@ -106,7 +106,7 @@ void getVoyageShipList(vector<ShipInfo_>& ShipGroup, vector<CrewInfo_>& CrewGrou
 			Crewtemp.dResId = dCrewResId;
 			CrewGroup.push_back(Crewtemp);
 
-			//MyTrace(L"船ID %X 已选择船员ID %X\r\n", dShipResId, dCrewResId);
+			////MyTrace(L"船ID %X 已选择船员ID %X\r\n", dShipResId, dCrewResId);
 		}
 		INT64 dResAddr = getShipResAddrById(dShipResId);
 		INT64 dNameAddr = R_QW(dResAddr + 0x10);
@@ -121,7 +121,7 @@ void getVoyageShipList(vector<ShipInfo_>& ShipGroup, vector<CrewInfo_>& CrewGrou
 		tempShip.dLev = dShipLev;
 		tempShip.wName = csName;
 		ShipGroup.push_back(tempShip);
-		//MyTrace(L"船ID %X %s 等级%d\r\n", dShipResId, csName, dShipLev);
+		////MyTrace(L"船ID %X %s 等级%d\r\n", dShipResId, csName, dShipLev);
 	}
 
 }
@@ -204,7 +204,7 @@ bool 航海::指定船员是否上了已装备的船(DWORD dResId)
 }
 void 航海::删除所有船员()
 {
-	MyTrace(L"删除所有船员");
+	//MyTrace(L"删除所有船员");
 	vector<ShipInfo_> ShipGroup;
 	vector<CrewInfo_> CrewGroup;
 	getVoyageShipList(ShipGroup, CrewGroup);
@@ -216,7 +216,7 @@ void 航海::删除所有船员()
 }
 void 航海::设置所有船员()
 {
-	MyTrace(L"设置所有船员");
+	//MyTrace(L"设置所有船员");
 	vector<CrewInfo_> CrewGroup;
 	getRoleCrewList(CrewGroup);
 	for (size_t i = 0; i < CrewGroup.size(); i++)
@@ -231,7 +231,7 @@ void 航海::设置所有船员()
 }
 bool 航海::自动选择最优战船()
 {
-	MyTrace(L"选择最优战船");
+	//MyTrace(L"选择最优战船");
 	DWORD 已解锁船只数量 = getVoyageShipTotal();
 	if (已解锁船只数量 == 1)
 	{
@@ -340,8 +340,8 @@ void 航海::坐船call功能(DWORD dResId)
 	if (rcx >= 1)
 	{
 	//	INT64 rcx1=R_QW(rcx);
-		W_DW(rcx+0x450, dResId);
-		MyTrace(L"选择最优战船0x%I64X " , rcx);
+		W_DW(rcx+ g_ShipsetID, dResId);
+		////MyTrace(L"选择最优战船0x%I64X " , rcx);
 			MainUniversalCALL6(rcx, 0, 0, 1,0,2, 游戏模块 + 基址_坐船call);
 
 	}

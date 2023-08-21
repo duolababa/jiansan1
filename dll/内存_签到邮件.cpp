@@ -1,7 +1,7 @@
 #include "内存_签到邮件.h"
 void 签到邮件::get_ExpressMailList(vector<MailInfo_>& vsk)//邮件遍历
 {
-
+	vsk.clear();
 	//INT64 go_ExpressMailType = 0x114;
 	////?? 83 ?? ?? ?? ?? ?? ?? 0F ?? ?? ?? ?? ?? BA ?? ?? ?? ?? ?? 8B ?? E8 ?? ?? ?? ?? ?? 8B ?? E8 ?? ?? ?? ?? 0F + 0x23 + 3 go_ExpressMailType
 	////E8 ?? ?? ?? ?? 0F ?? ?? ?? ?? ?? ?? FE ?? 80 ?? ?? 0F ?? ?? ?? ?? ?? ?? 8D ?? ?? ?? ?? ?? FF ?? ?? ?? ?? ?? 8D +5+3  go_ExpressMailType 手动备用
@@ -48,6 +48,7 @@ void 签到邮件::get_ExpressMailList(vector<MailInfo_>& vsk)//邮件遍历
 
 				}
 			}
+			//bNeedOpened = TRUE;
 			MailInfo_ temp;
 			temp.dMailId = dMailId;
 			temp.dIndex = i;
@@ -59,7 +60,7 @@ void 签到邮件::get_ExpressMailList(vector<MailInfo_>& vsk)//邮件遍历
 			temp.发件人 = cMailSender;
 			temp.Ctitle = cMailTitle;
 			vsk.push_back(temp);
-			MyTrace(L"序号%d 地址%I64X 邮件ID 0x%I64X 类型%d 状态%d 是否要打开%d 金币数%I64d 发件人:%s %s", i, dObjAddr, dMailId, dMailType, dMailState, bNeedOpened, (signed __int64)dMoneyNum, cMailSender, cMailTitle);
+			//MyTrace(L"序号%d 地址%I64X 邮件ID 0x%I64X 类型%d 状态%d 是否要打开%d 金币数%I64d 发件人:%s %s", i, dObjAddr, dMailId, dMailType, dMailState, bNeedOpened, (signed __int64)dMoneyNum, cMailSender, cMailTitle);
 		}
 	}
 
@@ -93,6 +94,7 @@ void 签到邮件::Fun_ExpressMailGetItemAll(INT64 dMailId)//领取邮件物品
 void 签到邮件::Fun_ExpressMailSelectByIndex(int dIndex)//打开指定邮件 参数是序号 非邮件ID
 {
 	INT64 dUiObj = UI功能::getUiObjById(0xC2);//root1.arkui.frameCanvas.topHUDFrame 
+
 	MainUniversalCALL2(dUiObj, dIndex, 游戏模块 + gc_ExpressMailSelectByIndex);
 
 }
@@ -108,19 +110,22 @@ void 签到邮件::邮件领取()
 	get_ExpressMailList(vsk);
 	if (vsk.size() > 0)
 	{
-		if (!bCheckExpressMailWndShow())
-		{
-			Fun_ExpressMailWndShow();
-			Sleep(1000);
-		}
+			if (!bCheckExpressMailWndShow())
+			{
+				Fun_ExpressMailWndShow();
+				Sleep(1000);
+			}
 		for (size_t i = 0; i < vsk.size(); i++)
 		{
+		
+			////MyTrace(L"判断[%s]=>[%s]的[%d]邮件奖励 状态%d", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex, vsk[i].dState);
 			if (vsk[i].dState == 1)
 			{
-				MyTrace(L"领取[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
+				//MyTrace(L"领取[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
 				Fun_ExpressMailSelectByIndex(vsk[i].dIndex);
+				Sleep(2500);
 				Fun_ExpressMailGetItemAll(vsk[i].dMailId);
-				Sleep(500);
+				Sleep(1500);
 				//break;
 			}
 		}
@@ -136,10 +141,11 @@ void 签到邮件::邮件领取()
 		{
 			if (vsk[i].dState == 2)
 			{
-				MyTrace(L"删除[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
+				//MyTrace(L"删除[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
 				Fun_ExpressMailSelectByIndex(vsk[i].dIndex);
+				Sleep(2500);
 				Fun_ExpressMailDel(vsk[i].dMailId);
-				Sleep(500);
+				Sleep(1500);
 				//break;
 			}
 		}
@@ -179,7 +185,7 @@ bool 签到邮件::get_AttendanceList()
 					if (!IsTake)
 					{
 						是否需要签到 = true;
-						MyTrace(L"0x%I64x 签到天数足够 %d 领取 Tab %X k %d j %d", dstart, dTabTotalDays, dTabId, k, j);
+						//MyTrace(L"0x%I64x 签到天数足够 %d 领取 Tab %X k %d j %d", dstart, dTabTotalDays, dTabId, k, j);
 						Fun_AttendanceTake(dTabId, k, j);
 						//签到天数足够，可领取
 					}
@@ -191,7 +197,7 @@ bool 签到邮件::get_AttendanceList()
 				{
 					csName = R_CString(dNameAddr);
 				}
-				//MyTrace(L"当前TAB ID %X 已签到天数%d 索引%d 索引J %d物品资源ID %X 需求天数%d 是否已领%d %s", dTabId, dTabTotalDays, k, j, dResId, dNeedDay, IsTake, csName);
+				////MyTrace(L"当前TAB ID %X 已签到天数%d 索引%d 索引J %d物品资源ID %X 需求天数%d 是否已领%d %s", dTabId, dTabTotalDays, k, j, dResId, dNeedDay, IsTake, csName);
 			}
 
 		}
@@ -276,7 +282,7 @@ void 成就领取::getExpeditionInfo()//遍历
 	{
 		if (bCheckExpeditionRecd(i + 1))
 		{
-			//MyTrace(L"远征Lv%d 已领取", i + 1);
+		MyTrace(L"远征Lv%d 已领取", i + 1);
 		}
 		else
 		{
@@ -286,6 +292,114 @@ void 成就领取::getExpeditionInfo()//遍历
 		}
 	}
 }
+
+void 成就领取::挑战领取()
+{
+	INT64 dMemCall = 游戏模块 + gc_WelcomeChallengeRewardTake;
+	INT64 rcx= R_QW(游戏模块 + gb_WelcomeChallenge);
+	DWORD rdx = 0x7918;
+	DWORD b = 0;
+	DWORD c = 0;
+	INT64 base = 0;
+	for (size_t i = 0; i < 59; i++)
+	{
+		base = 0;
+
+
+		b = b + 1;
+		base = rcx + g_挑战 + (0 * g_挑战1) + (b * 0xF);//4C 8D 89 ?? ?? ?? ?? 85 D2 7E ?? 41 0F BF 01 3B D0 7F ??    g_挑战 +0x0  g_挑战1+0x19  g_挑战2+ 0x38
+		BYTE x = R_BYTE(base + g_挑战2);
+		BYTE x1 = R_BYTE(base );
+		if (x!=0 && x1==2)
+		{
+			MainUniversalCALL4(rcx, rdx, 1, b, dMemCall);
+			Sleep(2000);
+		}
+	
+
+
+	}
+
+	b = 0;
+	for (size_t d = 0; d < 15; d++)
+	{
+		base = 0;
+
+
+		b = b + 1;
+		base = rcx + g_挑战 + (1 * g_挑战1) + (b * 0xF);
+		BYTE x = R_BYTE(base + g_挑战2);
+		BYTE x1 = R_BYTE(base);
+
+		if (x != 0 && x1 == 2)
+		{
+			MainUniversalCALL4(rcx, rdx, 2, b, dMemCall);
+			Sleep(2000);
+		}
+
+	}
+	b = 0;
+	c = 0;
+	for (size_t c = 0; c < 29; c++)
+	{
+		base = 0;
+
+
+		b = b + 1;
+		base = rcx + g_挑战 + (2 * g_挑战1) + (b * 0xF);
+		BYTE x = R_BYTE(base + g_挑战2);
+		BYTE x1 = R_BYTE(base);
+
+		if (x != 0 && x1 == 2)
+		{
+			MainUniversalCALL4(rcx, rdx, 3, b, dMemCall);
+			Sleep(2000);
+		}
+
+	}
+	b = 0;
+	c = 0;
+	for (size_t c = 0; c < 17; c++)
+	{
+
+		base = 0;
+
+
+		b = b + 1;
+		base = rcx + g_挑战 + (3 * g_挑战1) + (b * 0xF);
+		BYTE x = R_BYTE(base + g_挑战2);
+		BYTE x1 = R_BYTE(base);
+
+		if (x != 0 && x1 == 2)
+		{
+			MainUniversalCALL4(rcx, rdx, 4, b, dMemCall);
+			Sleep(2000);
+		}
+
+	}
+	c = 0;
+	b = 0;
+
+	for (size_t c = 0; c < 23; c++)
+	{
+		base = 0;
+
+
+		b = b + 1;
+		base = rcx + g_挑战 + (4 * g_挑战1) + (b * 0xF);
+		BYTE x = R_BYTE(base + g_挑战2);
+		BYTE x1 = R_BYTE(base);
+
+		if (x != 0 && x1 == 2)
+		{
+			MainUniversalCALL4(rcx, rdx, 5, b, dMemCall);
+			Sleep(2000);
+		}
+
+	}
+
+}
+
 
 void 成就领取::Fun_ExpeditionInRecv(int dLev)//领取远征队奖励CALL
 {
@@ -348,7 +462,7 @@ void 成就领取::Fun_ExpeditionInRecv_M(int dLev)
 	CallParam2 CALLArg;
 	CALLArg.RDX = dLev;
 	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLExpeditionInRecv, (LPARAM)&CALLArg, SMTO_NORMAL, 1000, 0);
-	//MyTrace(L"返回值 %d", CALLArg.是否可达);
+	////MyTrace(L"返回值 %d", CALLArg.是否可达);
 
 }
 INT64 get_BookCurInfoByIndex(int dIndex)
@@ -365,22 +479,22 @@ INT64 get_BookCurInfoByIndex(int dIndex)
 bool Fun_getBookListReward(DWORD dMapIndex)
 {
 
-	INT64 局_RCX = R_QW(游戏模块 + 基址_封包_发包rcx);
-	if (局_RCX == 0)
-	{
-		return false;
-	}
-	INT64 局_CALL = 游戏模块 + 基址_封包_发包call;
-	INT64 局_包头 = 游戏模块 + gb_getBookReward包头;
-	UCHAR puff[0x100] = { 0 };
+	//INT64 局_RCX = R_QW(游戏模块 + 基址_封包_发包rcx);
+	//if (局_RCX == 0)
+	//{
+	//	return false;
+	//}
+	//INT64 局_CALL = 游戏模块 + 基址_封包_发包call;
+	//INT64 局_包头 = 游戏模块 + gb_getBookReward包头;
+	//UCHAR puff[0x100] = { 0 };
 
 
-	W_QW((INT64)&puff[0], 局_包头);
-	W_QW((INT64)&puff[0x40 - 0x38], 0);
-	W_QW((INT64)&puff[0x48 - 0x38], 0);
-	W_BYTE((INT64)&puff[0x52 - 0x38], 0);
-	W_BYTE((INT64)&puff[go_getBookRewardSendArg - 0x38], dMapIndex);
-	MainUniversalCALL2(局_RCX, (ULONG_PTR)puff, 局_CALL);
+	//W_QW((INT64)&puff[0], 局_包头);
+	//W_QW((INT64)&puff[0x40 - 0x38], 0);
+	//W_QW((INT64)&puff[0x48 - 0x38], 0);
+	//W_BYTE((INT64)&puff[0x52 - 0x38], 0);
+	//W_BYTE((INT64)&puff[go_getBookRewardSendArg - 0x38], dMapIndex);
+	//MainUniversalCALL2(局_RCX, (ULONG_PTR)puff, 局_CALL);
 	return true;
 
 }
@@ -391,7 +505,7 @@ void 成就领取::get_BookListInfo()
 	//go_BookTakeedItemNum  = 0x98;
 	DWORD dAdvBookIndex = getResIndexByName(L"AdvBook");
 	INT64 dBookResAddr = getResAddrById(dAdvBookIndex);
-	//MyTrace(L"地址0x%I64X \r\n", dBookResAddr);
+	////MyTrace(L"地址0x%I64X \r\n", dBookResAddr);
 	int dtotal = R_DW(dBookResAddr + 0x60);
 	INT64 dstartAddr = R_QW(dBookResAddr + 0x58);
 	for (int i = 0; i < dtotal; i++)
@@ -412,7 +526,7 @@ void 成就领取::get_BookListInfo()
 			}
 			if (dTakeedNum < dRewardItemNum && dCurPorcess != 0)
 			{
-				MyTrace(L"列表顺序%d %X 0x%I64X 总奖励数量%d  已领取数量%d 进度值%d/%d\r\n", dListIndex, dMapIndex, dCurObjInfo, dRewardItemNum, dTakeedNum, dCurPorcess, dMaxPorcess);
+				//MyTrace(L"列表顺序%d %X 0x%I64X 总奖励数量%d  已领取数量%d 进度值%d/%d\r\n", dListIndex, dMapIndex, dCurObjInfo, dRewardItemNum, dTakeedNum, dCurPorcess, dMaxPorcess);
 				Fun_getBookListReward(dMapIndex);
 				Sleep(500);
 				//小于说明有可领取的 等于说明领取完了

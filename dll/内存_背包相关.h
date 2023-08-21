@@ -49,6 +49,14 @@ public:
     static DWORD 需研磨装备序号(DWORD lv);
     static DWORD 采集数量(DWORD ID);
     static DWORD 指定类型物品数量(DWORD ID);
+
+    static Equipinfo_ 遍历材料背包(CString 物品名称);
+
 };
 
 int getEquipWearArg(int dSlotIndex);
+
+void Fun_BS_RandomItemOpenAll(DWORD dNum);
+void Fun_CheckBSItem_Wnd(int dNum);
+void get_BsItem_Select();
+void Fun_CheckBSSelectItem_Wnd(int dItemResId, int dNum);
