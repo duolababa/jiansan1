@@ -443,29 +443,29 @@ bool 地图::指定地点是否可到达(float x, float y, float z)
 	W_Float((ULONG64)&pBuff[8], z);
 	INT64 局_R9 = (INT64)&pBuff;
 	__try {
-		__asm
-		{
-			mov rsi, 局_rsi
-			mov rax, qword ptr ds : [rsi]
-			mov rcx, rsi
-			sub rsp, 0x28
-			call qword ptr ds : [rax + 基址_地图_目的地址是否可达_rax获取偏移]
-			add rsp, 0x28
-			mov r14, rax
-			sub rsp, 0x60
-			mov r9, 局_R9
-			mov rcx, r14
-			mov rdx, 局_坐标基址
-			mov r8, 0
-			mov dword ptr ss : [rsp + 0x20] , 0
-			mov dword ptr ss : [rsp + 0x28] , 0
-			mov dword ptr ss : [rsp + 0x30] , 1
-			mov rdi, dCALL
-			call rdi
-			add rsp, 0x60
-			mov reta, eax
+		//__asm
+		//{
+		//	mov rsi, 局_rsi
+		//	mov rax, qword ptr ds : [rsi]
+		//	mov rcx, rsi
+		//	sub rsp, 0x28
+		//	call qword ptr ds : [rax + 基址_地图_目的地址是否可达_rax获取偏移]
+		//	add rsp, 0x28
+		//	mov r14, rax
+		//	sub rsp, 0x60
+		//	mov r9, 局_R9
+		//	mov rcx, r14
+		//	mov rdx, 局_坐标基址
+		//	mov r8, 0
+		//	mov dword ptr ss : [rsp + 0x20] , 0
+		//	mov dword ptr ss : [rsp + 0x28] , 0
+		//	mov dword ptr ss : [rsp + 0x30] , 1
+		//	mov rdi, dCALL
+		//	call rdi
+		//	add rsp, 0x60
+		//	mov reta, eax
 
-		}
+		//}
 	}
 	__except (1)
 	{

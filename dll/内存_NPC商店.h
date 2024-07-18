@@ -23,15 +23,18 @@ class 拍卖
 {
 public:
 
-	static void 登记拍卖(DWORD ID, DWORD ID1);
+
 	static DWORD 查询金额call();
 	static void 自动拍卖(DWORD ID, DWORD 总量, DWORD 价格, INT64 物品ID1);
 	static 	bool 拍卖::拍卖行是否打开();
+	static DWORD 市场遍历(DWORD ID);
+	static INT64 拍卖_获取遍历对象(DWORD ID);
 
 };
 
 void 输入邮寄名称(CString name);
 void 输入邮寄物品(DWORD ID, DWORD 数量, DWORD 物品位置);
+DWORD 邮寄添加物品数量();
 void 开始邮寄();
 DWORD 邮寄选项卡();
 bool 是否输入();

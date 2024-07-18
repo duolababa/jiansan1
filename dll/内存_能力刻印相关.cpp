@@ -705,7 +705,7 @@ bool Fun_石头是否加工完成(INT64 ItemObj)
 	if (ItemObj)
 	{
 		INT64 rcxx = R_QW(游戏模块 + gb_AttrList);
-		DWORD ret = CALL2(rcxx, ItemObj, 游戏模块 + gc_CheckAbilityStone);
+		DWORD ret = MainUniversalCALL2_Ret(rcxx, ItemObj, 游戏模块 + gc_CheckAbilityStone);
 		if (ret != 0)
 		{
 			return true;

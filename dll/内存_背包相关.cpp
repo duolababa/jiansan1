@@ -128,13 +128,20 @@ void 背包::get_InventoryItemList(vector<Inventoryinfo_>& vsk)
 	Inventoryinfo_ temp;
 	INT64 addr_1 = R_QW(游戏模块 + gb_ShortKey);
 	INT64 addr_2 = R_QW(addr_1 + go_AttrList_off1/*0x94*/);
-	DWORD dSize = go_bag_dSize;//0x1E0;[[0x5025D70+lostark.exe.0]+E4]+28530+1*330+0
+	DWORD dSize = go_bag_dSize;//0x1E0;[[0x50381E0+lostark.exe.0]+E4]+0x27EF0+1*328+318
 	//DWORD dSize = 1744;//0x1E0;
+
+	//2E645  
+
+
+
 	INT64 dStart = addr_2 + 偏移_背包_物品遍历数组头;//0x17DD8;//0x690;
+
 	//INT64 dStart = addr_2 + 0x55A2C ;//0x17DD8;//0x690;
 	for (size_t i = 0; i < 100; i++)
 	{
 		INT64 dItemId = R_QW(dStart + i * dSize + 偏移_背包_物品id);
+	//	MyTrace(L"%I64X", dItemId);
 		if (dItemId)
 		{
 			DWORD dItmeResId = R_DW(dStart + i * dSize + 偏移_背包_物品resid);
@@ -853,7 +860,7 @@ void 背包::使用背包指定物品_ByResId(DWORD ResId)
 	{
 		if (vsk[i].ItemResId == ResId)
 		{
-			//MyTrace(L"使用物品 %s", vsk[i].ItemName);
+			MyTrace(L"使用物品 %s", vsk[i].ItemName);
 			背包::使用物品2(vsk[i].dindex);
 			break;
 		}

@@ -50,52 +50,7 @@ void 文本分割(CString strSource, char ch, CArray<CString, CString>* 返回文本组)
 	}
 
 }
-void 处理坐标文本(CString 坐标文本, vector<录制坐标_>& 参_录制坐标组, int 地图标识)
-{
-	int 文本位置 = -1;
-	参_录制坐标组.clear();
-	录制坐标_ 局_录制坐标;
-	CArray<CString, CString>分配坐标文本组;
-	CArray<CString, CString>坐标文本组;
-	CArray<CString, CString>坐标操作组;
-	CString 标识文本;
-	坐标文本.Replace(L"\r\n", L"}");
-	坐标文本.Replace(L"//", L"");
-	文本分割(坐标文本, '}', &分配坐标文本组);
-	for (size_t i = 0; i < 分配坐标文本组.GetCount(); i++)
-	{
-		文本分割(分配坐标文本组[i], ',', &坐标文本组);
-		if (坐标文本组.GetCount() == 11)
-		{
-			局_录制坐标.x1 = _ttof(坐标文本组[0]);
-			局_录制坐标.y1 = _ttof(坐标文本组[1]);
-			局_录制坐标.z1 = _ttof(坐标文本组[2]);
-			局_录制坐标.x2 = _ttof(坐标文本组[3]);
-			局_录制坐标.y2 = _ttof(坐标文本组[4]);
-			局_录制坐标.z2 = _ttof(坐标文本组[5]);
-			局_录制坐标.操作 = _ttoi(坐标文本组[6]);
-			局_录制坐标.线路 = _ttoi(坐标文本组[7]);
-			局_录制坐标.线路分段 = _ttoi(坐标文本组[8]);
-			局_录制坐标.未知1 = _ttoi(坐标文本组[9]);
-			局_录制坐标.未知2 = _ttoi(坐标文本组[10]);
-			局_录制坐标.地图ID = 地图标识;
-			//局_录制坐标.地图标识 = false;
-			参_录制坐标组.push_back(局_录制坐标);
-		}
-	}
-}
-void 配置::取录制坐标(int 地图标识, vector<录制坐标_>& 录制坐标组)
-{
-	if (地图标识 == 0)
-	{
-		return;
-	}
-	CString 地图str;
-	地图str.Format(L"%d", 地图标识);
-	CString 坐标文本 = 读取录制坐标文本(地图str);
-	处理坐标文本(坐标文本, 录制坐标组, 地图标识);
-	//MyTrace(L"%d 取出录制坐标组:%d 个", 地图标识, 录制坐标组.size());
-}
+
 CString 获取LAconfig辅助目录()
 {
 	CString 返回文本 = L"";

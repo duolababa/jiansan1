@@ -3,6 +3,7 @@
 
 using namespace std;
 /*---------------------------------------------------------------------*/
+std::wstring generateRandomChineseString(int minLength, int maxLength);
 std::string utf8_to_string(const std::string& str);
 std::string string_to_utf8(const std::string& str);
 wstring	AsciiToUnicode(const string& str);
@@ -21,7 +22,7 @@ void MainUniversalCALL8(UINT64 RCX_值, UINT64 RDX_值, UINT64 R8_值, UINT64 R9_值
 INT64 MainUniversalCALL8_Ret(UINT64 RCX_值, UINT64 RDX_值, UINT64 R8_值, UINT64 R9_值, UINT64 rsp_20, UINT64 rsp_28, UINT64 rsp_30, UINT64 rsp_38, UINT64 CALL_地址);
 float R_Float(ULONG64 参_内存地址);
 double R_double(ULONG64 参_内存地址);
-
+void ReadStr(ULONG64 参_内存地址, char* data, int len);
 DWORD R_DW(ULONG64 参_内存地址);
 BYTE R_BYTE(ULONG64 参_内存地址);
 WORD R_W(ULONG64 参_内存地址);
@@ -35,6 +36,7 @@ void W_QW(ULONG64 参_内存地址, UINT64 参_写入数据);
 void W_BYTE(ULONG64 参_内存地址, BYTE 参_写入数据);
 void W_CString(INT64 内存地址, CString 内容);
 UINT64 R_QW(UINT64 参_内存地址);
+
 int Random(int min, int max);
 /*---------------------------------------------------------------------*/
 

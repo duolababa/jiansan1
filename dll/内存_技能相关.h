@@ -7,7 +7,7 @@ public:
     static void get_SkillList(vector<SkillInfo_>& vsk);
     static void get_SkillShortList(vector<ShortCutInfo_>& vsk);
     static void get_RightShortList(vector<ShortCutInfo_>& vsk);
-
+    static void get_SkillShortList1(vector<ShortCutInfo_>& vsk, DWORD xxx);
     static bool 冷却判断(INT64 技能对象指针);
 
     static bool 写怪物坐标到鼠标(坐标_ 怪物坐标);

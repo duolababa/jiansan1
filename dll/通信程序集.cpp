@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "通信程序集.h"
+
+
+
 int udpsocket句柄 = 0;
 //sockaddr fs;
 struct sockaddr_in fs;
@@ -26,12 +29,12 @@ bool UDP发送(char* 发送IP, int 端口, CString 发送内容)
 }
 void 发送给控制台(CString 包头, CString 内容)
 {
-	UDP发送("127.0.0.1", 38384, 包头 + L";" + 内容);
+	UDP发送("127.0.0.1", 38385, 包头 + L";" + 内容);
 }
 
 void 发送给控制台1(CString 包头, CString 包中, CString 内容)
 {
-    UDP发送("127.0.0.1", 38384, 包头 + L";" + 包中 + L";" + 内容);
+    UDP发送("127.0.0.1", 38385, 包头 + L";" + 包中 + L";" + 内容);
 }
 CString GetLocalIP()
 {

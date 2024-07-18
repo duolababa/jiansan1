@@ -14,15 +14,43 @@ bool 新手::CALL_跳过序幕()
 }
 bool 新手::CALL_退出体验()
 {
-	INT64 局_call = 游戏模块 + 基址_新手_退出体验call;
-	MainUniversalCALL2(0, 0, 局_call);
+	INT64 rcx=0;
+
+
+		for (int i = 0; i < 10; ++i)
+		{
+			bool 是否打开 = UI功能::寻找打开窗口("root1.arkui.frameCanvas.classPreviewCanvas", rcx);
+			if (rcx >= 1)
+			{
+
+				INT64 局_call = 游戏模块 + 基址_新手_退出体验call;
+				MainUniversalCALL4(rcx, 0, 0, 0, 局_call);
+				Sleep(3000);
+				CString 弹窗文本 = UI功能::窗口反馈文本();
+				if (弹窗文本.Find(L"End Test") != -1)
+				{
+					UI功能::内存按键1(g_ENTER);
+					break;
+				}
+				//End Test
+			}
+			Sleep(3000);
+		}
+
+	
+
+
+
+
+
+
 	return true;
 }
 
 bool 新手::CALL_选择体验(DWORD 职业ID)
 {
 	INT64 局_call = 游戏模块 + 基址_新手_选择职业call;
-	MainUniversalCALL2(职业ID, 1, 局_call);
+	MainUniversalCALL4(职业ID, 1,0,0, 局_call);
 	return true;
 }
 

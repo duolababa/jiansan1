@@ -60,7 +60,7 @@ void 签到邮件::get_ExpressMailList(vector<MailInfo_>& vsk)//邮件遍历
 			temp.发件人 = cMailSender;
 			temp.Ctitle = cMailTitle;
 			vsk.push_back(temp);
-			//MyTrace(L"序号%d 地址%I64X 邮件ID 0x%I64X 类型%d 状态%d 是否要打开%d 金币数%I64d 发件人:%s %s", i, dObjAddr, dMailId, dMailType, dMailState, bNeedOpened, (signed __int64)dMoneyNum, cMailSender, cMailTitle);
+		MyTrace(L"序号%d 地址%I64X 邮件ID 0x%I64X 类型%d 状态%d 是否要打开%d 金币数%I64d 发件人:%s %s", i, dObjAddr, dMailId, dMailType, dMailState, bNeedOpened, (signed __int64)dMoneyNum, cMailSender, cMailTitle);
 		}
 	}
 
@@ -118,10 +118,10 @@ void 签到邮件::邮件领取()
 		for (size_t i = 0; i < vsk.size(); i++)
 		{
 		
-			////MyTrace(L"判断[%s]=>[%s]的[%d]邮件奖励 状态%d", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex, vsk[i].dState);
+			MyTrace(L"判断[%s]=>[%s]的[%d]邮件奖励 状态%d", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex, vsk[i].dState);
 			if (vsk[i].dState == 1)
 			{
-				//MyTrace(L"领取[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
+				MyTrace(L"领取[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
 				Fun_ExpressMailSelectByIndex(vsk[i].dIndex);
 				Sleep(2500);
 				Fun_ExpressMailGetItemAll(vsk[i].dMailId);
@@ -141,7 +141,7 @@ void 签到邮件::邮件领取()
 		{
 			if (vsk[i].dState == 2)
 			{
-				//MyTrace(L"删除[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
+				MyTrace(L"删除[%s]=>[%s]的[%d]邮件奖励", vsk[i].发件人, vsk[i].Ctitle, vsk[i].dIndex);
 				Fun_ExpressMailSelectByIndex(vsk[i].dIndex);
 				Sleep(2500);
 				Fun_ExpressMailDel(vsk[i].dMailId);
@@ -287,7 +287,21 @@ void 成就领取::getExpeditionInfo()//遍历
 		else
 		{
 			MyTrace(L"远征Lv%d 未领取", i + 1);
-			成就领取::Fun_ExpeditionInRecv_M(i + 1);
+			
+			INT64 dMemCall = R_QW(游戏模块 + gc_MemAlloc);
+			INT64 dCall = 游戏模块 + gc_ExpeditionInRecv;
+			UCHAR dInfoAddr[0x200] = { 0 };
+			W_DW((ULONG64)&dInfoAddr[0x8], 1);
+			W_DW((ULONG64)&dInfoAddr[0xC], 1);
+			INT64 rcxx = (ULONG_PTR)dInfoAddr;
+			INT64 fhz=MainUniversalCALL4_Ret(rcxx,0,1,2, dMemCall);
+			W_Word(fhz, i + 1);
+			INT64 dMrcx = R_QW(游戏模块 + gb_ExpeditionRecdList);
+			 MainUniversalCALL4(dMrcx, rcxx, 0, 0, dCall);
+			
+
+
+
 			Sleep(500);
 		}
 	}
@@ -305,15 +319,16 @@ void 成就领取::挑战领取()
 	{
 		base = 0;
 
-
+		//  [0x50C47A8+lostark.0]+94+(0*3dc)+(1*f)-4
 		b = b + 1;
 		base = rcx + g_挑战 + (0 * g_挑战1) + (b * 0xF);//4C 8D 89 ?? ?? ?? ?? 85 D2 7E ?? 41 0F BF 01 3B D0 7F ??    g_挑战 +0x0  g_挑战1+0x19  g_挑战2+ 0x38
-		BYTE x = R_BYTE(base + g_挑战2);
-		BYTE x1 = R_BYTE(base );
-		if (x!=0 && x1==2)
+		BYTE x = R_BYTE(base - g_挑战2);
+		BYTE x1 = R_BYTE(base+3 );//手动核对   ==2
+		//MyTrace(L"挑战Lv%d", x1);
+		if (x1==2)
 		{
 			MainUniversalCALL4(rcx, rdx, 1, b, dMemCall);
-			Sleep(2000);
+			Sleep(3000);
 		}
 	
 
@@ -328,13 +343,13 @@ void 成就领取::挑战领取()
 
 		b = b + 1;
 		base = rcx + g_挑战 + (1 * g_挑战1) + (b * 0xF);
-		BYTE x = R_BYTE(base + g_挑战2);
-		BYTE x1 = R_BYTE(base);
+		BYTE x = R_BYTE(base - g_挑战2);
+		BYTE x1 = R_BYTE(base+3 );
 
-		if (x != 0 && x1 == 2)
+			if ( x1==2)
 		{
 			MainUniversalCALL4(rcx, rdx, 2, b, dMemCall);
-			Sleep(2000);
+			Sleep(3000);
 		}
 
 	}
@@ -347,13 +362,13 @@ void 成就领取::挑战领取()
 
 		b = b + 1;
 		base = rcx + g_挑战 + (2 * g_挑战1) + (b * 0xF);
-		BYTE x = R_BYTE(base + g_挑战2);
-		BYTE x1 = R_BYTE(base);
+		BYTE x = R_BYTE(base - g_挑战2);
+		BYTE x1 = R_BYTE(base+3 );
 
-		if (x != 0 && x1 == 2)
+			if ( x1==2)
 		{
 			MainUniversalCALL4(rcx, rdx, 3, b, dMemCall);
-			Sleep(2000);
+			Sleep(3000);
 		}
 
 	}
@@ -367,13 +382,13 @@ void 成就领取::挑战领取()
 
 		b = b + 1;
 		base = rcx + g_挑战 + (3 * g_挑战1) + (b * 0xF);
-		BYTE x = R_BYTE(base + g_挑战2);
-		BYTE x1 = R_BYTE(base);
+		BYTE x = R_BYTE(base - g_挑战2);
+		BYTE x1 = R_BYTE(base+3 );
 
-		if (x != 0 && x1 == 2)
+			if (x1==2)
 		{
 			MainUniversalCALL4(rcx, rdx, 4, b, dMemCall);
-			Sleep(2000);
+			Sleep(3000);
 		}
 
 	}
@@ -387,13 +402,13 @@ void 成就领取::挑战领取()
 
 		b = b + 1;
 		base = rcx + g_挑战 + (4 * g_挑战1) + (b * 0xF);
-		BYTE x = R_BYTE(base + g_挑战2);
-		BYTE x1 = R_BYTE(base);
+		BYTE x = R_BYTE(base -g_挑战2);
+		BYTE x1 = R_BYTE(base+3 );
 
-		if (x != 0 && x1 == 2)
+	if ( x1==2)
 		{
 			MainUniversalCALL4(rcx, rdx, 5, b, dMemCall);
-			Sleep(2000);
+			Sleep(3000);
 		}
 
 	}
@@ -401,70 +416,29 @@ void 成就领取::挑战领取()
 }
 
 
-void 成就领取::Fun_ExpeditionInRecv(int dLev)//领取远征队奖励CALL
-{
-	INT64 dMemCall = R_QW(游戏模块 + gc_MemAlloc);
-	INT64 dCall = 游戏模块 + gc_ExpeditionInRecv;
-	UCHAR dInfoAddr[0x200] = { 0 };
-	//INT64 dInfoAddr = dm.VirtualAllocEx( 0, 0x100, 0);
-	W_DW((ULONG64)&dInfoAddr[0x8], 1);
-	W_DW((ULONG64)&dInfoAddr[0xC], 1);
-	//dm.WriteIntAddr( dInfoAddr + 8, LEN_DWORD, 1);
-	//dm.WriteIntAddr( dInfoAddr + 0xC, LEN_DWORD, 1);
-	/*MainUniversalCALL4((ULONG_PTR)dInfoAddr, 0, 1, 2, dMemCall);*/
-	INT64 rcxx = (ULONG_PTR)dInfoAddr;
-	__asm
-	{
-		sub rsp, 0x40
-		mov r9d, 2
-		mov r8d, 1
-		xor edx, edx
-		mov rcx, rcxx
-		mov rdi, dMemCall
-		call rdi
-		add rsp, 0x40
-		mov edx, dLev
-		mov word ptr ds : [rax] , dx
-		sub rsp, 0x40
-		mov rdx, rcxx
-		mov rdi, dCall
-		call rdi
-		add rsp, 0x40
-	}
-	//wchar_t buf[100];
-	//dm.AsmClear();
-	//dm.AsmAdd(L"sub rsp,40");
-	//dm.AsmAdd(L"mov r9d, 2");
-	//dm.AsmAdd(L"mov r8d, 1");
-	//dm.AsmAdd(L"xor edx, edx");
-	//wsprintf(buf, L"mov rcx, 0%I64X", dInfoAddr);
-	//dm.AsmAdd(buf);
-	//wsprintf(buf, L"mov rdi, 0%I64X", dMemCall);
-	//dm.AsmAdd(buf);
-	//dm.AsmAdd(L"call rdi");
-	//dm.AsmAdd(L"add rsp,040");
-	//wsprintf(buf, L"mov edx, 0%X", dLev);
-	//dm.AsmAdd(buf);
-	//dm.AsmAdd(L"emit 66 89 10");//mov word ptr ds:[rax], dx
-	//dm.AsmAdd(L"sub rsp,40");
-	//wsprintf(buf, L"mov rdx, 0%I64X", dInfoAddr);
-	//dm.AsmAdd(buf);
-	//wsprintf(buf, L"mov rdi, 0%I64X", gc_ExpeditionInRecv);
-	//dm.AsmAdd(buf);
-	//dm.AsmAdd(L"call rdi");
-	//dm.AsmAdd(L"add rsp,040");
-	//dm.AsmCall( 6);
-	//dm.VirtualFreeEx( dInfoAddr);
-}
-void 成就领取::Fun_ExpeditionInRecv_M(int dLev)
-{
-
-	CallParam2 CALLArg;
-	CALLArg.RDX = dLev;
-	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLExpeditionInRecv, (LPARAM)&CALLArg, SMTO_NORMAL, 1000, 0);
-	////MyTrace(L"返回值 %d", CALLArg.是否可达);
-
-}
+//void 成就领取::Fun_ExpeditionInRecv(int dLev)//领取远征队奖励CALL
+//{
+//	INT64 dMemCall = R_QW(游戏模块 + gc_MemAlloc);
+//	INT64 dCall = 游戏模块 + gc_ExpeditionInRecv;
+//	UCHAR dInfoAddr[0x200] = { 0 };
+//	W_DW((ULONG64)&dInfoAddr[0x8], 1);
+//	W_DW((ULONG64)&dInfoAddr[0xC], 1);
+//	INT64 rcxx = (ULONG_PTR)dInfoAddr;
+//	
+//
+//
+//
+//
+//}
+//void 成就领取::Fun_ExpeditionInRecv_M(int dLev)
+//{
+//
+//	CallParam2 CALLArg;
+//	CALLArg.RDX = dLev;
+//	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CALLExpeditionInRecv, (LPARAM)&CALLArg, SMTO_NORMAL, 1000, 0);
+//	////MyTrace(L"返回值 %d", CALLArg.是否可达);
+//
+//}
 INT64 get_BookCurInfoByIndex(int dIndex)
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_BookCurInfo);

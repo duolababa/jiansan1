@@ -273,7 +273,7 @@ void getQuestInfo(INT64 dObj, QuestInfo_& bi)
 		getQuestStepInfo(bi.dResAddr, bi.dStep, bi);
 	}
 
-	MyTrace(L"地址%I64X 资源地址%I64X 任务ID %X 步骤%d 状态 %d 名字 %s \r\n",dObj,bi.dResAddr,bi.dQuestId,bi.dStep,bi.dState, bi.QuestName);
+	//MyTrace(L"地址%I64X 资源地址%I64X 任务ID %X 步骤%d 状态 %d 名字 %s \r\n",dObj,bi.dResAddr,bi.dQuestId,bi.dStep,bi.dState, bi.QuestName);
 }
 
 void 任务::get_CurQuestList(vector<QuestInfo_>& vsk)
@@ -327,10 +327,10 @@ void 任务::get_CurQuestList(vector<QuestInfo_>& vsk)
 
 
 
-BOOL 任务::bCheckGuildQuestState(DWORD dQuestId)//指引可接
+BOOL 任务::bCheckGuildQuestState(DWORD dQuestId)//指引可接!!
 {
 	//bool result = (BOOL)MainUniversalCALL4_Ret(0, 1, dQuestId, 0, 游戏模块 + gc_CheckGuildQuest);
-	bool result = (BOOL)CALL4(0, 1, dQuestId, 0, 游戏模块 + gc_CheckGuildQuest);
+	bool result = (BOOL)MainUniversalCALL4_Ret(0, 1, dQuestId, 0, 游戏模块 + gc_CheckGuildQuest);
 	return result;
 	/*wchar_t buf[100];
 	dm.AsmClear();
@@ -799,7 +799,7 @@ int getNpcTaklEndSendArgFinally(int dNpcResId, int dQuestId, int dType, int dSte
 					}
 					else
 					{
-						////MyTrace(L"对话首地址 %I64X", dInfo);
+						//MyTrace(L"对话首地址 %I64X", dInfo);
 						return getQuestNpcTalkAchievementAddr(dNpcQuestTalkListAddr, dInfo);
 					}
 
@@ -895,12 +895,12 @@ int 任务::getNpcTaklEndSendArg1(int dNpcResId, int dQuestId, int dStep)
 		{
 			INT64 dObj = dstart + i * 8;
 			int dType = R_DW(dObj);
-		//	//MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
+		//MyTrace(L"任务ID%I64X \r\n", R_DW(dObj + 4));//类型4是可直接交的 类型3是显示问号的完成任务
 			if (dQuestId == R_DW(dObj + 4))
 			{
 				int dArg = getNpcTaklEndSendArgFinally(dNpcResId, dQuestId, dType, dStep);
 				返回值 = dArg;
-		//MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
+			//	MyTrace(L"类型 %X 任务ID%X 发包所需参数值%X \r\n", dType, dQuestId, dArg);//类型4是可直接交的 类型3是显示问号的完成任务
 				if (dType == 4)								   //return dArg;
 				{
 					//MessageBoxA(NULL, "4！", "提示", MB_OK);
@@ -1005,14 +1005,14 @@ INT64 环境::鼠标获取对象call(float px, float y)
 	INT64 rcx = 0;
 	INT64 call = 游戏模块_EFEngine + en鼠标call;
 	INT64 x = 0;
-	x = R_QW(游戏模块_EFEngine + en鼠标基址);
-	////MyTrace(L"打开rcx,0x%I64X", 游戏模块_EFEngine + en鼠标基址);
-
-	////MyTrace(L"打开rcx,0x%I64X", x);
+	x = R_QW(游戏模块 + en鼠标基址);
+	////[[[[39A9DE8+lostark.0]]+2F0]]+3C
+	x = R_QW(x);
+	//MyTrace(L"打开rcx,0x%I64X", x);
 	x = R_QW(x + 0x2F0);
 	x = R_QW(x);
 	rcx = R_QW(x + 0x3C);
-	////MyTrace(L"打开rcx,0x%I64X", rcx);
+//	MyTrace(L"打开rcx,0x%I64X", rcx);
 	DWORD r9 = 1;
 	DWORD r8 = 0;
 	UCHAR 局_rdx0[0x100] = { 0 };
@@ -1020,7 +1020,12 @@ INT64 环境::鼠标获取对象call(float px, float y)
 	W_Float((ULONG64)&局_rdx0[4], y);
 	// //MyTrace(L"px x %0.3f %0.3f", px, y);
 	INT64 rdx = (INT64)&局_rdx0;
-	ret = MainUniversalCALL4_Ret(rcx, rdx, r8, r9, call);
+
+	if (rcx > 1)
+	{
+		ret = MainUniversalCALL4_Ret(rcx, rdx, r8, r9, call);
+	}
+
 
 	return ret;
 

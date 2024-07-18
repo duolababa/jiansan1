@@ -272,7 +272,7 @@ void geQuickSlotStateByType(DWORD dSlotType, vector<ShortCutInfo_>& vsk)//战斗技
 				}
 
 				vsk[i].技能状态 = dStateValue;
-				////MyTrace(L"快捷键索引%d 0x%I64X 冷却显示%X  状态值 %d \r\n", i, dCoolAddr, bCollView, dStateValue);//dStateValue 正常为0 脱下武器为2 不够能量为3
+			MyTrace(L"快捷键索引%d 0x%I64X 冷却显示%X  状态值 %d \r\n", i, dCoolAddr, bCollView, dStateValue);//dStateValue 正常为0 脱下武器为2 不够能量为3
 			}
 		}
 	}
@@ -305,6 +305,21 @@ void 技能::get_SkillShortList(vector<ShortCutInfo_>& vsk)
 	TravelTreeSkillShort(addr, vsk, dCurPage);
 	geQuickSlotStateByType(dCurPage, vsk);
 }
+
+
+void 技能::get_SkillShortList1(vector<ShortCutInfo_>& vsk, DWORD xxx)
+{
+	vsk.clear();
+	INT64 addr_1 = R_QW(游戏模块 + gb_ShortKey + 8);
+	BYTE dCurPage = R_BYTE(addr_1 + 0x9C);
+	INT64 addr_2 = R_QW(addr_1 + 0xA8);
+	INT64 addr = R_QW(addr_2 + 8);
+	TravelTreeSkillShort(addr, vsk, dCurPage);
+	geQuickSlotStateByType(xxx, vsk);
+
+
+}
+
 
 void 技能::get_RightShortList(vector<ShortCutInfo_>& vsk)
 {
@@ -422,30 +437,13 @@ bool 技能::写怪物坐标到鼠标(坐标_ 怪物坐标)
 	UCHAR pBuff2[0x100] = { 0 };
 	INT64 局_鼠标结果指针 = (INT64)&pBuff2;
 	MainUniversalCALL4(局_鼠标_游戏坐标转鼠标rcx, 局_坐标指针, 局_鼠标结果指针, 0, 游戏坐标转鼠标CALL);
-	__try
-	{
-		__asm
-		{
-			mov rax, 鼠标地址
-			mov rcx, 局_鼠标结果指针
-			cvttss2si rcx, dword ptr ds : [rcx]
-			mov dword ptr ds : [rax] , ecx
-			mov rax, 鼠标地址y
-			mov rcx, 局_鼠标结果指针
-			cvttss2si rcx, dword ptr ds : [rcx + 4]
-			mov dword ptr ds : [rax] , ecx
-		}
-	}
-	__except (1)
-	{
-		DbgPrintf_Mine("鼠标写入CALL失败");
-	}
-	//释放内存2(HANDLE(-1), (LPVOID)局_鼠标结果指针, 100);
-	//释放内存2(HANDLE(-1), (LPVOID)局_坐标指针, 100);
-	//CALL4(局_鼠标_游戏坐标转鼠标rcx, ULONG_PTR(pBuff), (INT64)&局_鼠标结果指针, 0,游戏坐标转鼠标CALL);
-	/*//MyTrace(L"转换结果 %d,%d", R_DW(局_鼠标结果指针), R_DW(局_鼠标结果指针 + 4));
-	W_DW(鼠标地址, R_DW(局_鼠标结果指针));
-	W_DW(鼠标地址 + 4, R_DW(局_鼠标结果指针 + 4));*/
+	int intValue = static_cast<int>(std::round(R_Float(局_鼠标结果指针)));
+	int x = intValue;
+	intValue = static_cast<int>(std::round(R_Float(局_鼠标结果指针+4)));
+	int y = intValue;
+		W_DW(鼠标地址,x);
+		W_DW(鼠标地址+4, y);
+
 	return true;
 }
 
@@ -819,20 +817,21 @@ bool 技能::CALL_升级技能天赋(DWORD 技能ID, DWORD 等级, DWORD 特性1, DWORD 特性2,
 	W_BYTE((INT64)&puff[0x21], 特性3);*/
 	for (size_t i = 0; i <= 15; i++)
 	{
-		W_QW((INT64)&puff[0x1E + i * 0xE], 0x100010001);
+		W_QW((INT64)&puff[0x28 + i * 0xE], 0x100010001);
 		//W_Word((INT64)&puff[0x21 + i * 0xE + 4], 1);
 	}
 	W_QW((INT64)&puff[0], 局_包头);
 	W_QW((INT64)&puff[8], 0);
 	W_QW((INT64)&puff[16], 0);
 	W_BYTE((INT64)&puff[0x18], 1);
+	W_BYTE((INT64)&puff[0x20], 等级);
+	W_DW((INT64)&puff[0x21], 技能ID);
+	W_BYTE((INT64)&puff[0x25], 特性1);
+	W_BYTE((INT64)&puff[0x26], 特性2);
+	W_BYTE((INT64)&puff[0x27], 特性3);
 
 
-	W_BYTE((INT64)&puff[0x1A], 特性1);
-	W_BYTE((INT64)&puff[0x1B], 特性2);
-	W_BYTE((INT64)&puff[0x1C], 特性3);
-	W_BYTE((INT64)&puff[0x1D], 等级);
-	W_DW((INT64)&puff[0x24], 技能ID);
+
 	//W_DW((INT64)&puff[0x110], 0xC0);
 	MainUniversalCALL2(局_RCX, (ULONG_PTR)puff, 局_CALL);
 

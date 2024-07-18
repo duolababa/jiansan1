@@ -68,9 +68,11 @@ objInfo_ 环境::getActorInfo(INT64 dObjAddr)
 		//bi.dResAddr = dm.ReadIntAddr(dObjAddr + 0xB48,3);
 		//bi.dResType = dm.ReadIntAddr(bi.dResAddr + 0x36,6);
 		bi.dResType = R_BYTE(dObjAddr + 0xD18);
+		bi.dResShow = 0;
 		//bi.dResShow = R_BYTE(dObjAddr + 0xD15);
 		////MyTrace(L"getActorInfo 是否");
-		bi.dResShow = CALL_对象是否可交互(dObjAddr);
+	//	bi.dResShow = CALL_对象是否可交互(dObjAddr);
+	// 		bi.dResShow = CALL_对象是否可交互(dObjAddr);
 		////MyTrace(L"getActorInfo 可交互");
 		bi.dResOpen = R_BYTE(dObjAddr + 0xD16);
 		bi.dPortalOpen = R_BYTE(dObjAddr + go_PortalOpen);
@@ -179,7 +181,8 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 		bi.dResType = R_BYTE(dObjAddr + 0xD18);
 		//bi.dResShow = R_BYTE(dObjAddr + 0xD15);
 		////MyTrace(L"getActorInfo 是否");
-		bi.dResShow = CALL_对象是否可交互(dObjAddr);
+		//bi.dResShow = CALL_对象是否可交互(dObjAddr);
+		bi.dResShow = 0;
 		////MyTrace(L"getActorInfo 可交互");
 		bi.dResOpen = R_BYTE(dObjAddr + 0xD16);
 		bi.dPortalOpen = R_BYTE(dObjAddr + go_PortalOpen);
@@ -258,7 +261,7 @@ objInfo_ 环境::getActorInfo1(INT64 dObjAddr, 坐标_ 自己坐标)
 }
 
 
-int 环境::CALL_对象是否可交互(INT64 环境对象指针)
+int 环境::CALL_对象是否可交互(INT64 环境对象指针)//!!
 {
 	if (环境对象指针 && !IsBadReadPtr((const void*)环境对象指针, sizeof(环境对象指针)))
 	{
@@ -266,7 +269,7 @@ int 环境::CALL_对象是否可交互(INT64 环境对象指针)
 		//INT64 CALL = 游戏模块 + gc_ActorShow;
 		if (CALL && !IsBadReadPtr((const void*)CALL, sizeof(CALL)))
 		{
-			return (int)CALL2(环境对象指针, 0, CALL);
+			return (int)CALL2(环境对象指针, 0, CALL);//!!
 		}
 
 	}
@@ -280,7 +283,7 @@ int 环境::CALL_对象是否可交互2(INT64 环境对象指针)
 		//INT64 CALL = 游戏模块 + gc_ActorShow;
 		if (CALL && !IsBadReadPtr((const void*)CALL, sizeof(CALL)))
 		{
-			return (int)CALL2(环境对象指针, 0, CALL);
+			return (int)CALL2(环境对象指针, 0, CALL);//!!
 		}
 
 	}
@@ -359,6 +362,12 @@ void 环境::遍历全部环境对象2(vector<objInfo_>& vsk, 坐标_ 自己坐标)
 	}
 	for (long i = 0; i < dtotal; i++)
 	{
+		if (i > 1500)
+		{
+			break;
+		}
+
+
 		long dKeyValue = R_DW(dKeyAddr + (i / 0x20) * 4);
 		DWORD dNum = i % 0x20;
 		DWORD dCheck = (dKeyValue >> dNum) & 1;

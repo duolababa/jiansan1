@@ -7,8 +7,8 @@
 void __cdecl MyTrace(TCHAR* lpszFormat, ...)
 {
 	int nBuf;
-	TCHAR szBuffer[0x1024];
-	memset(szBuffer, 0, 0x1024 * sizeof(TCHAR));
+	TCHAR szBuffer[0x9000];
+	memset(szBuffer, 0, 0x9000 * sizeof(TCHAR));
 	va_list args;
 	va_start(args, lpszFormat);
 	nBuf = _vsntprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
@@ -20,7 +20,7 @@ void DbgPrintf_Mine(char*pszFormat, ...)
 {
 	USES_CONVERSION;
 	va_list argList;
-	char szbuffFormat[0x1000];
+	char szbuffFormat[0x9000];
 	char szbuffFormat_Game[0x1008] = "Êä³ö:";
 	va_start(argList, pszFormat);
 	vsprintf_s(szbuffFormat, pszFormat, argList);

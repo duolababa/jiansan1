@@ -47,34 +47,31 @@
 #include <vector>
 #include <string>
 #include "DbgPrint.h"
-
 #include "FlowerDream.h"
 #include "通用功能.h"
 #include "golbalApi.h"
-
 #include "Thread.h"
-#include "内存_通用数据.h"
-#include "内存_UI相关.h"
-#include "内存_本人相关.h"
-#include "内存_背包相关.h"
-#include "内存_地图相关.h"
-#include "内存_登陆相关.h"
-#include "内存_环境相关.h"
-#include "内存_技能相关.h"
-#include "内存_任务相关.h"
-#include "内存_新手相关.h"
-#include "内存_签到邮件.h"
-#include "内存_NPC商店.h"
-#include "游戏_主线.h"
 #include "配置读取.h"
-#include "内存_航海相关.h"
-#include "内存_钓鱼相关.h"
-#include "内存_能力刻印相关.h"
+#include "内存_通用数据.h"
+#include <mutex>
 #pragma comment(lib, "detours.lib" ) 
+
+
 #include "dthookapi.h"
 #include "hook_api.h"
 #include<algorithm>  
+
 using namespace std;
+
+extern "C"
+{
+#include "lua546/src/lua.h"
+#include "lua546/src/lualib.h"
+#include "lua546/src/lauxlib.h"
+
+
+}
+
 #pragma comment(lib, "lua.lib" ) 
 #include "luaFunc.h"
 #include "XhideDll.h"
@@ -82,17 +79,16 @@ using namespace std;
 #include "MyCallFunction.h"
 #include "常用功能.h"
 #include "配置读取.h"
-#include "内存_混沌副本相关.h"
-#include "内存_周常任务.h"
-#include "内存_登陆相关.h"
 #include "通信程序集.h"
+#include "call.h"
 #include "luac.h"
+#include "InlineHook_x64.h"
+#include "Log.h"
+#include "Clog.h"
 ////#include "协议解析1088.h"
 //#include "LuaFunc.h"
 //#include<Windows.h>
-const CString 莱温哈特大教堂 = L"莱温哈特大教堂";
-const CString 涅利亚酒吧 = L"涅利亚酒吧";
-const CString 艾尔拉拉的装备商店 = L"艾尔拉拉的装备商店";
+
 
 #endif //PCH_H
 

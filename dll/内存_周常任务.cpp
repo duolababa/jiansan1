@@ -38,7 +38,7 @@ BOOL 周常任务::CheckQuestInProgress(int dQuestId)
 BOOL 周常任务::Fun_CheckUnasWeeklyQuestCon(int dQuestId)
 {
 	INT64 addr_1 =R_QW(游戏模块+gb_QuestCur);
-	return (BOOL)CALL2(addr_1, dQuestId, 游戏模块 + gc_CheckUnasWeeklyQuestCon);
+	return (BOOL)MainUniversalCALL2_Ret(addr_1, dQuestId, 游戏模块 + gc_CheckUnasWeeklyQuestCon);
 	/*wchar_t buf[100];
 	dm.AsmClear();
 	dm.AsmAdd(L"sub rsp,40");
@@ -301,8 +301,9 @@ void gei_guild(vector<工会_>& 临时)
 	工会_ temp;
 	临时.clear();
 	INT64 addr_1 = R_QW(游戏模块 + 行会rcx);
-	INT64 addr_2 = R_QW(addr_1 + 0xB0B8);
-	long dtotal = R_DW(addr_1 + 0xB0B8 + 8);
+	//[[0x50B5D90+LOSTARK.0]+ 0xB128]+0*88
+	INT64 addr_2 = R_QW(addr_1 + g_行会遍历);
+	long dtotal = R_DW(addr_1 + g_行会遍历 + 8);
 	for (int i = 0; i < dtotal; i++)
 	{
 		INT64 addr = addr_2  + i * 0x88;
@@ -312,13 +313,50 @@ void gei_guild(vector<工会_>& 临时)
 			temp.行会会长 = R_CString(R_QW(addr + 0x28));
 			temp.行会人数 = R_CString(R_QW(addr + 0x38));
 			temp.行会name = R_CString(R_QW(addr + 0x40));
-			temp.行会ID = R_DW(addr);
+			temp.行会ID = R_QW(addr);
 			//MyTrace(L" addr %I64X 行会ID %I64x 名称%s  人数%s 行会会长%s ", addr,temp.行会ID ,temp.行会名称 , temp.行会人数,temp.行会会长);
 			临时.push_back(temp);
 	}
 
 
 }
+
+void 创建公会()
+{
+	wchar_t* 尾[12] = { L"jan",L"feb",L"mar",L"apr",L"may",L"jun",L"jul",L"aug",L"sept",L"oct",L"nov",L"dec" };
+	wchar_t* 尾2[7] = { L"mon",L"tues",L"wed",L"thur",L"fri",L"sat",L"sun" };
+	wchar_t* 尾3[4] = { L"spr",L"sum",L"aut",L"win" };
+	wchar_t* 尾4[4] = { L"east",L"west",L"nort",L"sort" };
+	srand(time(NULL));
+	CString 名称;
+	//CString 首字 = 随机生成英文名字(1);v
+	switch ((rand() % 4))
+	{
+	case 1:
+		名称 = randstr(Random(6, 13)) + 尾[Random(0, 11)];
+	case 2:
+		名称 = randstr(Random(6, 14)) + 尾2[Random(0, 6)];
+	case 3:
+		名称 = randstr(Random(6, 15)) + 尾3[Random(0, 3)];
+	default:
+		名称 = randstr(Random(6, 16)) + 尾4[Random(0, 3)];
+	}
+
+	INT64 addr_1 = R_QW(游戏模块 + 行会rcx);
+	INT64 局_call = 游戏模块 + 创建公会call;
+	temp名称指针 cStringClassPtr2;
+	cStringClassPtr2.名称obj = INT64(名称.GetBuffer());
+	cStringClassPtr2.长度 = 名称.GetLength() + 1;
+	UCHAR pBuff[0x100] = { 0 };
+	W_QW((ULONG64)&pBuff[0x48], (UINT64)&cStringClassPtr2);
+	MainUniversalCALL6(addr_1, (UINT64)&cStringClassPtr2, 0, 1, (ULONG_PTR)pBuff,0, 局_call);
+
+
+
+
+}
+
+
 
 void 搜索工会(CString 名称)
 {
@@ -405,15 +443,15 @@ void 工会捐赠(DWORD 金币)
 
 	UCHAR pBuff[0x100] = { 0 };
 	W_QW((ULONG64)&pBuff[0x0], 局_复活包头);
-	//W_BYTE((ULONG64)&pBuff[0x18], 0x8);
-	W_DW((ULONG64)&pBuff[0x18], 金币);
+	W_BYTE((ULONG64)&pBuff[0x18], 0x8);
+	W_DW((ULONG64)&pBuff[0x19], 金币);
 
 	MainUniversalCALL2(局_rcx, (ULONG_PTR)pBuff, 局_call);
 }
 
 
 
-void 输入工会密码call(DWORD ID, CString 密码)
+void 输入工会密码call(INT64 ID, CString 密码)
 {
 	INT64 call = 游戏模块 + 基址_组队_踢出队伍call;
 	INT64 rcx = R_QW(游戏模块 + 基址_组队_离开队伍rcx);
@@ -424,12 +462,12 @@ void 输入工会密码call(DWORD ID, CString 密码)
 	cStringClassPtr2.长度 = 密码.GetLength() + 1;
 	UCHAR pBuff[0x100] = { 0 };
 	W_QW((ULONG64)&pBuff[0x0], rdx);
-	W_BYTE((ULONG64)&pBuff[0x18], 0x2);
+	W_BYTE((ULONG64)&pBuff[0x19], 0x2);
 	//W_DW((ULONG64)&pBuff[0x2C], 0xC1CB);
 	W_CString((ULONG64)&pBuff[0x1A],密码);
 	//W_Word((ULONG64)&pBuff[0x2C],0x71);
 
-	W_DW((ULONG64)&pBuff[0x30], ID);
+	W_QW((ULONG64)&pBuff[0x30], ID);
 
 	////MyTrace(L"  行会ID %I64X ", ID);
 	////MyTrace(L" addr %I64X", (ULONG64)&pBuff+0x18);

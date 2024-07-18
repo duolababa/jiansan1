@@ -19,10 +19,13 @@ public:
 
 void gei_guild(vector<工会_>& 日常);
 void 搜索工会(CString name);
-void 输入工会密码call(DWORD ID, CString 密码);
+void 输入工会密码call(INT64 ID, CString 密码);
 bool 打开工会签到界面();
 void 工会捐赠(DWORD 金币);
 void 离开工会();
 bool 公会是否加入();
+void 创建公会();
+
+
 
 CString 加入的公会名称();

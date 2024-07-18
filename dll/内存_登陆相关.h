@@ -27,6 +27,7 @@ public:
 	static bool CALL_创建角色(int 创建次数);
 
 	static bool CALL_打开创建角色(int 序号);
+	static bool 登录点击角色(int 序号);
 
 	//static int  CALL_角色遍历(vector<登陆角色信息_>& vsk);
 

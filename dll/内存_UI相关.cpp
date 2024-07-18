@@ -309,7 +309,6 @@ DWORD  内存_UI_键码转换(DWORD  待转换键码)
 	return 0;
 }
 
-
 bool UI功能::内存按键1(DWORD 转换后键码, DWORD 类型)
 {
 	INT64 按键参数 = 内存_UI_获取按键参数();
@@ -373,6 +372,7 @@ bool UI功能::内存按键(DWORD 加密键码, DWORD 类型)
 	return false;
 
 }
+
 bool UI功能::地图是否打开()
 {
 	INT64 局_UI对象 = UI功能::getUiObjById(152);
@@ -651,6 +651,11 @@ bool UI功能::准备出航()
 
 void getMiddle_textFieldAddr(INT64 dChildAddr, INT64& dRetAddr)
 {
+	防卡 = 防卡 + 1;
+	if (防卡 > 100)
+	{
+		if (dRetAddr) return;
+	}
 	if (dRetAddr) return;
 	INT64 dstart = R_QW(dChildAddr + 0xE0);
 	DWORD dtotal = R_DW(dChildAddr + 0xE8);
@@ -675,6 +680,41 @@ void getMiddle_textFieldAddr(INT64 dChildAddr, INT64& dRetAddr)
 		}
 	}
 }
+
+void getMiddle_textFieldAddr1(INT64 dChildAddr, INT64& dRetAddr)
+{
+	防卡1 = 防卡1 + 1;
+	if (防卡1 > 100)
+	{
+		if (dRetAddr) return;
+	}
+	if (dRetAddr) return;
+	INT64 dstart = R_QW(dChildAddr + 0xE0);
+	DWORD dtotal = R_DW(dChildAddr + 0xE8);
+	if (dtotal < 5 && dstart)//防止读到不是数组地址造成死循环
+	{
+		for (DWORD j = 0; j < dtotal; j++)
+		{
+			INT64 dTempAddr = R_QW(dstart + j * 0x10);
+			INT64 dStrAddr = R_QW(dTempAddr + 0x70);
+			if (dStrAddr)
+			{
+				dStrAddr = R_QW(dStrAddr + 0x10);
+				dStrAddr = R_QW(dStrAddr);
+				CString cName = CString(R_String(dStrAddr));
+				if (_tcscmp(cName, L"textField") == 0)
+				{
+					dRetAddr = dTempAddr;
+					//	//MyTrace(L"文本地址%I64X", dTempAddr);
+				}
+			}
+			getMiddle_textFieldAddr1(dTempAddr, dRetAddr);
+		}
+	}
+}
+
+
+
 void getMsgBoxMiddleText(INT64 dUIObj)
 {
 	INT64 addr_1 = R_QW(dUIObj + 0x18);
@@ -787,6 +827,60 @@ bool  UI功能::getMsgBoxTextList()
 	return true;
 }
 
+
+CString UI功能::getMsgBoxMiddleText3(INT64 dUIObj)
+{
+	INT64 addr_1 = R_QW(dUIObj + 0x18);
+	INT64 addr_2 = R_QW(addr_1 + 0x70);
+	INT64 addr_3 = R_QW(addr_2 + 0x60);
+	INT64 dstart = R_QW(addr_3 + 0xE0);
+	long dtotal = R_DW(addr_3 + 0xE8);
+	CString 返回文本 = L"";
+	for (DWORD i = 0; i < dtotal; i++)
+	{
+		INT64 dChildAddr = R_QW(dstart + i * 0x10);
+		INT64 dStrAddr = R_QW(dChildAddr + 0x70);
+		if (dStrAddr)
+		{
+			dStrAddr = R_QW(dStrAddr + 0x10);
+			dStrAddr = R_QW(dStrAddr);
+			CString cName = CString(R_String(dStrAddr));
+			if (_tcscmp(cName, L"middleComponent") == 0 || _tcscmp(cName, L"titleBtn") == 0 || _tcscmp(cName, L"noticeFrame_mc") == 0)
+			{
+
+				INT64 dTextAddr = 0;
+				防卡1 = 0;
+				getMiddle_textFieldAddr1(dChildAddr, dTextAddr);
+				if (dTextAddr)
+				{
+					dStrAddr = R_QW(dTextAddr + 0x108);
+					CString cTxt = UTF82WCS(R_String(dStrAddr + 0xB));//大漠读的UTF8格式
+					返回文本 = 返回文本 + cTxt;
+					/*//MyTrace(L"地址%I64X %s", dTextAddr, cTxt);
+					if (cTxt.Find(L"进入") != -1 || cTxt.Find(L"Enter") != -1)
+					{
+						Fun_MsgBoxConfirm(dUIObj);
+						return;
+					}*/
+					//return cTxt;
+
+				}
+
+			}
+
+		}
+	}
+	return 返回文本;
+}
+
+
+
+
+
+
+
+
+
 CString UI功能::getMsgBoxMiddleText2(INT64 dUIObj)
 {
 	INT64 addr_1 = R_QW(dUIObj + 0x18);
@@ -808,6 +902,7 @@ CString UI功能::getMsgBoxMiddleText2(INT64 dUIObj)
 			{
 
 				INT64 dTextAddr = 0;
+				防卡 = 0;
 				getMiddle_textFieldAddr(dChildAddr, dTextAddr);
 				if (dTextAddr)
 				{
@@ -1273,8 +1368,12 @@ CString  UI功能::窗口反馈文本()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_UiList);
 	DWORD dtotal = R_DW(addr_1 + dtotalUI);
+
+//MessageBoxA(NULL, CStringA(ConvertDWORDToString(dtotal)), "提示", MB_OK);
 	INT64 dstart = R_QW(addr_1 + dtotalUI - 8);//对象数组地址
 	CString 返回文本 = L" ";
+
+
 	for (long i = 0; i < dtotal; i++)
 	{
 		if (i >= 500)
@@ -1291,26 +1390,49 @@ CString  UI功能::窗口反馈文本()
 		////MyTrace(L"dUIObj 0x%I64X 0x%I64X", dUIObj, dPraentId);
 		CString 返回 = getMsgBoxMiddleText2(dUIObj);
 
-	//	//MyTrace(L"%s", 返回);
+		//MyTrace(L"%s", 返回);
 		返回文本 = 返回文本 + 返回 + "|";
 
 	}
 	return 返回文本;
+
+
+
 }
+
+
+
+
 
 
 bool  UI功能::游戏IP异常()
 {
 	CString  文本 = UI功能::窗口反馈文本();
-	//MyTrace(L"弹窗 %s", 文本);
+		//MyTrace(L"弹窗 %s", 文本);
 	if (文本.GetLength() != 0)
 	{
 		if (文本.Find(L"That name is") != -1)
 			{
-				UI功能::内存按键1(g_ENTER);
+			发送给控制台1(ConvertDWORDToString(GameIndex), L"异常", 文本);
+				Sleep(3 * 1000);
+				return 1;
 			}
 
-		if (文本.Find(L"EAC Offline - Banned") != -1 || 文本.Find(L"BANNED") != -1 || 文本.Find(L"Code of Conduct") != -1 || 文本.Find(L"Code of Conduct") != -1)
+		if (文本.Find(L"unknown error") != -1)
+		{
+			Sleep(1 * 1000);
+			UI功能::内存按键1(g_ENTER);
+			Sleep(3 * 1000);
+			return 1;
+		}
+
+
+
+		
+
+
+
+		if (文本.Find(L"EAC Offline - Banned") != -1 || 文本.Find(L"BANNED") != -1 || 文本.Find(L"Code of Conduct") != -1 || 文本.Find(L"Code of Conduct") != -1 || 文本.Find(L"permanently banned") != -1)
 
 		{
 

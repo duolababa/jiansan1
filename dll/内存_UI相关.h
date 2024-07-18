@@ -34,6 +34,7 @@ public:
 	static bool 准备出航();
 	static bool getMsgBoxTextList();
 	static CString getMsgBoxMiddleText2(INT64 dUIObj);
+	static CString getMsgBoxMiddleText3(INT64 dUIObj);
 	static CString getMsgBoxText();
 	static CString getMsgBoxText_全();
 	static void getNpcTalkSelectList(vector<CString>& 对话组);

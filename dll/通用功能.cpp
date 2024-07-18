@@ -1,8 +1,31 @@
 #include "pch.h"
 #include "通用功能.h"
-
+#include "SpoofCall.h"
 
 using namespace std;
+
+
+
+std::wstring generateRandomChineseString(int minLength, int maxLength) {
+	srand(time(NULL));
+
+	// 汉字 Unicode 编码范围
+	int chineseUnicodeStart = 0x4E00;
+	int chineseUnicodeEnd = 0x9FFF;
+
+	// 随机确定字符串长度
+	int length = minLength + rand() % (maxLength - minLength + 1);
+
+	// 生成随机汉字
+	std::wstring randomChineseString;
+	for (int i = 0; i < length; ++i) {
+		int randomUnicode = chineseUnicodeStart + rand() % (chineseUnicodeEnd - chineseUnicodeStart + 1);
+		wchar_t randomChineseCharacter = static_cast<wchar_t>(randomUnicode);
+		randomChineseString.push_back(randomChineseCharacter);
+	}
+
+	return randomChineseString;
+}
 
 std::string utf8_to_string(const std::string& str)
 {
@@ -178,6 +201,22 @@ double R_double(ULONG64 参_内存地址)
 		return 0.0;
 	}
 }
+void ReadStr(ULONG64 参_内存地址, char* data, int len)
+{
+	__try {
+		if (IsBadReadPtr((VOID*)参_内存地址, len))
+		{
+			return;
+		}
+		memcpy(data, (char*)参_内存地址, len);
+		return;
+	}
+	__except (1)
+	{
+		DebugPrintf("读长整数型出错");
+		return;
+	}
+}
 
 
 DWORD R_DW(ULONG64 参_内存地址)
@@ -210,6 +249,10 @@ UINT64 R_QW(UINT64 参_内存地址)
 		return 0;
 	}
 }
+
+
+
+
 BYTE R_BYTE(ULONG64 参_内存地址)
 {
 	__try {
@@ -399,10 +442,21 @@ void W_QW(ULONG64 参_内存地址, UINT64 参_写入数据)
 UINT64 CALL2(UINT64 RCX, UINT64 RDX, UINT64 CALL地址)
 {
 	__try {
-		typedef UINT64(_fastcall* game_function)(UINT64, UINT64);
-		if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
-		auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
-		return _通用CALL(RCX, RDX);
+		if (1)
+		{
+		//	DebugPrintf("SPOFcall 开始执行");
+			uintptr_t(__fastcall * CALL2)(UINT64, UINT64) = nullptr;
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			CALL2 = reinterpret_cast<decltype(CALL2)>(CALL地址);
+			return SpoofCall<uintptr_t>(CALL2, RCX, RDX);
+		}
+		else
+		{
+			typedef UINT64(_fastcall* game_function)(UINT64, UINT64);
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
+			return _通用CALL(RCX, RDX);
+		}
 	}
 	__except (1) {
 		DebugPrintf("通用CALL2  出错\n");
@@ -413,10 +467,20 @@ UINT64 CALL2(UINT64 RCX, UINT64 RDX, UINT64 CALL地址)
 UINT64 CALL4(UINT64 RCX, UINT64 RDX, UINT64 R8, UINT64 R9, UINT64 CALL地址)
 {
 	__try {
-		typedef UINT64(_fastcall* game_function)(UINT64, UINT64, UINT64, UINT64);
-		if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
-		auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
-		return _通用CALL(RCX, RDX, R8, R9);
+		if (1)
+		{
+			uintptr_t(__fastcall * CALL4)(UINT64, UINT64, UINT64, UINT64) = nullptr;
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			CALL4 = reinterpret_cast<decltype(CALL4)>(CALL地址);
+			return SpoofCall<uintptr_t>(CALL4, RCX, RDX, R8, R9);
+		}
+		else
+		{
+				typedef UINT64(_fastcall* game_function)(UINT64, UINT64, UINT64, UINT64);
+				if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+				auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
+				return _通用CALL(RCX, RDX, R8, R9);
+		}
 	}
 	__except (1) {
 		DebugPrintf("通用CALL4  出错\n");
@@ -426,24 +490,54 @@ UINT64 CALL4(UINT64 RCX, UINT64 RDX, UINT64 R8, UINT64 R9, UINT64 CALL地址)
 UINT64 CALL6(UINT64 RCX, UINT64 RDX, UINT64 R8, UINT64 R9, UINT64 参数5_值, UINT64 参数6_值, UINT64 CALL地址)
 {
 	__try {
-		typedef UINT64(_fastcall* game_function)(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64);
-		if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
-		auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
-		return _通用CALL(RCX, RDX, R8, R9, 参数5_值, 参数6_值);
+
+		if (1)
+		{
+			uintptr_t(__fastcall * CALL6)(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64) = nullptr;
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			CALL6 = reinterpret_cast<decltype(CALL6)>(CALL地址);
+			return SpoofCall<uintptr_t>(CALL6, RCX, RDX, R8, R9, 参数5_值, 参数6_值);
+		}
+		else
+		{
+
+			typedef UINT64(_fastcall* game_function)(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64);
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
+			return _通用CALL(RCX, RDX, R8, R9, 参数5_值, 参数6_值);
+		}
 	}
+
+
 	__except (1) {
 		DebugPrintf("通用CALL6  出错\n");
 	}
+
+
+
+
+
 	return 0;
 }
 
 UINT64 CALL8(UINT64 RCX, UINT64 RDX, UINT64 R8, UINT64 R9, UINT64 参数5_值, UINT64 参数6_值, UINT64 参数7_值, UINT64 参数8_值, UINT64 CALL地址)
 {
 	__try {
-		typedef UINT64(_fastcall* game_function)(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64, UINT64, UINT64);
-		if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
-		auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
-		return _通用CALL(RCX, RDX, R8, R9, 参数5_值, 参数6_值,参数7_值, 参数8_值);
+		if (1)
+		{
+			uintptr_t(__fastcall * CALL8)(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64, UINT64, UINT64) = nullptr;
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			CALL8 = reinterpret_cast<decltype(CALL8)>(CALL地址);
+			return SpoofCall<uintptr_t>(CALL8, RCX, RDX, R8, R9, 参数5_值, 参数6_值, 参数7_值, 参数8_值);
+
+		}
+		else
+		{
+			typedef UINT64(_fastcall* game_function)(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64, UINT64, UINT64);
+			if (IsBadReadPtr((const void*)CALL地址, sizeof(CALL地址))) return NULL;
+			auto _通用CALL = reinterpret_cast<game_function> (CALL地址);
+			return _通用CALL(RCX, RDX, R8, R9, 参数5_值, 参数6_值, 参数7_值, 参数8_值);
+		}
 	}
 	__except (1) {
 		DebugPrintf("通用CALL8  出错\n");
@@ -507,8 +601,10 @@ void MainUniversalCALL2(UINT64 RCX_值, UINT64 RDX_值, UINT64 CALL_地址)
 	CALLArg.RCX = RCX_值;
 	CALLArg.RDX = RDX_值;
 	CALLArg.CALLAddr = CALL_地址;
-	//SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CallCanUse2, (LPARAM)&CALLArg, SMTO_NORMAL, 1000, 0);
-	::SendMessageA(g_hWnd, 注册消息值, Msgid::CallCanUse2, (LPARAM)&CALLArg);
+	//MyTrace(L"执行消息好 %d 窗口句柄 %d", 注册消息值 , g_hWnd);
+	//PostMessageA(g_hWnd, 注册消息值, Msgid::CallCanUse2, (LPARAM)&CALLArg);
+	SendMessageTimeoutA(g_hWnd, 注册消息值, Msgid::CallCanUse2, (LPARAM)&CALLArg, SMTO_NORMAL, 1000, 0);
+	//::SendMessageA(g_hWnd, 注册消息值, Msgid::CallCanUse2, (LPARAM)&CALLArg);
 }
 INT64 MainUniversalCALL2_Ret(UINT64 RCX_值, UINT64 RDX_值, UINT64 CALL_地址)
 {
@@ -587,7 +683,7 @@ INT64 MainUniversalCALL8_Ret(UINT64 RCX_值, UINT64 RDX_值, UINT64 R8_值, UINT64 
 }
 int Random(int min, int max)
 {
-
+	srand(static_cast<unsigned int>(time(nullptr)));
 	int 返回值;
 
 	返回值 = rand() % (max - min + 1) + min;

@@ -71,7 +71,7 @@ bool 本人::乐谱遍历(vector<乐谱信息_>& vsk)
 		{
 			continue;
 		}
-		INT64 ret = CALL4(局_rcx, 局_rdx, i, 0, 局_CALL);
+		INT64 ret = MainUniversalCALL4_Ret(局_rcx, 局_rdx, i, 0, 局_CALL);
 		if (ret)
 		{
 			temp.Obj = R_QW(R_QW(ret) + 12);
@@ -136,6 +136,8 @@ ActorInfo_ 本人::取角色信息()
 	INT64 addr2 = R_QW(局_个人真实对象 + 偏移_个人_当前怒气值);
 	DWORD 当前怒气值 = R_DW(addr2 + 0x14);
 	临时角色信息.怒气值 = 当前怒气值;
+	临时角色信息.能量= R_DW(addr2 + 0x18);
+	临时角色信息.爆发 = R_DW(addr2 + 0x10);  // 0  是 蓄能  2 是结束   1 是正在
 	临时角色信息.InteractPropState = R_DW(局_个人真实对象 + go_GetInteractPropState);
 	INT64 addr3 = R_QW(R_QW(局_个人真实对象 + 偏移_个人_当前动作 + 0x30));
 	//DWORD 当前动作值 = R_DW(addr3 + 0x30);
@@ -766,9 +768,9 @@ bool  本人::是否战斗中()
 void 本人::设置宝石自动合成()
 {
 	INT64 addr_1 = R_QW(游戏模块 + gb_ItemGemCombineConfigSet);
-	if (R_DW(addr_1 + go_ItemGemCombineConfigValue) != 1)//判断有没设置
-	{
-		MainUniversalCALL2(addr_1, 0x0004000300000001, 游戏模块 + gc_ItemGemCombineConfigSet);
+	//if (R_DW(addr_1 + go_ItemGemCombineConfigValue) != 1)//判断有没设置
+	//{
+		MainUniversalCALL2(addr_1, 0x0005000300000001, 游戏模块 + gc_ItemGemCombineConfigSet);
 		/*CString cBuf;
 		dm.AsmClear();
 		dm.AsmAdd(L"sub rsp,040");
@@ -778,7 +780,7 @@ void 本人::设置宝石自动合成()
 		dm.AsmAdd(L"call rdi");
 		dm.AsmAdd(L"add rsp,040");
 		dm.AsmCall(HwndGlobal, 3);*/
-	}
+	//}
 }
 
 

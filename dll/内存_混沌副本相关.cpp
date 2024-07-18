@@ -19,18 +19,22 @@ void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySiz
 		if (dCheck)
 		{
 			DWORD dId = R_DW(objStartAddr + i * dArraySize);
-			if (dId == 0x7D0)
-			{
+
+			//MyTrace(L"objStartAddr地址0x%I64x \r\n", objStartAddr);
+			
 				INT64 dObj = R_QW(objStartAddr + i * dArraySize + 4);
 				if (dObj)
 				{
 					INT64 dLevStart = dObj;
 					DWORD dLevTotal = R_DW(objStartAddr + i * dArraySize + 4 + 8);
+					//MyTrace(L"dLevStart地址0x%I64X ID%X \r\n", dLevStart, dLevTotal);
 					for (DWORD j = 0; j < dLevTotal; j++)
 					{
+					
 						int dFbId = R_DW(dLevStart + j * 0x1C);//进入混沌用副本参数
 						if (dFbId)
 						{
+
 							INT64 dResAddr = R_QW(dLevStart + j * 0x1C + 4);
 							if (dResAddr)
 							{
@@ -48,7 +52,7 @@ void gettReverseRuinListAll(INT64 dListAddr, DWORD dStartOffest, DWORD dArraySiz
 						}
 					}
 				}
-			}
+			
 		}
 	}
 }
@@ -60,7 +64,7 @@ DWORD getReverseRuinAll(CString csName)//资源获取混沌资源
 	{
 		return 0;
 	}
-	//MyTrace(L"地址0x%I64X \r\n", dReverseRuinAddr);
+	MyTrace(L"地址0x%I64X \r\n", dReverseRuinAddr);
 	vector<副本信息_> vsk;
 	//	return getResAddrByTypeId(getResIndexByName(L"ZoneBase"), dResId, 0x68, 0x4C, 0x54);
 	gettReverseRuinListAll(dReverseRuinAddr, 0x68, 0x54, vsk);

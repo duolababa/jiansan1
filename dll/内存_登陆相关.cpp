@@ -1,12 +1,12 @@
 #include "内存_登陆相关.h"
-
+#include <random>
 int 登陆::服务器遍历(vector<CString>& vsk)
 {
 	vsk.clear();
 	INT64 局_rcx = R_QW(游戏模块 + 基址_登录_选择服务器rcx);
 	if (局_rcx == 0)
 	{
-		return 0;//[[0x5082A78+lostark.0]+9c]+0*33+6
+		return 0;//[[0x50B7888+lostark.0]+9c]+0*33+3
 	}
 	INT64 局_数组头 = R_QW(局_rcx + 156);
 	DWORD 局_成员数 = R_DW(局_rcx + 164);
@@ -17,11 +17,11 @@ int 登陆::服务器遍历(vector<CString>& vsk)
 			break;
 		}
 		INT64 局_服务器对象 = 局_数组头 + i * 51;
-		string temp = UnicodeToAnsi(R_CString(局_服务器对象 + 6));
+		string temp = UnicodeToAnsi(R_CString(局_服务器对象 +3));
 		CString 局_服务器名称 = CString(temp.c_str());
 		if (局_服务器名称 != L"")
 		{
-			//MyTrace(L"%s", 局_服务器名称);
+			MyTrace(L"%s", 局_服务器名称);
 			vsk.push_back(局_服务器名称);
 		}
 
@@ -101,26 +101,32 @@ bool 登陆::CALL_选择职业(CString 职业名)
 	{
 		局_职业ID = 201;
 	}
-	else if (职业名 == L"格斗家(女)")
+	else if (职业名 == L"武女")
 	{
 		局_职业ID = 301;
 	}
-	else if (职业名 == L"格斗家(男)")
+	else if (职业名 == L"武男")
 	{
 		局_职业ID = 311;
 	}
-	else if (职业名 == L"猎人(女)")
+	else if (职业名 == L"男枪")
 	{
 		局_职业ID = 501;
 	}
-	else if (职业名 == L"猎人(男)")
+	else if (职业名 == L"女枪")
 	{
 		局_职业ID = 511;
 	}
-	else if (职业名 == L"猎人")
+	else if (职业名 == L"刺客")
 	{
 		局_职业ID = 401;
 	}
+	else if (职业名 == L"专家")
+	{
+		局_职业ID = 601;
+	}
+
+
 	else
 	{
 		return false;
@@ -173,6 +179,35 @@ wchar_t* 尾[12] = { L"jan",L"feb",L"mar",L"apr",L"may",L"jun",L"jul",L"aug",L"se
 wchar_t* 尾2[7] = { L"mon",L"tues",L"wed",L"thur",L"fri",L"sat",L"sun" };
 wchar_t* 尾3[4] = { L"spr",L"sum",L"aut",L"win" };
 wchar_t* 尾4[4] = { L"east",L"west",L"nort",L"sort" };
+
+std::string generateRandomString(int minLength, int maxLength) {
+	// 随机数引擎和分布
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dist(0, 25); // 生成 0 到 25 之间的整数
+
+	// 生成字符串长度
+	std::random_device rdLength;
+	std::mt19937 genLength(rdLength());
+	std::uniform_int_distribution<int> distLength(minLength, maxLength);
+	int length = distLength(genLength);
+
+	// 生成第一个字母（大写字母）
+	char firstLetter = 'A' + dist(gen);
+
+	// 生成剩余字母
+	std::string randomString;
+	randomString += firstLetter;
+
+	for (int i = 1; i < length; i++) {
+		char letter = 'a' + dist(gen);
+		randomString += letter;
+	}
+
+	return randomString;
+}
+
+
 bool 登陆::CALL_创建角色(int  创建次数)
 {
 	bool mode = true;
@@ -184,57 +219,39 @@ bool 登陆::CALL_创建角色(int  创建次数)
 	INT64 cStringClassPtr = 0;
 	for (size_t i = 0; i < 创建次数; i++)
 	{
-		srand(time(NULL));
-		CString 名称;
-		//CString 首字 = 随机生成英文名字(1);v
-		switch ((rand() % 4))
-		{
-		case 1:
-			名称 = randstr(Random(6, 12)) + 尾[Random(0, 11)];
-			break;
-		case 2:
-			名称 = randstr(Random(6, 12)) + 尾2[Random(0, 6)];
-			break;
-		case 3:
-			名称 = randstr(Random(6, 12)) + 尾3[Random(0, 3)];
-			break;
-		default:
-			名称 = randstr(Random(6, 12)) + 尾4[Random(0, 3)];
-			break;
-		}
 
-		//MyTrace(L"生成名称 %s", 名称);
-	/*	if (mode)
-		{
-			cStringClassPtr = (DWORD64)申请内存2((HANDLE)-1, 0x100);
-			W_QW(cStringClassPtr, UINT64(名称.GetBuffer()));
-			W_QW(cStringClassPtr + 8, 名称.GetLength() + 1);
-			MainUniversalCALL4(0x3ED, 0x5D, cStringClassPtr, 0, 局_call);
-		}
-		else
-		{*/
+		CString 名称;
+		名称 = CStringA(generateRandomString(12, 15).c_str());
+
 			temp名称指针 cStringClassPtr2;
 			cStringClassPtr2.名称obj = INT64(名称.GetBuffer());
 			cStringClassPtr2.长度 = 名称.GetLength() + 1;
 			MainUniversalCALL4(0x3ED, 0x5D, (UINT64)&cStringClassPtr2, 0, 局_call);
 		//}45 33 C9 4C 8D 44 24 ?? 8D 57 ?? B9 ?? ?? ?? ??      RCX  +B     RDX  B
 		Sleep(1000);
-		//MyTrace(L"开始回车");
+
 		UI功能::内存按键1(g_ENTER);
 		Sleep(2000);
-	/*	if (mode)
-		{
-			释放内存2((HANDLE)-1, LPVOID(cStringClassPtr), 0x100);
-		}*/
 		return true;
 
 	}
-	/*if (mode)
-	{
-		释放内存2((HANDLE)-1, LPVOID(cStringClassPtr), 0x100);
-	}*/
+
 	return false;
 }
+
+bool 登陆::登录点击角色(int 序号)
+{
+	INT64 局_call = 游戏模块 + 切换角色call;
+	INT64 局_UI对象 = R_QW(游戏模块 + 基址_登录_进入游戏rcx);
+	if (局_UI对象 == 0)
+	{
+		return false;
+	}
+	MainUniversalCALL4(局_UI对象, 序号, 1, 0, 局_call);
+	return true;
+}
+
+
 bool 登陆::CALL_打开创建角色(int 序号)
 {
 	INT64 局_call = 游戏模块 + 基址_登录_打开创建角色call;
@@ -296,7 +313,7 @@ void 登陆::get_CharacterList(vector<登陆角色信息_>& vsk)
 	INT64 objStartAddr = R_QW(addr_1 + go_CharacterListStart);
 	DWORD dSize = go_CharacterListSize;
 	for (DWORD i = 0; i < dtotal; i++)
-	{//[[0x5080568+LOSTARK.0]+A4]+0*1ACD+948
+	{//[[0x50B52C8+LOSTARK.0]+A4]+0*0x1AE4
 		INT64  dCharacterInfo = objStartAddr + i * dSize;
 		DWORD dJumpState = getCharacterGetJumpState(dCharacterInfo);//为1直升中 为3 可直升
 		INT64 dNameAddr = dCharacterInfo + go_CharacterName;
@@ -358,6 +375,75 @@ bool 登陆::CALL_进入游戏(int 角色序号)
 	}
 	当前执行角色 = 角色序号;
 	MainUniversalCALL2(局_rcx, 角色序号, 游戏模块 + 基址_登录_进入游戏call);
+	//Sleep(5000);
+	//INT64 addr = 0;
+	//CString	name = L" ";
+	// addr = 环境::鼠标获取对象call(11300,13540);
+	////MyTrace(L"执行第1个call");
+	//if (addr > 1)
+	//{
+	//
+	//	name = UI功能::UI名称1(addr);
+	//	if (name.GetLength() != 0 && name.Find(L"start") != -1)
+	//	{
+	//		UI功能::控件点击call(addr);
+	//		Sleep(3000);
+	//	}
+
+	//}
+
+	//addr = 0;
+	//name = L" ";
+	//addr = 环境::鼠标获取对象call(10740,3340);
+	////MyTrace(L"执行第1个call");
+	//if (addr > 1)
+	//{
+	//
+	//	name = UI功能::UI名称1(addr);
+	//	if (name.GetLength() != 0 && name.Find(L"tab_0") != -1)
+	//	{
+	//		UI功能::控件点击call(addr);
+	//		Sleep(3000);
+	//	}
+
+	//}
+
+	//addr = 0;
+	//name = L" ";
+	//addr = 环境::鼠标获取对象call(12760,13520);
+	////MyTrace(L"执行第1个call");
+	//if (addr > 1)
+	//{
+
+	//	name = UI功能::UI名称1(addr);
+	//	if (name.GetLength() != 0 && name.Find(L"start_btn") != -1)
+	//	{
+	//		UI功能::控件点击call(addr);
+	//		Sleep(3000);
+	//	}
+
+	//}
+
+	//addr = 0;
+	//name = L" ";
+	//addr = 环境::鼠标获取对象call(12820,13620);
+	////MyTrace(L"执行第1个call");
+	//if (addr > 1)
+	//{
+
+	//	name = UI功能::UI名称1(addr);
+	//	if (name.GetLength() != 0 && name.Find(L"gameStartBtn") != -1)
+	//	{
+	//		UI功能::控件点击call(addr);
+	//		Sleep(3000);
+	//	}
+
+	//}
+
+
+
+
+
 	return true;
 }
 int 登陆::getJumpMapCheck(int dIndex)//索引从1开始
@@ -389,7 +475,7 @@ DWORD 登陆::getJmpMapList()//获取直升阶段地图信息
 		if (getJumpMapCheck(i + 1))
 		{
 			return i + 1;
-			//MyTrace(L"直升地图%d 有券", i + 1);
+		MyTrace(L"直升地图%d 有券", i + 1);
 		}
 	
 	}
@@ -431,6 +517,10 @@ void 登陆::Fun_UseJumpByIndex(__int64 dCharacterSrvId, int dIndex)//索引从1开始 
 	}
 	return temp;
 }
+
+
+
+
 登陆角色信息_ 登陆::getCharacterInfoByIndex(int 序号)
 {
 	登陆角色信息_ temp;

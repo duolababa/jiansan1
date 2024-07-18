@@ -6,7 +6,7 @@
 #include <sstream>  
 CString ConvertDWORDToString(DWORD value)
 {
-	char buffer[20]; // 缓冲区，根据需要自行调整大小  
+	char buffer[1000]; // 缓冲区，根据需要自行调整大小  
 	sprintf_s(buffer, sizeof(buffer), "%lu", value); // 将DWORD转换为字符串  
 	return CString(buffer);
 }
