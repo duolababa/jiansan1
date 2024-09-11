@@ -457,25 +457,6 @@ public:
         {
 
 
-////#define 消息钩子 0x5A19B8
-//			break;
-			//int nUse = (getMemoryUse() / 1000 / 1024);
-			//if (nUse > 2500) //如果内存过大 说明异常
-			//{
-			//	/*dbgPrint("内存过大 异常下线");
-			//	g_cfm->m_Client.HPRelease();*/
-			//	//TerminateProcess(GetCurrentProcess(), 0);//结束进程
-			////	exit(0);
-			//}
-			//else if (nUse > 550) //如果内存使用超过 300Mb 则刷虚拟内存
-			//{
-			//	//SetProcessWorkingSetSize(GetCurrentProcess(), 200000000, 250000000);
-			//	SetProcessWorkingSetSize(GetCurrentProcess(), 480000000, 520000000);
-			//	//dbgPrint("刷虚拟内存！！");
-			//}
-			//::Sleep(1000 * 5 * 1); //每30 * 1秒检测一次
-
-
 		
 				if (是否进入游戏 == true )
 				{
@@ -521,15 +502,7 @@ public:
 					}
 
 
-				/*	INT64  arg二叉结构指针 = fun人物指针();
-					INT64  DataBase = arg二叉结构指针;
-					DWORD LENGQUE = R_DW(DataBase + DATA_OF_OBJBA_jineng);
-					if (LENGQUE == 0)
-					{
-						DWORD 金币1 = R_DW(DataBase + DATA_OF_OBJECT_TREE_Money1);
-						发送给控制台1(ConvertDWORDToString(GameIndex), L"通宝", ConvertDWORDToString(金币1));
 
-					}*/
 
 
 					a1 = 0;
@@ -550,24 +523,7 @@ public:
     virtual BOOL Run()
     {
 
-		//Station.Lookup('Topmost1/LoginMessage'):Lookup('Wnd_All', 'Text_Message'):GetText()
-	/*	INT64 登陆结果 = call_luatostring(" a=Station.Lookup('Topmost1/LoginMessage'):Lookup('Wnd_All', 'Text_Message'):GetText()  return a");
 
-		CString text = CStringW(CStringA((char*)登陆结果));
-		MyTrace(L"是否创建界面%s", text);
-		return 1;*/
-
-        //SetHardwareBreakPointoffWIN10Version(MainThreadid);
-     /*   if (1)
-        {
-            SetHardwareBreakPointWIN10Version(MainThreadid);
-        }*/
-        //签到邮件::邮件领取();
-       //SetHardwareBreakPointWIN10Version(MainThreadid);
-        //SetSehHook();
-        //init_d3d11(NULL);
-
-        //if (取启动时间() - 判断推荐装备时间 >= 10 * 1000)
 		clock_t 测试时间 = 取启动时间();
 		while (true) {
 			if (GameIndex >= 1)
@@ -588,17 +544,7 @@ public:
 
 			Sleep(1000);
 		}
-////
-//MyTrace(L"执行%s 序号%d", 执行, GameIndex);
-	
-    
-   /*     clock_t 判断技能加点时间 = 0;
-        clock_t 判断推荐装备时间 = 0;
-        clock_t 判断背包物品处理时间 = 0;
-        clock_t 判断成就签到奖励处理时间 = 0;
-        clock_t 判断邮件领取 = 0;
- 
-        bool 判断签到邮件领取 = false;*/
+
 	
 
 		unsigned char data[33575] = {
@@ -4506,7 +4452,7 @@ public:
 				strEnterCreateRole.Format(L"local m_tSchoolParam = Table_GetCreateRoleParam() local m_dwKungfuIndex = m_tSchoolParam['%s'].dwKungfuIndex Login.Enter('role_preset', %s, '%s', m_dwKungfuIndex)", Menpai, Tixing, Menpai);
 				call_luatostring((char*)CStringA(strEnterCreateRole).GetString());
 		
-				Sleep(3000);
+				Sleep(1000);
 
 				call_luatostring("Login.Enter('rolecreate')");
 
@@ -4569,7 +4515,7 @@ public:
 			string text = (char*)是否登陆;
 			MyTrace(L"登陆界面 %s", CStringW(CStringA((char*)是否登陆)));
 		
-			Sleep(3000);
+			Sleep(1000);
 			if (text =="3")
 			{
 				
@@ -4648,7 +4594,7 @@ public:
 
 
 
-			MyTrace(L"登陆结果%s", CStringW(CStringA((char*)登陆结果)));
+		
 			Sleep(5000);
 
 			INT64 是否封 = call_luatostring("local BOX=Station.Lookup('Topmost/MB_UrlBox/Wnd_All') if  BOX  then  return 1  end return 2");
@@ -4675,7 +4621,7 @@ public:
 
 			if (text == "1")
 			{
-				Sleep(3000);
+				Sleep(1000);
 
 				INT64 ret = call_luatostring("if Station.Lookup('Topmost/LoginMessage') and Station.Lookup('Topmost/LoginMessage'):IsVisible() then return Station.Lookup('Topmost/LoginMessage'):Lookup('Wnd_All', 'Text_Message'):GetText() elseif 	Station.Lookup('Topmost/RechargeRemind') and Station.Lookup('Topmost/RechargeRemind'):IsVisible() then return '通行证付费时间已到' else return '已登录' end");
 				//MyTrace(L"通时间已到 %s", CStringW(CStringA((char*)ret)));
@@ -4705,7 +4651,7 @@ public:
 					
 					INT64 获取角色名字 = call_luatostring((char*)CStringA(str2).GetBuffer(0));
 					 name = CStringW((char*)获取角色名字);
-					 Sleep(2000);
+					 Sleep(1000);
 					// MyTrace(L"获取角色名字%s %s", str2,name);
 				}
 
@@ -4737,7 +4683,7 @@ public:
 					CString str;
 					str.Format(L"Login_RoleLogin('%s')", name.GetString());
 					call_luatostring((char*)CStringA(str).GetBuffer(0));
-					Sleep(2000);
+					Sleep(1000);
 					continue;
 				}
 				else
@@ -4802,7 +4748,7 @@ public:
 						CString str;
 						str.Format(L"Login_RoleLogin('%s')", name.GetString());
 						call_luatostring((char*)CStringA(str).GetBuffer(0));
-						Sleep(2000);
+						Sleep(1000);
 						continue;
 					}
 
@@ -4823,7 +4769,7 @@ public:
 					continue;
 				}
 
-				Sleep(10 * 1000);
+				Sleep(1 * 1000);
 				是否进入游戏 = true;
 				发送给控制台1(ConvertDWORDToString(GameIndex), L"流程", L"成功登陆");
 
@@ -5010,7 +4956,7 @@ LRESULT __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			服= 全局信息.服;
 			name= 全局信息.角色;
 			备注 = 全局信息.备注;
-			MyTrace(L"发送初始化成功 序号%d 账户 %s 密码 %s  执行%s  角色%s", GameIndex, 账户, 密码,  执行, name);
+	
          
             strcpy(全局信息.反馈中控, 全局流程.c_str());
      
