@@ -455,7 +455,20 @@ public:
       //  ActorInfo_ 初始化坐标 = 本人::取角色信息();
         while (循环跳出 == false)
         {
-
+			int nUse = (getMemoryUse() / 1000 / 1024);
+				if (nUse > 2500) //如果内存过大 说明异常
+				{
+					/*dbgPrint("内存过大 异常下线");
+					g_cfm->m_Client.HPRelease();*/
+					//TerminateProcess(GetCurrentProcess(), 0);//结束进程
+				//	exit(0);
+				}
+				else if (nUse > 550) //如果内存使用超过 300Mb 则刷虚拟内存
+				{
+					//SetProcessWorkingSetSize(GetCurrentProcess(), 200000000, 250000000);
+					SetProcessWorkingSetSize(GetCurrentProcess(), 480000000, 520000000);
+					::Sleep(1000 * 5 * 1); //每30 * 1秒检测一次
+				}
 
 		
 				if (是否进入游戏 == true )
@@ -4232,44 +4245,6 @@ public:
 
 			INT64 是否创建界面 = call_luatostring("if Station.Lookup('Topmost/LoginRoleList') and Station.Lookup('Topmost/LoginRoleList'):IsVisible() then return 1 elseif Station.Lookup('Topmost/LoginCustomRole') and Station.Lookup('Topmost/LoginCustomRole'):IsVisible() then return 2 else return 0 end");
 			string text1 = (char*)是否创建界面;
-
-		//r2_17:Lookup("Wnd_All", "Text_Message") : SetText(r0_17)
-
-		/*	INT64 是否封 = call_luatostring("return Station.Lookup(Topmost/MB_UrlBox):Lookup('Wnd_All', 'Text_Message'):GetText()");
-
-			CString 是否封1 = CStringW(CStringA((char*)是否封));
-
-			MyTrace(L"登陆结果%s", CStringW(CStringA((char*)是否封)));*/
-		//	MyTrace(L"是否创建界面%s", CStringW(CStringA((char*)是否创建界面)));
-		/*	INT64 登陆结果 = call_luatostring("return Station.Lookup('Topmost1/LoginMessage'):Lookup('Wnd_All', 'Text_Message'):GetText()");
-			MyTrace(L"登陆结果%s", CStringW(CStringA((char*)登陆结果))); */
-
-		/*	INT64 登陆结果 = call_luatostring("return Station.Lookup('Topmost1/LoginMessage'):Lookup('Wnd_All', 'Text_Message'):GetText()");
-
-			CString textx = CStringW(CStringA((char*)登陆结果));
-			MyTrace(L"登陆结果%s", CStringW(CStringA((char*)登陆结果)));*/
-
-			//INT64 re1t = call_luatostring("if Station.Lookup('Topmost/LoginMessage') and Station.Lookup('Topmost/LoginMessage'):IsVisible() then return Station.Lookup('Topmost/LoginMessage'):Lookup('Wnd_All', 'Text_Message'):GetText() elseif 	Station.Lookup('Topmost/RechargeRemind') and Station.Lookup('Topmost/RechargeRemind'):IsVisible() then return '通行证付费时间已到' else return '已登录' end");
-			//MyTrace(L"通时间已到 %s", CStringW(CStringA((char*)re1t)));
-
-			//if (Lua开关 == true)
-			//{
-			//	CStringA aa(LUA脚本名称);
-			//	if (!执行lua(L, aa))
-			//	{
-			//		break;
-			//	}
-
-
-
-			//	Sleep(2000);
-			//	break;
-			//}
-
-
-
-			
-
 
 		
 			if (text1 == "2")

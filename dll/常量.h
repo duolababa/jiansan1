@@ -42,16 +42,16 @@
 #define qLuaPCALL 0x245890
 #define qLuaTostringCall 0x246480
 #define qLUApop 0x246270
-#define DATA_BASE_BOJECT 0x897AA0
+#define DATA_BASE_BOJECT 0x898AA0
 #define DATA_OF_OBJCT_0F1 0x659B28
-#define DATA_BASE_BACK 0x897C30
+#define DATA_BASE_BACK 0x898C30
 #define hookyouhua 0xB3077
-#define mingwenrcx 0x897C50
+#define mingwenrcx 0x898C50
 #define 信息框 0x5AE7A8
 #define 掉线判 0xD450
 #define 弹窗1 0x4AF0
 #define 弹窗2 0x1620
-#define 是否过图 0x897BF0
+#define 是否过图 0x898BF0
 #define OBJ_user_suo 0x131E0
 #define DATA_OF_OBJBA_jineng 0xB88
 #define wabao 0x2F6AD0
@@ -67,6 +67,8 @@
 #define DATA_OF_OBJBA_OF1 0xB840
 #define DATA_OF_OBJBA_OF2 0x20
 #define jieshiqi 0x1030
+
+
 
 
 
